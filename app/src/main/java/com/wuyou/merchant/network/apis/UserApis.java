@@ -18,21 +18,32 @@ import retrofit2.http.QueryMap;
  */
 
 public interface UserApis {
-    @GET("user/login/captcha")
+    @GET("login/captcha")
     Observable<BaseResponse<UserInfo>> getVerifyCode(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("user/profile/{uid}")
+    @GET("profile/{uid}")
     Observable<BaseResponse<UserInfo>> getUserInfo(
-            @Path("uid") String uid, @QueryMap SortedTreeMap<String, String> map);
+            @Path("uid")String uid,@QueryMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("login")
     Observable<BaseResponse<UserInfo>> doLogin(
             @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
-    @PUT("user/login/{uid}")
+    @PUT("login/{uid}")
     Observable<BaseResponse> doLogout(
-            @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
+            @Path("uid")String uid,@FieldMap SortedTreeMap<String, String> map);
+
+    @FormUrlEncoded
+    @PUT("profile/{uid}")
+    Observable<BaseResponse> updateUserInfo(
+            @Path("uid")String uid,@FieldMap SortedTreeMap<String, String> map);
+
+    @FormUrlEncoded
+    @PUT("password/edit/{uid}")
+    Observable<BaseResponse> updatePwd(
+            @Path("uid")String uid,@FieldMap SortedTreeMap<String, String> map);
+
 }

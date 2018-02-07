@@ -23,7 +23,6 @@ import com.wuyou.merchant.mvp.BasePresenter;
 import com.wuyou.merchant.mvp.IBaseView;
 import com.wuyou.merchant.mvp.login.LoginActivity;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 

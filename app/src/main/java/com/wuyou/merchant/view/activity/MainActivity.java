@@ -1,17 +1,15 @@
 package com.wuyou.merchant.view.activity;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MainPagerAdapter;
-import com.wuyou.merchant.mvp.order.MyOrderFragment;
+import com.wuyou.merchant.mvp.circle.CircleFragment;
+import com.wuyou.merchant.mvp.message.MessageFragment;
 import com.wuyou.merchant.mvp.order.OrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
-import com.wuyou.merchant.mvp.circle.CircleFragment;
-import com.wuyou.merchant.mvp.message.MessageFragment;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 
@@ -29,6 +27,7 @@ public class MainActivity extends BaseActivity {
     List<BaseFragment> fragments = new ArrayList<>();
     @Override
     protected void bindView(Bundle savedInstanceState) {
+
         fragments.add(new OrderFragment());
         fragments.add(new CircleFragment());
         fragments.add(new WalletFragment());

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">无忧</string>
+    <string name="app_name">无忧商户端</string>
     <string name="yes">确定</string>
     <string name="cancel">取消</string>
     <string name="status_text_empty">当前暂无记录</string>
@@ -25,8 +25,23 @@
     <string name="check_update">检查更新</string>
     <string name="exit_login">退出登录</string>
     <string name="setting">设置</string>
-    <string name="prompt">提示</string>
-    <string name="send_captcha">发送验证码</string>
     <string name="message">消息</string>
     <string name="store">店铺</string>
+    <string name="prompt">提示</string>
+    <string name="send_captcha">发送验证码</string>
+    <string name="input_phone">输入手机号</string>
+    <string name="next">下一步</string>
+    <string name="input_captcha">输入手机验证码</string>
+    <string name="re_send_captcha">重新发送验证码</string>
+    <string name="completing_info">完善账户信息</string>
+    <string name="login_now">立即登录</string>
+    <string name="edit_psw">请输入密码</string>
+    <string name="show_psw">显示密码</string>
+    <string name="new_regist">新用户注册</string>
+    <string name="set_nickname">设置账户昵称</string>
+    <string name="talk_later">以后再说</string>
+    <string name="input_pwd">设置登录密码(不少于6位)</string>
+    <string name="input_pwd_again">再次输入密码</string>
+    <string name="reset_pwd">设置新密码</string>
+    <string name="reset_pwd_success">设置密码成功</string>
 </resources>

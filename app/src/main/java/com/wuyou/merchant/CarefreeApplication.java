@@ -11,7 +11,7 @@ import com.wuyou.merchant.bean.UserInfoDao;
 /**
  * Created by hjn on 2016/11/1.
  */
-public abstract class CarefreeApplication extends BaseApplication {
+public class CarefreeApplication extends BaseApplication {
     private static CarefreeApplication instance;
     private UserInfo userInfo;
     private UserInfoDao userInfoDao;
