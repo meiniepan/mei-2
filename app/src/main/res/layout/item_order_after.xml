@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2018-01-11 08:00 ing"
+            android:text="2018-01-11 08:00 after"
 
             />
 

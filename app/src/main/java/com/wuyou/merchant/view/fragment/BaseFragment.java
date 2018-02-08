@@ -4,6 +4,7 @@ package com.wuyou.merchant.view.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -26,6 +27,8 @@ public abstract class BaseFragment<V extends IBaseView, P extends BasePresenter<
     protected View mRootView;
     protected Context mCtx;
     protected P mPresenter;
+    private boolean isViewCreated;
+    private boolean isUIVisible;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +51,25 @@ public abstract class BaseFragment<V extends IBaseView, P extends BasePresenter<
         }
         mCtx = mRootView.getContext();
         return mRootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        isViewCreated = true;
+        lazyLoad();
+    }
+
+    private void lazyLoad() {
+        //这里进行双重标记判断,是因为setUserVisibleHint会多次回调,并且会在onCreateView执行前回调,必须确保onCreateView加载完毕且页面可见,才加载数据
+        if (isViewCreated && isUIVisible) {
+            loadData();
+            //数据加载完毕,恢复标记,防止重复加载
+            isUIVisible = false;
+        }
+    }
+
+    public void loadData() {
     }
 
     public View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,6 +110,12 @@ public abstract class BaseFragment<V extends IBaseView, P extends BasePresenter<
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
+        if (isVisibleToUser) {
+            isUIVisible = true;
+            lazyLoad();
+        } else {
+            isUIVisible = false;
+        }
         prepareFetchData();
     }
 

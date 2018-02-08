@@ -294,7 +294,6 @@
 
         <Button
             style="@style/button_style"
-            android:onClick="sendCaptcha"
             android:text="立即分单" />
     </LinearLayout>
 </ScrollView>
