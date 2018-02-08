@@ -19,7 +19,6 @@
         android:id="@+id/main_tab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottom_height"
-        app:itemIconTint="@color/custom_color"
         app:itemTextColor="@color/common_dark"
         app:menu="@menu/main_menu" />
 </LinearLayout>

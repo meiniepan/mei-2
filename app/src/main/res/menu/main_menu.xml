@@ -3,24 +3,25 @@
     <item
         android:id="@+id/i_music"
         android:checked="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/home_order_selector"
         android:title="@string/main_deal_order" />
 
     <item
         android:id="@+id/i_backup"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/home_circle_selector"
+
         android:title="@string/main_circle" />
 
     <item
         android:id="@+id/i_friends"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/home_wallet_selector"
         android:title="@string/main_wallet" />
     <item
         android:id="@+id/i_favor"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/home_message_selector"
         android:title="@string/message" />
     <item
         android:id="@+id/i_favor2"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/home_store_selector"
         android:title="@string/store" />
 </menu>

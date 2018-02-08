@@ -52,12 +52,13 @@
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:background="@mipmap/ic_launcher"
+                android:background="@mipmap/icon_card_location_list"
                 />
 <TextView
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_weight="1"
+    android:layout_marginStart="@dimen/small_text_margin"
     android:text="常营-万象新四区 8-2-202"
     />
             <include layout="@layout/layout_next"/>
@@ -70,13 +71,14 @@
             <ImageView
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:background="@mipmap/ic_launcher"
+                android:background="@mipmap/icon_card_time_list"
                 />
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="今天 17:00-18:00"
+                android:layout_marginStart="@dimen/small_text_margin"
                 android:textColor="@color/main_blue"
                 />
         </LinearLayout>

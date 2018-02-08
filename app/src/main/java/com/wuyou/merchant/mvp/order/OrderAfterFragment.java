@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
+import com.wuyou.merchant.adapter.OtherRvAdapter;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class OrderAfterFragment extends BaseFragment {
         data.add(1);
         data.add(2);
         data.add(3);
-        OrderBeforeRvAdapter adapter = new OrderBeforeRvAdapter(getActivity(),R.layout.item_order_ing, data);
+        OtherRvAdapter adapter = new OtherRvAdapter(getActivity(),R.layout.item_order_ing, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(),OrderDetailActivity.class);
             startActivity(intent);

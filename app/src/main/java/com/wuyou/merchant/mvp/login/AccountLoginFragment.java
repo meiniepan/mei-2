@@ -2,8 +2,10 @@ package com.wuyou.merchant.mvp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.Constant;
@@ -23,6 +25,7 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
     EditText loginPhone;
     @BindView(R.id.et_login_psw)
     EditText loginPsw;
+
 
     @Override
     protected int getContentLayout() {
@@ -66,7 +69,7 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
                 //                String phone = loginPhone.getText().toString().trim();
 //                if (!CommonUtil.checkPhone("", phone, getActivity())) return;
                 showLoadingDialog();
-                mPresenter.doLogin(loginPhone.getText().toString().trim(), loginPsw.getText().toString().trim());
+                mPresenter.doLoginPassword(loginPhone.getText().toString().trim(), loginPsw.getText().toString().trim());
                 break;
             case R.id.tv_forget:
                 intent = new Intent(getActivity(), PhoneInputActivity.class);
@@ -78,6 +81,7 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
                 intent.putExtra(Constant.INPUT_PHONE_FLAG, 1);
                 startActivity(intent);
                 break;
+
         }
     }
 }

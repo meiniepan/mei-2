@@ -40,25 +40,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <EditText
+                <com.wuyou.merchant.view.widget.PasswordToggleEditText
                     android:id="@+id/et_login_psw"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/edit_height"
                     android:layout_weight="1"
+                    android:inputType="textPassword"
                     android:background="@null"
+                    android:longClickable="false"
                     android:drawablePadding="6dp"
                     android:hint="@string/edit_psw"
                     android:paddingStart="6dp"
                     android:textSize="@dimen/dimens_14sp" />
 
-                <TextView
-                    android:id="@+id/tv_show_psw"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="@string/show_psw"
-                    android:textColor="@color/main_blue"
-                    android:textSize="12sp" />
+
             </LinearLayout>
         </LinearLayout>
 

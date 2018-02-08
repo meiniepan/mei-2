@@ -40,6 +40,28 @@ public class LoginPresenter extends LoginContract.Presenter {
     }
 
     @Override
+    void doLoginPassword(String userName, String psw) {
+        CarefreeRetrofit.getInstance().createApi(UserApis.class)
+                .doLogin(QueryMapBuilder.getIns().put("username", userName).put("password", psw).buildPost())
+                .subscribeOn(Schedulers.io())
+                .flatMap(userInfoBaseResponse -> CarefreeRetrofit.getInstance().createApi(UserApis.class)
+                        .getUserInfo(userInfoBaseResponse.data.getUid(), QueryMapBuilder.getIns().buildGet()))
+                .doOnNext(userInfoBaseResponse -> CarefreeApplication.getInstance().setUserInfo(userInfoBaseResponse.data))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<UserInfo>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<UserInfo> userInfoBaseResponse) {
+                        mView.loginSuccess();
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        mView.showError(e.getDisplayMessage(), e.getCode());
+                    }
+                });
+    }
+
+    @Override
     void getVerifyCode(String phone) {
         CarefreeRetrofit.getInstance().createApi(UserApis.class)
                 .getVerifyCode(QueryMapBuilder.getIns().put("mobile", phone).buildGet())

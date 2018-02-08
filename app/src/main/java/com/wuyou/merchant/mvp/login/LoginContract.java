@@ -16,6 +16,7 @@ public interface LoginContract {
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void doLogin(String phone,String captcha);
+         void doLoginPassword(String userName,String psw){};
         abstract void getVerifyCode(String phone);
     }
 }
