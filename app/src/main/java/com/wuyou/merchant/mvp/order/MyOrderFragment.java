@@ -24,7 +24,7 @@ public class MyOrderFragment extends BaseFragment {
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
     String[] mTitle = {"未开始", "进行中", "已完成"};
-
+    OrderBeforeFragment orderBeforeFragment = new OrderBeforeFragment();
 
 
     @Override
@@ -52,7 +52,7 @@ public class MyOrderFragment extends BaseFragment {
                 //创建Fragment并返回
                 Fragment fragment = null;
                 if (position == 0)
-                    fragment = new OrderBeforeFragment();
+                    fragment = orderBeforeFragment;
                 else if (position == 1)
                     fragment = new OrderIngFragment();
                 else if (position == 2)
@@ -109,5 +109,9 @@ public class MyOrderFragment extends BaseFragment {
     @Override
     public void showError(String message, int res) {
 
+    }
+
+    public void loadDatas() {
+        orderBeforeFragment.loadData();
     }
 }

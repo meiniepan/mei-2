@@ -6,26 +6,48 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.gs.buluo.common.network.ApiException;
+import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.CustomAlertDialog;
+import com.gs.buluo.common.widget.StatusLayout;
+import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
 import com.wuyou.merchant.adapter.OtherRvAdapter;
+import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.UserInfo;
+import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
+import com.wuyou.merchant.bean.entity.WorkerEntity;
+import com.wuyou.merchant.bean.entity.WorkerListEntity;
+import com.wuyou.merchant.network.CarefreeRetrofit;
+import com.wuyou.merchant.network.apis.OrderApis;
+import com.wuyou.merchant.network.apis.UserApis;
+import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by solang on 2018/1/31.
  */
 
 public class ChoseArtisanFragment extends BaseFragment {
+    @BindView(R.id.sl_list_layout)
+    StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
-    List<Integer> data = new ArrayList();
+    List<WorkerEntity> data = new ArrayList();
+    WorkersRvAdapter adapter;
+    String orderId;
 
     @Override
     protected int getContentLayout() {
@@ -34,24 +56,63 @@ public class ChoseArtisanFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        data.add(1);
-        data.add(2);
-        data.add(3);
-        OtherRvAdapter adapter = new OtherRvAdapter(getActivity(),R.layout.item_chose_artisan, data);
+        orderId = getActivity().getIntent().getStringExtra(Constant.ORDER_ID);
+        adapter = new WorkersRvAdapter(getActivity(), R.layout.item_chose_artisan, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            showAlert();
+            showAlert(adapter.getItem(position).name,adapter.getItem(position).id);
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        getData();
     }
 
-    private void showAlert() {
+    private void getData() {
+        statusLayout.showProgressView();
+        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+                .getWorkersInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<WorkerListEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<WorkerListEntity> response) {
+                        adapter.setNewData(response.data.list);
+                        statusLayout.showContentView();
+                        if (adapter.getData().size() == 0) {
+                            statusLayout.showEmptyView("没有名单");
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        statusLayout.showErrorView(e.getDisplayMessage());
+                    }
+                });
+    }
+
+    private void showAlert(String name,String serverId) {
         CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getContext());
-        builder.setTitle("是否分单给服务者").setMessage("王晓明");
+        builder.setTitle("是否分单给服务者").setMessage(name);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ToastUtils.ToastMessage(getContext(),"完成");
+                CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+                        .dispatchOrder(CarefreeApplication.getInstance().getUserInfo().getUid(),
+                                QueryMapBuilder.getIns().put("order_id", orderId)
+                                        .put("receiver_id", serverId)
+                                        .put("type", "1")
+                                        .buildPost())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseSubscriber<BaseResponse>() {
+                            @Override
+                            public void onSuccess(BaseResponse response) {
+                                ToastUtils.ToastMessage(getContext(), "完成");
+                                Intent intent = new Intent(getActivity(), MainActivity.class);
+                                getActivity().startActivity(intent);
+                            }
+
+                        });
+
             }
         });
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

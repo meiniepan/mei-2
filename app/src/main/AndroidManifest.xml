@@ -42,6 +42,8 @@
         <activity android:name=".mvp.login.PhoneInputActivity" />
         <activity android:name=".mvp.login.ResetPwdActivity" />
         <activity android:name=".view.activity.TradeDetailActivity" />
+        <activity android:name=".mvp.wallet.FundIntroduceActivity" />
+        <activity android:name=".mvp.order.ChoseServerAllianceActivity" />
     </application>
 
 </manifest>

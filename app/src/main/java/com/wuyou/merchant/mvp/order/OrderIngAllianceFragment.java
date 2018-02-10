@@ -2,18 +2,15 @@ package com.wuyou.merchant.mvp.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
+import com.wuyou.merchant.adapter.OrderIngRvAdapter;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.util.MyRecyclerViewScrollListener;
@@ -31,14 +28,16 @@ import butterknife.BindView;
  * Created by solang on 2018/1/31.
  */
 
-public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderContract.Presenter> implements OrderContract.View {
+public class OrderIngAllianceFragment extends BaseFragment<OrderContract.View, OrderContract.Presenter> implements OrderContract.View {
+
+
     @BindView(R.id.rv_orders)
     NewRefreshRecyclerView recyclerView;
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     @BindView(R.id.rl_to_top)
     View toTop;
-    OrderBeforeRvAdapter adapter;
+    OrderIngRvAdapter adapter;
     List<OrderInfoEntity> data = new ArrayList();
 
     @Override
@@ -53,11 +52,11 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        adapter = new OrderBeforeRvAdapter(getActivity(), R.layout.item_order_before, data);
+        adapter = new OrderIngRvAdapter(getActivity(), R.layout.item_order_ing, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
             intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).id);
-            intent.putExtra(Constant.DIVIDE_ORDER_FROM,1);
+            intent.putExtra(Constant.DIVIDE_ORDER_FROM,2);
             startActivity(intent);
         });
         recyclerView.setAdapter(adapter);
@@ -67,7 +66,7 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
+                mPresenter.loadAllianceMore(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(new OnRefreshListener() {
@@ -84,6 +83,10 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
                 recyclerView.getRecyclerView().smoothScrollToPosition(0);
             }
         });
+    }
+
+    private void fetchDatas() {
+        mPresenter.getAllianceOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
     }
 
     @Override
@@ -123,11 +126,6 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
     public void loadData() {
         statusLayout.showProgressView();
         fetchDatas();
-        Log.e("haha", "1");
+        Log.e("haha", "2");
     }
-
-    private void fetchDatas() {
-        mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), "1");
-    }
-
 }

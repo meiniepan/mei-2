@@ -14,7 +14,7 @@ public class WalletFragment extends BaseFragment {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.fragment_help;
+        return R.layout.fragment_wallet;
     }
 
     @Override

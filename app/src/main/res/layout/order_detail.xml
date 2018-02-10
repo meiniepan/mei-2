@@ -69,10 +69,11 @@
                     android:text="订单已受理" />
 
                 <TextView
+                    android:id="@+id/tv_accept_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dimens_14sp"
-                    android:text="2018—1-18 11:32" />
+                    android:layout_marginStart="20dp"
+                    android:text="" />
             </LinearLayout>
 
             <include layout="@layout/split_area" />
@@ -107,10 +108,11 @@
                     android:text="服务类型" />
 
                 <TextView
+                    android:id="@+id/tv_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="2018—1-18 11:32" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,10 +129,11 @@
                     android:text="服务时间" />
 
                 <TextView
+                    android:id="@+id/tv_server_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="2018—1-18(周六) 11:30-13:30" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -147,10 +150,11 @@
                     android:text="服务地点" />
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="北京万象四区402" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -167,10 +171,11 @@
                     android:text="联系电话" />
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="18812334484" />
+                    android:text="" />
             </LinearLayout>
 
             <include layout="@layout/split_area" />
@@ -205,10 +210,11 @@
                     android:text="下单时间" />
 
                 <TextView
+                    android:id="@+id/tv_create_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="2018—1-18 11:32" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -225,10 +231,11 @@
                     android:text="订单编号" />
 
                 <TextView
+                    android:id="@+id/tv_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="20180118838383" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -245,10 +252,11 @@
                     android:text="订单金额" />
 
                 <TextView
+                    android:id="@+id/tv_sum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="30.00元" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -265,10 +273,11 @@
                     android:text="支付方式" />
 
                 <TextView
+                    android:id="@+id/tv_pay_way"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="微信支付" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout
@@ -285,14 +294,16 @@
                     android:text="支付状态" />
 
                 <TextView
+                    android:id="@+id/tv_is_payed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/line_horizontal_margin_long"
-                    android:text="已支付" />
+                    android:text="" />
             </LinearLayout>
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_divide_bill"
             style="@style/button_style"
             android:text="立即分单" />
     </LinearLayout>

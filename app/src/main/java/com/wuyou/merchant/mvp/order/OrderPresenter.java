@@ -17,21 +17,88 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class OrderPresenter extends OrderContract.Presenter {
+    String lastId;
+
     @Override
-    void getOrders(int merchant_id, int status,int start_id, int flag) {
+    void getOrders(String merchant_id, String status) {
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getOrders(merchant_id,status,start_id,flag,QueryMapBuilder.getIns().buildGet())
+                .getOrders(merchant_id, status, "0", "1", QueryMapBuilder.getIns().buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<OrderInfoListEntity> userInfoBaseResponse) {
-                        mView.getSuccess();
+                        if (userInfoBaseResponse.data.list.size() > 0)
+                            lastId = userInfoBaseResponse.data.list.get(userInfoBaseResponse.data.list.size() - 1).id;
+                        mView.getSuccess(userInfoBaseResponse.data);
                     }
 
                     @Override
                     protected void onFail(ApiException e) {
                         mView.showError(e.getDisplayMessage(), e.getCode());
+                    }
+                });
+    }
+
+    @Override
+    void getAllianceOrders(String merchant_id, String status) {
+        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+                .getAllianceOrders(merchant_id, status, "0", "1", QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<OrderInfoListEntity> userInfoBaseResponse) {
+                        if (userInfoBaseResponse.data.list.size() > 0)
+                            lastId = userInfoBaseResponse.data.list.get(userInfoBaseResponse.data.list.size() - 1).id;
+                        mView.getSuccess(userInfoBaseResponse.data);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        mView.showError(e.getDisplayMessage(), e.getCode());
+                    }
+                });
+    }
+
+    @Override
+    void loadMore(String merchant_id, String status) {
+        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+                .getOrders(merchant_id, status, lastId, "2", QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<OrderInfoListEntity> userInfoBaseResponse) {
+                        if (userInfoBaseResponse.data.list.size() > 0)
+                            lastId = userInfoBaseResponse.data.list.get(userInfoBaseResponse.data.list.size() - 1).id;
+                        mView.getMore(userInfoBaseResponse.data);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        if (isAttach())mView.loadMoreError(e.getCode());
+                    }
+                });
+    }
+
+    @Override
+    void loadAllianceMore(String merchant_id, String status) {
+        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+                .getAllianceOrders(merchant_id, status, lastId, "2", QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<OrderInfoListEntity> userInfoBaseResponse) {
+                        if (userInfoBaseResponse.data.list.size() > 0)
+                            lastId = userInfoBaseResponse.data.list.get(userInfoBaseResponse.data.list.size() - 1).id;
+                        mView.getMore(userInfoBaseResponse.data);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        if (isAttach())mView.loadMoreError(e.getCode());
                     }
                 });
     }

@@ -16,12 +16,12 @@ import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
+import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
@@ -33,16 +33,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 /**
- * Created by solang on 2018/2/5.
+ * Created by solang on 2018/1/31.
  */
 
-public class ChoseAllianceMerchantFragment extends BaseFragment {
+public class ChoseServerAllianceActivity extends BaseActivity {
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
     List<WorkerEntity> data = new ArrayList();
-    DispatchMerchantListRvAdapter adapter;
+    WorkersRvAdapter adapter;
     String orderId;
 
     @Override
@@ -52,19 +52,20 @@ public class ChoseAllianceMerchantFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        orderId = getActivity().getIntent().getStringExtra(Constant.ORDER_ID);
-        adapter = new DispatchMerchantListRvAdapter(getActivity(), R.layout.item_chose_merchant, data);
+        orderId = getIntent().getStringExtra(Constant.ORDER_ID);
+        adapter = new WorkersRvAdapter(this, R.layout.item_chose_artisan, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            showAlert(adapter.getItem(position).name, adapter.getItem(position).id);
+            showAlert(adapter.getItem(position).name,adapter.getItem(position).id);
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         getData();
     }
 
     private void getData() {
+        statusLayout.showProgressView();
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getDispatchMerchantInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), "launch", QueryMapBuilder.getIns().buildGet())
+                .getWorkersInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), QueryMapBuilder.getIns().buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<WorkerListEntity>>() {
@@ -84,8 +85,8 @@ public class ChoseAllianceMerchantFragment extends BaseFragment {
                 });
     }
 
-    private void showAlert(String name, String serverId) {
-        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getContext());
+    private void showAlert(String name,String serverId) {
+        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(this);
         builder.setTitle("是否分单给服务者").setMessage(name);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -101,9 +102,9 @@ public class ChoseAllianceMerchantFragment extends BaseFragment {
                         .subscribe(new BaseSubscriber<BaseResponse>() {
                             @Override
                             public void onSuccess(BaseResponse response) {
-                                ToastUtils.ToastMessage(getContext(), "完成");
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                getActivity().startActivity(intent);
+                                ToastUtils.ToastMessage(getCtx(), "完成");
+                                Intent intent = new Intent(ChoseServerAllianceActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }
 
                         });
@@ -124,4 +125,3 @@ public class ChoseAllianceMerchantFragment extends BaseFragment {
 
     }
 }
-

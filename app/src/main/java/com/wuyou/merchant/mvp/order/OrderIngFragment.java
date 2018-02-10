@@ -5,12 +5,22 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
-import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.StatusLayout;
+import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
+import com.wuyou.merchant.adapter.OrderIngRvAdapter;
 import com.wuyou.merchant.adapter.OtherRvAdapter;
+import com.wuyou.merchant.bean.entity.OrderInfoEntity;
+import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
+import com.wuyou.merchant.util.MyRecyclerViewScrollListener;
 import com.wuyou.merchant.view.fragment.BaseFragment;
+import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
+import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
+import com.wuyou.merchant.view.widget.recyclerHelper.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +35,13 @@ public class OrderIngFragment extends BaseFragment<OrderContract.View, OrderCont
 
 
     @BindView(R.id.rv_orders)
-    RecyclerView recyclerView;
-    List<Integer> data = new ArrayList();
+    NewRefreshRecyclerView recyclerView;
+    @BindView(R.id.sl_list_layout)
+    StatusLayout statusLayout;
+    @BindView(R.id.rl_to_top)
+    View toTop;
+    OrderIngRvAdapter adapter;
+    List<OrderInfoEntity> data = new ArrayList();
 
     @Override
     protected int getContentLayout() {
@@ -40,32 +55,80 @@ public class OrderIngFragment extends BaseFragment<OrderContract.View, OrderCont
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        data.add(1);
-        data.add(2);
-        data.add(3);
-        OtherRvAdapter adapter = new OtherRvAdapter(getActivity(), R.layout.item_order_ing, data);
+        adapter = new OrderIngRvAdapter(getActivity(), R.layout.item_order_ing, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
+            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).id);
+            intent.putExtra(Constant.DIVIDE_ORDER_FROM,1);
             startActivity(intent);
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);
+        recyclerView.getRecyclerView().addOnScrollListener(scrollListener);
+        recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
+            }
+        }, recyclerView.getRecyclerView());
+        recyclerView.setRefreshAction(new OnRefreshListener() {
+            @Override
+            public void onAction() {
+                scrollListener.setRefresh();
+                adapter.clearData();
+                fetchDatas();
+            }
+        });
+        toTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView.getRecyclerView().smoothScrollToPosition(0);
+            }
+        });
     }
 
     @Override
     public void showError(String message, int res) {
-
+        recyclerView.setRefreshFinished();
+        statusLayout.showErrorView(message);
     }
 
     @Override
-    public void getSuccess() {
-        dismissDialog();
+    public void getSuccess(OrderInfoListEntity data) {
+        recyclerView.setRefreshFinished();
+        adapter.setNewData(data.list);
+        statusLayout.showContentView();
+        if (data.has_more.equals("0")) {
+            adapter.loadMoreEnd(true);
+        }
+        if (adapter.getData().size() == 0) {
+            statusLayout.showEmptyView("没有订单");
+        }
     }
+
+    @Override
+    public void getMore(OrderInfoListEntity data) {
+        adapter.addData(data.list);
+        if (data.has_more.equals("0")) {
+            adapter.loadMoreEnd(true);
+        }
+    }
+
+    @Override
+    public void loadMoreError(int code) {
+        adapter.loadMoreFail();
+    }
+
 
     @Override
     public void loadData() {
-        showLoadingDialog();
-        mPresenter.getOrders(114, 1, 0, 1);
-        Log.e("haha","2");
+        statusLayout.showProgressView();
+        fetchDatas();
+        Log.e("haha", "2");
+    }
+
+    private void fetchDatas() {
+        mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
     }
 }

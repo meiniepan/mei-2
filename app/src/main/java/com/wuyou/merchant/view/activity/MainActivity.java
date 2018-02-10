@@ -1,5 +1,6 @@
 package com.wuyou.merchant.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -28,8 +29,8 @@ public class MainActivity extends BaseActivity {
     BottomNavigationViewEx bottomView;
     @BindView(R.id.main_pager)
     NoScrollViewPager viewPager;
-
     List<BaseFragment> fragments = new ArrayList<>();
+    OrderFragment orderFragment = new OrderFragment();
 
     @Override
     protected int getContentLayout() {
@@ -39,7 +40,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
 
-        fragments.add(new OrderFragment());
+        fragments.add(orderFragment);
         fragments.add(new CircleFragment());
         fragments.add(new WalletFragment());
         fragments.add(new MessageFragment());
@@ -64,4 +65,10 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        orderFragment.loadDatas();
+    }
 }

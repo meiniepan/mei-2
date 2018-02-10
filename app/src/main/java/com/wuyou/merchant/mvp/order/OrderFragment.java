@@ -26,6 +26,7 @@ public class OrderFragment extends BaseFragment {
     TextView tvRight;
     @BindView(R.id.vp_pager)
     NoScrollViewPager vpPager;
+    MyOrderFragment myOrderFragment = new MyOrderFragment();
 
     @Override
     protected int getContentLayout() {
@@ -53,7 +54,7 @@ public class OrderFragment extends BaseFragment {
                 //创建Fragment并返回
                 Fragment fragment = null;
                 if (position == 0)
-                    fragment = new MyOrderFragment();
+                    fragment = myOrderFragment;
                 else if (position == 1)
                     fragment = new AllianceOrderFragment();
                 return fragment;
@@ -93,5 +94,9 @@ public class OrderFragment extends BaseFragment {
         tvLeft.setBackgroundResource(R.drawable.shape_order_left_click);
         tvRight.setBackgroundResource(R.drawable.shape_order_right_unclick);
         vpPager.setCurrentItem(0);
+    }
+
+    public void loadDatas() {
+        myOrderFragment.loadDatas();
     }
 }

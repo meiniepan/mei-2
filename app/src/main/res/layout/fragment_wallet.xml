@@ -13,6 +13,7 @@
         <ImageView
             android:layout_width="@dimen/title_height"
             android:layout_height="@dimen/title_height"
+            android:background="@mipmap/wallet_black"
             android:layout_alignParentRight="true"
             />
 
@@ -20,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="消息"
+            android:text="钱包"
             android:textSize="22sp" />
     </RelativeLayout>
 </LinearLayout>

@@ -3,11 +3,8 @@ package com.wuyou.merchant.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
@@ -15,7 +12,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.mvp.order.ChoseServerActivity;
-import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.mvp.order.ChoseServerAllianceActivity;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
@@ -26,10 +23,10 @@ import java.util.List;
  * Created by solang on 2018/2/5.
  */
 
-public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, BaseHolder> {
+public class OrderBeforeAllianceRvAdapter extends BaseQuickAdapter<OrderInfoEntity, BaseHolder> {
     private Activity activity;
 
-    public OrderBeforeRvAdapter(Activity activity, int layoutResId, @Nullable List<OrderInfoEntity> data) {
+    public OrderBeforeAllianceRvAdapter(Activity activity, int layoutResId, @Nullable List<OrderInfoEntity> data) {
         super(layoutResId, data);
         this.activity = activity;
     }
@@ -48,7 +45,7 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
             ll_receiver.setVisibility(View.GONE);
             dispatch.setText("分单");
             dispatch.setOnClickListener(view -> {
-                Intent intent = new Intent(activity, ChoseServerActivity.class);
+                Intent intent = new Intent(activity, ChoseServerAllianceActivity.class);
                 intent.putExtra(Constant.ORDER_ID,item.id);
                 activity.startActivity(intent);
             });
