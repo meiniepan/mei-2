@@ -44,6 +44,7 @@
         <activity android:name=".view.activity.TradeDetailActivity" />
         <activity android:name=".mvp.wallet.FundIntroduceActivity" />
         <activity android:name=".mvp.order.ChoseServerAllianceActivity" />
+        <activity android:name=".mvp.circle.AddAllianceMerchantActivity" />
     </application>
 
 </manifest>

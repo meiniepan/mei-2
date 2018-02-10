@@ -6,8 +6,8 @@ import java.util.List;
  * Created by solang on 2018/2/8.
  */
 
-public class WorkerListEntity {
-    public String has_more;
+public class UnionListEntity {
+    public String count;
     public List<WorkerEntity> list;
 
 }

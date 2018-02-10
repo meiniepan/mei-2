@@ -37,6 +37,10 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mPresenter = getPresenter();
+        if (mPresenter != null) {
+            mPresenter.attach((V) this);
+        }
         super.onCreate(savedInstanceState);
         init();
         AppManager.getAppManager().addActivity(this);

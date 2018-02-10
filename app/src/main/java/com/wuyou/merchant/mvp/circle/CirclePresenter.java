@@ -6,6 +6,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
+import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 import com.wuyou.merchant.mvp.order.OrderContract;
 import com.wuyou.merchant.network.CarefreeRetrofit;
@@ -61,6 +62,25 @@ public class CirclePresenter extends CircleContract.Presenter {
     }
 
     @Override
+    void getPartner() {
+        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+                .getUnionPartner(CarefreeApplication.getInstance().getUserInfo().getUid(), QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<PartnerListEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<PartnerListEntity> response) {
+                        if (isAttach()) mView.getPartnerSuccess(response.data);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        if (isAttach()) mView.showError(e.getDisplayMessage(),e.getCode());
+                    }
+                });
+    }
+
+    @Override
     void getPrepareMerchants() {
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
                 .getPrepareMerchantInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), "0","1", QueryMapBuilder.getIns().buildGet())
@@ -82,9 +102,9 @@ public class CirclePresenter extends CircleContract.Presenter {
     }
 
     @Override
-    void loadMore(String startId) {
+    void loadMore() {
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getPrepareMerchantInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), startId,"2", QueryMapBuilder.getIns().buildGet())
+                .getPrepareMerchantInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), lastId,"2", QueryMapBuilder.getIns().buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<WorkerListEntity>>() {

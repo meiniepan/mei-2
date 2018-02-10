@@ -14,17 +14,6 @@ public class MerchantDetailEntity {
     public String tel_number;
     public String category;
     public String qualification;
-    public String unions;
-    public String count;
-    public List<WorkerEntity> list;
-    public String id2;
-    public String image;
-    public List<WorkerEntity> contracts;
-    public String id3;
-    public String name2;
-    public String times;
-    public String start_at;
-    public String end_at;
-    public String allocation_rule;
-    public String status;
+    public UnionListEntity unions;
+    public List<ContractEntity> contracts;
 }

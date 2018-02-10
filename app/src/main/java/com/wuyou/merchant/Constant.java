@@ -12,4 +12,5 @@ public class Constant {
     public static final String DIVIDE_ORDER_FROM = "divide_order_from";
     public static final String PHONE = "phone";
     public static final String CAPTCHA = "captcha";
+    public static final String CONTRACT_ID = "contract_id";
 }

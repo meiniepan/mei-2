@@ -13,7 +13,9 @@ import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
@@ -38,7 +40,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
     List<WorkerEntity> data = new ArrayList();
-    WorkersRvAdapter adapter;
+    DispatchMerchantListRvAdapter adapter;
     String id;
 
     @Override
@@ -53,7 +55,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        adapter = new WorkersRvAdapter(getActivity(), R.layout.item_chose_artisan, data);
+        adapter = new DispatchMerchantListRvAdapter(getActivity(), R.layout.item_chose_merchant, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), ServiceProviderDetailActivity.class);
             intent.putExtra(Constant.MERCHANT_ID, adapter.getItem(position).id);
@@ -87,6 +89,11 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
         if (adapter.getData().size() == 0) {
             statusLayout.showEmptyView("没有订单");
         }
+    }
+
+    @Override
+    public void getPartnerSuccess(PartnerListEntity data) {
+
     }
 
     @Override
