@@ -38,12 +38,14 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_name"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="服务商名称"
                 android:textSize="@dimen/dimens_16sp" />
 
             <RatingBar
+                android:id="@+id/rb_star"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,7 +67,7 @@
                 android:textColor="@color/common_gray" />
 
             <TextView
-                android:id="@+id/tv_hangyexingzhi"
+                android:id="@+id/tv_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/common_margin"
@@ -126,7 +128,7 @@
                 android:textColor="@color/common_gray" />
 
             <TextView
-                android:id="@+id/tv_qiyezizhi"
+                android:id="@+id/tv_qualification"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/common_margin"
@@ -161,9 +163,10 @@
                 android:text="联盟" />
 
             <TextView
+                android:id="@+id/tv_union_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="16个盟友"
+                android:text=""
                 android:textColor="@color/common_gray" />
 
             <include layout="@layout/layout_next" />
@@ -179,11 +182,13 @@
             >
 
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_avatar"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/tv_tag_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="22sp"

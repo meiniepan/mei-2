@@ -1,31 +1,21 @@
 package com.wuyou.merchant.mvp.circle;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.gs.buluo.common.network.ApiException;
-import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.network.QueryMapBuilder;
-import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.common.widget.StatusLayout;
-import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.MerchantListRvAdapter;
+import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
-import com.wuyou.merchant.mvp.order.ChoseServerActivity;
-import com.wuyou.merchant.mvp.order.OrderDetailActivity;
-import com.wuyou.merchant.network.CarefreeRetrofit;
-import com.wuyou.merchant.network.apis.OrderApis;
-import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.activity.ServiceProviderDetailActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
@@ -33,8 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by solang on 2018/1/31.
@@ -45,9 +36,10 @@ public class SponsorFragment extends BaseFragment<CircleContract.View, CircleCon
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
+    @BindView(R.id.fl_add)
+    View add;
     List<WorkerEntity> data = new ArrayList();
-    WorkersRvAdapter adapter;
-    String id;
+    DispatchMerchantListRvAdapter adapter;
 
     @Override
     protected int getContentLayout() {
@@ -61,7 +53,7 @@ public class SponsorFragment extends BaseFragment<CircleContract.View, CircleCon
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        adapter = new WorkersRvAdapter(getActivity(), R.layout.item_chose_artisan, data);
+        adapter = new DispatchMerchantListRvAdapter(getActivity(), R.layout.item_chose_merchant, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), ServiceProviderDetailActivity.class);
             intent.putExtra(Constant.MERCHANT_ID, adapter.getItem(position).id);
@@ -98,6 +90,11 @@ public class SponsorFragment extends BaseFragment<CircleContract.View, CircleCon
     }
 
     @Override
+    public void getPartnerSuccess(PartnerListEntity data) {
+
+    }
+
+    @Override
     public void getMore(WorkerListEntity data) {
 
     }
@@ -105,5 +102,22 @@ public class SponsorFragment extends BaseFragment<CircleContract.View, CircleCon
     @Override
     public void loadMoreError(int code) {
 
+    }
+
+
+    @OnClick(R.id.fl_add)
+    public void onViewClicked() {
+    }
+
+
+    @OnClick({R.id.fl_add})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.fl_add:
+                Intent intent  = new Intent(getActivity(),AddAllianceMerchantActivity.class);
+                getActivity().startActivity(intent);
+                break;
+
+        }
     }
 }

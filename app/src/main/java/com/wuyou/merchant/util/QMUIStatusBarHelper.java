@@ -239,7 +239,7 @@ public class QMUIStatusBarHelper {
      */
     private static boolean isMIUICustomStatusBarLightModeImpl() {
         return QMUIDeviceHelper.isMIUIV5() || QMUIDeviceHelper.isMIUIV6() ||
-                QMUIDeviceHelper.isMIUIV7() || QMUIDeviceHelper.isMIUIV8();
+                QMUIDeviceHelper.isMIUIV7() || QMUIDeviceHelper.isMIUIV8()|| QMUIDeviceHelper.isMIUIV9();
     }
 
     /**

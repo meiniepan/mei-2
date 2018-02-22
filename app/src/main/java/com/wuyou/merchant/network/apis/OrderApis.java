@@ -3,9 +3,11 @@ package com.wuyou.merchant.network.apis;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.UserInfo;
+import com.wuyou.merchant.bean.entity.ContractDetailEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
+import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 
@@ -74,7 +76,7 @@ public interface OrderApis {
      * @return
      */
     @GET("union/providers/{uid}")
-    Observable<BaseResponse<WorkerListEntity>> getUnionPartner(
+    Observable<BaseResponse<PartnerListEntity>> getUnionPartner(
             @Path("uid") String uid, @QueryMap SortedTreeMap<String, String> map);
 
     /**
@@ -114,6 +116,21 @@ public interface OrderApis {
     Observable<BaseResponse<MerchantDetailEntity>> getMerchantDetail(
             @Path("uid") String uid, @Path("merchant_id") String merchant_id,
             @QueryMap SortedTreeMap<String, String> map);
+    @GET("contract/{contract_id}")
+    Observable<BaseResponse<ContractDetailEntity>> getContractDetail(
+            @Path("contract_id") String contract_id,
+            @QueryMap SortedTreeMap<String, String> map);
+
+    /**
+     * 加入联盟
+     * @param uid
+     * @param map
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("union/{uid}")
+    Observable<BaseResponse> signContract(
+            @Path("uid") String uid,@FieldMap SortedTreeMap<String, String> map);
     @FormUrlEncoded
     @POST("order/dispatch/{uid}")
     Observable<BaseResponse> dispatchOrder(

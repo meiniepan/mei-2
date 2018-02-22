@@ -2,9 +2,6 @@ package com.wuyou.merchant.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.view.MenuItem;
 
 import com.gs.buluo.common.utils.DensityUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -15,7 +12,6 @@ import com.wuyou.merchant.mvp.message.MessageFragment;
 import com.wuyou.merchant.mvp.order.OrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
-import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 
@@ -39,7 +35,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-
         fragments.add(orderFragment);
         fragments.add(new CircleFragment());
         fragments.add(new WalletFragment());
@@ -51,18 +46,8 @@ public class MainActivity extends BaseActivity {
         bottomView.setIconVisibility(true);
         bottomView.enableShiftingMode(false);
         bottomView.enableItemShiftingMode(false);
-        bottomView.setTextTintList(0, getResources().getColorStateList(R.color.main_blue));
         bottomView.setIconSize(DensityUtils.dip2px(getCtx(), 20), DensityUtils.dip2px(getCtx(), 20));
         bottomView.setIconsMarginTop(DensityUtils.dip2px(getCtx(), -8));
-        bottomView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int pos = bottomView.getMenuItemPosition(item);
-                bottomView.setItemTextColor(getResources().getColorStateList(R.color.common_dark));
-                bottomView.setTextTintList(pos, getResources().getColorStateList(R.color.main_blue));
-                return true;
-            }
-        });
     }
 
     @Override

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
@@ -12,10 +15,11 @@ import com.gs.buluo.common.network.QueryMapBuilder;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.ServiceProDetailRvAdapter;
+import com.wuyou.merchant.adapter.ContractRvAdapter;
+import com.wuyou.merchant.adapter.UnionAvatarRvAdapter;
+import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
-import com.wuyou.merchant.bean.entity.OrderInfoEntity;
-import com.wuyou.merchant.bean.entity.WorkerEntity;
+import com.wuyou.merchant.bean.entity.UnionListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
@@ -24,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -32,10 +37,30 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 public class ServiceProviderDetailActivity extends BaseActivity {
-    @BindView(R.id.rv_contract)
-    RecyclerView recyclerView;
     List<Integer> data = new ArrayList<>();
     String id;
+    @BindView(R.id.tv_name)
+    TextView tvName;
+    @BindView(R.id.rb_star)
+    RatingBar rbStar;
+    @BindView(R.id.tv_category)
+    TextView tvCategory;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_phone)
+    TextView tvPhone;
+    @BindView(R.id.tv_qualification)
+    TextView tvQualification;
+    @BindView(R.id.tv_union_num)
+    TextView tvUnionNum;
+    @BindView(R.id.next)
+    RelativeLayout next;
+    @BindView(R.id.rv_avatar)
+    RecyclerView rvAvatar;
+    @BindView(R.id.tv_tag_more)
+    TextView tvTagMore;
+    @BindView(R.id.rv_contract)
+    RecyclerView rvContract;
 
     @Override
     protected int getContentLayout() {
@@ -46,16 +71,6 @@ public class ServiceProviderDetailActivity extends BaseActivity {
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.MERCHANT_ID);
         initData();
-        recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));
-        ServiceProDetailRvAdapter adapter = new ServiceProDetailRvAdapter(R.layout.item_service_pro_detail, data);
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getCtx(),ContractDetailActivity.class);
-                startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(adapter);
     }
 
     private void initData() {
@@ -73,5 +88,44 @@ public class ServiceProviderDetailActivity extends BaseActivity {
     }
 
     private void initUI(MerchantDetailEntity data) {
+        rbStar.setRating(data.star);
+        tvName.setText(data.name);
+        tvCategory.setText(data.category);
+        tvAddress.setText(data.address);
+        tvPhone.setText(data.tel_number);
+        tvQualification.setText(data.qualification);
+        if (data.unions != null) {
+            tvUnionNum.setText(data.unions.count + "个盟友");
+            initAvatarList(data.unions);
+        }
+        if (data.contracts != null) {
+            initContractList(data.contracts);
+        }
+    }
+
+    private void initContractList(List<ContractEntity> contracts) {
+        rvContract.setLayoutManager(new LinearLayoutManager(getCtx()));
+        ContractRvAdapter adapter = new ContractRvAdapter(this,R.layout.item_service_pro_detail, contracts);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                Intent intent = new Intent(getCtx(), ContractDetailActivity.class);
+                intent.putExtra(Constant.CONTRACT_ID,adapter.getItem(position).id);
+                startActivity(intent);
+            }
+        });
+        rvContract.setAdapter(adapter);
+    }
+
+    private void initAvatarList(UnionListEntity unions) {
+        rvAvatar.setLayoutManager(new LinearLayoutManager(getCtx()));
+        UnionAvatarRvAdapter adapter = new UnionAvatarRvAdapter(this,R.layout.item_union_avatar, unions.list);
+        rvAvatar.setAdapter(adapter);
+    }
+
+
+    @OnClick(R.id.rv_avatar)
+    public void onViewClicked() {
+
     }
 }

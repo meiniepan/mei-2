@@ -93,7 +93,7 @@ public class OrderDetailActivity extends BaseActivity {
         tvPhone.setText(data.phone);
         tvCreateTime.setText(TribeDateUtils.dateFormat(new Date(data.created_at*1000)));
         tvId.setText(data.order_num);
-        tvSum.setText(data.price);
+        tvSum.setText(data.price+"元");
         tvPayWay.setText(data.pay_type);
         tvIsPayed.setText(data.pay_status);
         if (data.is_dispatch.equals("0")) {

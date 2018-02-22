@@ -34,6 +34,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/text_margin"
@@ -49,6 +50,7 @@
                 android:paddingStart="@dimen/common_margin">
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2018-02-22 至 2018-02-24"
@@ -72,6 +74,7 @@
                     android:textColor="@color/main_gray" />
 
                 <TextView
+                    android:id="@+id/tv_times"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/text_margin"
@@ -86,6 +89,7 @@
                     android:textColor="@color/main_gray" />
 
                 <TextView
+                    android:id="@+id/tv_rule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/text_margin"
@@ -96,11 +100,12 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_sign"
             android:layout_width="80dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/common_margin"
-            android:background="@drawable/login_normal"
+            android:background="@drawable/login_selector"
             android:text="签署"
             android:textColor="@color/white" />
     </LinearLayout>
