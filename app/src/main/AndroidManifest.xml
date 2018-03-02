@@ -37,7 +37,9 @@
         <activity android:name=".view.activity.ServiceProviderDetailActivity" />
         <activity android:name=".mvp.order.ChoseServerActivity" />
         <activity android:name=".mvp.login.CaptchaInputActivity" />
-        <activity android:name=".mvp.login.LoginActivity" />
+        <activity android:name=".mvp.login.LoginActivity"
+            android:launchMode="singleTask"
+            />
         <activity android:name=".mvp.login.CompletingInfoActivity" />
         <activity android:name=".mvp.login.PhoneInputActivity" />
         <activity android:name=".mvp.login.ResetPwdActivity" />

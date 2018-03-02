@@ -18,7 +18,7 @@ import retrofit2.http.Query;
  */
 
 public interface WalletApis {
-    @GET("wallet")
+    @GET("wallet/{uid}")
     Observable<BaseResponse<WalletInfoEntity>> getWalletInfo(
             @Path("uid") String uid);
 

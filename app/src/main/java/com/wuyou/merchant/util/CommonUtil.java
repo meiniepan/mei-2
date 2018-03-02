@@ -381,6 +381,7 @@ public class CommonUtil {
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
     }
     public static void GlideCircleLoad(Context context, String url, ImageView imageView){
-        Glide.with(context).load(url).apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
+        Glide.with(context).load(url)
+                .apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
     }
 }
