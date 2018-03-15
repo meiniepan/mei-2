@@ -20,7 +20,6 @@ public class MessageFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-
     }
 
     @Override
