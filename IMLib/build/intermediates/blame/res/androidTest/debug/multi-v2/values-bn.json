@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\androidWorkSpace\\wuyou-android-merchant\\IMLib\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-bn\\values-bn.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\DELL\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.0.0.aar\\ddc1fc5c544475da0aee0582caec7f77\\res\\values-bn\\values-bn.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    }
+                }
+            ]
+        }
+    ]
+}
