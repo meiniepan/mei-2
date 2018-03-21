@@ -87,30 +87,30 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     private void initUI(OrderInfoEntity data) {
-        tvAcceptTime.setText(TribeDateUtils.dateFormat(new Date(data.accept_at*1000)));
-        tvCategory.setText(data.category);
-        tvServerTime.setText(data.service_time);
-        tvAddress.setText(data.address);
-        tvPhone.setText(data.phone);
-        tvCreateTime.setText(TribeDateUtils.dateFormat(new Date(data.created_at*1000)));
-        tvId.setText(data.order_num);
-        tvSum.setText(data.price+"元");
-        tvPayWay.setText(data.pay_type);
-        tvIsPayed.setText(data.pay_status);
-        if (data.is_dispatch.equals("0")) {
-
-            btnDivideBill.setText("分单");
-            btnDivideBill.setOnClickListener(view -> {
-                Intent intent = new Intent(OrderDetailActivity.this, ChoseServerActivity.class);
-                intent.putExtra(Constant.ORDER_ID,orderId);
-                startActivity(intent);
-            });
-        } else {
-            btnDivideBill.setText("发信息");
-            btnDivideBill.setOnClickListener(view -> {
-                ToastUtils.ToastMessage(OrderDetailActivity.this,"此功能暂未开通！");
-            });
-        }
+//        tvAcceptTime.setText(TribeDateUtils.dateFormat(new Date(data.accept_at*1000)));
+//        tvCategory.setText(data.category);
+//        tvServerTime.setText(data.service_time);
+//        tvAddress.setText(data.address);
+//        tvPhone.setText(data.phone);
+//        tvCreateTime.setText(TribeDateUtils.dateFormat(new Date(data.created_at*1000)));
+//        tvId.setText(data.order_num);
+//        tvSum.setText(data.price+"元");
+//        tvPayWay.setText(data.pay_type);
+//        tvIsPayed.setText(data.pay_status);
+//        if (data.is_dispatch.equals("0")) {
+//
+//            btnDivideBill.setText("分单");
+//            btnDivideBill.setOnClickListener(view -> {
+//                Intent intent = new Intent(OrderDetailActivity.this, ChoseServerActivity.class);
+//                intent.putExtra(Constant.ORDER_ID,orderId);
+//                startActivity(intent);
+//            });
+//        } else {
+//            btnDivideBill.setText("发信息");
+//            btnDivideBill.setOnClickListener(view -> {
+//                ToastUtils.ToastMessage(OrderDetailActivity.this,"此功能暂未开通！");
+//            });
+//        }
     }
 
 

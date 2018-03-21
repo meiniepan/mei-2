@@ -20,6 +20,7 @@ import com.wuyou.merchant.adapter.UnionAvatarRvAdapter;
 import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
 import com.wuyou.merchant.bean.entity.UnionListEntity;
+import com.wuyou.merchant.mvp.circle.CreatedContractDetailActivity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
@@ -109,8 +110,8 @@ public class ServiceProviderDetailActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                Intent intent = new Intent(getCtx(), ContractDetailActivity.class);
-                intent.putExtra(Constant.CONTRACT_ID,adapter.getItem(position).id);
+                Intent intent = new Intent(getCtx(), CreatedContractDetailActivity.class);
+                intent.putExtra(Constant.CONTRACT_ID,adapter.getItem(position).shop_id);
                 startActivity(intent);
             }
         });

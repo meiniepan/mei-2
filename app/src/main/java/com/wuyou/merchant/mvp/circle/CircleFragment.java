@@ -1,19 +1,15 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.view.View;
-import android.widget.TextView;
+import android.support.v4.view.ViewPager;
 
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.mvp.order.AllianceOrderFragment;
-import com.wuyou.merchant.mvp.order.MyOrderFragment;
 import com.wuyou.merchant.view.fragment.BaseFragment;
-import com.wuyou.merchant.view.widget.NoScrollViewPager;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
 /**
@@ -21,80 +17,95 @@ import butterknife.OnClick;
  */
 
 public class CircleFragment extends BaseFragment {
-
-
-    @BindView(R.id.tv_left)
-    TextView tvLeft;
-    @BindView(R.id.tv_right)
-    TextView tvRight;
+    @BindView(R.id.tl_tab)
+    TabLayout mTabLayout;
     @BindView(R.id.vp_pager)
-    NoScrollViewPager vpPager;
+    ViewPager mViewPager;
+    String[] mTitle = {"我创建的合约", "我加入的合约", "合约市场"};
+
+
 
     @Override
     protected int getContentLayout() {
-        return R.layout.fragment_circle;
+        return R.layout.fragment_order_my;
     }
-
-    @Override
-    public void showError(String message, int res) {
-
-    }
-
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        initViewPager();
+
+        initView();
 
     }
 
-    private void initViewPager() {
-        vpPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+    private void initView() {
+        mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mTitle[position % mTitle.length];
+            }
 
             @Override
             public Fragment getItem(int position) {
                 //创建Fragment并返回
                 Fragment fragment = null;
                 if (position == 0)
-                    fragment = new AllianceMerchantFragment();
+                    fragment = new CreatedFragment();
                 else if (position == 1)
-                    fragment = new PartnerFragment();
+                    fragment = new JoinedFragment();
+                else if (position == 2)
+                    fragment = new ContractMarketFragment();
                 return fragment;
             }
 
             @Override
             public int getCount() {
-                return 2;
+                return mTitle.length;
             }
         });
+        //将ViewPager关联到TabLayout上
+        mTabLayout.setupWithViewPager(mViewPager);
+
+//  设置监听,注意:如果设置了setOnTabSelectedListener,则setupWithViewPager不会生效
+//  因为setupWithViewPager内部也是通过设置该监听来触发ViewPager的切换的.
+//  mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//   @Override
+//   public void onTabSelected(TabLayout.Tab tab) {
+//   }
+//
+//   @Override
+//   public void onTabUnselected(TabLayout.Tab tab) {
+//
+//   }
+//
+//   @Override
+//   public void onTabReselected(TabLayout.Tab tab) {
+//
+//   }
+//  });
+//  那我们如果真的需要监听tab的点击或者ViewPager的切换,则需要手动配置ViewPager的切换,例如:
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                //切换ViewPager
+                mViewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
 
+    @Override
+    public void showError(String message, int res) {
 
-    @OnClick({R.id.tv_left, R.id.tv_right})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_left:
-                clickLeft();
-                break;
-            case R.id.tv_right:
-                clickRight();
-                break;
-        }
-    }
-
-    private void clickRight() {
-        tvLeft.setTextColor(getActivity().getResources().getColor(R.color.main_blue));
-        tvRight.setTextColor(getActivity().getResources().getColor(R.color.white));
-        tvLeft.setBackgroundResource(R.drawable.shape_order_left_unclick);
-        tvRight.setBackgroundResource(R.drawable.shape_order_right_click);
-        vpPager.setCurrentItem(1);
-    }
-
-    private void clickLeft() {
-        tvLeft.setTextColor(getActivity().getResources().getColor(R.color.white));
-        tvRight.setTextColor(getActivity().getResources().getColor(R.color.main_blue));
-        tvLeft.setBackgroundResource(R.drawable.shape_order_left_click);
-        tvRight.setBackgroundResource(R.drawable.shape_order_right_unclick);
-        vpPager.setCurrentItem(0);
     }
 }

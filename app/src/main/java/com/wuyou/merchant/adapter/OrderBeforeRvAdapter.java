@@ -38,23 +38,23 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
     protected void convert(BaseHolder helper, OrderInfoEntity item) {
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at*1000));
         helper.setText(R.id.tv_create_time, create_time)
-                .setText(R.id.tv_category, item.category)
-                .setText(R.id.tv_address, item.address)
+                .setText(R.id.tv_category, item.service.service_name)
+                .setText(R.id.tv_address, item.address.address)
                 .setText(R.id.tv_sum, item.price);
         View ll_receiver = helper.getView(R.id.ll_receiver);
         Button dispatch = helper.getView(R.id.btn_divide_bill);
 
-        if (item.is_dispatch.equals("0")) {
+        if (item.status.equals("1")) {
             ll_receiver.setVisibility(View.GONE);
             dispatch.setText("分单");
             dispatch.setOnClickListener(view -> {
                 Intent intent = new Intent(activity, ChoseServerActivity.class);
-                intent.putExtra(Constant.ORDER_ID,item.id);
+                intent.putExtra(Constant.ORDER_ID,item.order_id);
                 activity.startActivity(intent);
             });
-        } else {
+        } else if (item.status.equals("2")){
             ll_receiver.setVisibility(View.VISIBLE);
-            helper.setText(R.id.tv_receiver,item.receiver);
+//            helper.setText(R.id.tv_receiver,item.receiver);
             dispatch.setText("发信息");
             dispatch.setOnClickListener(view -> {
                 ToastUtils.ToastMessage(activity,"此功能暂未开通！");

@@ -6,6 +6,8 @@
 
     <color name="common_dark">#dd000000</color>
     <color name="common_gray">#60000000</color>
+    <color name="gray40">#66000000</color>
+    <color name="gray80">#cc000000</color>
     <color name="main_gray">#66000000</color>
 
     <color name="main_tab">#707070</color>

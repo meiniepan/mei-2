@@ -55,7 +55,7 @@ public class OrderIngAllianceFragment extends BaseFragment<OrderContract.View, O
         adapter = new OrderIngRvAdapter(getActivity(), R.layout.item_order_ing, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
-            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).id);
+            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).order_id);
             intent.putExtra(Constant.DIVIDE_ORDER_FROM,2);
             startActivity(intent);
         });

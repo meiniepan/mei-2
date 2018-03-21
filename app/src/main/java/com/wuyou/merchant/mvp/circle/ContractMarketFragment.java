@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
-import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.ContractListEntity;
 import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
@@ -23,27 +21,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by solang on 2018/1/31.
  */
 
-public class SponsorFragment extends BaseFragment<CircleContract.View, CircleContract.Presenter> implements CircleContract.View {
+public class ContractMarketFragment extends BaseFragment<CircleContract.View, CircleContract.Presenter> implements CircleContract.View {
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
-    @BindView(R.id.fl_add)
-    View add;
+
     List<WorkerEntity> data = new ArrayList();
     DispatchMerchantListRvAdapter adapter;
 
     @Override
     protected int getContentLayout() {
-        return R.layout.fragment_sponsor;
+        return R.layout.fragment_contract_market;
     }
 
     @Override
@@ -79,23 +74,25 @@ public class SponsorFragment extends BaseFragment<CircleContract.View, CircleCon
         statusLayout.showErrorView(message);
     }
 
-    @Override
-    public void getSuccess(WorkerListEntity data) {
-        adapter.setNewData(data.list);
-        statusLayout.showContentView();
+//    @Override
+//    public void getSuccess(WorkerListEntity data) {
+//        adapter.setNewData(data.list);
+//        statusLayout.showContentView();
+//
+//        if (adapter.getData().size() == 0) {
+//            statusLayout.showEmptyView("没有订单");
+//        }
+//    }
 
-        if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有订单");
-        }
+
+
+    @Override
+    public void getSuccess(ContractListEntity data) {
+
     }
 
     @Override
-    public void getPartnerSuccess(PartnerListEntity data) {
-
-    }
-
-    @Override
-    public void getMore(WorkerListEntity data) {
+    public void getMore(ContractListEntity data) {
 
     }
 
@@ -104,17 +101,11 @@ public class SponsorFragment extends BaseFragment<CircleContract.View, CircleCon
 
     }
 
-
-    @OnClick(R.id.fl_add)
-    public void onViewClicked() {
-    }
-
-
     @OnClick({R.id.fl_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_add:
-                Intent intent  = new Intent(getActivity(),AddAllianceMerchantActivity.class);
+                Intent intent  = new Intent(getActivity(),CreateIntelligentContractActivity1.class);
                 getActivity().startActivity(intent);
                 break;
 

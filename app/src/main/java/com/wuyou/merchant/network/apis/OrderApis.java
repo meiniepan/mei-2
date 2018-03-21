@@ -29,21 +29,17 @@ import retrofit2.http.QueryMap;
 public interface OrderApis {
     /**
      * 获取订单列表
-     * @param merchant_id
-     * @param status
-     * @param start_id
-     * @param flag
+     *
      * @param map
      * @return
      */
-    @GET("orders/{merchant_id}/{status}/{start_id}/{flag}")
+    @GET("v1/orders")
     Observable<BaseResponse<OrderInfoListEntity>> getOrders(
-            @Path("merchant_id") String merchant_id, @Path("status") String status,
-            @Path("start_id") String start_id, @Path("flag") String flag,
             @QueryMap SortedTreeMap<String, String> map);
 
     /**
      * 获取联盟订单列表
+     *
      * @param merchant_id
      * @param status
      * @param start_id
@@ -59,6 +55,7 @@ public interface OrderApis {
 
     /**
      * 订单详情
+     *
      * @param uid
      * @param order_id
      * @param map
@@ -71,6 +68,7 @@ public interface OrderApis {
 
     /**
      * 合伙人列表
+     *
      * @param uid
      * @param map
      * @return
@@ -81,6 +79,7 @@ public interface OrderApis {
 
     /**
      * 员工列表
+     *
      * @param uid
      * @param map
      * @return
@@ -91,10 +90,11 @@ public interface OrderApis {
 
     @GET("union/shops/{uid}/{action}")
     Observable<BaseResponse<WorkerListEntity>> getDispatchMerchantInfo(
-            @Path("uid") String uid,@Path("action") String action, @QueryMap SortedTreeMap<String, String> map);
+            @Path("uid") String uid, @Path("action") String action, @QueryMap SortedTreeMap<String, String> map);
 
     /**
      * 加入联盟时的商户列表
+     *
      * @param uid
      * @param startId
      * @param flag
@@ -103,10 +103,11 @@ public interface OrderApis {
      */
     @GET("union/prepare/{uid}/{start_id}/{flag}")
     Observable<BaseResponse<WorkerListEntity>> getPrepareMerchantInfo(
-            @Path("uid") String uid,@Path("start_id") String startId,@Path("flag") String flag, @QueryMap SortedTreeMap<String, String> map);
+            @Path("uid") String uid, @Path("start_id") String startId, @Path("flag") String flag, @QueryMap SortedTreeMap<String, String> map);
 
     /**
      * 服务商详情
+     *
      * @param uid
      * @param merchant_id
      * @param map
@@ -116,6 +117,7 @@ public interface OrderApis {
     Observable<BaseResponse<MerchantDetailEntity>> getMerchantDetail(
             @Path("uid") String uid, @Path("merchant_id") String merchant_id,
             @QueryMap SortedTreeMap<String, String> map);
+
     @GET("contract/{contract_id}")
     Observable<BaseResponse<ContractDetailEntity>> getContractDetail(
             @Path("contract_id") String contract_id,
@@ -123,6 +125,7 @@ public interface OrderApis {
 
     /**
      * 加入联盟
+     *
      * @param uid
      * @param map
      * @return
@@ -130,11 +133,12 @@ public interface OrderApis {
     @FormUrlEncoded
     @POST("union/{uid}")
     Observable<BaseResponse> signContract(
-            @Path("uid") String uid,@FieldMap SortedTreeMap<String, String> map);
+            @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
+
     @FormUrlEncoded
-    @POST("order/dispatch/{uid}")
+    @PUT("v1/order/dispatch/{order_id}")
     Observable<BaseResponse> dispatchOrder(
-            @Path("uid") String uid,@FieldMap SortedTreeMap<String, String> map);
+            @Path("order_id") String orderId, @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @PUT("login/{uid}")

@@ -10,6 +10,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.ContractListEntity;
 import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
@@ -91,32 +92,39 @@ public class AddAllianceMerchantActivity extends BaseActivity<CircleContract.Vie
         statusLayout.showErrorView(message);
     }
 
+//    @Override
+//    public void getSuccess(WorkerListEntity data) {
+//        recyclerView.setRefreshFinished();
+//        adapter.setNewData(data.list);
+//        statusLayout.showContentView();
+//        if (data.has_more.equals("0")) {
+//            adapter.loadMoreEnd(true);
+//        }
+//        if (adapter.getData().size() == 0) {
+//            statusLayout.showEmptyView("没有订单");
+//        }
+//    }
+
+
+
+//    @Override
+//    public void getMore(WorkerListEntity data) {
+//        adapter.addData(data.list);
+//        if (data.has_more.equals("0")) {
+//            adapter.loadMoreEnd(true);
+//        }
+//    }
+
+
     @Override
-    public void getSuccess(WorkerListEntity data) {
-        recyclerView.setRefreshFinished();
-        adapter.setNewData(data.list);
-        statusLayout.showContentView();
-        if (data.has_more.equals("0")) {
-            adapter.loadMoreEnd(true);
-        }
-        if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有订单");
-        }
+    public void getSuccess(ContractListEntity data) {
+
     }
 
     @Override
-    public void getPartnerSuccess(PartnerListEntity data) {
+    public void getMore(ContractListEntity data) {
 
     }
-
-    @Override
-    public void getMore(WorkerListEntity data) {
-        adapter.addData(data.list);
-        if (data.has_more.equals("0")) {
-            adapter.loadMoreEnd(true);
-        }
-    }
-
 
     @Override
     public void loadMoreError(int code) {

@@ -59,7 +59,7 @@ public class ChoseArtisanFragment extends BaseFragment {
         orderId = getActivity().getIntent().getStringExtra(Constant.ORDER_ID);
         adapter = new WorkersRvAdapter(getActivity(), R.layout.item_chose_artisan, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            showAlert(adapter.getItem(position).name,adapter.getItem(position).id);
+            showAlert(adapter.getItem(position).name, adapter.getItem(position).id);
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
@@ -89,16 +89,16 @@ public class ChoseArtisanFragment extends BaseFragment {
                 });
     }
 
-    private void showAlert(String name,String serverId) {
+    private void showAlert(String name, String serverId) {
         CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getContext());
         builder.setTitle("是否分单给服务者").setMessage(name);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                        .dispatchOrder(CarefreeApplication.getInstance().getUserInfo().getUid(),
-                                QueryMapBuilder.getIns().put("order_id", orderId)
-                                        .put("receiver_id", serverId)
+                        .dispatchOrder(orderId,
+                                QueryMapBuilder.getIns().put("dispatcher_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                                        .put("worker_id", serverId)
                                         .put("type", "1")
                                         .buildPost())
                         .subscribeOn(Schedulers.io())

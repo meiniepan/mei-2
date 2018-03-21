@@ -13,4 +13,7 @@ public class Constant {
     public static final String PHONE = "phone";
     public static final String CAPTCHA = "captcha";
     public static final String CONTRACT_ID = "contract_id";
+    public static final int REQUEST_CODE_CHOOSE_IMAGE = 200;
+    public static final String CONTRACT_ENTITY = "contract_entity";
+    public static final String IMAGE1_URL = "image1_url";
 }

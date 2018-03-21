@@ -54,7 +54,7 @@ public class OrderBeforeAllianceFragment extends BaseFragment<OrderContract.View
         adapter = new OrderBeforeAllianceRvAdapter(getActivity(), R.layout.item_order_before, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
-            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).id);
+            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).order_id);
             intent.putExtra(Constant.DIVIDE_ORDER_FROM,2);
             startActivity(intent);
         });

@@ -12,11 +12,9 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MainPagerAdapter;
 import com.wuyou.merchant.mvp.circle.CircleFragment;
-import com.wuyou.merchant.mvp.message.MessageFragment;
 import com.wuyou.merchant.mvp.order.OrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
-import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 
 import java.util.ArrayList;

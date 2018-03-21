@@ -5,8 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.fragment.BaseFragment;
@@ -23,8 +21,8 @@ public class MyOrderFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
-    String[] mTitle = {"未开始", "进行中", "已完成"};
-    OrderBeforeFragment orderBeforeFragment = new OrderBeforeFragment();
+    String[] mTitle = {"待分单","未开始", "进行中", "全部"};
+    OrderBeforeBeforeFragment orderBeforeBeforeFragment = new OrderBeforeBeforeFragment();
 
 
     @Override
@@ -52,10 +50,12 @@ public class MyOrderFragment extends BaseFragment {
                 //创建Fragment并返回
                 Fragment fragment = null;
                 if (position == 0)
-                    fragment = orderBeforeFragment;
+                    fragment = orderBeforeBeforeFragment;
                 else if (position == 1)
-                    fragment = new OrderIngFragment();
+                    fragment = new OrderBeforeFragment();
                 else if (position == 2)
+                    fragment = new OrderIngFragment();
+                else if (position == 3)
                     fragment = new OrderAfterFragment();
                 return fragment;
             }
@@ -112,6 +112,6 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     public void loadDatas() {
-        orderBeforeFragment.loadData();
+        orderBeforeBeforeFragment.loadData();
     }
 }

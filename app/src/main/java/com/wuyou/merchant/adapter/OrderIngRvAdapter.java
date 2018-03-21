@@ -26,11 +26,13 @@ public class OrderIngRvAdapter extends BaseQuickAdapter<OrderInfoEntity, BaseHol
 
     @Override
     protected void convert(BaseHolder helper, OrderInfoEntity item) {
+        String[] s = {"待分单","未开始","进行中","待评价","已完成"};
+        int i = Integer.parseInt(item.status) -1;
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at*1000));
         helper.setText(R.id.tv_create_time, create_time)
-                .setText(R.id.tv_category, item.category)
-                .setText(R.id.tv_address, item.address)
-                .setText(R.id.tv_status,item.status)
+//                .setText(R.id.tv_category, item.category)
+                .setText(R.id.tv_address, item.address.address)
+                .setText(R.id.tv_status,s[i])
                 .setText(R.id.tv_sum, item.price);
     }
 }

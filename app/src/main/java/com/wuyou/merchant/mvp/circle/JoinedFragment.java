@@ -15,6 +15,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.ContractListEntity;
 import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
@@ -81,23 +82,23 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
         statusLayout.showErrorView(message);
     }
 
-    @Override
-    public void getSuccess(WorkerListEntity data) {
-        adapter.setNewData(data.list);
-        statusLayout.showContentView();
+//    @Override
+//    public void getSuccess(WorkerListEntity data) {
+//        adapter.setNewData(data.list);
+//        statusLayout.showContentView();
+//
+//        if (adapter.getData().size() == 0) {
+//            statusLayout.showEmptyView("没有订单");
+//        }
+//    }
 
-        if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有订单");
-        }
+    @Override
+    public void getSuccess(ContractListEntity data) {
+
     }
 
     @Override
-    public void getPartnerSuccess(PartnerListEntity data) {
-
-    }
-
-    @Override
-    public void getMore(WorkerListEntity data) {
+    public void getMore(ContractListEntity data) {
 
     }
 

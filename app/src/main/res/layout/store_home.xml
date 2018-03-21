@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="true"
+    android:scrollbars="none"
     android:background="@color/tint_bg">
 
     <LinearLayout
@@ -32,7 +33,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="便民理发店"
+                    android:text="智能家政服务"
                     android:textColor="@color/white"
                     android:textSize="22sp" />
 
@@ -45,17 +46,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="服务时间:"
+                        android:text="178xxxxxxxx"
                         android:textColor="@color/white_alpha"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:text="06:00-23:00"
-                        android:textColor="@color/white_alpha"
-                        android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -66,25 +60,39 @@
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5.0"
-                    android:textColor="@color/custom_orange"
-                    android:textSize="22sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="综合评分"
-                    android:textColor="@color/white_alpha"
-                    android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/iv_store_info"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@mipmap/back_white"
+                    android:rotation="180"
+                    />
             </LinearLayout>
         </LinearLayout>
 
         <include layout="@layout/split_area" />
 
+
+        <LinearLayout
+            android:id="@+id/ll_worker_list"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/common_margin"
+            android:paddingStart="@dimen/common_margin">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="技工列表" />
+
+            <include layout="@layout/layout_next" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_margin" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_height"
@@ -95,36 +103,38 @@
             android:paddingStart="@dimen/common_margin">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="订单总数" />
+                android:layout_weight="1"
+                android:text="在线客服" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/text_margin"
-                android:text="12"
-                android:textColor="@color/main_blue" />
+            <include layout="@layout/layout_next" />
+        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="成功接单" />
+        <include layout="@layout/split_line_margin" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/common_margin"
+            android:paddingStart="@dimen/common_margin">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/text_margin"
                 android:layout_weight="1"
-                android:text="12"
-                android:textColor="@color/main_blue" />
+                android:text="企业信息" />
 
             <include layout="@layout/layout_next" />
         </LinearLayout>
 
         <include layout="@layout/split_area" />
 
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_height"
@@ -138,7 +148,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="店铺设置" />
+                android:text="无忧社区介绍" />
 
             <include layout="@layout/layout_next" />
         </LinearLayout>
@@ -158,84 +168,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="忙时设置" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_margin" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="高级管理" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:text="高级管理登录" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="b.wuyou.com"
-                        android:textColor="@color/main_blue" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="-2dp"
-                        android:background="@color/main_blue" />
-                </LinearLayout>
-            </LinearLayout>
+                android:text="APP 评分" />
 
             <include layout="@layout/layout_next" />
         </LinearLayout>
 
         <include layout="@layout/split_area" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="客户管理" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_margin" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -250,47 +190,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="评论管理" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-
-        <include layout="@layout/split_area" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="官方服务" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_margin" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="更多" />
+                android:text="设置" />
 
             <include layout="@layout/layout_next" />
         </LinearLayout>

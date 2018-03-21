@@ -37,12 +37,15 @@ public class CarefreeApplication extends BaseApplication {
             RongIM.init(this);
             //连接服务器
             connect("/cQSg9SehzlP/3P3fh2lCtINp6kjuVs2IhiAJ2G9YOu643UnaN7ZbLLNIAW/jKZ/dLkzStDYZVfJc+viW04+Vg==");
+            //设置用户信息
             RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                 @Override
                 public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                    return new io.rong.imlib.model.UserInfo("1","haha",null);
+                    return new io.rong.imlib.model.UserInfo(s,"haha",null);
                 }
             },true);
+            //全局推送
+
         }
     }
 

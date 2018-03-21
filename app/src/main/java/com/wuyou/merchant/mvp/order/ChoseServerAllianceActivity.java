@@ -93,8 +93,8 @@ public class ChoseServerAllianceActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 CarefreeRetrofit.getInstance().createApi(OrderApis.class)
                         .dispatchOrder(CarefreeApplication.getInstance().getUserInfo().getUid(),
-                                QueryMapBuilder.getIns().put("order_id", orderId)
-                                        .put("receiver_id", serverId)
+                                QueryMapBuilder.getIns().put("dispatcher_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                                        .put("worker_id", serverId)
                                         .put("type", "1")
                                         .buildPost())
                         .subscribeOn(Schedulers.io())

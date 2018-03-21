@@ -5,18 +5,12 @@ package com.wuyou.merchant.bean.entity;
  */
 
 public class OrderInfoEntity {
-    public String id;
-    public String category;
+    public String order_id;
     public long created_at;
-    public String address;
     public String price;
     public String service_time;
+    public String service_data;
     public String status;
-    public String is_dispatch;
-    public String receiver;
-    public long accept_at;
-    public String order_num;
-    public String phone;
-    public String pay_type;
-    public String pay_status;
+    public ServiceEntity service;
+    public AddressEntity address;
 }

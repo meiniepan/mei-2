@@ -40,32 +40,32 @@ public class ContractRvAdapter extends BaseQuickAdapter<ContractEntity, BaseHold
 
     @Override
     protected void convert(BaseHolder helper, ContractEntity item) {
-        String b_time = TribeDateUtils.dateFormat5(new Date(item.start_at*1000));
-        String e_time = TribeDateUtils.dateFormat5(new Date(item.end_at*1000));
-        helper.setText(R.id.tv_name, item.name)
-                .setText(R.id.tv_time, b_time+" 至 "+e_time)
-                .setText(R.id.tv_times, item.times)
-                .setText(R.id.tv_rule,item.allocation_rule);
-        helper.setOnClickListener(R.id.btn_sign, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                        .signContract(CarefreeApplication.getInstance().getUserInfo().getUid(),
-                                QueryMapBuilder.getIns().put("contract_id", item.id).buildPost())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new BaseSubscriber<BaseResponse>() {
-                            @Override
-                            public void onSuccess(BaseResponse response) {
-                                ToastUtils.ToastMessage(activity, "签署成功！");
-//                                Intent intent = new Intent(getActivity(), MainActivity.class);
-//                                getActivity().startActivity(intent);
-                            }
-
-                        });
-
-            }
-        });
+//        String b_time = TribeDateUtils.dateFormat5(new Date(item.start_at * 1000));
+//        String e_time = TribeDateUtils.dateFormat5(new Date(item.end_at * 1000));
+//        helper.setText(R.id.tv_name, item.name)
+//                .setText(R.id.tv_time, b_time + " 至 " + e_time)
+//                .setText(R.id.tv_times, item.times)
+//                .setText(R.id.tv_rule, item.allocation_rule);
+//        helper.setOnClickListener(R.id.btn_sign, new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CarefreeRetrofit.getInstance().createApi(OrderApis.class)
+//                        .signContract(CarefreeApplication.getInstance().getUserInfo().getUid(),
+//                                QueryMapBuilder.getIns().put("contract_id", item.id).buildPost())
+//                        .subscribeOn(Schedulers.io())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(new BaseSubscriber<BaseResponse>() {
+//                            @Override
+//                            public void onSuccess(BaseResponse response) {
+//                                ToastUtils.ToastMessage(activity, "签署成功！");
+////                                Intent intent = new Intent(getActivity(), MainActivity.class);
+////                                getActivity().startActivity(intent);
+//                            }
+//
+//                        });
+//
+//            }
+//        });
 
     }
 }

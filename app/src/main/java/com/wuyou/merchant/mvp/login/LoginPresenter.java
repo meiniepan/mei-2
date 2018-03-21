@@ -48,6 +48,12 @@ public class LoginPresenter extends LoginContract.Presenter {
                     protected void onFail(ApiException e) {
                         if (isAttach()) mView.showError(e.getDisplayMessage(), e.getCode());
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        CarefreeDaoSession.getInstance().clearUserInfo();
+                    }
                 });
     }
 
@@ -56,23 +62,30 @@ public class LoginPresenter extends LoginContract.Presenter {
         CarefreeRetrofit.getInstance().createApi(UserApis.class)
                 .doLogin(QueryMapBuilder.getIns().put("username", userName).put("password", psw).buildPost())
                 .subscribeOn(Schedulers.io())
-                .flatMap(userInfoBaseResponse -> {
-                    token = userInfoBaseResponse.data.getToken();
-                    CarefreeDaoSession.getInstance().setUserInfo(userInfoBaseResponse.data);
-                    return CarefreeRetrofit.getInstance().createApi(UserApis.class)
-                            .getUserInfo(userInfoBaseResponse.data.getUid(), QueryMapBuilder.getIns().buildGet());
-                })
-                .doOnNext(userInfoBaseResponse -> {
-                    UserInfo data = userInfoBaseResponse.data;
-                    data.setMid(CarefreeDaoSession.getInstance().getUserInfo().getMid());
-                    data.setToken(token);
-                    CarefreeDaoSession.getInstance().updateUserInfo(data);
-                })
+//                .flatMap(userInfoBaseResponse -> {
+//                    token = userInfoBaseResponse.data.getToken();
+//                    CarefreeDaoSession.getInstance().setUserInfo(userInfoBaseResponse.data);
+//                    return CarefreeRetrofit.getInstance().createApi(UserApis.class)
+//                            .getUserInfo(userInfoBaseResponse.data.getUid(), QueryMapBuilder.getIns().buildGet());
+//                })
+//                .doOnNext(userInfoBaseResponse -> {
+//                    UserInfo data = userInfoBaseResponse.data;
+//                    data.setMid(CarefreeDaoSession.getInstance().getUserInfo().getMid());
+//                    data.setToken(token);
+//                    CarefreeDaoSession.getInstance().updateUserInfo(data);
+//                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<UserInfo>>() {
                     @Override
                     public void onSuccess(BaseResponse<UserInfo> userInfoBaseResponse) {
+                        CarefreeDaoSession.getInstance().setUserInfo(userInfoBaseResponse.data);
                         if (isAttach()) mView.loginSuccess();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        CarefreeDaoSession.getInstance().clearUserInfo();
                     }
 
                     @Override
