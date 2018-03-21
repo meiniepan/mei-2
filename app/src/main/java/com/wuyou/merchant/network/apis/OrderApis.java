@@ -2,16 +2,12 @@ package com.wuyou.merchant.network.apis;
 
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
-import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.entity.ContractDetailEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.bean.entity.PartnerListEntity;
-import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.FieldMap;
@@ -136,9 +132,9 @@ public interface OrderApis {
             @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
-    @PUT("v1/order/dispatch/{order_id}")
+    @PUT("v1/order/dispatch")
     Observable<BaseResponse> dispatchOrder(
-            @Path("order_id") String orderId, @FieldMap SortedTreeMap<String, String> map);
+             @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @PUT("login/{uid}")

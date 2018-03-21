@@ -1,41 +1,28 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.network.QueryMapBuilder;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
-import com.wuyou.merchant.network.CarefreeRetrofit;
-import com.wuyou.merchant.network.apis.CircleApis;
-import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
-import java.io.File;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * Created by Solang on 2018/3/19.
@@ -60,7 +47,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     ImageView ivAddBusinessLicense;
     @BindView(R.id.iv_add_other)
     ImageView ivAddOther;
-    private String imagePath;
+    private Uri imagePath;
     ContractEntity entity = new ContractEntity();
 
     @Override
@@ -70,31 +57,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/SamSung/empty_order.png");
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("license", file.getName(), requestFile);
-        CarefreeRetrofit.getInstance().createApi(CircleApis.class)
-                .createContract(body,QueryMapBuilder.getIns()
-                        .put("contact_address","北京市")
-                        .put("contract_name","abc")
-                        .put("divided_amount","1000")
-                        .put("end_at","1521615639425")
-                        .put("information","北京市")
-                        .put("mobile","13013073213")
-                        .put("shop_id","114")
-                        .put("shop_name","name")
-                        .put("total_amount","500000")
-                        .put("service","1")
-                        .put("other_image","")
-                        .buildPost())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse>() {
-                    @Override
-                    public void onSuccess(BaseResponse baseResponse) {
 
-                    }
-                });
     }
 
     @OnClick({R.id.tv_next, R.id.iv_calendar, R.id.iv_add_business_license, R.id.iv_add_other})
@@ -107,7 +70,21 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
                 entity.end_at = etEndTime.getText().toString();
                 entity.shop_name = etCompanyName.getText().toString();
                 entity.contact_address = etCompanyAddress.getText().toString();
-                entity.mobile = etPhone.getText().toString();
+                entity.mobile = etPhone.getText().toString().trim();
+                if (TextUtils.isEmpty(entity.contract_name)
+                        || TextUtils.isEmpty(entity.end_at)
+                        || TextUtils.isEmpty(entity.shop_name)
+                        || TextUtils.isEmpty(entity.contact_address)
+                        || TextUtils.isEmpty(entity.mobile)
+                        || (imagePath == null)
+                        ){
+                    ToastUtils.ToastMessage(getCtx(),"请完善资料");
+                    return;
+                }
+                if (entity.mobile.length()!= 11){
+                    ToastUtils.ToastMessage(getCtx(),"手机号码格式不正确");
+                    return;
+                }
                 intent.putExtra(Constant.CONTRACT_ENTITY,entity);
                 intent.putExtra(Constant.IMAGE1_URL,imagePath);
                 startActivity(intent);
@@ -133,8 +110,8 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
-            imagePath = Matisse.obtainResult(data).get(0).toString();
-            Glide.with(getCtx()).load(imagePath).into(ivAddBusinessLicense);
+            imagePath = Matisse.obtainResult(data).get(0);
+            Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddBusinessLicense);
         }
     }
 }

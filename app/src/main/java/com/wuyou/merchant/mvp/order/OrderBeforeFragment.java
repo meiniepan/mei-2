@@ -2,13 +2,10 @@ package com.wuyou.merchant.mvp.order;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
@@ -53,6 +50,14 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusLayout.showProgressView();
+                adapter.clearData();
+                fetchDatas();
+            }
+        });
         adapter = new OrderBeforeRvAdapter(getActivity(), R.layout.item_order_before, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);

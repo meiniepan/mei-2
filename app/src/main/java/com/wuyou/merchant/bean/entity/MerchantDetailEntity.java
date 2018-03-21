@@ -15,5 +15,5 @@ public class MerchantDetailEntity {
     public String category;
     public String qualification;
     public UnionListEntity unions;
-    public List<ContractEntity> contracts;
+    public List contracts;
 }

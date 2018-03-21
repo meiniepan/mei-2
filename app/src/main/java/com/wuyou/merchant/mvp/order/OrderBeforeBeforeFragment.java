@@ -3,7 +3,6 @@ package com.wuyou.merchant.mvp.order;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.gs.buluo.common.widget.StatusLayout;
@@ -50,6 +49,14 @@ public class OrderBeforeBeforeFragment extends BaseFragment<OrderContract.View, 
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusLayout.showProgressView();
+                adapter.clearData();
+                fetchDatas();
+            }
+        });
         adapter = new OrderBeforeRvAdapter(getActivity(), R.layout.item_order_before_before, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);

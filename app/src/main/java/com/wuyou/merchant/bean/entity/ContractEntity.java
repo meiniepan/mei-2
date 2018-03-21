@@ -18,6 +18,11 @@ public class ContractEntity implements Parcelable{
     public String divided_amount;
     public String service;
     public String information;
+    public String contract_id;
+    public String created_at;
+    public String status;
+    public String member_quantity;
+    public String joined_at;
 
     public ContractEntity(Parcel in) {
         shop_id = in.readString();

@@ -23,7 +23,6 @@ import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.activity.MainActivity;
-import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,10 +91,11 @@ public class ChoseServerAllianceActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                        .dispatchOrder(CarefreeApplication.getInstance().getUserInfo().getUid(),
+                        .dispatchOrder(
                                 QueryMapBuilder.getIns().put("dispatcher_id", CarefreeApplication.getInstance().getUserInfo().getUid())
                                         .put("worker_id", serverId)
                                         .put("type", "1")
+                                        .put("order_id", orderId)
                                         .buildPost())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

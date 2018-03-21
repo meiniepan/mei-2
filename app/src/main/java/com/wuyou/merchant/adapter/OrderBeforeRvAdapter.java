@@ -3,11 +3,8 @@ package com.wuyou.merchant.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
@@ -15,7 +12,6 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.mvp.order.ChoseServerActivity;
-import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
@@ -39,7 +35,8 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at*1000));
         helper.setText(R.id.tv_create_time, create_time)
                 .setText(R.id.tv_category, item.service.service_name)
-                .setText(R.id.tv_address, item.address.address)
+                .setText(R.id.tv_address, item.address.city+item.address.district+item.address.area+item.address.address)
+                .setText(R.id.tv_receiver, item.worker.worker_name)
                 .setText(R.id.tv_sum, item.price);
         View ll_receiver = helper.getView(R.id.ll_receiver);
         Button dispatch = helper.getView(R.id.btn_divide_bill);

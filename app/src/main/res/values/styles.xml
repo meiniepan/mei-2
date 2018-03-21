@@ -49,4 +49,8 @@
         <item name="android:textSize">@dimen/dimens_16sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+    <style name="PopupWindowAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/popup_window_in</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_out</item>
+    </style>
 </resources>

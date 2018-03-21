@@ -5,6 +5,8 @@ package com.wuyou.merchant.bean.entity;
  */
 
 public class WorkerEntity {
+    public String worker_id;
+    public String worker_name;
     public String id;
     public String name;
     public String image;

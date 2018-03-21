@@ -12,5 +12,6 @@ public class OrderInfoEntity {
     public String service_data;
     public String status;
     public ServiceEntity service;
+    public WorkerEntity worker;
     public AddressEntity address;
 }

@@ -2,11 +2,13 @@ package com.wuyou.merchant.adapter;
 
 import android.support.annotation.Nullable;
 
+import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,11 +23,16 @@ public class JoinedContractListRvAdapter extends BaseQuickAdapter<ContractEntity
 
     @Override
     protected void convert(BaseHolder helper, ContractEntity item) {
-//        helper.setText(R.id.tv_name, item.name)
-//                .setText(R.id.tv_code, item.name)
-//                .setText(R.id.tv_start_time, item.name)
-//                .setText(R.id.tv_end_time, item.name)
-//                .setText(R.id.tv_joined_time, item.name)
-//                .setText(R.id.tv_status, item.name);
+        String[] s = {"已过期","进行中"};
+        int i = Integer.parseInt(item.status);
+        String create_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.created_at)*1000));
+        String end_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.end_at)*1000));
+        String joined_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.joined_at)*1000));
+        helper.setText(R.id.tv_name, item.contract_name)
+                .setText(R.id.tv_code, item.contract_id)
+                .setText(R.id.tv_start_time, item.created_at)
+                .setText(R.id.tv_end_time, item.end_at)
+                .setText(R.id.tv_joined_time, item.joined_at)
+                .setText(R.id.tv_status, s[i]);
     }
 }

@@ -1,28 +1,16 @@
 package com.wuyou.merchant.network.apis;
 
 import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.network.SortedTreeMap;
-import com.wuyou.merchant.bean.entity.ContractDetailEntity;
-import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
-import com.wuyou.merchant.bean.entity.OrderInfoEntity;
-import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
-import com.wuyou.merchant.bean.entity.PartnerListEntity;
-import com.wuyou.merchant.bean.entity.WorkerListEntity;
+import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.bean.entity.ResponseListEntity;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -37,4 +25,12 @@ public interface CircleApis {
             @Part MultipartBody.Part file,
             @QueryMap SortedTreeMap<String,String> map
     );
+
+    @GET("v1/unions")
+    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractList(
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("v1/contracts")
+    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractMarket(
+            @QueryMap SortedTreeMap<String, String> map);
 }

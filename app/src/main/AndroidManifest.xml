@@ -45,7 +45,6 @@
         <activity android:name=".view.activity.TradeDetailActivity" />
         <activity android:name=".mvp.wallet.FundIntroduceActivity" />
         <activity android:name=".mvp.order.ChoseServerAllianceActivity" />
-        <activity android:name=".mvp.circle.AddAllianceMerchantActivity" />
         <activity
             android:name=".mvp.message.ConversationActivity"
             android:screenOrientation="portrait"
@@ -81,6 +80,9 @@
         <activity android:name=".mvp.circle.CreateIntelligentContractActivity2" />
         <activity android:name=".mvp.store.StoreInfoEditActivity" />
         <activity android:name=".mvp.circle.CreatedContractDetailActivity" />
+        <activity android:name=".mvp.wallet.RepayActivity" >
+        </activity>
+        <activity android:name=".mvp.wallet.RepayRecordActivity" />
 
         <!--<provider-->
             <!--android:name="android.support.v4.content.FileProvider"-->

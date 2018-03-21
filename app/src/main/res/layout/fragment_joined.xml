@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         app:emptyDrawable="@mipmap/empty_order"
         app:errorDrawable="@mipmap/net_error">
-    <android.support.v7.widget.RecyclerView
+    <com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView
         android:id="@+id/rv_orders"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

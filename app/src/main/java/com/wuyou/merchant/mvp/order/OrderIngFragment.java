@@ -3,7 +3,6 @@ package com.wuyou.merchant.mvp.order;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
@@ -11,9 +10,7 @@ import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
 import com.wuyou.merchant.adapter.OrderIngRvAdapter;
-import com.wuyou.merchant.adapter.OtherRvAdapter;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.util.MyRecyclerViewScrollListener;
@@ -55,6 +52,14 @@ public class OrderIngFragment extends BaseFragment<OrderContract.View, OrderCont
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusLayout.showProgressView();
+                adapter.clearData();
+                fetchDatas();
+            }
+        });
         adapter = new OrderIngRvAdapter(getActivity(), R.layout.item_order_ing, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);

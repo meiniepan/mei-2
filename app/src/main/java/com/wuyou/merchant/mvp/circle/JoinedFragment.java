@@ -3,33 +3,24 @@ package com.wuyou.merchant.mvp.circle;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
-import com.gs.buluo.common.network.ApiException;
-import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.widget.StatusLayout;
-import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.DispatchMerchantListRvAdapter;
-import com.wuyou.merchant.adapter.WorkersRvAdapter;
-import com.wuyou.merchant.bean.entity.ContractListEntity;
-import com.wuyou.merchant.bean.entity.PartnerListEntity;
-import com.wuyou.merchant.bean.entity.WorkerEntity;
-import com.wuyou.merchant.bean.entity.WorkerListEntity;
-import com.wuyou.merchant.network.CarefreeRetrofit;
-import com.wuyou.merchant.network.apis.OrderApis;
+import com.wuyou.merchant.adapter.JoinedContractListRvAdapter;
+import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.view.activity.ServiceProviderDetailActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
+import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
+import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
+import com.wuyou.merchant.view.widget.recyclerHelper.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by solang on 2018/2/5.
@@ -39,9 +30,9 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
-    RecyclerView recyclerView;
-    List<WorkerEntity> data = new ArrayList();
-    DispatchMerchantListRvAdapter adapter;
+    NewRefreshRecyclerView recyclerView;
+    List<ContractEntity> data = new ArrayList();
+    JoinedContractListRvAdapter adapter;
     String id;
 
     @Override
@@ -56,14 +47,35 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        adapter = new DispatchMerchantListRvAdapter(getActivity(), R.layout.item_chose_merchant, data);
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusLayout.showProgressView();
+                adapter.clearData();
+                fetchDatas();
+            }
+        });
+        adapter = new JoinedContractListRvAdapter(R.layout.item_contract_joined, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), ServiceProviderDetailActivity.class);
-            intent.putExtra(Constant.MERCHANT_ID, adapter.getItem(position).id);
+            intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
             startActivity(intent);
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mPresenter.loadListMore("2");
+            }
+        }, recyclerView.getRecyclerView());
+        recyclerView.setRefreshAction(new OnRefreshListener() {
+            @Override
+            public void onAction() {
+                adapter.clearData();
+                fetchDatas();
+            }
+        });
     }
 
 
@@ -74,7 +86,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
     }
 
     private void fetchDatas() {
-        mPresenter.getJoinedAlliance();
+        mPresenter.getCreatedContract("2");
     }
 
     @Override
@@ -82,28 +94,30 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
         statusLayout.showErrorView(message);
     }
 
-//    @Override
-//    public void getSuccess(WorkerListEntity data) {
-//        adapter.setNewData(data.list);
-//        statusLayout.showContentView();
-//
-//        if (adapter.getData().size() == 0) {
-//            statusLayout.showEmptyView("没有订单");
-//        }
-//    }
 
     @Override
-    public void getSuccess(ContractListEntity data) {
-
+    public void getSuccess(ResponseListEntity<ContractEntity> data) {
+        recyclerView.setRefreshFinished();
+        adapter.setNewData(data.list);
+        statusLayout.showContentView();
+        if (data.has_more.equals("0")) {
+            adapter.loadMoreEnd(true);
+        }
+        if (adapter.getData().size() == 0) {
+            statusLayout.showEmptyView("没有合约");
+        }
     }
 
     @Override
-    public void getMore(ContractListEntity data) {
-
+    public void getMore(ResponseListEntity<ContractEntity> data) {
+        adapter.addData(data.list);
+        if (data.has_more.equals("0")) {
+            adapter.loadMoreEnd(true);
+        }
     }
 
     @Override
     public void loadMoreError(int code) {
-
+        adapter.loadMoreFail();
     }
 }

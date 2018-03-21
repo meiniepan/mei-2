@@ -16,16 +16,11 @@ import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
-import com.wuyou.merchant.adapter.OtherRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
-import com.wuyou.merchant.bean.UserInfo;
-import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
-import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
@@ -96,10 +91,11 @@ public class ChoseArtisanFragment extends BaseFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                        .dispatchOrder(orderId,
+                        .dispatchOrder(
                                 QueryMapBuilder.getIns().put("dispatcher_id", CarefreeApplication.getInstance().getUserInfo().getUid())
                                         .put("worker_id", serverId)
                                         .put("type", "1")
+                                        .put("order_id", orderId)
                                         .buildPost())
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
