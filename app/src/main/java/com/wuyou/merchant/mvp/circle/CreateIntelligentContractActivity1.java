@@ -3,16 +3,22 @@ package com.wuyou.merchant.mvp.circle;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.BaseSubscriber;
+import com.gs.buluo.common.network.QueryMapBuilder;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.network.CarefreeRetrofit;
+import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.zhihu.matisse.Matisse;
@@ -25,6 +31,11 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by Solang on 2018/3/19.
@@ -59,7 +70,31 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/SamSung/empty_order.png");
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("license", file.getName(), requestFile);
+        CarefreeRetrofit.getInstance().createApi(CircleApis.class)
+                .createContract(body,QueryMapBuilder.getIns()
+                        .put("contact_address","北京市")
+                        .put("contract_name","abc")
+                        .put("divided_amount","1000")
+                        .put("end_at","1521615639425")
+                        .put("information","北京市")
+                        .put("mobile","13013073213")
+                        .put("shop_id","114")
+                        .put("shop_name","name")
+                        .put("total_amount","500000")
+                        .put("service","1")
+                        .put("other_image","")
+                        .buildPost())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse>() {
+                    @Override
+                    public void onSuccess(BaseResponse baseResponse) {
 
+                    }
+                });
     }
 
     @OnClick({R.id.tv_next, R.id.iv_calendar, R.id.iv_add_business_license, R.id.iv_add_other})

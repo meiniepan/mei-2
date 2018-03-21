@@ -1,6 +1,7 @@
 package com.wuyou.merchant.network.apis;
 
 import com.gs.buluo.common.network.BaseResponse;
+import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.entity.ContractDetailEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
@@ -33,6 +34,7 @@ public interface CircleApis {
     @Multipart
     @POST("v1/contract")
     Observable<BaseResponse> createContract(
-            @Query("")String s,
-            @FieldMap SortedTreeMap<String, String> map, @Body RequestBody body);
+            @Part MultipartBody.Part file,
+            @QueryMap SortedTreeMap<String,String> map
+    );
 }
