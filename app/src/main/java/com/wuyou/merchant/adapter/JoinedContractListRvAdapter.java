@@ -30,9 +30,9 @@ public class JoinedContractListRvAdapter extends BaseQuickAdapter<ContractEntity
         String joined_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.joined_at)*1000));
         helper.setText(R.id.tv_name, item.contract_name)
                 .setText(R.id.tv_code, item.contract_id)
-                .setText(R.id.tv_start_time, item.created_at)
-                .setText(R.id.tv_end_time, item.end_at)
-                .setText(R.id.tv_joined_time, item.joined_at)
+                .setText(R.id.tv_start_time, create_time)
+                .setText(R.id.tv_end_time, end_time)
+                .setText(R.id.tv_joined_time, joined_time)
                 .setText(R.id.tv_status, s[i]);
     }
 }

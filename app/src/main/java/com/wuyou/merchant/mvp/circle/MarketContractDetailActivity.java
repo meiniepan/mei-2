@@ -1,7 +1,6 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by solang on 2018/3/20.
  */
 
-public class CreatedContractDetailActivity extends BaseActivity {
+public class MarketContractDetailActivity extends BaseActivity {
 
     String id;
     @BindView(R.id.tv_contract_name)
@@ -52,14 +51,11 @@ public class CreatedContractDetailActivity extends BaseActivity {
     TextView tvServerSum;
     @BindView(R.id.tv_server_scale)
     TextView tvServerScale;
-    @BindView(R.id.tv_merchant_num)
-    TextView tvMerchantNum;
-    @BindView(R.id.recyclerview)
-    RecyclerView recyclerview;
+    private String ownerId;
 
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_created_contract_detail;
+        return R.layout.activity_market_contract_detail;
     }
 
     @Override
@@ -77,6 +73,7 @@ public class CreatedContractDetailActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<ContractEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<ContractEntity> response) {
+                        ownerId = response.data.shop.shop_id;
                         initUI(response.data);
                     }
 
@@ -86,7 +83,6 @@ public class CreatedContractDetailActivity extends BaseActivity {
     private void initUI(ContractEntity data) {
         String b_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.created_at) * 1000));
         String e_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.end_at) * 1000));
-
         tvContractName.setText(data.contract_name);
         tvContractCode.setText(data.contract_number);
         tvContractCategory.setText(data.service.service_name);
@@ -102,13 +98,26 @@ public class CreatedContractDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_authentication, R.id.btn_invite})
+    @OnClick({ R.id.btn_join})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_authentication:
-                break;
-            case R.id.btn_invite:
-                ToastUtils.ToastMessage(getCtx(),"暂未开通！");
+
+            case R.id.btn_join:
+                CarefreeRetrofit.getInstance().createApi(CircleApis.class)
+                        .joinContract(
+                                QueryMapBuilder.getIns().put("owner_id", ownerId)
+                                        .put("member_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                                        .put("contract_id", id)
+                                        .buildPost())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseSubscriber<BaseResponse>() {
+                            @Override
+                            public void onSuccess(BaseResponse response) {
+                                ToastUtils.ToastMessage(getCtx(), "加入成功");
+                            }
+
+                        });
                 break;
         }
     }

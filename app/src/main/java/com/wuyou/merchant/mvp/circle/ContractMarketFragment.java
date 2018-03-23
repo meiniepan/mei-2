@@ -11,7 +11,6 @@ import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.CreatedContractListRvAdapter;
 import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
-import com.wuyou.merchant.view.activity.ServiceProviderDetailActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
@@ -58,7 +57,7 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
         });
         adapter = new CreatedContractListRvAdapter(R.layout.item_contract_created, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(getActivity(), ServiceProviderDetailActivity.class);
+            Intent intent = new Intent(getActivity(), MarketContractDetailActivity.class);
             intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
             startActivity(intent);
         });
@@ -92,6 +91,7 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
 
     @Override
     public void showError(String message, int res) {
+        recyclerView.setRefreshFinished();
         statusLayout.showErrorView(message);
     }
 

@@ -7,10 +7,13 @@ import com.wuyou.merchant.bean.entity.ResponseListEntity;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 /**
@@ -23,7 +26,7 @@ public interface CircleApis {
     @POST("v1/contract")
     Observable<BaseResponse> createContract(
             @Part MultipartBody.Part file,
-            @QueryMap SortedTreeMap<String,String> map
+            @QueryMap SortedTreeMap<String, String> map
     );
 
     @GET("v1/unions")
@@ -33,4 +36,14 @@ public interface CircleApis {
     @GET("v1/contracts")
     Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractMarket(
             @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("v1/contract/{contract_id}")
+    Observable<BaseResponse<ContractEntity>> getContractDetail(
+            @Path("contract_id") String contract_id,
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @FormUrlEncoded
+    @POST("v1/union")
+    Observable<BaseResponse<ContractEntity>> joinContract(
+            @FieldMap SortedTreeMap<String, String> map);
 }

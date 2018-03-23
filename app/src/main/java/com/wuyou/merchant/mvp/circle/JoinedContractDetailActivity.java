@@ -1,23 +1,26 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
+import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.ContractContentRvAdapter;
-import com.wuyou.merchant.bean.entity.ContractContentEntity;
-import com.wuyou.merchant.bean.entity.ContractDetailEntity;
+import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
-import com.wuyou.merchant.network.apis.OrderApis;
+import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
 import java.util.Date;
-import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -28,6 +31,28 @@ import io.reactivex.schedulers.Schedulers;
 public class JoinedContractDetailActivity extends BaseActivity {
 
     String id;
+    @BindView(R.id.tv_contract_name)
+    TextView tvContractName;
+    @BindView(R.id.tv_contract_code)
+    TextView tvContractCode;
+    @BindView(R.id.tv_contract_category)
+    TextView tvContractCategory;
+    @BindView(R.id.tv_contract_create_time)
+    TextView tvContractCreateTime;
+    @BindView(R.id.tv_contract_end_time)
+    TextView tvContractEndTime;
+    @BindView(R.id.tv_company_name)
+    TextView tvCompanyName;
+    @BindView(R.id.tv_company_address)
+    TextView tvCompanyAddress;
+    @BindView(R.id.tv_company_phone)
+    TextView tvCompanyPhone;
+    @BindView(R.id.tv_server_sum)
+    TextView tvServerSum;
+    @BindView(R.id.tv_server_scale)
+    TextView tvServerScale;
+    @BindView(R.id.tv_joined_time)
+    TextView tvJoinedTime;
 
     @Override
     protected int getContentLayout() {
@@ -37,38 +62,52 @@ public class JoinedContractDetailActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.CONTRACT_ID);
-        initData();
+        initData(id);
     }
 
-    private void initData() {
+    private void initData(String id) {
         showLoadingDialog();
-        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getContractDetail(id, QueryMapBuilder.getIns().buildGet())
+        CarefreeRetrofit.getInstance().createApi(CircleApis.class)
+                .getContractDetail(id, QueryMapBuilder.getIns().put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid()).buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<ContractDetailEntity>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<ContractEntity>>() {
                     @Override
-                    public void onSuccess(BaseResponse<ContractDetailEntity> response) {
+                    public void onSuccess(BaseResponse<ContractEntity> response) {
                         initUI(response.data);
                     }
 
                 });
     }
 
-    private void initUI(ContractDetailEntity data) {
-        String b_time = TribeDateUtils.dateFormat5(new Date(data.start_at * 1000));
-        String e_time = TribeDateUtils.dateFormat5(new Date(data.end_at * 1000));
+    private void initUI(ContractEntity data) {
+        String b_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.created_at) * 1000));
+        String e_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.end_at) * 1000));
+        String j_time = TribeDateUtils.dateFormat7(new Date(Long.parseLong(data.end_at) * 1000));
 
-        if (data.content != null) {
-            initContentList(data.content);
+        tvContractName.setText(data.contract_name);
+        tvContractCode.setText(data.contract_number);
+        tvContractCategory.setText(data.service.service_name);
+        tvContractCreateTime.setText(b_time);
+        tvContractEndTime.setText(e_time);
+
+        tvCompanyName.setText(data.shop.shop_name);
+        tvCompanyAddress.setText(data.shop.contact_address);
+        tvCompanyPhone.setText(data.shop.mobile);
+
+        tvServerSum.setText(data.total_amount);
+        tvServerScale.setText(data.divided_amount);
+        tvJoinedTime.setText(data.joined_at);
+    }
+
+
+    @OnClick({ R.id.btn_contact})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+
+            case R.id.btn_contact:
+                ToastUtils.ToastMessage(getCtx(),"暂未开通！");
+                break;
         }
     }
-
-    private void initContentList(List<ContractContentEntity> content) {
-        ContractContentRvAdapter adapter = new ContractContentRvAdapter(R.layout.item_contract_content,content);
-//        rvContent.setLayoutManager(new LinearLayoutManager(this));
-//        rvContent.setAdapter(adapter);
-    }
-
-
 }

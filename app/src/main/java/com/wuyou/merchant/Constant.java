@@ -16,4 +16,7 @@ public class Constant {
     public static final int REQUEST_CODE_CHOOSE_IMAGE = 200;
     public static final String CONTRACT_ENTITY = "contract_entity";
     public static final String IMAGE1_URL = "image1_url";
+    public static final String FUND_ID = "fund_id";
+    public static final String WALLET_INFO_ENTITY = "wallet_info_entity";
+    public static final String CREDIT_SCORE = "credit_score";
 }

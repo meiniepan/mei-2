@@ -76,13 +76,22 @@
                 android:scheme="rong" />
         </intent-filter>
     </activity>
-        <activity android:name=".mvp.circle.CreateIntelligentContractActivity1" />
+        <activity android:name=".mvp.circle.CreateIntelligentContractActivity1"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            />
         <activity android:name=".mvp.circle.CreateIntelligentContractActivity2" />
         <activity android:name=".mvp.store.StoreInfoEditActivity" />
         <activity android:name=".mvp.circle.CreatedContractDetailActivity" />
         <activity android:name=".mvp.wallet.RepayActivity" >
         </activity>
         <activity android:name=".mvp.wallet.RepayRecordActivity" />
+        <activity android:name=".mvp.wallet.LoanConfirmActivity" />
+        <activity android:name=".mvp.wallet.LoanActivity" />
+        <activity android:name=".mvp.wallet.Loan2Activity" />
+        <activity android:name=".mvp.circle.MarketContractDetailActivity" />
+        <activity android:name=".mvp.circle.JoinedContractDetailActivity" />
+        <activity android:name=".mvp.wallet.CreditDetailActivity" />
 
         <!--<provider-->
             <!--android:name="android.support.v4.content.FileProvider"-->

@@ -1,6 +1,7 @@
 package com.wuyou.merchant.mvp.wallet;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -61,13 +62,14 @@ public class RepayActivity extends BaseActivity {
         contentView.findViewById(R.id.tv_record).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.ToastMessage(getCtx(), "haha");
+                startActivity(new Intent(getCtx(), RepayRecordActivity.class));
                 popupWindow.dismiss();
             }
         });
         contentView.findViewById(R.id.tv_help).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ToastUtils.ToastMessage(getCtx(),"暂未开通！");
                 popupWindow.dismiss();
             }
         });

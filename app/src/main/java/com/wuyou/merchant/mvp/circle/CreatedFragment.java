@@ -59,8 +59,8 @@ public class CreatedFragment extends BaseFragment<CircleContract.View, CircleCon
         });
         adapter = new CreatedContractListRvAdapter(R.layout.item_contract_created, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(getActivity(), ServiceProviderDetailActivity.class);
-            intent.putExtra(Constant.MERCHANT_ID, adapter.getItem(position).shop_id);
+            Intent intent = new Intent(getActivity(), CreatedContractDetailActivity.class);
+            intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
             startActivity(intent);
         });
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
@@ -93,6 +93,7 @@ public class CreatedFragment extends BaseFragment<CircleContract.View, CircleCon
 
     @Override
     public void showError(String message, int res) {
+        recyclerView.setRefreshFinished();
         statusLayout.showErrorView(message);
     }
 

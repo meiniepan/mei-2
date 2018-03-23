@@ -2,29 +2,32 @@ package com.wuyou.merchant.adapter;
 
 import android.support.annotation.Nullable;
 
-import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.gs.buluo.common.utils.TribeDateUtils;
+import com.wuyou.merchant.R;
+import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by solang on 2018/2/5.
  */
 
-public class RepayRecordListRvAdapter extends BaseQuickAdapter<ContractEntity, BaseHolder> {
+public class RepayRecordListRvAdapter extends BaseQuickAdapter<RepayRecordEntity, BaseHolder> {
 
-    public RepayRecordListRvAdapter(int layoutResId, @Nullable List<ContractEntity> data) {
+    public RepayRecordListRvAdapter(int layoutResId, @Nullable List<RepayRecordEntity> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseHolder helper, ContractEntity item) {
-//        helper.setText(R.id.tv_name, item.name)
-//                .setText(R.id.tv_code, item.name)
-//                .setText(R.id.tv_start_time, item.name)
-//                .setText(R.id.tv_end_time, item.name)
-//                .setText(R.id.tv_merchant_num, item.name)
-//                .setText(R.id.tv_status, item.name);
+    protected void convert(BaseHolder helper, RepayRecordEntity item) {
+        String stage = new SimpleDateFormat("yyyy年M月").format(new Date(Long.parseLong(item.stage)*1000));
+        String s = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.real_repayment_at)*1000));
+        helper.setText(R.id.tv_stage, stage)
+                .setText(R.id.tv_repay_num, item.amount+"元")
+                .setText(R.id.tv_time, s);
     }
 }

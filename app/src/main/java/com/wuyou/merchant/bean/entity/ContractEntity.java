@@ -16,15 +16,24 @@ public class ContractEntity implements Parcelable{
     public String mobile;
     public String total_amount;
     public String divided_amount;
-    public String service;
+    public ServiceEntity service;
     public String information;
     public String contract_id;
     public String created_at;
     public String status;
     public String member_quantity;
     public String joined_at;
+    public String certification;
+    public String contract_number;
+    public ContractMerchantEntity shop;
 
-    public ContractEntity(Parcel in) {
+
+
+    public ContractEntity() {
+
+    }
+
+    protected ContractEntity(Parcel in) {
         shop_id = in.readString();
         shop_name = in.readString();
         end_at = in.readString();
@@ -33,8 +42,14 @@ public class ContractEntity implements Parcelable{
         mobile = in.readString();
         total_amount = in.readString();
         divided_amount = in.readString();
-        service = in.readString();
         information = in.readString();
+        contract_id = in.readString();
+        created_at = in.readString();
+        status = in.readString();
+        member_quantity = in.readString();
+        joined_at = in.readString();
+        certification = in.readString();
+        contract_number = in.readString();
     }
 
     public static final Creator<ContractEntity> CREATOR = new Creator<ContractEntity>() {
@@ -48,10 +63,6 @@ public class ContractEntity implements Parcelable{
             return new ContractEntity[size];
         }
     };
-
-    public ContractEntity() {
-
-    }
 
     @Override
     public int describeContents() {
@@ -68,7 +79,13 @@ public class ContractEntity implements Parcelable{
         dest.writeString(mobile);
         dest.writeString(total_amount);
         dest.writeString(divided_amount);
-        dest.writeString(service);
         dest.writeString(information);
+        dest.writeString(contract_id);
+        dest.writeString(created_at);
+        dest.writeString(status);
+        dest.writeString(member_quantity);
+        dest.writeString(joined_at);
+        dest.writeString(certification);
+        dest.writeString(contract_number);
     }
 }

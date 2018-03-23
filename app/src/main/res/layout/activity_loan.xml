@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
     android:background="@color/tint_bg"
     android:orientation="vertical">
 
@@ -32,13 +33,6 @@
                     android:text="借款"
                     android:textSize="22sp" />
 
-                <ImageView
-                    android:id="@+id/iv_more"
-                    android:layout_width="@dimen/common_height"
-                    android:layout_height="@dimen/common_height"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="@dimen/text_margin"
-                    android:background="@drawable/more_repay_selector" />
             </RelativeLayout>
 
             <include layout="@layout/split_area" />
@@ -49,23 +43,25 @@
                 android:background="@color/white"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
-                android:paddingEnd="@dimen/common_margin"
-                android:paddingStart="@dimen/common_margin">
+
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/common_height"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:paddingStart="@dimen/common_margin">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="需还款总金额 (元)"
+                        android:text="借款额度 (元)"
                         android:textColor="@color/common_gray" />
 
                     <TextView
-                        android:id="@+id/tv_total_repay_num"
+                        android:id="@+id/tv_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="555"
@@ -77,7 +73,108 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/common_height"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:background="@color/main_blue"
+                    android:paddingStart="@dimen/common_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="根据您的额度，已为您推荐了最优借款方案"
+                        android:textColor="@color/common_gray" />
+
+                </LinearLayout>
+
+                <include layout="@layout/split_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical"
+                    android:background="@color/main_blue"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:paddingStart="@dimen/common_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="基金名称1"
+                        android:textColor="@color/common_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2000元"
+                        android:textColor="@color/common_gray" />
+                </LinearLayout>
+
+                <include layout="@layout/split_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:background="@color/main_blue"
+                    android:paddingStart="@dimen/common_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="基金名称2"
+                        android:textColor="@color/common_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tool:text="100.00"
+                        android:textColor="@color/common_gray" />
+                </LinearLayout>
+
+
+
+                <include layout="@layout/split_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:paddingStart="@dimen/common_margin">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="借多久"
+                        android:textColor="@color/common_gray" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_loan_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3个月"
+                            android:textColor="@color/main_blue" />
+
+                        <include layout="@layout/layout_next" />
+                    </LinearLayout>
+                </LinearLayout>
+                <include layout="@layout/split_line" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:paddingStart="@dimen/common_margin">
 
                     <TextView
                         android:layout_width="0dp"
@@ -90,38 +187,8 @@
                         android:id="@+id/tv_this_repay_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="555"
+                        tool:text="100.00"
                         android:textColor="@color/common_gray" />
-                </LinearLayout>
-
-                <include layout="@layout/split_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/common_height"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="还款方式"
-                        android:textColor="@color/common_gray" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_repay_style"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="分期还款"
-                            android:textColor="@color/main_blue" />
-
-                        <include layout="@layout/layout_next" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -130,7 +197,7 @@
             <Button
                 android:id="@+id/btn_confirm"
                 style="@style/button_style"
-                android:text="确认还款" />
+                android:text="确认借款" />
         </LinearLayout>
     </ScrollView>
 

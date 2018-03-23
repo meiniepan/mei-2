@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(getMessageFragment());
         fragments.add(new StoreFragment());
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
+        viewPager.setOffscreenPageLimit(2);
         bottomView.setupWithViewPager(viewPager, false);
         bottomView.enableAnimation(false);
         bottomView.setIconVisibility(true);

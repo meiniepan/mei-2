@@ -18,6 +18,7 @@ import com.gs.buluo.common.widget.LoadingDialog;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.bean.entity.ServiceEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.util.CommonUtil;
@@ -76,11 +77,13 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
             case R.id.tv_commit:
                 entity.total_amount = etSum.getText().toString();
                 entity.divided_amount = etScale.getText().toString();
-                entity.service = "1";
+                ServiceEntity serviceEntity = new ServiceEntity();
+                entity.service = serviceEntity;
+                entity.service.service_id = "1";
                 entity.information = "通用";
                 if (TextUtils.isEmpty(entity.total_amount)
                         || TextUtils.isEmpty(entity.divided_amount)
-                        || TextUtils.isEmpty(entity.service)
+                        || TextUtils.isEmpty(entity.service.service_id)
                         || TextUtils.isEmpty(entity.information)
                         ) {
                     ToastUtils.ToastMessage(getCtx(), "请完善资料");
@@ -95,13 +98,13 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                                 .put("contact_address", entity.contact_address)
                                 .put("contract_name", entity.contract_name)
                                 .put("divided_amount", entity.divided_amount)
-                                .put("end_at", "1521615639425")
+                                .put("end_at", entity.end_at)
                                 .put("information", entity.information)
                                 .put("mobile", entity.mobile)
                                 .put("shop_id", entity.shop_id)
                                 .put("shop_name", entity.shop_name)
                                 .put("total_amount", entity.total_amount)
-                                .put("service", entity.service)
+                                .put("service", entity.service.service_id)
                                 .put("other_image", "")
                                 .buildPost())
                         .subscribeOn(Schedulers.io())

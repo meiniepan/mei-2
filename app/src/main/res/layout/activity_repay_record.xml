@@ -1,44 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tint_bg"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="none">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
 
-        <LinearLayout
+        <include layout="@layout/back_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="还款记录"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
+
+    <com.gs.buluo.common.widget.StatusLayout
+        android:id="@+id/sl_list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:emptyDrawable="@mipmap/empty_order"
+        app:errorDrawable="@mipmap/net_error">
+
+        <com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView
+            android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="true"
-            android:fitsSystemWindows="true"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
-                android:background="@color/white">
-
-                <include layout="@layout/back_black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="还款记录"
-                    android:textSize="22sp" />
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="wrap_content" />
+    </com.gs.buluo.common.widget.StatusLayout>
 
 </LinearLayout>

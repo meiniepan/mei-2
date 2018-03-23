@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tint_bg"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height"
+                android:background="@color/white">
+
+                <include layout="@layout/back_black" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="借款"
+                    android:textSize="22sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/common_margin"
+                        android:text="本次借款需要短信确认，"
+                        android:textColor="@color/common_gray" />
+
+                    <TextView
+                        android:id="@+id/tv_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/common_margin"
+                        android:layout_marginTop="@dimen/small_text_margin"
+                        android:text="请输入133xxxxxxxx收到的短信验证码"
+                        android:textColor="@color/common_gray" />
+                </LinearLayout>
+
+                <include layout="@layout/split_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical"
+                    android:background="@color/white"
+                    android:paddingEnd="@dimen/common_margin"
+                    android:paddingStart="@dimen/common_margin">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="验证码:"
+                        android:textColor="@color/common_gray" />
+
+                    <EditText
+                        android:id="@+id/tv_this_repay_num"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/common_margin"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/common_gray"
+                        android:background="@null"
+                        android:hint="请填写收到的验证码"
+                        />
+                    <TextView
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="重发验证码"
+                        android:textColor="@color/main_blue"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/split_line" />
+
+            <Button
+                android:id="@+id/btn_confirm"
+                style="@style/button_style"
+                android:text="确认借款" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -2,7 +2,7 @@ package com.wuyou.merchant.network.apis;
 
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
-import com.wuyou.merchant.bean.entity.ContractDetailEntity;
+import com.wuyou.merchant.bean.entity.ContractMerchantEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
@@ -115,7 +115,7 @@ public interface OrderApis {
             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("contract/{contract_id}")
-    Observable<BaseResponse<ContractDetailEntity>> getContractDetail(
+    Observable<BaseResponse<ContractMerchantEntity>> getContractDetail(
             @Path("contract_id") String contract_id,
             @QueryMap SortedTreeMap<String, String> map);
 

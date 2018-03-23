@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tint_bg"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
+
+        <include layout="@layout/back_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="智能合约详情"
+            android:textSize="@dimen/top_size" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,21 +34,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height"
-                android:background="@color/white">
-
-                <include layout="@layout/back_black" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="智能合约详情"
-                    android:textSize="@dimen/top_size" />
-
-            </RelativeLayout>
 
             <include layout="@layout/split_area" />
 
@@ -248,6 +250,7 @@
             </LinearLayout>
 
             <include layout="@layout/split_area" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -282,8 +285,8 @@
                         android:id="@+id/tv_server_sum"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
                         android:layout_marginStart="@dimen/common_margin"
+                        android:gravity="end"
                         android:text="0.00" />
                 </LinearLayout>
 
@@ -303,14 +306,16 @@
                         android:id="@+id/tv_server_scale"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
                         android:layout_marginStart="@dimen/common_margin"
+                        android:gravity="end"
                         android:lineSpacingExtra="2dp"
                         android:text="0.00" />
                 </LinearLayout>
 
             </LinearLayout>
+
             <include layout="@layout/split_area" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -326,13 +331,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/common_margin"
                     android:text="合约内容" />
+
                 <include layout="@layout/split_line" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="服务社区"
-                        android:layout_marginTop="@dimen/common_margin"
-                        android:textColor="@color/gray80" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_margin"
+                    android:text="服务社区"
+                    android:textColor="@color/gray80" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -344,26 +352,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/common_margin"
                     android:text="具体服务小区地址为:" />
-                <include layout="@layout/split_line"/>
+
+                <include layout="@layout/split_line" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="服务时效"
                     android:layout_marginTop="@dimen/common_margin"
+                    android:text="服务时效"
                     android:textColor="@color/gray80" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/common_margin"
                     android:text="为保证用户的良好体验，必须按照用户约定的时间进行上门服务，服务上门时间不可晚于用户要求时间:" />
 
-                <include layout="@layout/split_line"/>
+                <include layout="@layout/split_line" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="服务惩罚"
                     android:layout_marginTop="@dimen/common_margin"
+                    android:text="服务惩罚"
                     android:textColor="@color/gray80" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -371,43 +384,47 @@
                     android:text="我们的宗旨是用户至上，每一单服务，要做到让用户满意，如果因为服务质量，服务人员态度等影响客户满意度的问题遭到客户投诉，需扣除分成金额" />
 
             </LinearLayout>
-            <include layout="@layout/split_area"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:paddingBottom="@dimen/common_margin"
-            android:paddingEnd="@dimen/common_margin_12"
-            android:paddingStart="@dimen/common_margin_12"
-            android:paddingTop="@dimen/common_margin">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="@dimen/common_height"
-              android:gravity="center_vertical"
-              >
-              <TextView
-                  android:layout_width="0dp"
-                  android:layout_weight="1"
-                  android:layout_height="wrap_content"
-                  android:text="加入合约时间"
-                  />
 
-          </LinearLayout>
-            <include layout="@layout/split_line"/>
+            <include layout="@layout/split_area" />
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/common_height"
-                android:gravity="center_vertical"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-android:text="56446654"
-                    />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/common_margin"
+                android:paddingEnd="@dimen/common_margin_12"
+                android:paddingStart="@dimen/common_margin_12"
+                android:paddingTop="@dimen/common_margin">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="加入合约时间" />
+
+                </LinearLayout>
+
+                <include layout="@layout/split_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_joined_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tool:text="56446654" />
+
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

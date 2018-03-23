@@ -21,8 +21,12 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.PicassoEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.qqtheme.framework.picker.DatePicker;
+import cn.qqtheme.framework.util.ConvertUtils;
 
 /**
  * Created by Solang on 2018/3/19.
@@ -34,7 +38,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     @BindView(R.id.et_contract_name)
     EditText etContractName;
     @BindView(R.id.et_end_time)
-    EditText etEndTime;
+    TextView tvEndTime;
     @BindView(R.id.iv_calendar)
     ImageView ivCalendar;
     @BindView(R.id.et_company_name)
@@ -49,6 +53,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     ImageView ivAddOther;
     private Uri imagePath;
     ContractEntity entity = new ContractEntity();
+    private long endTime;
 
     @Override
     protected int getContentLayout() {
@@ -64,32 +69,46 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_next:
-                Intent intent = new Intent(getCtx(), CreateIntelligentContractActivity2.class);
-                entity.shop_id = CarefreeApplication.getInstance().getUserInfo().getUid();
-                entity.contract_name = etContractName.getText().toString();
-                entity.end_at = etEndTime.getText().toString();
-                entity.shop_name = etCompanyName.getText().toString();
-                entity.contact_address = etCompanyAddress.getText().toString();
-                entity.mobile = etPhone.getText().toString().trim();
-                if (TextUtils.isEmpty(entity.contract_name)
-                        || TextUtils.isEmpty(entity.end_at)
-                        || TextUtils.isEmpty(entity.shop_name)
-                        || TextUtils.isEmpty(entity.contact_address)
-                        || TextUtils.isEmpty(entity.mobile)
-                        || (imagePath == null)
-                        ){
-                    ToastUtils.ToastMessage(getCtx(),"请完善资料");
-                    return;
-                }
-                if (entity.mobile.length()!= 11){
-                    ToastUtils.ToastMessage(getCtx(),"手机号码格式不正确");
-                    return;
-                }
-                intent.putExtra(Constant.CONTRACT_ENTITY,entity);
-                intent.putExtra(Constant.IMAGE1_URL,imagePath);
-                startActivity(intent);
+                doNext();
                 break;
             case R.id.iv_calendar:
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH)+1;
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                final DatePicker picker = new DatePicker(this);
+                picker.setCanceledOnTouchOutside(true);
+                picker.setUseWeight(true);
+                picker.setTopPadding(ConvertUtils.toPx(this, 10));
+                picker.setRangeEnd(2111, 1, 11);
+                picker.setRangeStart(2016, 8, 29);
+                picker.setSelectedItem(year, month, day);
+                picker.setResetWhileWheel(false);
+                picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
+                    @Override
+                    public void onDatePicked(String year, String month, String day) {
+                        tvEndTime.setText(year + "-" + month + "-" + day);
+                        calendar.set(Integer.parseInt(year),Integer.parseInt(month)-1,Integer.parseInt(day));
+                        endTime = calendar.getTimeInMillis()/1000;
+                    }
+                });
+                picker.setOnWheelListener(new DatePicker.OnWheelListener() {
+                    @Override
+                    public void onYearWheeled(int index, String year) {
+                        picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+                    }
+
+                    @Override
+                    public void onMonthWheeled(int index, String month) {
+                        picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+                    }
+
+                    @Override
+                    public void onDayWheeled(int index, String day) {
+                        picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+                    }
+                });
+                picker.show();
                 break;
             case R.id.iv_add_business_license:
                 Matisse.from(this)
@@ -107,6 +126,34 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
                 break;
         }
     }
+
+    private void doNext() {
+        Intent intent = new Intent(getCtx(), CreateIntelligentContractActivity2.class);
+        entity.shop_id = CarefreeApplication.getInstance().getUserInfo().getUid();
+        entity.contract_name = etContractName.getText().toString();
+        entity.end_at = endTime+"";
+        entity.shop_name = etCompanyName.getText().toString();
+        entity.contact_address = etCompanyAddress.getText().toString();
+        entity.mobile = etPhone.getText().toString().trim();
+        if (TextUtils.isEmpty(entity.contract_name)
+                || TextUtils.isEmpty(entity.end_at)
+                || TextUtils.isEmpty(entity.shop_name)
+                || TextUtils.isEmpty(entity.contact_address)
+                || TextUtils.isEmpty(entity.mobile)
+                || (imagePath == null)
+                ){
+            ToastUtils.ToastMessage(getCtx(),"请完善资料");
+            return;
+        }
+        if (entity.mobile.length()!= 11){
+            ToastUtils.ToastMessage(getCtx(),"手机号码格式不正确");
+            return;
+        }
+        intent.putExtra(Constant.CONTRACT_ENTITY,entity);
+        intent.putExtra(Constant.IMAGE1_URL,imagePath);
+        startActivity(intent);
+    }
+
     @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {

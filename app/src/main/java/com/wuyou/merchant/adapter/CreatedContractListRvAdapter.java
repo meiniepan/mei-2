@@ -25,8 +25,8 @@ public class CreatedContractListRvAdapter extends BaseQuickAdapter<ContractEntit
     protected void convert(BaseHolder helper, ContractEntity item) {
         String[] s = {"已过期","进行中"};
         int i = Integer.parseInt(item.status);
-        String create_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.created_at)*1000));
-        String end_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(item.end_at)*1000));
+        String create_time = TribeDateUtils.dateFormat5(new Date(Long.parseLong(item.created_at)*1000));
+        String end_time = TribeDateUtils.dateFormat5(new Date(Long.parseLong(item.end_at)*1000));
         helper.setText(R.id.tv_name, item.contract_name)
                 .setText(R.id.tv_code, item.contract_id)
                 .setText(R.id.tv_start_time, create_time)
