@@ -5,6 +5,7 @@ import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
+import com.wuyou.merchant.bean.entity.TradeEntity;
 import com.wuyou.merchant.bean.entity.WalletInfoEntity;
 
 import io.reactivex.Observable;
@@ -17,25 +18,34 @@ import retrofit2.http.QueryMap;
  */
 
 public interface WalletApis {
-    @GET("v1/funds")
+    @GET("funds")
     Observable<BaseResponse<ResponseListEntity<FundEntity>>> getFundList(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("v1/credit")
+    @GET("credit")
     Observable<BaseResponse<WalletInfoEntity>> getCredit(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("v1/loan")
+    @GET("loan")
     Observable<BaseResponse> loan(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("v1/repayment/records/{shop_id}")
+    @GET("repayment/records/{shop_id}")
     Observable<BaseResponse<ResponseListEntity<RepayRecordEntity>>> getRepayRecords(
             @Path("shop_id") String shop_id,
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("v1/fund/{fund_id}")
+    @GET("fund/{fund_id}")
     Observable<BaseResponse<FundEntity>> getFundDetail(
             @Path("fund_id") String fund_id,
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("coin/transactions/{shop_id}")
+    Observable<BaseResponse<ResponseListEntity<TradeEntity>>> getTradelist(
+            @Path("shop_id") String shop_id,
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("coin/transaction")
+    Observable<BaseResponse<TradeEntity>> getTradeDetail(
             @QueryMap SortedTreeMap<String, String> map);
 }

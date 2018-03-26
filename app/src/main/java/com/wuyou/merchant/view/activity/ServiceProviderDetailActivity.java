@@ -6,7 +6,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gs.buluo.common.network.BaseResponse;
@@ -54,8 +53,6 @@ public class ServiceProviderDetailActivity extends BaseActivity {
     TextView tvQualification;
     @BindView(R.id.tv_union_num)
     TextView tvUnionNum;
-    @BindView(R.id.next)
-    RelativeLayout next;
     @BindView(R.id.rv_avatar)
     RecyclerView rvAvatar;
     @BindView(R.id.tv_tag_more)

@@ -8,6 +8,7 @@ import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
+import com.wuyou.merchant.bean.entity.TradeEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
 
@@ -38,6 +39,25 @@ public class WalletPresenter extends WalletContract.Presenter {
                     public void onSuccess(BaseResponse<ResponseListEntity<FundEntity>> response) {
                         if (response.data.list.size() > 0)
                             lastId_list = response.data.list.get(response.data.list.size() - 1).fund_id;
+                        if (isAttach()) mView.getSuccess(response.data);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        if (isAttach()) mView.showError(e.getDisplayMessage(), e.getCode());
+                    }
+                });
+    }
+
+    @Override
+    void getTradeList() {
+        CarefreeRetrofit.getInstance().createApi(WalletApis.class)
+                .getTradelist(CarefreeApplication.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeEntity>>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<ResponseListEntity<TradeEntity>> response) {
                         if (isAttach()) mView.getSuccess(response.data);
                     }
 

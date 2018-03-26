@@ -22,9 +22,9 @@ public interface UserApis {
     Observable<BaseResponse<UserInfo>> getVerifyCode(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("profile/{uid}")
+    @GET("shop/{shop_id}")
     Observable<BaseResponse<UserInfo>> getUserInfo(
-            @Path("uid")String uid,@QueryMap SortedTreeMap<String, String> map);
+            @Path("shop_id") String shop_id, @QueryMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @POST("login")
@@ -34,16 +34,21 @@ public interface UserApis {
     @FormUrlEncoded
     @PUT("login/{uid}")
     Observable<BaseResponse> doLogout(
-            @Path("uid")String uid,@FieldMap SortedTreeMap<String, String> map);
+            @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @PUT("profile/{uid}")
     Observable<BaseResponse> updateUserInfo(
-            @Path("uid")String uid,@FieldMap SortedTreeMap<String, String> map);
+            @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @PUT("password/edit/{uid}")
     Observable<BaseResponse> updatePwd(
-            @Path("uid")String uid,@FieldMap SortedTreeMap<String, String> map);
+            @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
+
+    @FormUrlEncoded
+    @PUT("logout/{merchant_id}")
+    Observable<BaseResponse> loginOut(
+            @Path("merchant_id") String merchant_id, @FieldMap SortedTreeMap<String, String> map);
 
 }

@@ -21,8 +21,8 @@ import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
+import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.activity.MainActivity;
-import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by solang on 2018/1/31.
  */
 
-public class ChoseArtisanFragment extends BaseFragment {
+public class ChoseArtisanFragment extends BaseActivity {
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
@@ -51,12 +51,12 @@ public class ChoseArtisanFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        orderId = getActivity().getIntent().getStringExtra(Constant.ORDER_ID);
-        adapter = new WorkersRvAdapter(getActivity(), R.layout.item_chose_artisan, data);
+        orderId = getIntent().getStringExtra(Constant.ORDER_ID);
+        adapter = new WorkersRvAdapter( this,R.layout.item_chose_artisan, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            showAlert(adapter.getItem(position).name, adapter.getItem(position).id);
+            showAlert(adapter.getItem(position).worker_name, adapter.getItem(position).worker_id);
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));
         recyclerView.setAdapter(adapter);
         getData();
     }
@@ -64,7 +64,11 @@ public class ChoseArtisanFragment extends BaseFragment {
     private void getData() {
         statusLayout.showProgressView();
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getWorkersInfo(CarefreeApplication.getInstance().getUserInfo().getUid(), QueryMapBuilder.getIns().buildGet())
+                .getWorkersInfo(QueryMapBuilder.getIns().put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                        .put("start_id", "0")
+                        .put("flag", "1")
+                        .put("size", "10")
+                        .buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<WorkerListEntity>>() {
@@ -85,7 +89,7 @@ public class ChoseArtisanFragment extends BaseFragment {
     }
 
     private void showAlert(String name, String serverId) {
-        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getContext());
+        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getCtx());
         builder.setTitle("是否分单给服务者").setMessage(name);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
@@ -102,9 +106,9 @@ public class ChoseArtisanFragment extends BaseFragment {
                         .subscribe(new BaseSubscriber<BaseResponse>() {
                             @Override
                             public void onSuccess(BaseResponse response) {
-                                ToastUtils.ToastMessage(getContext(), "完成");
-                                Intent intent = new Intent(getActivity(), MainActivity.class);
-                                getActivity().startActivity(intent);
+                                ToastUtils.ToastMessage(getCtx(), "完成");
+                                Intent intent = new Intent( ChoseArtisanFragment.this,MainActivity.class);
+                                startActivity(intent);
                             }
 
                         });

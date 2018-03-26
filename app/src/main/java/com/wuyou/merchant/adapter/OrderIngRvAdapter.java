@@ -31,7 +31,7 @@ public class OrderIngRvAdapter extends BaseQuickAdapter<OrderInfoEntity, BaseHol
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at * 1000));
         helper.setText(R.id.tv_create_time, create_time)
 //                .setText(R.id.tv_category, item.category)
-                .setText(R.id.tv_address, item.address.city + item.address.district + item.address.area + item.address.address)
+                .setText(R.id.tv_address, item.address.city_name + item.address.district + item.address.area + item.address.address)
                 .setText(R.id.tv_status, s[i])
                 .setText(R.id.tv_sum, item.price);
     }

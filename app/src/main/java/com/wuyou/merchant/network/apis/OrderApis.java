@@ -29,7 +29,7 @@ public interface OrderApis {
      * @param map
      * @return
      */
-    @GET("v1/orders")
+    @GET("orders")
     Observable<BaseResponse<OrderInfoListEntity>> getOrders(
             @QueryMap SortedTreeMap<String, String> map);
 
@@ -76,13 +76,13 @@ public interface OrderApis {
     /**
      * 员工列表
      *
-     * @param uid
+     * @param
      * @param map
      * @return
      */
-    @GET("workers/{uid}")
+    @GET("workers")
     Observable<BaseResponse<WorkerListEntity>> getWorkersInfo(
-            @Path("uid") String uid, @QueryMap SortedTreeMap<String, String> map);
+             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("union/shops/{uid}/{action}")
     Observable<BaseResponse<WorkerListEntity>> getDispatchMerchantInfo(
@@ -132,7 +132,7 @@ public interface OrderApis {
             @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
-    @PUT("v1/order/dispatch")
+    @PUT("order/dispatch")
     Observable<BaseResponse> dispatchOrder(
              @FieldMap SortedTreeMap<String, String> map);
 

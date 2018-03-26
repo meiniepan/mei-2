@@ -31,6 +31,7 @@
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scrollbars="none"
         android:background="@color/tint_bg">
 
         <LinearLayout
@@ -68,6 +69,7 @@
             <LinearLayout
                 android:layout_width="300dp"
                 android:layout_height="160dp"
+                android:visibility="gone"
                 android:background="@mipmap/wallet_orange_bg"
                 android:orientation="vertical">
 
@@ -92,6 +94,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_income"
                 android:layout_width="300dp"
                 android:layout_height="160dp"
                 android:background="@mipmap/wallet_green_bg"
@@ -119,112 +122,8 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <LinearLayout
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:id="@+id/ll_wallet_limit"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="可借额度(元)"
-                android:textColor="@color/main_gray"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/wallet_limit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/night_blue"
-                android:textSize="@dimen/dimens_16sp"
-                android:textStyle="bold"
-                tool:text="100.00" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_wallet_borrow"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="已借款(元)"
-                android:textColor="@color/main_gray"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/wallet_borrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/night_blue"
-                android:textSize="@dimen/dimens_16sp"
-                android:textStyle="bold"
-                tool:text="100.00" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_wallet_pay_back"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="本期应还(元)"
-                android:textColor="@color/main_gray"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/wallet_pay_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/night_blue"
-                android:textSize="@dimen/dimens_16sp"
-                android:textStyle="bold"
-                tool:text="100.00" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <include layout="@layout/split_line" />
-
-    <Button
-        android:id="@+id/btn_apply"
-        style="@style/button_style"
-        android:text="申请借款" />
-
-    <com.gs.buluo.common.widget.StatusLayout
-        android:id="@+id/sl_list_layout"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/common_margin"
-        android:layout_height="match_parent"
-        app:emptyDrawable="@mipmap/empty_order"
-        app:errorDrawable="@mipmap/net_error">
-
-        <com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView
-            android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.gs.buluo.common.widget.StatusLayout>
+        android:layout_height="match_parent"/>
 </LinearLayout>

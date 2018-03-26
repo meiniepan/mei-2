@@ -6,7 +6,7 @@ package com.wuyou.merchant.bean.entity;
 
 public class AddressEntity {
     public String address_id;
-    public String city;
+    public String city_name;
     public String district;
     public String area;
     public String address;

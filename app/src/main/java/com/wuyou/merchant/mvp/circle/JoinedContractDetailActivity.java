@@ -1,9 +1,17 @@
 package com.wuyou.merchant.mvp.circle;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
@@ -12,12 +20,15 @@ import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.adapter.ContractAddressAdapter;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.bean.entity.ContractInfoEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,6 +64,22 @@ public class JoinedContractDetailActivity extends BaseActivity {
     TextView tvServerScale;
     @BindView(R.id.tv_joined_time)
     TextView tvJoinedTime;
+    @BindView(R.id.tv_time)
+    TextView tvTime;
+    @BindView(R.id.tv_punish)
+    TextView tvPunish;
+    @BindView(R.id.ll_created)
+    View layoutCreated;
+    @BindView(R.id.ll_joined)
+    View layoutJoined;
+    @BindView(R.id.btn_contact)
+    Button button;
+    @BindView(R.id.rv_address)
+    RecyclerView recyclerView;
+    ContractAddressAdapter adapter;
+    private List<String> addressData;
+    private int fromId;
+    private String ownerId;
 
     @Override
     protected int getContentLayout() {
@@ -62,28 +89,37 @@ public class JoinedContractDetailActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.CONTRACT_ID);
+        fromId = getIntent().getIntExtra(Constant.CONTRACT_FROM, 1);
         initData(id);
     }
 
     private void initData(String id) {
         showLoadingDialog();
-        CarefreeRetrofit.getInstance().createApi(CircleApis.class)
-                .getContractDetail(id, QueryMapBuilder.getIns().put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid()).buildGet())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<ContractEntity>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<ContractEntity> response) {
-                        initUI(response.data);
-                    }
+            CarefreeRetrofit.getInstance().createApi(CircleApis.class)
+                    .getContractDetail(id, QueryMapBuilder.getIns().put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid()).buildGet())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new BaseSubscriber<BaseResponse<ContractEntity>>() {
+                        @Override
+                        public void onSuccess(BaseResponse<ContractEntity> response) {
+                            ownerId = response.data.shop.shop_id;
+                            initUI(response.data);
+                        }
 
-                });
+                    });
     }
 
     private void initUI(ContractEntity data) {
         String b_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.created_at) * 1000));
         String e_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.end_at) * 1000));
         String j_time = TribeDateUtils.dateFormat7(new Date(Long.parseLong(data.end_at) * 1000));
+
+        Gson gson = new Gson();
+        ContractInfoEntity entity = gson.fromJson(data.information,ContractInfoEntity.class);
+        addressData = entity.communities;
+        adapter = new ContractAddressAdapter(JoinedContractDetailActivity.this, R.layout.item_address, addressData);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));
 
         tvContractName.setText(data.contract_name);
         tvContractCode.setText(data.contract_number);
@@ -97,16 +133,65 @@ public class JoinedContractDetailActivity extends BaseActivity {
 
         tvServerSum.setText(data.total_amount);
         tvServerScale.setText(data.divided_amount);
-        tvJoinedTime.setText(data.joined_at);
+        String s1 = "为保证用户的良好体验，必须按照用户约定的时间进行上门服务，服务上门时间不可晚于用户要求时间";
+        String s2 = "我们的宗旨是用户至上，每一单服务，要做到让用户满意，如果因为服务质量，服务人员态度等影响客户满意度的问题遭到客户投诉，需扣除分成金额";
+        SpannableString ss1 = new SpannableString(s1 + entity.time_limit+"分钟");
+        SpannableString ss2 = new SpannableString(s2 + entity.penalized_proportion+"%");
+        ss1.setSpan(new ForegroundColorSpan(Color.BLUE), s1.length(), s1.length()+entity.time_limit.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss2.setSpan(new ForegroundColorSpan(Color.BLUE), s2.length(), s2.length()+entity.penalized_proportion.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvTime.setText(ss1);
+        tvPunish.setText(ss2);
+        if (fromId == 1) {
+            layoutCreated.setVisibility(View.VISIBLE);
+            button.setText("邀请朋友加入");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtils.ToastMessage(getCtx(), "暂未开通！");
+                }
+            });
+        } else if (fromId == 2) {
+            layoutJoined.setVisibility(View.VISIBLE);
+            tvJoinedTime.setText(j_time);
+            button.setText("联系合约创建方");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ToastUtils.ToastMessage(getCtx(), "暂未开通！");
+                }
+            });
+        } else if (fromId == 3) {
+            button.setText("加入合约");
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CarefreeRetrofit.getInstance().createApi(CircleApis.class)
+                            .joinContract(
+                                    QueryMapBuilder.getIns().put("owner_id", ownerId)
+                                            .put("member_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                                            .put("contract_id", id)
+                                            .buildPost())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new BaseSubscriber<BaseResponse>() {
+                                @Override
+                                public void onSuccess(BaseResponse response) {
+                                    ToastUtils.ToastMessage(getCtx(), "加入成功");
+                                }
+
+                            });
+                }
+            });
+        }
     }
 
 
-    @OnClick({ R.id.btn_contact})
+    @OnClick({R.id.btn_contact})
     public void onViewClicked(View view) {
         switch (view.getId()) {
 
             case R.id.btn_contact:
-                ToastUtils.ToastMessage(getCtx(),"暂未开通！");
+                ToastUtils.ToastMessage(getCtx(), "暂未开通！");
                 break;
         }
     }

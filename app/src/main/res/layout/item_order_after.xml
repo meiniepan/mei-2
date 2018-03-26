@@ -65,6 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_text_margin"
+                android:lines="1"
                 android:layout_weight="1"
                 android:text="常营-万象新四区 8-2-202"
                 android:textColor="@color/main_gray" />

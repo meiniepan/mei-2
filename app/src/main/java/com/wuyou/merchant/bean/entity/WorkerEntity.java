@@ -11,5 +11,8 @@ public class WorkerEntity {
     public String name;
     public String image;
     public String distance;
+    public String avatar;
+    public String rc_id;
+    public String rc_token;
 
 }

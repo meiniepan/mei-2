@@ -4,6 +4,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
+import com.wuyou.merchant.bean.entity.ServiceEntity;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -23,27 +24,31 @@ import retrofit2.http.QueryMap;
 public interface CircleApis {
 
     @Multipart
-    @POST("v1/contract")
+    @POST("contract")
     Observable<BaseResponse> createContract(
             @Part MultipartBody.Part file,
             @QueryMap SortedTreeMap<String, String> map
     );
 
-    @GET("v1/unions")
+    @GET("unions")
     Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractList(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("v1/contracts")
+    @GET("contracts")
     Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractMarket(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("v1/contract/{contract_id}")
+    @GET("contract_services")
+    Observable<BaseResponse<ResponseListEntity<ServiceEntity>>> getContractService(
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("contract/{contract_id}")
     Observable<BaseResponse<ContractEntity>> getContractDetail(
             @Path("contract_id") String contract_id,
             @QueryMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
-    @POST("v1/union")
+    @POST("union")
     Observable<BaseResponse<ContractEntity>> joinContract(
             @FieldMap SortedTreeMap<String, String> map);
 }

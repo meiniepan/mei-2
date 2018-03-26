@@ -79,6 +79,7 @@
     <include layout="@layout/split_line"/>
 
     <FrameLayout
+        android:visibility="gone"
         android:id="@+id/fl_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

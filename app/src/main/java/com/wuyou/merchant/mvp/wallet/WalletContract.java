@@ -18,6 +18,7 @@ public interface WalletContract {
 
     abstract class Presenter extends BasePresenter<View> {
         abstract void getFundList( );
+        abstract void getTradeList( );
         abstract void getRepayRecordsList( );
         abstract void loadMore();
         abstract void loadMoreRepayRecords();

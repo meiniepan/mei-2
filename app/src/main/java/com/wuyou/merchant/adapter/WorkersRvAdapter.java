@@ -4,18 +4,12 @@ import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
-import com.bumptech.glide.request.RequestOptions;
-import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,9 +26,9 @@ public class WorkersRvAdapter extends BaseQuickAdapter<WorkerEntity, BaseHolder>
 
     @Override
     protected void convert(BaseHolder helper, WorkerEntity item) {
-        helper.setText(R.id.tv_name, item.name)
+        helper.setText(R.id.tv_name, item.worker_name)
                 .setText(R.id.tv_distance, item.distance);
         ImageView imageView = helper.getView(R.id.avatar);
-        CommonUtil.GlideCircleLoad(activity,item.image,imageView);
+        CommonUtil.GlideCircleLoad(activity,item.avatar,imageView);
     }
 }

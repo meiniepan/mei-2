@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
-                        android:text="4545465165" />
+                        tool:text="4545465165" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
-                        android:text="4545465165" />
+                        tool:text="4545465165" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
-                        android:text="4545465165"
+                        tool:text="4545465165"
                         android:textColor="@color/common_gray" />
                 </LinearLayout>
 
@@ -132,7 +132,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
-                        android:text="4545465165"
+                        tool:text="4545465165"
                         android:textColor="@color/common_gray" />
                 </LinearLayout>
             </LinearLayout>
@@ -174,7 +174,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
-                        android:text="4545465165" />
+                        tool:text="4545465165" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -195,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
                         android:lineSpacingExtra="2dp"
-                        android:text="4545465165" />
+                        tool:text="4545465165" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -215,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/common_margin"
-                        android:text="4545465165"
+                        tool:text="4545465165"
                         android:textColor="@color/common_gray" />
                 </LinearLayout>
 
@@ -350,8 +350,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/common_margin"
                     android:text="具体服务小区地址为:" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/common_margin"
+                    />
 
                 <include layout="@layout/split_line" />
 
@@ -363,9 +369,11 @@
                     android:textColor="@color/gray80" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/common_margin"
+                    android:layout_marginBottom="@dimen/common_margin"
                     android:text="为保证用户的良好体验，必须按照用户约定的时间进行上门服务，服务上门时间不可晚于用户要求时间:" />
 
                 <include layout="@layout/split_line" />
@@ -378,6 +386,7 @@
                     android:textColor="@color/gray80" />
 
                 <TextView
+                    android:id="@+id/tv_punish"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/common_margin"
@@ -388,6 +397,7 @@
             <include layout="@layout/split_area" />
 
             <LinearLayout
+                android:id="@+id/ll_joined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -395,7 +405,8 @@
                 android:paddingBottom="@dimen/common_margin"
                 android:paddingEnd="@dimen/common_margin_12"
                 android:paddingStart="@dimen/common_margin_12"
-                android:paddingTop="@dimen/common_margin">
+                android:paddingTop="@dimen/common_margin"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -422,6 +433,61 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         tool:text="56446654" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_created"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/common_margin"
+                android:paddingEnd="@dimen/common_margin_12"
+                android:paddingStart="@dimen/common_margin_12"
+                android:paddingTop="@dimen/common_margin"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="联盟商家" />
+
+                    <TextView
+                        android:id="@+id/tv_merchant_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:textColor="@color/common_gray" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="个盟友已加入合约"
+                        android:textColor="@color/common_gray" />
+
+                    <include layout="@layout/layout_next" />
+                </LinearLayout>
+
+                <include layout="@layout/split_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_height"
+                    android:gravity="center_vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
 
                 </LinearLayout>
             </LinearLayout>

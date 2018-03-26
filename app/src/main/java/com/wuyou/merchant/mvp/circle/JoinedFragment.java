@@ -58,6 +58,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), JoinedContractDetailActivity.class);
             intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
+            intent.putExtra(Constant.CONTRACT_FROM, 2);
             startActivity(intent);
         });
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));

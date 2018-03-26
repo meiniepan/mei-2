@@ -57,8 +57,9 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
         });
         adapter = new CreatedContractListRvAdapter(R.layout.item_contract_created, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(getActivity(), MarketContractDetailActivity.class);
+            Intent intent = new Intent(getActivity(), JoinedContractDetailActivity.class);
             intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
+            intent.putExtra(Constant.CONTRACT_FROM, 3);
             startActivity(intent);
         });
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
@@ -98,7 +99,14 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
     @Override
     public void getSuccess(ResponseListEntity<ContractEntity> data) {
         recyclerView.setRefreshFinished();
-        adapter.setNewData(data.list);
+        List list = new ArrayList();
+        for (ContractEntity e:data.list
+             ) {
+            if (e.type.equals("2")){
+                list.add(e);
+            }
+        }
+        adapter.setNewData(list);
         statusLayout.showContentView();
         if (data.has_more.equals("0")) {
             adapter.loadMoreEnd(true);
@@ -110,7 +118,14 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
 
     @Override
     public void getMore(ResponseListEntity<ContractEntity> data) {
-        adapter.addData(data.list);
+        List list = new ArrayList();
+        for (ContractEntity e:data.list
+                ) {
+            if (e.type.equals("2")){
+                list.add(e);
+            }
+        }
+        adapter.addData(list);
         if (data.has_more.equals("0")) {
             adapter.loadMoreEnd(true);
         }

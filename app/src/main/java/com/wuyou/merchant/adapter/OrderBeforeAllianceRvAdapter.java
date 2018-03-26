@@ -11,7 +11,6 @@ import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
-import com.wuyou.merchant.mvp.order.ChoseServerActivity;
 import com.wuyou.merchant.mvp.order.ChoseServerAllianceActivity;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;

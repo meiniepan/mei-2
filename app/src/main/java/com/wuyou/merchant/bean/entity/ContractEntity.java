@@ -25,6 +25,7 @@ public class ContractEntity implements Parcelable{
     public String joined_at;
     public String certification;
     public String contract_number;
+    public String type;
     public ContractMerchantEntity shop;
 
 
@@ -42,7 +43,6 @@ public class ContractEntity implements Parcelable{
         mobile = in.readString();
         total_amount = in.readString();
         divided_amount = in.readString();
-        information = in.readString();
         contract_id = in.readString();
         created_at = in.readString();
         status = in.readString();
@@ -79,7 +79,6 @@ public class ContractEntity implements Parcelable{
         dest.writeString(mobile);
         dest.writeString(total_amount);
         dest.writeString(divided_amount);
-        dest.writeString(information);
         dest.writeString(contract_id);
         dest.writeString(created_at);
         dest.writeString(status);

@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
     android:scrollbars="none">
 
     <LinearLayout
@@ -27,7 +28,13 @@
         </RelativeLayout>
 
         <include layout="@layout/split_area" />
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -295,6 +302,7 @@
         </LinearLayout>
 
         <include layout="@layout/split_area" />
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -321,7 +329,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                >
 
                 <TextView
                     android:layout_width="80dp"
@@ -332,11 +340,11 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_trade_hash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -354,11 +362,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_trade_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -376,11 +385,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_confirm_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -398,11 +408,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_confirm_node"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -424,7 +435,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    android:text="POW" />
             </LinearLayout>
 
             <LinearLayout
@@ -442,11 +453,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -464,11 +476,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_trade_big"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -486,11 +499,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_trade_sum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
             <LinearLayout
@@ -508,11 +522,12 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_trade_fee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/common_margin"
                     android:gravity="center"
-                    android:text="占位信息" />
+                    tool:text="占位信息" />
             </LinearLayout>
 
 
