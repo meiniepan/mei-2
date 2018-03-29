@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/tint_bg">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
+
+        <include layout="@layout/back_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="自有资金"
+            android:textSize="@dimen/top_size" />
+    </RelativeLayout>
+
+    <include layout="@layout/split_area" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="自有资金（元）" />
+
+        <EditText
+            android:id="@+id/self_fund_edit"
+            android:layout_width="111dp"
+            android:layout_height="27dp"
+            android:paddingStart="6dp"
+            android:background="@drawable/gray_border"/>
+    </LinearLayout>
+    <include layout="@layout/shadow_line"/>
+
+    <Button
+        android:onClick="setSelfFund"
+        android:text="@string/yes"
+        android:layout_marginTop="70dp"
+        style="@style/button_style"/>
+</LinearLayout>

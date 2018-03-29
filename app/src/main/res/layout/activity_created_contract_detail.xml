@@ -428,5 +428,5 @@
     <Button
         android:id="@+id/btn_invite"
         style="@style/button_full_style"
-        android:text="邀请盟友加入" />
+        android:text="签署加入" />
 </LinearLayout>

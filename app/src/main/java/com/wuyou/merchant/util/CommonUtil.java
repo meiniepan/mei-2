@@ -21,6 +21,7 @@ import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,11 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,9 +47,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,6 +63,41 @@ import java.util.regex.Pattern;
  * Created by hjn on 2016/11/10.
  */
 public class CommonUtil {
+    public static String formatPrice(float price) {
+        NumberFormat nf = new DecimalFormat("0.00");
+        return nf.format(price);
+    }
+    public static Map<String, String> ConvertObjToMap(Object obj) {
+        Map<String, String> reMap = new HashMap<>();
+        if (obj == null)
+            return null;
+        Field[] fields = obj.getClass().getDeclaredFields();
+        try {
+            for (int i = 0; i < fields.length; i++) {
+                try {
+                    String fieldName = fields[i].getName();
+                    Field f = obj.getClass().getDeclaredField(fieldName);
+                    f.setAccessible(true);
+                    Object o = f.get(obj);
+                    if (o != null && !fieldName.contains("$") && !TextUtils.equals("CREATOR", fieldName) && !TextUtils.equals(fieldName, "serialVersionUID")) {
+                        reMap.put(fieldName, o.toString());
+                    }
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
+        return reMap;
+    }
+    public static RecycleViewDivider getRecyclerDivider(Context context) {
+        return new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL, DensityUtils.dip2px(context, 0.5f), context.getResources().getColor(R.color.divide_gray));
+    }
     public static boolean checkPhone(String area, String phone, Context context) {
         if (TextUtils.isEmpty(phone)) {
             ToastUtils.ToastMessage(context, "手机号不能为�?!");

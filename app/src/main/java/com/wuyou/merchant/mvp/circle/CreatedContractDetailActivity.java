@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
@@ -17,6 +16,7 @@ import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.widget.ContractCountPanel;
 
 import java.util.Date;
 
@@ -99,8 +99,11 @@ public class CreatedContractDetailActivity extends BaseActivity {
 
         tvServerSum.setText(data.total_amount);
         tvServerScale.setText(data.divided_amount);
+
+        title = data.service.service_name;
     }
 
+    private String title;
 
     @OnClick({R.id.ll_authentication, R.id.btn_invite})
     public void onViewClicked(View view) {
@@ -108,7 +111,7 @@ public class CreatedContractDetailActivity extends BaseActivity {
             case R.id.ll_authentication:
                 break;
             case R.id.btn_invite:
-                ToastUtils.ToastMessage(getCtx(),"暂未开通！");
+                new ContractCountPanel(this, title,100).show();
                 break;
         }
     }

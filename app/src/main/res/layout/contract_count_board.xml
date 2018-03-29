@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/contract_count_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:gravity="center"
+        android:text="服务名称"
+        android:textSize="@dimen/dimens_18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务单价:"
+            android:textColor="@color/common_gray" />
+
+        <TextView
+            android:id="@+id/contact_count_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="0"
+            android:textColor="@color/red" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="元" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:focusableInTouchMode="true"
+        android:paddingStart="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择数量:"
+            android:textColor="@color/common_gray" />
+
+        <ImageView
+            android:id="@+id/contract_count_minus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:src="@mipmap/minus" />
+
+        <EditText
+            android:id="@+id/contract_count_number"
+            android:layout_width="51dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/blue_border"
+            android:text="1"
+            android:inputType="numberDecimal"
+            android:textColor="@color/main_blue"
+            android:gravity="center"/>
+
+        <ImageView
+            android:id="@+id/contract_count_add"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/add" />
+    </LinearLayout>
+
+    <include layout="@layout/split_line_margin" />
+
+    <TextView
+        android:id="@+id/contract_count_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_height"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textColor="@color/main_blue"
+        android:textSize="@dimen/dimens_18sp" />
+</LinearLayout>

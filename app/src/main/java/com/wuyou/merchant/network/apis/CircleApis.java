@@ -3,6 +3,8 @@ package com.wuyou.merchant.network.apis;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.bean.entity.ContractPayEntity;
+import com.wuyou.merchant.bean.entity.PrepareSignEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.bean.entity.ServiceEntity;
 
@@ -30,17 +32,21 @@ public interface CircleApis {
             @QueryMap SortedTreeMap<String, String> map
     );
 
-    @GET("unions")
-    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractList(
-            @QueryMap SortedTreeMap<String, String> map);
+    @GET("created_contracts/{shop_id}")
+    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractList(@Path("shop_id") String shopId,
+                                                                                 @QueryMap SortedTreeMap<String, String> map);
 
     @GET("contracts")
     Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractMarket(
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("contract_services")
-    Observable<BaseResponse<ResponseListEntity<ServiceEntity>>> getContractService(
-            @QueryMap SortedTreeMap<String, String> map);
+    @GET("services/{shop_id}")
+    Observable<BaseResponse<ResponseListEntity<ServiceEntity>>> getServiceList(@Path("shop_id") String shopId,
+                                                                               @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("contract_pay_types")
+    Observable<BaseResponse<ResponseListEntity<ContractPayEntity>>> getServicePayList(@QueryMap SortedTreeMap<String, String> map);
+
 
     @GET("contract/{contract_id}")
     Observable<BaseResponse<ContractEntity>> getContractDetail(
@@ -51,4 +57,8 @@ public interface CircleApis {
     @POST("union")
     Observable<BaseResponse<ContractEntity>> joinContract(
             @FieldMap SortedTreeMap<String, String> map);
+
+    @GET("prepare_sign")
+    Observable<BaseResponse<PrepareSignEntity>> prepareSignContract(
+            @QueryMap SortedTreeMap<String, String> map);
 }

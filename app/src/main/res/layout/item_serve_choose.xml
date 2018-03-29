@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
+    android:paddingStart="@dimen/activity_horizontal_margin">
+
+    <TextView
+        android:id="@+id/item_serve_choose_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="项目名称" />
+    <RadioButton
+        android:id="@+id/item_serve_choose_check"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:background="@drawable/btn_radio"
+        android:button="@null"
+        android:clickable="false"/>
+</LinearLayout>
