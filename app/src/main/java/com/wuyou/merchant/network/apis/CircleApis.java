@@ -3,6 +3,7 @@ package com.wuyou.merchant.network.apis;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.bean.entity.ContractMerchantEntity;
 import com.wuyou.merchant.bean.entity.ContractPayEntity;
 import com.wuyou.merchant.bean.entity.PrepareSignEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
@@ -29,12 +30,16 @@ public interface CircleApis {
     @POST("contract")
     Observable<BaseResponse> createContract(
             @Part MultipartBody.Part file,
-            @QueryMap SortedTreeMap<String, String> map
-    );
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("purchased_contracts/{shop_id}")
+    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getMyJoinedContract(@Path("shop_id") String shopId,
+                                                                                     @QueryMap SortedTreeMap<String, String> map);
+
 
     @GET("created_contracts/{shop_id}")
-    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractList(@Path("shop_id") String shopId,
-                                                                                 @QueryMap SortedTreeMap<String, String> map);
+    Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getMyCreatedContractList(@Path("shop_id") String shopId,
+                                                                                          @QueryMap SortedTreeMap<String, String> map);
 
     @GET("contracts")
     Observable<BaseResponse<ResponseListEntity<ContractEntity>>> getContractMarket(
@@ -53,6 +58,10 @@ public interface CircleApis {
             @Path("contract_id") String contract_id,
             @QueryMap SortedTreeMap<String, String> map);
 
+    @GET("contract_signers")
+    Observable<BaseResponse<ResponseListEntity<ContractMerchantEntity>>> getContractSigner(
+            @QueryMap SortedTreeMap<String, String> map);
+
     @FormUrlEncoded
     @POST("union")
     Observable<BaseResponse<ContractEntity>> joinContract(
@@ -61,4 +70,11 @@ public interface CircleApis {
     @GET("prepare_sign")
     Observable<BaseResponse<PrepareSignEntity>> prepareSignContract(
             @QueryMap SortedTreeMap<String, String> map);
+
+
+    @FormUrlEncoded
+    @POST("contract/signing")
+    Observable<BaseResponse> signContract(
+            @FieldMap SortedTreeMap<String, String> map);
+
 }

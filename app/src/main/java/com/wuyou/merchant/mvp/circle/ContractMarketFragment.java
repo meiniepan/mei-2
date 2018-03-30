@@ -57,7 +57,7 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
         });
         adapter = new CreatedContractListRvAdapter(R.layout.item_contract_created, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(getActivity(), JoinedContractDetailActivity.class);
+            Intent intent = new Intent(getActivity(), ContractDetailActivity.class);
             intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
             intent.putExtra(Constant.CONTRACT_FROM, 3);
             startActivity(intent);
@@ -99,29 +99,22 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
     @Override
     public void getSuccess(ResponseListEntity<ContractEntity> data) {
         recyclerView.setRefreshFinished();
-        List list = new ArrayList();
-        for (ContractEntity e:data.list
-             ) {
-            if (e.type.equals("2")){
-                list.add(e);
-            }
-        }
-        adapter.setNewData(list);
+        adapter.setNewData(data.list);
         statusLayout.showContentView();
-        if (data.has_more.equals("0")) {
-            adapter.loadMoreEnd(true);
-        }
         if (adapter.getData().size() == 0) {
             statusLayout.showEmptyView("没有合约");
+            return;
+        }
+        if ("0".equals(data.has_more)) {
+            adapter.loadMoreEnd(true);
         }
     }
 
     @Override
     public void getMore(ResponseListEntity<ContractEntity> data) {
         List list = new ArrayList();
-        for (ContractEntity e:data.list
-                ) {
-            if (e.type.equals("2")){
+        for (ContractEntity e : data.list) {
+            if ("2".equals(e.type)) {
                 list.add(e);
             }
         }

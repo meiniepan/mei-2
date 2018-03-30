@@ -12,7 +12,6 @@ import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.mvp.circle.CreatedContractDetailActivity;
 import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
@@ -59,7 +58,7 @@ public class StoreFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_store_info:
-                startActivity(new Intent(getContext(), CreatedContractDetailActivity.class));
+                startActivity(new Intent(getContext(), StoreInfoEditActivity.class));
                 break;
             case R.id.ll_log_out:
                 showLoadingDialog();

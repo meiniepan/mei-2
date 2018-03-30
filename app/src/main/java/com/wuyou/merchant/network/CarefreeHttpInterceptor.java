@@ -9,6 +9,7 @@ import com.gs.buluo.common.utils.Utils;
 import com.wuyou.merchant.CarefreeDaoSession;
 
 import java.io.IOException;
+import java.net.URL;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -27,7 +28,7 @@ public class CarefreeHttpInterceptor implements Interceptor {
         String query = url.encodedQuery();
         if (!TextUtils.isEmpty(query)&&!query.contains("&sign=")) {
             HttpUrl.Builder newBuilder = url.newBuilder();
-            newBuilder.addQueryParameter("sign", EncryptUtil.getSha1(Base64.encode(query.getBytes(), Base64.NO_WRAP)).toUpperCase());
+            newBuilder.addQueryParameter("sign",EncryptUtil.getSha1(Base64.encode(query.getBytes(), Base64.NO_WRAP)).toUpperCase());
             url = newBuilder.build();
         }
         if (CarefreeDaoSession.getInstance().getUserInfo() != null) {

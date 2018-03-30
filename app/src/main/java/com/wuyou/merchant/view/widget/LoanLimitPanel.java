@@ -16,6 +16,7 @@ import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.LoanLimitAdapter;
 import com.wuyou.merchant.bean.entity.PrepareSignEntity;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.List;
 
@@ -49,8 +50,16 @@ public class LoanLimitPanel extends Dialog {
         recyclerView.addItemDecoration(CommonUtil.getRecyclerDivider(getContext()));
     }
 
-    public void setData(List<PrepareSignEntity.RatesBean> loanEntities){
-        recyclerView.setAdapter(new LoanLimitAdapter(R.layout.item_loan_limit,loanEntities));
+    public void setData(List<PrepareSignEntity.RatesBean> loanEntities) {
+        LoanLimitAdapter adapter = new LoanLimitAdapter(R.layout.item_loan_limit, loanEntities);
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                onLoadSelectListener.onSelected(loanEntities.get(position));
+                dismiss();
+            }
+        });
     }
 
     public interface onLoadSelectListener {

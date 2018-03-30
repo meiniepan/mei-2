@@ -21,7 +21,7 @@ public class PrepareSignEntity {
          * rate : 0.5%
          */
 
-        public int stage;
+        public String stage;
         public String rate;
     }
 }

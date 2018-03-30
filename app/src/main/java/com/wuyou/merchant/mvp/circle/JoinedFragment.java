@@ -56,7 +56,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
         });
         adapter = new JoinedContractListRvAdapter(R.layout.item_contract_joined, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(getActivity(), JoinedContractDetailActivity.class);
+            Intent intent = new Intent(getActivity(), ContractDetailActivity.class);
             intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
             intent.putExtra(Constant.CONTRACT_FROM, 2);
             startActivity(intent);
@@ -66,7 +66,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.loadListMore("2");
+                mPresenter.getJoinedContractMore();
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(new OnRefreshListener() {
@@ -86,7 +86,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
     }
 
     private void fetchDatas() {
-        mPresenter.getCreatedContract("2");
+        mPresenter.getJoinedContract();
     }
 
     @Override

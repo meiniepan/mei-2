@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.mvp.circle.SignContractActivity;
+import com.wuyou.merchant.util.CommonUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +29,7 @@ import butterknife.OnClick;
 
 public class ContractCountPanel extends Dialog {
 
+    private final ContractEntity contractEntity;
     @BindView(R.id.contract_count_title)
     TextView contractCountTitle;
     @BindView(R.id.contact_count_price)
@@ -34,13 +37,12 @@ public class ContractCountPanel extends Dialog {
     @BindView(R.id.contract_count_number)
     EditText contractCountNumber;
 
-    private float price;
-
-    public ContractCountPanel(@NonNull Context context, String title, float price) {
+    public ContractCountPanel(@NonNull Context context, ContractEntity data) {
         super(context, R.style.bottom_dialog);
         initView();
-        contractCountTitle.setText(title);
-        this.price = price;
+        contractEntity = data;
+        contractCountTitle.setText(contractEntity.service.service_name);
+        contactCountPrice.setText(CommonUtil.formatPrice(contractEntity.price));
     }
 
     private void initView() {
@@ -72,8 +74,10 @@ public class ContractCountPanel extends Dialog {
                 break;
             case R.id.contract_count_next:
                 Intent intent = new Intent(getContext(), SignContractActivity.class);
-                intent.putExtra(Constant.CONTRACT_AMOUNT, price * count);
+                intent.putExtra(Constant.CONTRACT,contractEntity);
+                intent.putExtra(Constant.SIGN_NUMBER,count);
                 getContext().startActivity(intent);
+                dismiss();
                 break;
         }
     }

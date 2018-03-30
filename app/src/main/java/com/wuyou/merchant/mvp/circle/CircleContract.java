@@ -22,5 +22,7 @@ public interface CircleContract {
         abstract void getContractMarket( );
         abstract void loadListMore(String type);
         abstract void loadMarketMore();
+        abstract void getJoinedContract();
+        abstract void getJoinedContractMore();
     }
 }

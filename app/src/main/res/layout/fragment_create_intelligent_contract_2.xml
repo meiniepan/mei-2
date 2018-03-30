@@ -118,51 +118,6 @@
 
                 <include layout="@layout/layout_next" />
             </LinearLayout>
-
-            <include layout="@layout/split_line" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/common_height"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="服务类型"
-                    android:textColor="@color/common_gray" />
-
-                <EditText
-                    android:id="@+id/et_create_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:layout_weight="1"
-                    android:background="@null" />
-
-                <LinearLayout
-                    android:id="@+id/ll_service_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/tv_service_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/common_margin_12"
-                        android:text="通用"
-                        android:textColor="@color/main_blue" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@mipmap/back_gray"
-                        android:rotation="180" />
-                </LinearLayout>
-            </LinearLayout>
-
         </LinearLayout>
 
         <include layout="@layout/split_area" />

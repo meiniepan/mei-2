@@ -44,6 +44,7 @@
             android:layout_width="111dp"
             android:layout_height="27dp"
             android:paddingStart="6dp"
+            android:inputType="numberDecimal"
             android:background="@drawable/gray_border"/>
     </LinearLayout>
     <include layout="@layout/shadow_line"/>

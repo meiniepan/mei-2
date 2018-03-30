@@ -58,7 +58,7 @@ public class CreatedFragment extends BaseFragment<CircleContract.View, CircleCon
         });
         adapter = new CreatedContractListRvAdapter(R.layout.item_contract_created, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(getActivity(), JoinedContractDetailActivity.class);
+            Intent intent = new Intent(getActivity(), ContractDetailActivity.class);
             intent.putExtra(Constant.CONTRACT_ID, adapter.getItem(position).contract_id);
             intent.putExtra(Constant.CONTRACT_FROM, 1);
             startActivity(intent);

@@ -22,8 +22,9 @@ public class Constant {
     public static final String CONTRACT_FROM = "contract_from";
     public static final String TRANSACTION_ID = "transaction_id";
     public static final String FUND = "fund";
-    public static final String CONTRACT_AMOUNT = "contract_amount";
     public static final String SHOP_ID = "shop_id";
     public static final String SERVE_BEAN = "serve_bean";
     public static final String PAY_TYPE = "pay_type";
+    public static final String CONTRACT = "contract";
+    public static final String SIGN_NUMBER = "sign_number";
 }

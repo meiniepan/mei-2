@@ -50,12 +50,6 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     TextView tvCommit;
     @BindView(R.id.et_sum)
     EditText etSum;
-    @BindView(R.id.et_create_time)
-    EditText etCreateTime;
-    @BindView(R.id.ll_service_category)
-    LinearLayout llServiceCategory;
-    @BindView(R.id.tv_service_category)
-    TextView tvServiceCategory;
     @BindView(R.id.btn_new_address)
     Button btnNewAddress;
     @BindView(R.id.ll_time_service)
@@ -137,7 +131,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
         if (requestCode == 200 && resultCode == RESULT_OK) {
             serviceEntity = data.getParcelableExtra(Constant.SERVE_BEAN);
             tvServeName.setText(serviceEntity.service_name);
-            etSum.setText(serviceEntity.price);
+            etSum.setText(CommonUtil.formatPrice(serviceEntity.price));
         } else {
             payEntity = data.getParcelableExtra(Constant.PAY_TYPE);
             tvPayType.setText(payEntity.type_name);
@@ -145,7 +139,6 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     }
 
     private void doCommit() {
-        entity.total_amount = etSum.getText().toString();
         entity.service = serviceEntity;
         entity.service.service_id = serviceIndex;
         List addressList = new ArrayList();
@@ -202,7 +195,6 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                         ToastUtils.ToastMessage(getCtx(), "创建成功！");
                         startActivity(new Intent(getCtx(), MainActivity.class));
                     }
-
                 });
     }
 }
