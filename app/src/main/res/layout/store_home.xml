@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     tool:text="智能家政服务"
                     android:textColor="@color/white"
-                    android:textSize="22sp" />
+                    android:textSize="@dimen/title_size" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

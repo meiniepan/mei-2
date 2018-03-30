@@ -58,6 +58,10 @@ public interface CircleApis {
             @Path("contract_id") String contract_id,
             @QueryMap SortedTreeMap<String, String> map);
 
+    @GET("union/members")
+    Observable<BaseResponse<ResponseListEntity<ContractMerchantEntity>>> getContractMechants(
+            @QueryMap SortedTreeMap<String, String> map);
+
     @GET("contract_signers")
     Observable<BaseResponse<ResponseListEntity<ContractMerchantEntity>>> getContractSigner(
             @QueryMap SortedTreeMap<String, String> map);

@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.TextView;
 
-import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MainPagerAdapter;
@@ -18,6 +18,8 @@ import com.wuyou.merchant.mvp.order.MyOrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
+import com.yinglan.alphatabs.AlphaTabsIndicator;
+import com.yinglan.alphatabs.OnTabChangedListner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +30,15 @@ import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnTabChangedListner {
     @BindView(R.id.main_tab)
-    BottomNavigationViewEx bottomView;
+    AlphaTabsIndicator bottomView;
     @BindView(R.id.main_pager)
     NoScrollViewPager viewPager;
+    @BindView(R.id.main_title)
+    TextView mainTitle;
+    @BindView(R.id.main_title_area)
+    View titleView;
     List<Fragment> fragments = new ArrayList<>();
     MyOrderFragment orderFragment = new MyOrderFragment();
     private long mkeyTime = 0;
@@ -48,17 +54,14 @@ public class MainActivity extends BaseActivity {
         fragments.add(orderFragment);
         fragments.add(new CircleFragment());
         fragments.add(new WalletFragment());
-        fragments.add(getMessageFragment());
+//        fragments.add(getMessageFragment());
         fragments.add(new StoreFragment());
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
         viewPager.setOffscreenPageLimit(2);
-        bottomView.setupWithViewPager(viewPager, false);
-        bottomView.enableAnimation(false);
-        bottomView.setIconVisibility(true);
-        bottomView.enableShiftingMode(false);
-        bottomView.enableItemShiftingMode(false);
-        bottomView.setIconSize(DensityUtils.dip2px(getCtx(), 20), DensityUtils.dip2px(getCtx(), 20));
-        bottomView.setIconsMarginTop(DensityUtils.dip2px(getCtx(), -8));
+        bottomView.setViewPager(viewPager);
+        bottomView.setOnTabChangedListner(this);
+        bottomView.setTabCurrenItem(0);
+
     }
 
     private Fragment getMessageFragment() {
@@ -145,6 +148,28 @@ public class MainActivity extends BaseActivity {
                     Log.e("err", errorCode + "");
                 }
             });
+        }
+    }
+
+    @Override
+    public void onTabSelected(int tabNum) {
+        switch (tabNum) {
+            case 0:
+                mainTitle.setText(R.string.main_deal_order);
+                titleView.setVisibility(View.VISIBLE);
+                break;
+            case 1:
+                mainTitle.setText(R.string.main_circle);
+                titleView.setVisibility(View.VISIBLE);
+                break;
+            case 2:
+                mainTitle.setText(R.string.main_wallet);
+                titleView.setVisibility(View.VISIBLE);
+                break;
+            case 3:
+                titleView.setVisibility(View.GONE);
+                break;
+
         }
     }
 }

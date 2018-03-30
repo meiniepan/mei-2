@@ -8,5 +8,6 @@ import java.util.List;
 
 public class ResponseListEntity<T> {
     public String has_more;
+    public String members_number;
     public List<T> list;
 }

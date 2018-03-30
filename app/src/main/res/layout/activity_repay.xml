@@ -30,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="还款"
-                    android:textSize="22sp" />
+                    android:textSize="@dimen/title_size" />
 
                 <ImageView
                     android:id="@+id/iv_more"

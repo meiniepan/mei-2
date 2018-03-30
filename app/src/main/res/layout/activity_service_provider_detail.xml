@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="服务商详情"
-            android:textSize="22sp" />
+            android:textSize="@dimen/title_size" />
     </RelativeLayout>
 
     <include layout="@layout/split_area" />
@@ -191,7 +191,7 @@
                 android:id="@+id/tv_tag_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="@dimen/title_size"
                 android:text="···" />
 
         </LinearLayout>

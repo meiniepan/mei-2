@@ -72,7 +72,7 @@ public class OrderIngFragment extends BaseFragment<OrderContract.View, OrderCont
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
+                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), "3");
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(new OnRefreshListener() {

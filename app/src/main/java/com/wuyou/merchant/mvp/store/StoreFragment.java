@@ -1,5 +1,6 @@
 package com.wuyou.merchant.mvp.store;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.login.LoginActivity;
@@ -54,45 +56,60 @@ public class StoreFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.iv_store_info, R.id.ll_log_out,R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
+    @OnClick({R.id.iv_store_info, R.id.ll_log_out, R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_store_info:
                 startActivity(new Intent(getContext(), StoreInfoEditActivity.class));
                 break;
             case R.id.ll_log_out:
-                showLoadingDialog();
-                CarefreeRetrofit.getInstance().createApi(UserApis.class)
-                        .loginOut(CarefreeApplication.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildPost())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new BaseSubscriber<BaseResponse>() {
-                            @Override
-                            public void onSuccess(BaseResponse userInfoBaseResponse) {
-                                CarefreeApplication.getInstance().clearUserInfo();
-                                startActivity(new Intent(getContext(), LoginActivity.class));
-                                getActivity().finish();
-                            }
-                        });
+                CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getContext());
+                builder.setMessage("确认退出登录？");
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        showLoadingDialog();
+                        CarefreeRetrofit.getInstance().createApi(UserApis.class)
+                                .loginOut(CarefreeApplication.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildPost())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(new BaseSubscriber<BaseResponse>() {
+                                    @Override
+                                    public void onSuccess(BaseResponse userInfoBaseResponse) {
+                                        CarefreeApplication.getInstance().clearUserInfo();
+                                        startActivity(new Intent(getContext(), LoginActivity.class));
+                                        getActivity().finish();
+                                    }
+                                });
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+                    }
+                });
+                builder.create().show();
 
                 break;
             case R.id.ll_worker_list:
-                ToastUtils.ToastMessage(getContext(),"功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
             case R.id.ll_service:
-                ToastUtils.ToastMessage(getContext(),"功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
             case R.id.ll_information:
-                ToastUtils.ToastMessage(getContext(),"功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
             case R.id.ll_intro:
-                ToastUtils.ToastMessage(getContext(),"功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
             case R.id.ll_mark:
-                ToastUtils.ToastMessage(getContext(),"功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
             case R.id.ll_setting:
-                ToastUtils.ToastMessage(getContext(),"功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
         }
     }

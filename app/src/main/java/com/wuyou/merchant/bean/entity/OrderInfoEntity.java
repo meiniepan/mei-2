@@ -9,7 +9,7 @@ public class OrderInfoEntity {
     public long created_at;
     public String price;
     public String service_time;
-    public String service_data;
+    public String service_date;
     public String status;
     public ServiceEntity service;
     public WorkerEntity worker;

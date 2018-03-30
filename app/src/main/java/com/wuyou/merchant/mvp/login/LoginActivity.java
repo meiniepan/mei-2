@@ -1,15 +1,17 @@
 package com.wuyou.merchant.mvp.login;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
+import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.widget.NoScrollViewPager;
 
 import butterknife.BindView;
 
@@ -21,7 +23,9 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tl_login_tab)
     TabLayout mTabLayout;
     @BindView(R.id.vp_login_pager)
-    ViewPager mViewPager;
+    NoScrollViewPager mViewPager;
+    @BindView(R.id.v_login_musk)
+    Button btnLoginMusk;
     String[] mTitle = {"手机号快捷登录", "账户密码登录"};
 
 
@@ -29,11 +33,14 @@ public class LoginActivity extends BaseActivity {
     protected int getContentLayout() {
         return R.layout.activity_login;
     }
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
         initView();
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initView() {
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             //此方法用来显示tab上的名字
@@ -60,52 +67,18 @@ public class LoginActivity extends BaseActivity {
             }
         });
         //将ViewPager关联到TabLayout上
-        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
+
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setCurrentItem(1);
 
-//  设置监听,注意:如果设置了setOnTabSelectedListener,则setupWithViewPager不会生效
-//  因为setupWithViewPager内部也是通过设置该监听来触发ViewPager的切换的.
-//  mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//   @Override
-//   public void onTabSelected(TabLayout.Tab tab) {
-//   }
-//
-//   @Override
-//   public void onTabUnselected(TabLayout.Tab tab) {
-//
-//   }
-//
-//   @Override
-//   public void onTabReselected(TabLayout.Tab tab) {
-//
-//   }
-//  });
-//  那我们如果真的需要监听tab的点击或者ViewPager的切换,则需要手动配置ViewPager的切换,例如:
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        btnLoginMusk.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //切换ViewPager
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onClick(View v) {
+                ToastUtils.ToastMessage(getCtx(), "功能正在开发");
             }
         });
 
     }
-
 
 
 }

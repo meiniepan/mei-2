@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="无忧信用分"
-            android:textSize="@dimen/top_size" />
+            android:textSize="@dimen/title_size" />
 
     </RelativeLayout>
 

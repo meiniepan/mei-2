@@ -24,7 +24,6 @@ public class CircleFragment extends BaseFragment {
     String[] mTitle = {"我创建的合约", "我加入的合约", "合约市场"};
 
 
-
     @Override
     protected int getContentLayout() {
         return R.layout.fragment_order_my;
@@ -32,9 +31,7 @@ public class CircleFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-
         initView();
-
     }
 
     private void initView() {

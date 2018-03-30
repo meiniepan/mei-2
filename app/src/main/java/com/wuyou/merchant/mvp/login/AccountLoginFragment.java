@@ -2,13 +2,10 @@ package com.wuyou.merchant.mvp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
-import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
@@ -49,7 +46,7 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
 
     @Override
     public void loginSuccess() {
-        ToastUtils.ToastMessage(getContext(), "login success");
+        ToastUtils.ToastMessage(getContext(), "登陆成功");
         Intent view = new Intent(getActivity(), MainActivity.class);
         startActivity(view);
     }
@@ -72,14 +69,16 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
                 mPresenter.doLoginPassword(loginPhone.getText().toString().trim(), loginPsw.getText().toString().trim());
                 break;
             case R.id.tv_forget:
-                intent = new Intent(getActivity(), PhoneInputActivity.class);
-                intent.putExtra(Constant.INPUT_PHONE_FLAG, 0);
-                startActivity(intent);
+                ToastUtils.ToastMessage(getActivity(),"功能正在开发");
+//                intent = new Intent(getActivity(), PhoneInputActivity.class);
+//                intent.putExtra(Constant.INPUT_PHONE_FLAG, 0);
+//                startActivity(intent);
                 break;
             case R.id.btn_new_regist:
-                intent = new Intent(getActivity(), PhoneInputActivity.class);
-                intent.putExtra(Constant.INPUT_PHONE_FLAG, 1);
-                startActivity(intent);
+                ToastUtils.ToastMessage(getActivity(),"功能正在开发");
+//                intent = new Intent(getActivity(), PhoneInputActivity.class);
+//                intent.putExtra(Constant.INPUT_PHONE_FLAG, 1);
+//                startActivity(intent);
                 break;
 
         }

@@ -27,9 +27,7 @@ public class CarefreeApplication extends BaseApplication {
         super.onCreate();
         instance = this;
         initDB();
-
     }
-
 
 
     private void initDB() {

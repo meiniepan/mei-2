@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="创建智能合约"
-                android:textSize="22sp" />
+                android:textSize="@dimen/title_size" />
 
             <TextView
                 android:id="@+id/tv_commit"

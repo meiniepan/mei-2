@@ -39,13 +39,14 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
 
     @Override
     protected void convert(BaseHolder helper, OrderInfoEntity item) {
-        String[] s = {"待分单", "未开始", "进行中", "待评价", "已完成","已取消"};
+        String[] s = {"待分单", "未开始", "进行中", "待评价", "已完成", "已取消"};
         int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.custom_green, R.color.main_blue, R.color.main_blue};
         int i = Integer.parseInt(item.status) - 1;
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at * 1000));
         helper.setText(R.id.tv_create_time, create_time)
                 .setText(R.id.tv_status, s[i])
-                .setTextColor(R.id.tv_status,activity.getResources().getColor(colors[i]))
+                .setText(R.id.tv_server_time, item.service_date + " " + item.service_time)
+                .setTextColor(R.id.tv_status, activity.getResources().getColor(colors[i]))
                 .setText(R.id.tv_category, item.service.service_name)
                 .setText(R.id.tv_address, item.address.city_name + item.address.district + item.address.area + item.address.address)
                 .setText(R.id.tv_sum, item.price);
@@ -62,7 +63,7 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
                 intent.putExtra(Constant.ORDER_ID, item.order_id);
                 activity.startActivity(intent);
             });
-        } else if (item.status.equals("2")||item.status.equals("3")) {
+        } else if (item.status.equals("2") || item.status.equals("3")) {
             dispatch.setVisibility(View.VISIBLE);
             ll_receiver.setVisibility(View.VISIBLE);
             helper.setText(R.id.tv_receiver, item.worker.worker_name);

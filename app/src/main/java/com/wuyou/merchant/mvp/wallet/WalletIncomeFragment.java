@@ -2,7 +2,11 @@ package com.wuyou.merchant.mvp.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.HorizontalScrollView;
 
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.Constant;
@@ -10,6 +14,7 @@ import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.TradeListRvAdapter;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.bean.entity.TradeEntity;
+import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
 
@@ -22,19 +27,26 @@ import butterknife.BindView;
  */
 
 public class WalletIncomeFragment extends BaseFragment<WalletContract.View, WalletContract.Presenter> implements WalletContract.View {
-
+//    @BindView(R.id.wallet_credit)
+//    TextView walletCredit;
+//    @BindView(R.id.wallet_benefit)
+//    TextView walletIncome;
     @BindView(R.id.recyclerview)
     NewRefreshRecyclerView recyclerView;
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     TradeListRvAdapter adapter;
     List<TradeEntity> data;
+    @BindView(R.id.hsv)
+    HorizontalScrollView horizontalScrollView;
+    private ViewPager vp;
 
 
     @Override
     protected int getContentLayout() {
         return R.layout.fragment_income_wallet;
     }
+
 
     @Override
     protected WalletContract.Presenter getPresenter() {
@@ -48,6 +60,23 @@ public class WalletIncomeFragment extends BaseFragment<WalletContract.View, Wall
             adapter.clearData();
             fetchDatas();
         });
+
+        horizontalScrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                horizontalScrollView.scrollTo(CommonUtil.getScreenWidth(getActivity()), 0);
+            }
+        });
+        horizontalScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                vp.scrollTo((int)event.getX(),(int)event.getY());
+                return true;
+            }
+        });
+
+        statusLayout.showProgressView();
+        fetchDatas();
         adapter = new TradeListRvAdapter(R.layout.item_trade, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
@@ -61,13 +90,14 @@ public class WalletIncomeFragment extends BaseFragment<WalletContract.View, Wall
             fetchDatas();
         });
     }
-
-
+    public void setViewPager(ViewPager vp){
+        this.vp = vp;
+    }
 
     @Override
     public void loadData() {
-        statusLayout.showProgressView();
-        fetchDatas();
+//        statusLayout.showProgressView();
+//        fetchDatas();
     }
 
     private void fetchDatas() {

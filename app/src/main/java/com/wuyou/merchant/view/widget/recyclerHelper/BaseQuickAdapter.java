@@ -1521,7 +1521,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseHolder> extends Recycler
     protected abstract void convert(K helper, T item);
 
 
-    public void clearData(){
+    public void clearData() {
         checkNotNull();
         getData().clear();
         notifyDataSetChanged();

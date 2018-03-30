@@ -12,9 +12,9 @@ public class ContractMerchantEntity implements Parcelable {
     public String shop_name;
     public String contact_address;
     public String mobile;
+    public String logo;
     public String license;
     public String other_image;
-    public String logo;
 
     @Override
     public int describeContents() {
