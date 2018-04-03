@@ -13,6 +13,7 @@ import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.FundEntity;
@@ -141,7 +142,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void loadFundMore() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getFundList(QueryMapBuilder.getIns()
+                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns()
                         .put("start_id", lastId_list)
                         .put("flag", "2")
                         .put("size", "10")
@@ -168,7 +169,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void getFunList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getFundList(QueryMapBuilder.getIns()
+                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns()
                         .put("start_id", "0")
                         .put("flag", "1")
                         .put("size", "10")

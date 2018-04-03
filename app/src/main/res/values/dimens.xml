@@ -20,10 +20,13 @@
     <dimen name="button_height">48dp</dimen>
     <dimen name="button_margin">20dp</dimen>
     <dimen name="common_margin">20dp</dimen>
+    <dimen name="common_margin_15">15dp</dimen>
     <dimen name="common_margin_12">12dp</dimen>
     <dimen name="dimens_18sp">18sp</dimen>
     <dimen name="dimens_27sp">27sp</dimen>
     <dimen name="dimens_14sp">14sp</dimen>
+    <dimen name="dimens_15sp">15sp</dimen>
+    <dimen name="dimens_12sp">12sp</dimen>
     <dimen name="text_margin">10dp</dimen>
     <dimen name="small_text_margin">5dp</dimen>
     <dimen name="dimens_24sp">24sp</dimen>

@@ -5,6 +5,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
@@ -27,7 +28,7 @@ public class WalletPresenter extends WalletContract.Presenter {
     @Override
     void getFundList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getFundList(QueryMapBuilder.getIns()
+                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns()
                         .put("start_id", "0")
                         .put("flag", "1")
                         .put("size", "10")
@@ -72,7 +73,7 @@ public class WalletPresenter extends WalletContract.Presenter {
     @Override
     void loadMore() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getFundList(QueryMapBuilder.getIns()
+                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns()
                         .put("start_id", lastId_list)
                         .put("flag", "2")
                         .put("size", "10")

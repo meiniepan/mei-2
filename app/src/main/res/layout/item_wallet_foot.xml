@@ -12,7 +12,6 @@
         android:id="@+id/ll_wallet_foot_title"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="@dimen/common_margin"
         android:layout_marginStart="@dimen/common_margin"
         android:layout_marginEnd="@dimen/common_margin"
         android:background="@color/white"
@@ -86,6 +85,9 @@
         <com.wuyou.merchant.view.widget.MyRefreshRecyclerView
             android:id="@+id/rv_wallet_foot"
             android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/common_margin_15"
+            android:layout_marginEnd="@dimen/common_margin_15"
+            android:layout_marginTop="11dp"
             android:layout_height="wrap_content" />
     </com.gs.buluo.common.widget.StatusLayout>
 </LinearLayout>

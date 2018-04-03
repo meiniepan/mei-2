@@ -13,6 +13,7 @@
     <com.wuyou.merchant.view.widget.WalletHeadRecyclerView
         android:id="@+id/rv_head"
         android:background="@color/white"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,5 +22,6 @@
     <com.wuyou.merchant.view.widget.WalletFootRecyclerView
         android:id="@+id/rv_foot"
         android:layout_width="match_parent"
+        android:overScrollMode="never"
         android:layout_height="match_parent" />
 </LinearLayout>

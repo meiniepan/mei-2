@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
+import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.FundRateListRvAdapter;
@@ -77,11 +77,14 @@ public class FundIntroduceActivity extends BaseActivity {
         String s = TribeDateUtils.SDF5.format(new Date(Long.parseLong(data.start_at)*1000));
         name.setText(data.fund_name);
         tvTime.setText(s);
-        description.setText(data.description);
+        description.setText(data.desc);
     }
 
     @OnClick(R.id.btn_apply)
     public void onViewClicked() {
-        ToastUtils.ToastMessage(getCtx(),"暂未开通！");
+        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getCtx());
+        builder.setMessage("您的申请已提交！\n请保持您的手机通畅，等待工作人员联系。");
+        builder.setPositiveButton("确定", null);
+        builder.create().show();
     }
 }

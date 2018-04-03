@@ -69,7 +69,7 @@ public class WalletFootRecyclerView extends RecyclerView {
         if (velocityX > 0)
             v = new Double(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right))).intValue();
         else
-            v = new Double(getVelocityByDistance(num * mItemWidth - Math.abs(rect.right))).intValue();
+            v = new Double(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left))).intValue();
         if (velocityX < 0) v = -v;
         return super.fling(v, velocityY);
     }
@@ -116,7 +116,6 @@ public class WalletFootRecyclerView extends RecyclerView {
         super.onScrolled(dx, dy);
         sx = sx +dx;
         if (scrollViewListener != null && isMark) {
-            Log.e("222", dx + "");
             scrollViewListener.onScrollChanged(this, sx, 0);
         }
     }

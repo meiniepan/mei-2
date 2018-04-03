@@ -10,6 +10,9 @@ public class FundEntity {
     public String fund_id;
     public String fund_name;
     public String start_at;
-    public String description;
+    public String desc;
+    public String rate;
+    public int status;
+    public List<String> tags;
     public List<FundRateEntity> rates;
 }

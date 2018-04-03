@@ -18,8 +18,9 @@ import retrofit2.http.QueryMap;
  */
 
 public interface WalletApis {
-    @GET("funds")
+    @GET("funds/{shop_id}")
     Observable<BaseResponse<ResponseListEntity<FundEntity>>> getFundList(
+            @Path("shop_id") String shop_id,
             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("credit")

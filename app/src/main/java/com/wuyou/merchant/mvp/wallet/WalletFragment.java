@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.WalletFootAdapter;
@@ -115,12 +116,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
 
             }
         });
-//        mRecyclerView.setOnSelectListener(new CustomWheelRecyclerView.OnSelectListener() {
-//            @Override
-//            public void onSelect(int position) {
-//
-//            }
-//        });
+
     }
 
     private void initHeadFoot() {
@@ -142,7 +138,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
     private void initWalletInfo() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
                 .getCredit(QueryMapBuilder.getIns()
-                        .put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                        .put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id())
                         .buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
