@@ -18,7 +18,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
-import com.wuyou.merchant.bean.entity.TradeEntity;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.bean.entity.WalletInfoEntity;
 import com.wuyou.merchant.mvp.wallet.FundIntroduceActivity;
 import com.wuyou.merchant.mvp.wallet.Loan2Activity;
@@ -42,13 +42,18 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private final Activity activity;
     private String lastId_list;
     List<FundEntity> data;
-    List<TradeEntity> data2;
-    StatusLayout statusLayout1;
-    MyRefreshRecyclerView recyclerView1;
-    StatusLayout statusLayout2;
-    MyRefreshRecyclerView recyclerView2;
-    FundListRvAdapter fundListRvAdapter;
-    TradeListRvAdapter tradeListRvAdapter;
+    private StatusLayout statusLayout1;
+    private MyRefreshRecyclerView recyclerView1;
+    private FundListRvAdapter fundListRvAdapter;
+
+    private StatusLayout orderStatusLayout;
+    private MyRefreshRecyclerView orderRecyclerView;
+    private TradeListRvAdapter tradeListRvAdapter;
+
+    private StatusLayout contractStatusLayout;
+    private MyRefreshRecyclerView contractRecyclerView;
+    private TradeListRvAdapter contractListRvAdapter;
+
 
     public WalletFootAdapter(Activity activity, int layoutResId, @Nullable List<WalletInfoEntity> data) {
         super(layoutResId, data);
@@ -88,40 +93,52 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
             initAdapter1();
         } else if (helper.getAdapterPosition() == 1) {
             title.setVisibility(View.GONE);
-            statusLayout2 = helper.getView(R.id.sl_wallet_foot);
-            recyclerView2 = helper.getView(R.id.rv_wallet_foot);
-            initAdapter2();
-        }else if (helper.getAdapterPosition() == 2) {
+            orderStatusLayout = helper.getView(R.id.sl_wallet_foot);
+            orderRecyclerView = helper.getView(R.id.rv_wallet_foot);
+            initOrderInComeAdapter();
+        } else if (helper.getAdapterPosition() == 2) {
             title.setVisibility(View.GONE);
-            statusLayout2 = helper.getView(R.id.sl_wallet_foot);
-            recyclerView2 = helper.getView(R.id.rv_wallet_foot);
-            initAdapter2();
+            contractStatusLayout = helper.getView(R.id.sl_wallet_foot);
+            contractRecyclerView = helper.getView(R.id.rv_wallet_foot);
+            initContractIncomeAdapter();
         }
     }
 
-    private void initAdapter2() {
-        getTradeList();
-        tradeListRvAdapter = new TradeListRvAdapter(R.layout.item_trade, data2);
-        statusLayout2.setErrorAndEmptyAction(v -> {
-            statusLayout2.showProgressView();
-            tradeListRvAdapter.clearData();
-            getTradeList();
+    private void initContractIncomeAdapter() {
+        getContractTradeList("0", "1");
+        contractListRvAdapter = new TradeListRvAdapter(R.layout.item_trade);
+        contractStatusLayout.setErrorAndEmptyAction(v -> {
+            contractStatusLayout.showProgressView();
+            getOrderTradeList("0", "1");
+        });
+        contractListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
+            Intent intent = new Intent(activity, TradeDetailActivity.class);
+            intent.putExtra(Constant.TRANSACTION_ID, contractListRvAdapter.getItem(position).order_id);
+            activity.startActivity(intent);
+        });
+        contractRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
+        contractRecyclerView.setAdapter(contractListRvAdapter);
+        contractListRvAdapter.setOnLoadMoreListener(() -> getContractTradeList(lastContractId, "2"), contractRecyclerView.getRecyclerView());
+        contractRecyclerView.setRefreshAction(() -> getContractTradeList("0", "1"));
+    }
+
+    private void initOrderInComeAdapter() {
+        getOrderTradeList("0", "1");
+        tradeListRvAdapter = new TradeListRvAdapter(R.layout.item_trade);
+        orderStatusLayout.setErrorAndEmptyAction(v -> {
+            orderStatusLayout.showProgressView();
+            getOrderTradeList("0", "1");
         });
         tradeListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, TradeDetailActivity.class);
-            intent.putExtra(Constant.TRANSACTION_ID, tradeListRvAdapter.getItem(position).txid);
+            intent.putExtra(Constant.TRANSACTION_ID, tradeListRvAdapter.getItem(position).order_id);
             activity.startActivity(intent);
         });
-        recyclerView2.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
-        recyclerView2.setAdapter(tradeListRvAdapter);
-//        tradeListRvAdapter.setOnLoadMoreListener(() -> loadTradeMore(), recyclerView2.getRecyclerView());
-        recyclerView2.setRefreshAction(() -> {
-            tradeListRvAdapter.clearData();
-            getTradeList();
-        });
+        orderRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
+        orderRecyclerView.setAdapter(tradeListRvAdapter);
+        tradeListRvAdapter.setOnLoadMoreListener(() -> getOrderTradeList(lastTradeId, "2"), orderRecyclerView.getRecyclerView());
+        orderRecyclerView.setRefreshAction(() -> getOrderTradeList("0", "1"));
     }
-
-
 
     private void initAdapter1() {
         getFunList();
@@ -148,7 +165,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void loadFundMore() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns()
+                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
                         .put("start_id", lastId_list)
                         .put("flag", "2")
                         .put("size", "10")
@@ -175,7 +192,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void getFunList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns()
+                .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
                         .put("start_id", "0")
                         .put("flag", "1")
                         .put("size", "10")
@@ -205,29 +222,93 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                     }
                 });
     }
-    private void getTradeList() {
+
+    private String lastTradeId = "0";
+
+    private void getOrderTradeList(String startId, String flag) {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getTradelist(CarefreeApplication.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns().buildGet())
+                .getOrderTradeList(CarefreeApplication.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
+                        .put("start_id", startId)
+                        .put("flag", flag)
+                        .put("size", "10")
+                        .buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeEntity>>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeItemEntity>>>() {
                     @Override
-                    public void onSuccess(BaseResponse<ResponseListEntity<TradeEntity>> response) {
-                        recyclerView2.setRefreshFinished();
-                        tradeListRvAdapter.setNewData(response.data.list);
-                        statusLayout2.showContentView();
-//                        if (response.data.has_more.equals("0")) {
-//                            tradeListRvAdapter.loadMoreEnd(true);
-//                        }
+                    public void onSuccess(BaseResponse<ResponseListEntity<TradeItemEntity>> response) {
+                        ResponseListEntity<TradeItemEntity> res = response.data;
+                        if ("2".equals(flag)) {
+                            tradeListRvAdapter.addData(res.list.get(0));
+                        } else {
+                            orderRecyclerView.setRefreshFinished();
+                            tradeListRvAdapter.setNewData(res.list);
+                        }
+
                         if (tradeListRvAdapter.getData().size() == 0) {
-                            statusLayout2.showEmptyView("没有交易记录");
+                            orderStatusLayout.showEmptyView("暂无营收记录");
+                        } else {
+                            orderStatusLayout.showContentView();
+                            lastTradeId = res.list.get(res.list.size() - 1).order_id;
+                        }
+                        if (res.has_more.equals("0")) {
+                            tradeListRvAdapter.loadMoreEnd(true);
                         }
                     }
 
                     @Override
                     protected void onFail(ApiException e) {
-                        recyclerView2.setRefreshFinished();
-                        statusLayout2.showErrorView(e.getDisplayMessage());
+                        if ("2".equals(flag)) {
+                            tradeListRvAdapter.loadMoreFail();
+                        } else {
+                            orderRecyclerView.setRefreshFinished();
+                            orderStatusLayout.showErrorView(e.getDisplayMessage());
+                        }
+                    }
+                });
+    }
+
+    private String lastContractId;
+
+    public void getContractTradeList(String startId, String flag) {
+        CarefreeRetrofit.getInstance().createApi(WalletApis.class)
+                .getContractTradeList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
+                        .put("start_id", startId)
+                        .put("flag", flag)
+                        .put("size", "10")
+                        .buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeItemEntity>>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<ResponseListEntity<TradeItemEntity>> response) {
+                        ResponseListEntity<TradeItemEntity> res = response.data;
+                        if ("2".equals(flag)) {
+                            contractListRvAdapter.addData(res.list);
+                        } else {
+                            contractListRvAdapter.setNewData(res.list);
+                            contractRecyclerView.setRefreshFinished();
+                        }
+
+                        if (contractListRvAdapter.getData().size() == 0) {
+                            contractStatusLayout.showEmptyView("暂无营收记录");
+                        } else {
+                            contractStatusLayout.showContentView();
+                            lastContractId = res.list.get(res.list.size() - 1).order_id;
+                        }
+                        if (res.has_more.equals("0")) {
+                            contractListRvAdapter.loadMoreEnd(true);
+                        }
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        if ("2".equals(flag)) {
+                            contractListRvAdapter.loadMoreFail();
+                        } else {
+                            contractRecyclerView.setRefreshFinished();
+                            contractStatusLayout.showErrorView(e.getDisplayMessage());
+                        }
                     }
                 });
     }

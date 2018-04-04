@@ -31,10 +31,14 @@ public class WalletHeaderAdapter extends BaseQuickAdapter<WalletInfoEntity, Base
             view.setBackground(CarefreeApplication.getInstance().getApplicationContext().getResources().getDrawable(R.mipmap.wallet_blue_bac));
             helper.setText(R.id.tv_key, "无忧信用分")
                     .setText(R.id.tv_value, item.score);
-        } else if (helper.getAdapterPosition() == 2){
+        } else if (helper.getAdapterPosition() == 2) {
+            view.setBackground(CarefreeApplication.getInstance().getApplicationContext().getResources().getDrawable(R.mipmap.wallet_order_bg));
+            helper.setText(R.id.tv_key, "订单营收 (元)")
+                    .setText(R.id.tv_value, CommonUtil.formatPrice(item.income));
+        } else if (helper.getAdapterPosition() == 3) {
             view.setBackground(CarefreeApplication.getInstance().getApplicationContext().getResources().getDrawable(R.mipmap.wallet_orange_bac));
-            helper.setText(R.id.tv_key, "营收 (元)")
-                    .setText(R.id.tv_value, item.score);
+            helper.setText(R.id.tv_key, "合约营收 (元)")
+                    .setText(R.id.tv_value, CommonUtil.formatPrice(item.income));
         }
 
     }

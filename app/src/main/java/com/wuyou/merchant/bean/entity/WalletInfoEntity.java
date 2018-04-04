@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by hjn on 2018/2/22.
  */
 
-public class WalletInfoEntity implements Parcelable{
+public class WalletInfoEntity implements Parcelable {
     public String shop_id;
     public String score;
     public String total_amount;
@@ -15,31 +15,14 @@ public class WalletInfoEntity implements Parcelable{
     public String used_amount;
     public String frozen_amount;
     public String payable_amount;
-
-    public WalletInfoEntity(Parcel in) {
-        shop_id = in.readString();
-        score = in.readString();
-        total_amount = in.readString();
-        available_amount = in.readString();
-        used_amount = in.readString();
-        frozen_amount = in.readString();
-        payable_amount = in.readString();
-    }
-
-    public static final Creator<WalletInfoEntity> CREATOR = new Creator<WalletInfoEntity>() {
-        @Override
-        public WalletInfoEntity createFromParcel(Parcel in) {
-            return new WalletInfoEntity(in);
-        }
-
-        @Override
-        public WalletInfoEntity[] newArray(int size) {
-            return new WalletInfoEntity[size];
-        }
-    };
+    public float income;
 
     public WalletInfoEntity() {
 
+    }
+
+    public WalletInfoEntity(float income) {
+        this.income = income;
     }
 
     @Override
@@ -49,12 +32,36 @@ public class WalletInfoEntity implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(shop_id);
-        dest.writeString(score);
-        dest.writeString(total_amount);
-        dest.writeString(available_amount);
-        dest.writeString(used_amount);
-        dest.writeString(frozen_amount);
-        dest.writeString(payable_amount);
+        dest.writeString(this.shop_id);
+        dest.writeString(this.score);
+        dest.writeString(this.total_amount);
+        dest.writeString(this.available_amount);
+        dest.writeString(this.used_amount);
+        dest.writeString(this.frozen_amount);
+        dest.writeString(this.payable_amount);
+        dest.writeFloat(this.income);
     }
+
+    protected WalletInfoEntity(Parcel in) {
+        this.shop_id = in.readString();
+        this.score = in.readString();
+        this.total_amount = in.readString();
+        this.available_amount = in.readString();
+        this.used_amount = in.readString();
+        this.frozen_amount = in.readString();
+        this.payable_amount = in.readString();
+        this.income = in.readFloat();
+    }
+
+    public static final Creator<WalletInfoEntity> CREATOR = new Creator<WalletInfoEntity>() {
+        @Override
+        public WalletInfoEntity createFromParcel(Parcel source) {
+            return new WalletInfoEntity(source);
+        }
+
+        @Override
+        public WalletInfoEntity[] newArray(int size) {
+            return new WalletInfoEntity[size];
+        }
+    };
 }

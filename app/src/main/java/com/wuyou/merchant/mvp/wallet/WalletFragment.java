@@ -11,12 +11,14 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.DensityUtils;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.WalletFootAdapter;
 import com.wuyou.merchant.adapter.WalletHeaderAdapter;
+import com.wuyou.merchant.bean.entity.WalletIncomeEntity;
 import com.wuyou.merchant.bean.entity.WalletInfoEntity;
 import com.wuyou.merchant.interfaces.ScrollViewListener;
 import com.wuyou.merchant.network.CarefreeRetrofit;
@@ -66,15 +68,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
         initWalletInfo();
     }
 
-
-    @Override
-    public void loadData() {
-        super.loadData();
-
-    }
-
-
-    private void initRvHead() {
+    private void initRvHead(WalletIncomeEntity data) {
         List list = new ArrayList();
         list.add(entity);
         list.add(entity);
@@ -82,15 +76,17 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
         adapter = new WalletHeaderAdapter(R.layout.item_wallet_header, list);
         initHeadFoot();
         rvHead.setAdapter(adapter);
+        adapter.setData(1, new WalletInfoEntity(data.order));
+        adapter.setData(2, new WalletInfoEntity(data.contract));
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                LinearLayoutManager layoutManager = (LinearLayoutManager) rvHead.getLayoutManager();
 //                int first = layoutManager.findFirstVisibleItemPosition() - 1;
-                if (position == 0){
+                if (position == 0) {
                     Intent intent1 = new Intent(getContext(), CreditDetailActivity.class);
-                intent1.putExtra(Constant.CREDIT_SCORE, sCredit);
-                startActivity(intent1);
+                    intent1.putExtra(Constant.CREDIT_SCORE, sCredit);
+                    startActivity(intent1);
                 }
 
             }
@@ -108,14 +104,13 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
         list.add(entity);
         list.add(entity);
         list.add(entity);
-        adapterFoot = new WalletFootAdapter(getActivity(),R.layout.item_wallet_foot, list);
+        adapterFoot = new WalletFootAdapter(getActivity(), R.layout.item_wallet_foot, list);
         rvFoot.setAdapter(adapterFoot);
         adapterFoot.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) rvHead.getLayoutManager();
                 int first = layoutManager.findFirstVisibleItemPosition() - 1;
-
             }
         });
 
@@ -139,28 +134,27 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
 
     private void initWalletInfo() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getCredit(QueryMapBuilder.getIns()
-                        .put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id())
-                        .buildGet())
+                .getCredit(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet())
                 .subscribeOn(Schedulers.io())
+                .flatMap(response -> {
+                    entity = response.data;
+                    sCredit = entity.score;
+                    return CarefreeRetrofit.getInstance().createApi(WalletApis.class).getWalletIncome(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildGet());
+                })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<WalletInfoEntity>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<WalletIncomeEntity>>() {
                     @Override
-                    public void onSuccess(BaseResponse<WalletInfoEntity> response) {
-                        entity = response.data;
-                        sCredit = entity.score;
-                        initRvHead();
+                    public void onSuccess(BaseResponse<WalletIncomeEntity> response) {
+                        initRvHead(response.data);
                         initRvFoot();
-
                     }
 
                 });
     }
 
-
     @Override
     public void showError(String message, int res) {
-
+        ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
     }
 
     @Override
@@ -169,7 +163,6 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
         int width2 = CommonUtil.getScreenWidth(getContext());
         if (scrollView == rvHead) {
             rvFoot.setmark(false);
-
             rvFoot.scrollTo(x * width2 / width1, y);
         } else if (scrollView == rvFoot) {
             rvHead.setmark(false);

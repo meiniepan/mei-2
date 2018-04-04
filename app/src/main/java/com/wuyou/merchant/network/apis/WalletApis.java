@@ -6,6 +6,8 @@ import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.bean.entity.TradeEntity;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
+import com.wuyou.merchant.bean.entity.WalletIncomeEntity;
 import com.wuyou.merchant.bean.entity.WalletInfoEntity;
 
 import io.reactivex.Observable;
@@ -44,14 +46,27 @@ public interface WalletApis {
             @Path("fund_id") String fund_id,
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("coin/transactions/{shop_id}")
-    Observable<BaseResponse<ResponseListEntity<TradeEntity>>> getTradelist(
+    @GET("order_profits/{shop_id}")
+    Observable<BaseResponse<ResponseListEntity<TradeItemEntity>>> getOrderTradeList(
             @Path("shop_id") String shop_id,
             @QueryMap SortedTreeMap<String, String> map);
 
-    @GET("coin/transaction")
-    Observable<BaseResponse<TradeEntity>> getTradeDetail(
+    @GET("profits/order/{order_id}")
+    Observable<BaseResponse<ResponseListEntity<TradeEntity>>> getOrderTradeDetail(@Path("order_id") String orderId,
+                                                                                  @QueryMap SortedTreeMap<String, String>map);
+
+    @GET("contract_profits/{shop_id}")
+    Observable<BaseResponse<ResponseListEntity<TradeItemEntity>>> getContractTradeList(
+            @Path("shop_id") String shop_id,
             @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("profits/contract/{order_id}")
+    Observable<BaseResponse<ResponseListEntity<TradeEntity>>> getContractTradeDetail(@Path("order_id") String orderId,
+                                                                                  @QueryMap SortedTreeMap<String, String>map);
+
+    @GET("incomes/{shop_id}")
+    Observable<BaseResponse<WalletIncomeEntity>> getWalletIncome(
+            @Path("shop_id") String shopId, @QueryMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @POST("loan")

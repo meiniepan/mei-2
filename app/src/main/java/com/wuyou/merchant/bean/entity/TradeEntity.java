@@ -5,23 +5,24 @@ package com.wuyou.merchant.bean.entity;
  */
 
 public class TradeEntity {
-    public String account;
-    public String address;
-    public String category;
-    public String amount;
-    public String label;
-    public String vout;
-    public String confirmations;
-    public String generated;
-    public String blockhash;
-    public String blockindex;
-    public String blocktime;
-    public String txid;
-//    public String walletconflicts;
-    public String time;
-    public String timereceived;
+
+    /**
+     * from : 智能家政服务
+     * to : 碧桂园控股集团
+     * transaction_id : 6cbe7bc9d81b389beac4451d4f4bd5adf8cfd40cebd233f18fcc126c1be4bd96
+     * amount : 100
+     * confirmations : 779
+     * time : 1522400907
+     * timereceived : 1522400907
+     * fee : 0
+     */
+
     public String from;
     public String to;
-    public String fee;
-
+    public String transaction_id;
+    public int amount;
+    public String confirmations;
+    public long time;
+    public int timereceived;
+    public int fee;
 }

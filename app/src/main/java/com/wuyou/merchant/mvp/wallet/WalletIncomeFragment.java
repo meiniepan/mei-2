@@ -14,6 +14,7 @@ import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.TradeListRvAdapter;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.bean.entity.TradeEntity;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
@@ -36,7 +37,7 @@ public class WalletIncomeFragment extends BaseFragment<WalletContract.View, Wall
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     TradeListRvAdapter adapter;
-    List<TradeEntity> data;
+    List<TradeItemEntity> data;
     @BindView(R.id.hsv)
     HorizontalScrollView horizontalScrollView;
     private ViewPager vp;
@@ -77,10 +78,10 @@ public class WalletIncomeFragment extends BaseFragment<WalletContract.View, Wall
 
         statusLayout.showProgressView();
         fetchDatas();
-        adapter = new TradeListRvAdapter(R.layout.item_trade, data);
+        adapter = new TradeListRvAdapter(R.layout.item_trade);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
-            intent.putExtra(Constant.TRANSACTION_ID, adapter.getItem(position).txid);
+            intent.putExtra(Constant.TRANSACTION_ID, adapter.getItem(position).order_id);
             startActivity(intent);
         });
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));

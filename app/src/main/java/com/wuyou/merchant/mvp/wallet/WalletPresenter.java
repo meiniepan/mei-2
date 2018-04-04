@@ -9,7 +9,7 @@ import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
-import com.wuyou.merchant.bean.entity.TradeEntity;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
 
@@ -53,12 +53,12 @@ public class WalletPresenter extends WalletContract.Presenter {
     @Override
     void getTradeList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getTradelist(CarefreeApplication.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns().buildGet())
+                .getOrderTradeList(CarefreeApplication.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns().buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeEntity>>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeItemEntity>>>() {
                     @Override
-                    public void onSuccess(BaseResponse<ResponseListEntity<TradeEntity>> response) {
+                    public void onSuccess(BaseResponse<ResponseListEntity<TradeItemEntity>> response) {
                         if (isAttach()) mView.getSuccess(response.data);
                     }
 

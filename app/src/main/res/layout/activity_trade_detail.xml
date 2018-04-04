@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tool="http://schemas.android.com/tools"
     android:scrollbars="none">
 
     <LinearLayout
@@ -27,512 +27,81 @@
                 android:textSize="@dimen/title_size" />
         </RelativeLayout>
 
-        <include layout="@layout/split_area" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:visibility="gone"
-        >
+        <include layout="@layout/split_line" />
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="@dimen/common_margin">
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:text="服务名称："
+                android:textColor="@color/main_gray" />
 
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="项目" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="---->" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="商户" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    android:text="2个" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="公益通证 ●"
-                    android:textColor="@color/custom_orange" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/trade_detail_serve_name"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="项目" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="---->" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="用户" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    android:text="2个" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="公益通证 ●"
-                    android:textColor="@color/custom_orange" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="用户" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="---->" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="商户" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    android:text="2个" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="无忧通证 ●"
-                    android:textColor="@color/main_blue" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="商户" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:gravity="center"
-                    android:text="---->" />
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/bac_black_shape"
-                    android:gravity="center"
-                    android:text="无忧" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    android:text="2个" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="无忧通证 ●"
-                    android:textColor="@color/main_blue" />
-
-            </LinearLayout>
-
-
+                tool:text="啥破服务" />
         </LinearLayout>
 
-        <include layout="@layout/split_area" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_height"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:padding="@dimen/text_margin">
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="账目名称 ID" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="@dimen/text_margin">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="服务完成，获取 2个"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="无忧通证 ●"
-                    android:textColor="@color/main_blue" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="用户点评，获取 2个"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="无忧通证 ●"
-                    android:textColor="@color/main_blue" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="无忧信用验证，获取 2个"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="无忧通证 ●"
-                    android:textColor="@color/main_blue" />
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <include layout="@layout/split_area" />
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/edit_height"
-            android:gravity="center_vertical"
-            android:padding="@dimen/text_margin">
+                android:text="订单总金额："
+                android:textColor="@color/main_gray" />
 
             <TextView
+                android:id="@+id/trade_detail_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="交易信息" />
+                tool:text="啥破服务" />
         </LinearLayout>
-
-        <include layout="@layout/split_line" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="@dimen/text_margin">
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                >
+                android:text="订单编号："
+                android:textColor="@color/main_gray" />
 
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="交易hash"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_trade_hash"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/trade_detail_order_number"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="交易时间"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_trade_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="确认时间"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_confirm_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="确认节点"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_confirm_node"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="共识机制"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    android:text="POW" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="状态"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="交易大小"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_trade_big"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="交易额"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_trade_sum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/text_margin"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:text="手续费"
-                    android:textColor="@color/common_gray"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_trade_fee"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/common_margin"
-                    android:gravity="center"
-                    tool:text="占位信息" />
-            </LinearLayout>
-
-
+                tool:text="啥破服务" />
         </LinearLayout>
 
+        <include layout="@layout/split_line"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/trade_detail_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 </ScrollView>
