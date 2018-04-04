@@ -91,6 +91,11 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
             statusLayout2 = helper.getView(R.id.sl_wallet_foot);
             recyclerView2 = helper.getView(R.id.rv_wallet_foot);
             initAdapter2();
+        }else if (helper.getAdapterPosition() == 2) {
+            title.setVisibility(View.GONE);
+            statusLayout2 = helper.getView(R.id.sl_wallet_foot);
+            recyclerView2 = helper.getView(R.id.rv_wallet_foot);
+            initAdapter2();
         }
     }
 
@@ -129,6 +134,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
         fundListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, FundIntroduceActivity.class);
             intent.putExtra(Constant.FUND_ID, fundListRvAdapter.getItem(position).fund_id);
+            intent.putExtra(Constant.FUND_STATUS, fundListRvAdapter.getItem(position).status);
             activity.startActivity(intent);
         });
         recyclerView1.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));

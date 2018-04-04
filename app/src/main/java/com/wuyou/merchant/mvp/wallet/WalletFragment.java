@@ -78,6 +78,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
         List list = new ArrayList();
         list.add(entity);
         list.add(entity);
+        list.add(entity);
         adapter = new WalletHeaderAdapter(R.layout.item_wallet_header, list);
         initHeadFoot();
         rvHead.setAdapter(adapter);
@@ -104,6 +105,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
 
     private void initRvFoot() {
         List list = new ArrayList();
+        list.add(entity);
         list.add(entity);
         list.add(entity);
         adapterFoot = new WalletFootAdapter(getActivity(),R.layout.item_wallet_foot, list);

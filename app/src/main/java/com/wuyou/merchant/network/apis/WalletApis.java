@@ -9,7 +9,10 @@ import com.wuyou.merchant.bean.entity.TradeEntity;
 import com.wuyou.merchant.bean.entity.WalletInfoEntity;
 
 import io.reactivex.Observable;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -49,4 +52,9 @@ public interface WalletApis {
     @GET("coin/transaction")
     Observable<BaseResponse<TradeEntity>> getTradeDetail(
             @QueryMap SortedTreeMap<String, String> map);
+
+    @FormUrlEncoded
+    @POST("loan")
+    Observable<BaseResponse> applyLoan(
+            @FieldMap SortedTreeMap<String, String> map);
 }

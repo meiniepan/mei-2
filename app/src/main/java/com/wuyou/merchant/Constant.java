@@ -27,4 +27,5 @@ public class Constant {
     public static final String PAY_TYPE = "pay_type";
     public static final String CONTRACT = "contract";
     public static final String SIGN_NUMBER = "sign_number";
+    public static final String FUND_STATUS = "fund_status" ;
 }
