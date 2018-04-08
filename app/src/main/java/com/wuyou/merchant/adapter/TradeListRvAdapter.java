@@ -18,8 +18,15 @@ import java.util.Date;
 
 public class TradeListRvAdapter extends BaseQuickAdapter<TradeItemEntity, BaseHolder> {
 
+    private int type = 0; //订单 1  合约 2
+
     public TradeListRvAdapter(int layoutResId) {
         super(layoutResId);
+    }
+
+    public TradeListRvAdapter(int type, int res) {
+        super(res);
+        this.type = type;
     }
 
     @Override
@@ -39,6 +46,12 @@ public class TradeListRvAdapter extends BaseQuickAdapter<TradeItemEntity, BaseHo
         } else {
             textView.setText("付款方");
             helper.setText(R.id.item_wallet_record_id, item.merchant_name);
+        }
+
+        if (type == 1) {
+            helper.setText(R.id.textView3, "订单总金额");
+        } else {
+            helper.setText(R.id.textView3, "合约总金额");
         }
     }
 }

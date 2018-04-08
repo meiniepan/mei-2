@@ -139,9 +139,12 @@ public class ContractDetailActivity extends BaseActivity {
     }
 
     private void initUI(ContractEntity data) {
+        if (System.currentTimeMillis() > data.end_at * 1000) {
+            button.setEnabled(false);
+        }
         String b_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.created_at) * 1000));
-        String e_time = TribeDateUtils.dateFormat(new Date(Long.parseLong(data.end_at) * 1000));
-        String j_time = TribeDateUtils.dateFormat7(new Date(Long.parseLong(data.end_at) * 1000));
+        String e_time = TribeDateUtils.dateFormat(new Date(data.end_at * 1000));
+        String j_time = TribeDateUtils.dateFormat7(new Date(data.end_at * 1000));
 
         Gson gson = new Gson();
         ContractInfoEntity entity = gson.fromJson(data.information, ContractInfoEntity.class);
@@ -183,11 +186,11 @@ public class ContractDetailActivity extends BaseActivity {
         } else if (fromId == 2) {
             layoutJoined.setVisibility(View.VISIBLE);
             tvJoinedTime.setText(j_time);
-            button.setText("联系合约创建方");
+            button.setText("再次购买合约");
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.ToastMessage(getCtx(), "暂未开通！");
+                    showPanel(data);
                 }
             });
         } else if (fromId == 3) {

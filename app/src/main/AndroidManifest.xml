@@ -137,6 +137,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".mvp.circle.ServeChooseActivity" />
         <activity android:name=".mvp.circle.ContractPayChooseActivity" />
+        <activity android:name=".mvp.wallet.ContractTradeDetailActivity" />
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

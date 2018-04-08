@@ -139,6 +139,15 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     }
 
     private void doCommit() {
+        if (serviceEntity == null) {
+            ToastUtils.ToastMessage(getCtx(), "请选择服务项目");
+            return;
+        }
+        if (payEntity == null) {
+            ToastUtils.ToastMessage(getCtx(), "请选择支付方式");
+            return;
+        }
+
         entity.service = serviceEntity;
         entity.service.service_id = serviceIndex;
         List addressList = new ArrayList();
@@ -153,15 +162,6 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
         Gson gson = new Gson();
         String sInfomation = gson.toJson(cEntity);
         entity.information = sInfomation;
-        if (serviceEntity == null) {
-            ToastUtils.ToastMessage(getCtx(), "请选择服务项目");
-            return;
-        }
-        if (payEntity == null) {
-            ToastUtils.ToastMessage(getCtx(), "请选择支付方式");
-            return;
-        }
-
         if (TextUtils.isEmpty(etInput1.getText())
                 || TextUtils.isEmpty(etTime.getText().toString())
                 || TextUtils.isEmpty(etTime2.getText().toString())) {
@@ -177,7 +177,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                 .createContract(body, QueryMapBuilder.getIns()
                         .put("contact_address", entity.contact_address)
                         .put("contract_name", entity.contract_name)
-                        .put("end_at", entity.end_at)
+                        .put("end_at", entity.end_at + "")
                         .put("information", entity.information.toString())
                         .put("price", etSum.getText().toString().trim())
                         .put("mobile", entity.mobile)

@@ -20,7 +20,7 @@ public class Constant {
     public static final String WALLET_INFO_ENTITY = "wallet_info_entity";
     public static final String CREDIT_SCORE = "credit_score";
     public static final String CONTRACT_FROM = "contract_from";
-    public static final String TRANSACTION_ID = "transaction_id";
+    public static final String TRANSACTION_ENTITY = "transaction_entity";
     public static final String FUND = "fund";
     public static final String SHOP_ID = "shop_id";
     public static final String SERVE_BEAN = "serve_bean";
@@ -28,4 +28,5 @@ public class Constant {
     public static final String CONTRACT = "contract";
     public static final String SIGN_NUMBER = "sign_number";
     public static final String FUND_STATUS = "fund_status" ;
+    public static final String SELF_MAX = "self_max";
 }

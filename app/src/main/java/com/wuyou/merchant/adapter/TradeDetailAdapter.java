@@ -18,10 +18,29 @@ public class TradeDetailAdapter extends BaseQuickAdapter<TradeEntity, BaseHolder
         super(res);
     }
 
+    private int type = 1;     //1 订单 2 合约
+
+    public TradeDetailAdapter(int type, int res) {
+        super(res);
+        this.type = type;
+    }
+
     @Override
     protected void convert(BaseHolder helper, TradeEntity item) {
+        if (type == 1) {
+            if (item.confirmations > 0) {
+                helper.setText(R.id.tv_status, "已确认");
+            } else {
+                helper.setText(R.id.tv_status, "未确认");
+            }
+        } else {
+            if (item.confirmations >= 6) {
+                helper.setText(R.id.tv_status, "已确认");
+            } else {
+                helper.setText(R.id.tv_status, "未确认");
+            }
+        }
         helper.setText(R.id.tv_trade_hash, item.transaction_id)
-                .setText(R.id.tv_status, item.confirmations)
                 .setText(R.id.tv_trade_time, TribeDateUtils.dateFormat(new Date(item.time)))
                 .setText(R.id.tv_confirm_time, TribeDateUtils.dateFormat(new Date(item.timereceived)))
                 .setText(R.id.tv_trade_sum, CommonUtil.formatPrice(item.amount))

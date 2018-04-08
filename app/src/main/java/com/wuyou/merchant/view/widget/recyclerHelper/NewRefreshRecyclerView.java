@@ -68,7 +68,6 @@ public class NewRefreshRecyclerView extends FrameLayout {
     public void setRefreshFinished() {
         mSwipeRefreshLayout.setRefreshing(false);
         mAdapter.setEnableLoadMore(true);
-        mAdapter.clearData();
     }
 
 

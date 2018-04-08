@@ -20,6 +20,7 @@ import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.bean.entity.WalletInfoEntity;
+import com.wuyou.merchant.mvp.wallet.ContractTradeDetailActivity;
 import com.wuyou.merchant.mvp.wallet.FundIntroduceActivity;
 import com.wuyou.merchant.mvp.wallet.Loan2Activity;
 import com.wuyou.merchant.mvp.wallet.TradeDetailActivity;
@@ -106,14 +107,14 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void initContractIncomeAdapter() {
         getContractTradeList("0", "1");
-        contractListRvAdapter = new TradeListRvAdapter(R.layout.item_trade);
+        contractListRvAdapter = new TradeListRvAdapter(2,R.layout.item_trade);
         contractStatusLayout.setErrorAndEmptyAction(v -> {
             contractStatusLayout.showProgressView();
-            getOrderTradeList("0", "1");
+            getContractTradeList("0", "1");
         });
         contractListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
-            Intent intent = new Intent(activity, TradeDetailActivity.class);
-            intent.putExtra(Constant.TRANSACTION_ID, contractListRvAdapter.getItem(position).order_id);
+            Intent intent = new Intent(activity, ContractTradeDetailActivity.class);
+            intent.putExtra(Constant.TRANSACTION_ENTITY, contractListRvAdapter.getItem(position));
             activity.startActivity(intent);
         });
         contractRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
@@ -124,14 +125,14 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void initOrderInComeAdapter() {
         getOrderTradeList("0", "1");
-        tradeListRvAdapter = new TradeListRvAdapter(R.layout.item_trade);
+        tradeListRvAdapter = new TradeListRvAdapter(1,R.layout.item_trade);
         orderStatusLayout.setErrorAndEmptyAction(v -> {
             orderStatusLayout.showProgressView();
             getOrderTradeList("0", "1");
         });
         tradeListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, TradeDetailActivity.class);
-            intent.putExtra(Constant.TRANSACTION_ID, tradeListRvAdapter.getItem(position).order_id);
+            intent.putExtra(Constant.TRANSACTION_ENTITY, tradeListRvAdapter.getItem(position).order_id);
             activity.startActivity(intent);
         });
         orderRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
@@ -286,8 +287,8 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                         if ("2".equals(flag)) {
                             contractListRvAdapter.addData(res.list);
                         } else {
-                            contractListRvAdapter.setNewData(res.list);
                             contractRecyclerView.setRefreshFinished();
+                            contractListRvAdapter.setNewData(res.list);
                         }
 
                         if (contractListRvAdapter.getData().size() == 0) {

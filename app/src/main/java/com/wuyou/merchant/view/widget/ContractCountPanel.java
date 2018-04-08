@@ -74,8 +74,8 @@ public class ContractCountPanel extends Dialog {
                 break;
             case R.id.contract_count_next:
                 Intent intent = new Intent(getContext(), SignContractActivity.class);
-                intent.putExtra(Constant.CONTRACT,contractEntity);
-                intent.putExtra(Constant.SIGN_NUMBER,count);
+                intent.putExtra(Constant.CONTRACT, contractEntity);
+                intent.putExtra(Constant.SIGN_NUMBER, Integer.parseInt(contractCountNumber.getText().toString().trim()));
                 getContext().startActivity(intent);
                 dismiss();
                 break;

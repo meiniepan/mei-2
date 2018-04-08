@@ -131,17 +131,16 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
         Intent intent = new Intent(getCtx(), CreateIntelligentContractActivity2.class);
         entity.shop_id = CarefreeApplication.getInstance().getUserInfo().getUid();
         entity.contract_name = etContractName.getText().toString();
-        entity.end_at = endTime+"";
+        entity.end_at = endTime;
         entity.shop_name = etCompanyName.getText().toString();
         entity.contact_address = etCompanyAddress.getText().toString();
         entity.mobile = etPhone.getText().toString().trim();
         if (TextUtils.isEmpty(entity.contract_name)
-                || TextUtils.isEmpty(entity.end_at)
+                || entity.end_at==0
                 || TextUtils.isEmpty(entity.shop_name)
                 || TextUtils.isEmpty(entity.contact_address)
                 || TextUtils.isEmpty(entity.mobile)
-                || (imagePath == null)
-                ){
+                || (imagePath == null)){
             ToastUtils.ToastMessage(getCtx(),"请完善资料");
             return;
         }

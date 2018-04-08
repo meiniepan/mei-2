@@ -12,7 +12,7 @@ public class PrepareSignEntity {
      * rates : [{"stage":1,"rate":"0.5%"},{"stage":3,"rate":"0.8%"},{"stage":6,"rate":"1.1%"},{"stage":12,"rate":"1.5%"}]
      */
 
-    public int government_subsidy;
+    public float government_subsidy;
     public List<RatesBean> rates;
 
     public static class RatesBean {

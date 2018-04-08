@@ -51,7 +51,7 @@
             android:textColor="@color/main_gray"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            android:text="支 付 时 间 :"
+            android:text="支付时间 :"
             app:layout_constraintStart_toStartOf="@+id/textView"
             android:layout_marginTop="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +83,7 @@
             android:textColor="@color/red"
             app:layout_constraintStart_toStartOf="@id/item_wallet_record_number"
             app:layout_constraintTop_toTopOf="@id/textView3"
-            android:text="2123456"/>
+            tool:text="2123456"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -98,9 +98,9 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:textColor="@color/main_gray"
-            android:text="1234567"
             app:layout_constraintStart_toStartOf="@id/item_wallet_record_id"
-            app:layout_constraintTop_toTopOf="@+id/textView4"/>
+            app:layout_constraintTop_toTopOf="@+id/textView4"
+            tool:text="123456"/>
 
         <ImageView
             android:id="@+id/arrow"

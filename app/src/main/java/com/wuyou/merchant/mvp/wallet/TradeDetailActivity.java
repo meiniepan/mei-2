@@ -3,23 +3,16 @@ package com.wuyou.merchant.mvp.wallet;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
-import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.network.QueryMapBuilder;
-import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.TradeDetailAdapter;
-import com.wuyou.merchant.bean.entity.ResponseListEntity;
-import com.wuyou.merchant.bean.entity.TradeEntity;
-import com.wuyou.merchant.network.CarefreeRetrofit;
-import com.wuyou.merchant.network.apis.WalletApis;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
+import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
 import butterknife.BindView;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by solang on 2018/2/6.
@@ -27,6 +20,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class TradeDetailActivity extends BaseActivity {
 
+    @BindView(R.id.trade_detail_serve_name)
+    TextView tradeDetailServeName;
+    @BindView(R.id.trade_detail_amount)
+    TextView tradeDetailAmount;
+    @BindView(R.id.trade_detail_order_number)
+    TextView tradeDetailOrderNumber;
     private String id;
 
     @BindView(R.id.trade_detail_list)
@@ -40,8 +39,8 @@ public class TradeDetailActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        id = getIntent().getStringExtra(Constant.TRANSACTION_ID);
-        initData();
+        TradeItemEntity entity = getIntent().getParcelableExtra(Constant.TRANSACTION_ENTITY);
+        setData(entity);
         adapter = new TradeDetailAdapter(R.layout.item_trade_detail);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -49,18 +48,10 @@ public class TradeDetailActivity extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
-    private void initData() {
-        showLoadingDialog();
-        CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getOrderTradeDetail(id, QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeEntity>>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<ResponseListEntity<TradeEntity>> response) {
-                        adapter.addData(response.data.list);
-                    }
-                });
+    public void setData(TradeItemEntity data) {
+        tradeDetailServeName.setText(data.service_name);
+        tradeDetailOrderNumber.setText(data.order_number);
+        tradeDetailAmount.setText(CommonUtil.formatPrice(data.amount));
+        adapter.addData(data.transactions);
     }
-
 }

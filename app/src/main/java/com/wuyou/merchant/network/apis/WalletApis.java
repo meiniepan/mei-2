@@ -2,7 +2,9 @@ package com.wuyou.merchant.network.apis;
 
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.bean.entity.FundEntity;
+import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.bean.entity.TradeEntity;
@@ -52,8 +54,8 @@ public interface WalletApis {
             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("profits/order/{order_id}")
-    Observable<BaseResponse<ResponseListEntity<TradeEntity>>> getOrderTradeDetail(@Path("order_id") String orderId,
-                                                                                  @QueryMap SortedTreeMap<String, String>map);
+    Observable<BaseResponse<TradeItemEntity>> getOrderTradeDetail(@Path("order_id") String orderId,
+                                                                         @QueryMap SortedTreeMap<String, String>map);
 
     @GET("contract_profits/{shop_id}")
     Observable<BaseResponse<ResponseListEntity<TradeItemEntity>>> getContractTradeList(
@@ -61,8 +63,8 @@ public interface WalletApis {
             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("profits/contract/{order_id}")
-    Observable<BaseResponse<ResponseListEntity<TradeEntity>>> getContractTradeDetail(@Path("order_id") String orderId,
-                                                                                  @QueryMap SortedTreeMap<String, String>map);
+    Observable<BaseResponse<TradeItemEntity>> getContractTradeDetail(@Path("order_id") String orderId,
+                                                                               @QueryMap SortedTreeMap<String, String>map);
 
     @GET("incomes/{shop_id}")
     Observable<BaseResponse<WalletIncomeEntity>> getWalletIncome(

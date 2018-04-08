@@ -1,12 +1,13 @@
 package com.wuyou.merchant.mvp.circle;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
@@ -17,7 +18,6 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.bean.entity.PrepareSignEntity;
-import com.wuyou.merchant.bean.entity.WalletInfoEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.network.apis.WalletApis;
@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -52,11 +53,15 @@ public class SignContractActivity extends BaseActivity implements LoanLimitPanel
     TextView signLimitDate;
     @BindView(R.id.sign_money_rate)
     TextView signMoneyRate;
+    @BindView(R.id.sign_button)
+    Button signButton;
     private List<PrepareSignEntity.RatesBean> ratesBeans;
     private ContractEntity contractEntity;
     private int number;
     private String stage;
     private float availableAmount;
+    private float govementHelp;
+    private float selfMoney;
 
     @Override
     protected int getContentLayout() {
@@ -69,7 +74,6 @@ public class SignContractActivity extends BaseActivity implements LoanLimitPanel
         number = getIntent().getIntExtra(Constant.SIGN_NUMBER, 0);
         signAmount.setText(CommonUtil.formatPrice(contractEntity.price * number));
         getPrepareData(contractEntity.service.service_id);
-        getWalletData();
     }
 
     @OnClick({R.id.sing_self_money_area, R.id.sign_limit_date_area})
@@ -89,7 +93,15 @@ public class SignContractActivity extends BaseActivity implements LoanLimitPanel
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 201 && resultCode == RESULT_OK) {
-            signSelfMoney.setText(data.getStringExtra(Constant.FUND));
+            String self = data.getStringExtra(Constant.FUND);
+            signSelfMoney.setText(self);
+            selfMoney = Float.parseFloat(self);
+            if (contractEntity.price * number - govementHelp > selfMoney) { //自己出的钱不够
+                float platformPrice = contractEntity.price * number - govementHelp - selfMoney;
+                signPlatformPay.setText(CommonUtil.formatPrice(platformPrice > availableAmount ? availableAmount : platformPrice));
+            } else {                                                        //够了
+                signPlatformPay.setText("0.00");
+            }
         }
     }
 
@@ -107,7 +119,11 @@ public class SignContractActivity extends BaseActivity implements LoanLimitPanel
     }
 
     public void signAndBuy(View view) {
-        if (signLimitDate.length() == 0) {
+        if (contractEntity.price * number - govementHelp - availableAmount > selfMoney) {
+            ToastUtils.ToastMessage(getCtx(), "自有资金不足");
+            return;
+        }
+        if (contractEntity.price * number - govementHelp - selfMoney > 0 && signLimitDate.length() == 0) {
             ToastUtils.ToastMessage(getCtx(), "请确认借款期限");
             return;
         }
@@ -141,29 +157,36 @@ public class SignContractActivity extends BaseActivity implements LoanLimitPanel
     }
 
     public void getPrepareData(String serviceId) {
-        CarefreeRetrofit.getInstance().createApi(CircleApis.class)
-                .prepareSignContract(QueryMapBuilder.getIns().put("service_id", serviceId).buildGet())
+        showLoadingDialog();
+        Observable.zip(CarefreeRetrofit.getInstance().createApi(CircleApis.class).prepareSignContract(QueryMapBuilder.getIns().put("service_id", serviceId).buildGet()),
+                CarefreeRetrofit.getInstance().createApi(WalletApis.class).getCredit(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet()),
+                (prepareSignEntityBaseResponse, walletInfoEntityBaseResponse) -> {
+                    ratesBeans = prepareSignEntityBaseResponse.data.rates;
+                    availableAmount = Float.parseFloat(walletInfoEntityBaseResponse.data.available_amount);
+                    govementHelp = prepareSignEntityBaseResponse.data.government_subsidy;
+                    return prepareSignEntityBaseResponse.data;
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<PrepareSignEntity>>() {
+                .subscribe(new BaseSubscriber<PrepareSignEntity>() {
                     @Override
-                    public void onSuccess(BaseResponse<PrepareSignEntity> prepareSignEntityBaseResponse) {
-                        signGovernmentMoney.setText(prepareSignEntityBaseResponse.data.government_subsidy + "");
-                        ratesBeans = prepareSignEntityBaseResponse.data.rates;
-                    }
-                });
-    }
-
-    public void getWalletData() {
-        CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getCredit(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<WalletInfoEntity>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<WalletInfoEntity> walletInfoEntityBaseResponse) {
-                        availableAmount = Float.parseFloat(walletInfoEntityBaseResponse.data.available_amount);
+                    public void onSuccess(PrepareSignEntity prepareSignEntity) {
+                        signGovernmentMoney.setText(String.format("%s", prepareSignEntity.government_subsidy));
                         signCreditAmount.setText(CommonUtil.formatPrice(availableAmount));
+                        if (contractEntity.price * number - govementHelp > availableAmount) { //总价 大于 政府补贴 +平台可用额度
+                            signPlatformPay.setText(CommonUtil.formatPrice(availableAmount));
+                            selfMoney = contractEntity.price * number - govementHelp - availableAmount;
+                            signSelfMoney.setText(CommonUtil.formatPrice(contractEntity.price * number - govementHelp - availableAmount));
+                        } else {
+                            signPlatformPay.setText(CommonUtil.formatPrice(contractEntity.price * number - govementHelp > 0 ? contractEntity.price * number - govementHelp : 0));
+                        }
+                        signButton.setEnabled(true);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
+                        signButton.setEnabled(false);
                     }
                 });
     }

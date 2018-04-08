@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class ContractEntity implements Parcelable {
     public String shop_id;
     public String shop_name;
-    public String end_at;
+    public long end_at;
     public String contract_name;
     public String contact_address;
     public String mobile;
@@ -42,7 +42,7 @@ public class ContractEntity implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.shop_id);
         dest.writeString(this.shop_name);
-        dest.writeString(this.end_at);
+        dest.writeLong(this.end_at);
         dest.writeString(this.contract_name);
         dest.writeString(this.contact_address);
         dest.writeString(this.mobile);
@@ -64,7 +64,7 @@ public class ContractEntity implements Parcelable {
     protected ContractEntity(Parcel in) {
         this.shop_id = in.readString();
         this.shop_name = in.readString();
-        this.end_at = in.readString();
+        this.end_at = in.readLong();
         this.contract_name = in.readString();
         this.contact_address = in.readString();
         this.mobile = in.readString();

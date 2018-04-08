@@ -13,7 +13,6 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.TradeListRvAdapter;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
-import com.wuyou.merchant.bean.entity.TradeEntity;
 import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
@@ -81,7 +80,7 @@ public class WalletIncomeFragment extends BaseFragment<WalletContract.View, Wall
         adapter = new TradeListRvAdapter(R.layout.item_trade);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), TradeDetailActivity.class);
-            intent.putExtra(Constant.TRANSACTION_ID, adapter.getItem(position).order_id);
+            intent.putExtra(Constant.TRANSACTION_ENTITY, adapter.getItem(position).order_id);
             startActivity(intent);
         });
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
