@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.TradeDetailAdapter;
+import com.wuyou.merchant.bean.entity.TradeEntity;
 import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.activity.BaseActivity;
@@ -26,7 +27,6 @@ public class TradeDetailActivity extends BaseActivity {
     TextView tradeDetailAmount;
     @BindView(R.id.trade_detail_order_number)
     TextView tradeDetailOrderNumber;
-    private String id;
 
     @BindView(R.id.trade_detail_list)
     RecyclerView recyclerView;
@@ -40,18 +40,24 @@ public class TradeDetailActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         TradeItemEntity entity = getIntent().getParcelableExtra(Constant.TRANSACTION_ENTITY);
-        setData(entity);
         adapter = new TradeDetailAdapter(R.layout.item_trade_detail);
+        setData(entity);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setAutoMeasureEnabled(true);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(linearLayoutManager);
     }
 
     public void setData(TradeItemEntity data) {
         tradeDetailServeName.setText(data.service_name);
         tradeDetailOrderNumber.setText(data.order_number);
-        tradeDetailAmount.setText(CommonUtil.formatPrice(data.amount));
-        adapter.addData(data.transactions);
+        adapter.setNewData(data.transactions);
+
+        float amount = 0;
+        for (TradeEntity entity : data.transactions) {
+            amount += entity.amount;
+        }
+        tradeDetailAmount.setText(CommonUtil.formatPrice(amount));
     }
 }

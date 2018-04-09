@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.bean.entity.TradeEntity;
 import com.wuyou.merchant.bean.entity.TradeItemEntity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
@@ -32,8 +33,7 @@ public class TradeListRvAdapter extends BaseQuickAdapter<TradeItemEntity, BaseHo
     @Override
     protected void convert(BaseHolder helper, TradeItemEntity item) {
         String time = TribeDateUtils.SDF7.format(new Date(item.pay_time * 1000));
-        helper.setText(R.id.item_wallet_record_account, CommonUtil.formatPrice(item.total_amount))
-                .setText(R.id.item_wallet_record_number, item.order_number)
+        helper.setText(R.id.item_wallet_record_number, item.order_number)
                 .setText(R.id.item_wallet_record_time, time);
 
         TextView textView = helper.getView(R.id.textView2);
@@ -50,8 +50,15 @@ public class TradeListRvAdapter extends BaseQuickAdapter<TradeItemEntity, BaseHo
 
         if (type == 1) {
             helper.setText(R.id.textView3, "订单总金额");
+            float total = 0;
+            for (TradeEntity entity : item.transactions) {
+                total += entity.amount;
+            }
+            helper.setText(R.id.item_wallet_record_account, CommonUtil.formatPrice(total));
         } else {
-            helper.setText(R.id.textView3, "合约总金额");
+            helper.setText(R.id.textView3, "合约总金额").setText(R.id.item_wallet_record_account, CommonUtil.formatPrice(item.total_amount));
         }
+
+
     }
 }

@@ -132,7 +132,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
         });
         tradeListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, TradeDetailActivity.class);
-            intent.putExtra(Constant.TRANSACTION_ENTITY, tradeListRvAdapter.getItem(position).order_id);
+            intent.putExtra(Constant.TRANSACTION_ENTITY, tradeListRvAdapter.getItem(position));
             activity.startActivity(intent);
         });
         orderRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));

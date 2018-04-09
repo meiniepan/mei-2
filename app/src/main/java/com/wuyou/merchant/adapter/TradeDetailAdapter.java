@@ -40,10 +40,13 @@ public class TradeDetailAdapter extends BaseQuickAdapter<TradeEntity, BaseHolder
                 helper.setText(R.id.tv_status, "未确认");
             }
         }
-        helper.setText(R.id.tv_trade_hash, item.transaction_id)
-                .setText(R.id.tv_trade_time, TribeDateUtils.dateFormat(new Date(item.time)))
-                .setText(R.id.tv_confirm_time, TribeDateUtils.dateFormat(new Date(item.timereceived)))
+        helper.setText(R.id.tv_trade_hash, item.txid)
+                .setText(R.id.tv_trade_time, TribeDateUtils.dateFormat(new Date(item.time * 1000)))
+                .setText(R.id.tv_confirm_time, TribeDateUtils.dateFormat(new Date(item.timereceived * 1000)))
                 .setText(R.id.tv_trade_sum, CommonUtil.formatPrice(item.amount))
-                .setText(R.id.tv_trade_fee, CommonUtil.formatPrice(item.fee));
+                .setText(R.id.tv_trade_fee, CommonUtil.formatPrice(item.fee))
+                .setText(R.id.tv_confirm_node, item.confirmations + "")
+                .setText(R.id.tv_trade_from, item.from)
+                .setText(R.id.tv_trade_to, item.to);
     }
 }

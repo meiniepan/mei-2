@@ -48,8 +48,8 @@ public class ContractTradeDetailActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         TradeItemEntity entity = getIntent().getParcelableExtra(Constant.TRANSACTION_ENTITY);
-        setData(entity);
         adapter = new TradeDetailAdapter(2,R.layout.item_trade_detail);
+        setData(entity);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setAutoMeasureEnabled(true);
@@ -63,7 +63,7 @@ public class ContractTradeDetailActivity extends BaseActivity {
         contractTradeDetailNumber.setText(data.order_number);
         contractTradeDetailId.setText(data.contract_number);
         contractTradeDetailPrice.setText(CommonUtil.formatPrice(data.price));
-        contractTradeDetailAmount.setText(CommonUtil.formatPrice(data.amount));
-        adapter.addData(data.transactions);
+        contractTradeDetailAmount.setText(CommonUtil.formatPrice(data.total_amount));
+        adapter.setNewData(data.transactions);
     }
 }

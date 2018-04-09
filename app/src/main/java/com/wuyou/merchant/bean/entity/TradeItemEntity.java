@@ -25,16 +25,18 @@ public class TradeItemEntity implements Parcelable {
     public String service_name;
     public float price;
     public int number;
-    public float amount;
     public String order_id;
     public String order_number;
     public String shop_name;
     public String merchant_name;
-    public int total_amount;
+    public float total_amount;
     public long pay_time;
     public int type;
     public String buyer;
     public List<TradeEntity> transactions;
+
+    public TradeItemEntity() {
+    }
 
     @Override
     public int describeContents() {
@@ -48,19 +50,15 @@ public class TradeItemEntity implements Parcelable {
         dest.writeString(this.service_name);
         dest.writeFloat(this.price);
         dest.writeInt(this.number);
-        dest.writeFloat(this.amount);
         dest.writeString(this.order_id);
         dest.writeString(this.order_number);
         dest.writeString(this.shop_name);
         dest.writeString(this.merchant_name);
-        dest.writeInt(this.total_amount);
+        dest.writeFloat(this.total_amount);
         dest.writeLong(this.pay_time);
         dest.writeInt(this.type);
         dest.writeString(this.buyer);
         dest.writeTypedList(this.transactions);
-    }
-
-    public TradeItemEntity() {
     }
 
     protected TradeItemEntity(Parcel in) {
@@ -69,19 +67,18 @@ public class TradeItemEntity implements Parcelable {
         this.service_name = in.readString();
         this.price = in.readFloat();
         this.number = in.readInt();
-        this.amount = in.readFloat();
         this.order_id = in.readString();
         this.order_number = in.readString();
         this.shop_name = in.readString();
         this.merchant_name = in.readString();
-        this.total_amount = in.readInt();
+        this.total_amount = in.readFloat();
         this.pay_time = in.readLong();
         this.type = in.readInt();
         this.buyer = in.readString();
         this.transactions = in.createTypedArrayList(TradeEntity.CREATOR);
     }
 
-    public static final Parcelable.Creator<TradeItemEntity> CREATOR = new Parcelable.Creator<TradeItemEntity>() {
+    public static final Creator<TradeItemEntity> CREATOR = new Creator<TradeItemEntity>() {
         @Override
         public TradeItemEntity createFromParcel(Parcel source) {
             return new TradeItemEntity(source);
