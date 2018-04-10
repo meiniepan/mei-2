@@ -155,6 +155,7 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
     public void onTabSelected(int tabNum) {
         switch (tabNum) {
             case 0:
+
                 mainTitle.setText(R.string.main_deal_order);
                 titleView.setVisibility(View.VISIBLE);
                 break;

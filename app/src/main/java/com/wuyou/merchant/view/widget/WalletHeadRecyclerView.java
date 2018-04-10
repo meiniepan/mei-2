@@ -55,6 +55,9 @@ public class WalletHeadRecyclerView extends RecyclerView {
     @Override
     public boolean fling(int velocityX, int velocityY) {
         int v;
+        int touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        Log.e("=========","x "+velocityX+" s "+touchSlop);
+        if (Math.abs(velocityX) <= 3*touchSlop) return false;
         mPhysicalCoeff = SensorManager.GRAVITY_EARTH   // g (m/s^2)
                 * 39.37f               // inch/meter
                 * getContext().getResources().getDisplayMetrics().density * 160.0f                 // pixels per inch
@@ -66,11 +69,11 @@ public class WalletHeadRecyclerView extends RecyclerView {
         Rect rect = new Rect();
         mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
         double n = getSplineFlingDistance(velocityX) / mItemWidth;
-        int num = new Double(n).intValue();
+        int num = Double.valueOf(n).intValue();
         if (velocityX > 0)
-            v = new Double(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right))).intValue();
+            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right)-DensityUtils.dip2px(getContext(), 20))).intValue();
         else
-            v = new Double(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left))).intValue();
+            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left)+DensityUtils.dip2px(getContext(), 20))).intValue();
         if (velocityX < 0) v = -v;
         return super.fling(v, velocityY);
     }

@@ -240,7 +240,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                     public void onSuccess(BaseResponse<ResponseListEntity<TradeItemEntity>> response) {
                         ResponseListEntity<TradeItemEntity> res = response.data;
                         if ("2".equals(flag)) {
-                            tradeListRvAdapter.addData(res.list.get(0));
+                            tradeListRvAdapter.addData(res.list);
                         } else {
                             orderRecyclerView.setRefreshFinished();
                             tradeListRvAdapter.setNewData(res.list);

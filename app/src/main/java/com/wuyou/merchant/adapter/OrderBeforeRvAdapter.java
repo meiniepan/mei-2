@@ -18,13 +18,6 @@ import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 import java.util.Date;
 import java.util.List;
 
-import io.rong.imkit.RongIM;
-import io.rong.imlib.IRongCallback;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
-import io.rong.imlib.model.Message;
-import io.rong.message.TextMessage;
-
 /**
  * Created by solang on 2018/2/5.
  */
@@ -69,28 +62,29 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
             helper.setText(R.id.tv_receiver, item.worker.worker_name);
             dispatch.setText("发信息");
             dispatch.setOnClickListener(view -> {
-                TextMessage myTextMessage = TextMessage.obtain("请准备服务！");
-
-                Message myMessage = Message.obtain(item.worker.rc_id, Conversation.ConversationType.PRIVATE, myTextMessage);
-
-                RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-                    @Override
-                    public void onAttached(Message message) {
-                        //消息本地数据库存储成功的回调
-                    }
-
-                    @Override
-                    public void onSuccess(Message message) {
-                        //消息通过网络发送成功的回调
-                        ToastUtils.ToastMessage(activity, "消息发送成功！");
-                    }
-
-                    @Override
-                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-                        //消息发送失败的回调
-                        ToastUtils.ToastMessage(activity, "消息发送失败！");
-                    }
-                });
+                ToastUtils.ToastMessage(mContext,R.string.not_open);
+//                TextMessage myTextMessage = TextMessage.obtain("请准备服务！");
+//
+//                Message myMessage = Message.obtain(item.worker.rc_id, Conversation.ConversationType.PRIVATE, myTextMessage);
+//
+//                RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
+//                    @Override
+//                    public void onAttached(Message message) {
+//                        //消息本地数据库存储成功的回调
+//                    }
+//
+//                    @Override
+//                    public void onSuccess(Message message) {
+//                        //消息通过网络发送成功的回调
+//                        ToastUtils.ToastMessage(activity, "消息发送成功！");
+//                    }
+//
+//                    @Override
+//                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
+//                        //消息发送失败的回调
+//                        ToastUtils.ToastMessage(activity, "消息发送失败！");
+//                    }
+//                });
             });
         }
     }

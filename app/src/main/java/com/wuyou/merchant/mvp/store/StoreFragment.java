@@ -7,23 +7,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gs.buluo.common.network.BaseResponse;
-import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.login.LoginActivity;
-import com.wuyou.merchant.network.CarefreeRetrofit;
-import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -68,21 +61,23 @@ public class StoreFragment extends BaseFragment {
                 builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        showLoadingDialog();
-                        CarefreeRetrofit.getInstance().createApi(UserApis.class)
-                                .loginOut(CarefreeApplication.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildPost())
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(new BaseSubscriber<BaseResponse>() {
-                                    @Override
-                                    public void onSuccess(BaseResponse userInfoBaseResponse) {
-                                        CarefreeApplication.getInstance().clearUserInfo();
-                                        startActivity(new Intent(getContext(), LoginActivity.class));
-                                        getActivity().finish();
-                                    }
-                                });
+                        CarefreeApplication.getInstance().clearUserInfo();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        getActivity().finish();
+
+//                        CarefreeRetrofit.getInstance().createApi(UserApis.class)
+//                                .loginOut(CarefreeApplication.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildPost())
+//                                .subscribeOn(Schedulers.io())
+//                                .observeOn(AndroidSchedulers.mainThread())
+//                                .subscribe(new BaseSubscriber<BaseResponse>() {
+//                                    @Override
+//                                    public void onSuccess(BaseResponse userInfoBaseResponse) {
+//
+//                                    }
+//                                });
                     }
-                });
+                }
+                );
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -106,7 +101,7 @@ public class StoreFragment extends BaseFragment {
                 ToastUtils.ToastMessage(getContext(), "功能还在开发！");
                 break;
             case R.id.ll_mark:
-                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_setting:
                 ToastUtils.ToastMessage(getContext(), "功能还在开发！");

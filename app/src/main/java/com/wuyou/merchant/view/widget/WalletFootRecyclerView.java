@@ -54,6 +54,8 @@ public class WalletFootRecyclerView extends RecyclerView {
     @Override
     public boolean fling(int velocityX, int velocityY) {
         int v;
+        int touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        if (Math.abs(velocityX) <= 3*touchSlop) return false;
         mPhysicalCoeff = SensorManager.GRAVITY_EARTH   // g (m/s^2)
                 * 39.37f               // inch/meter
                 * getContext().getResources().getDisplayMetrics().density * 160.0f                 // pixels per inch
@@ -65,11 +67,11 @@ public class WalletFootRecyclerView extends RecyclerView {
         Rect rect = new Rect();
         mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
         double n = getSplineFlingDistance(velocityX) / mItemWidth;
-        int num = new Double(n).intValue();
+        int num = Double.valueOf(n).intValue();
         if (velocityX > 0)
-            v = new Double(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right))).intValue();
+            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right))).intValue();
         else
-            v = new Double(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left))).intValue();
+            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left))).intValue();
         if (velocityX < 0) v = -v;
         return super.fling(v, velocityY);
     }
