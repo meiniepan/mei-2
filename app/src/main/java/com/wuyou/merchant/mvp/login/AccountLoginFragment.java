@@ -49,6 +49,7 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
         ToastUtils.ToastMessage(getContext(), "登陆成功");
         Intent view = new Intent(getActivity(), MainActivity.class);
         startActivity(view);
+        getActivity().finish();
     }
 
     @Override
@@ -69,13 +70,13 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
                 mPresenter.doLoginPassword(loginPhone.getText().toString().trim(), loginPsw.getText().toString().trim());
                 break;
             case R.id.tv_forget:
-                ToastUtils.ToastMessage(getActivity(),"功能正在开发");
+                ToastUtils.ToastMessage(getActivity(), "功能正在开发");
 //                intent = new Intent(getActivity(), PhoneInputActivity.class);
 //                intent.putExtra(Constant.INPUT_PHONE_FLAG, 0);
 //                startActivity(intent);
                 break;
             case R.id.btn_new_regist:
-                ToastUtils.ToastMessage(getActivity(),"功能正在开发");
+                ToastUtils.ToastMessage(getActivity(), "功能正在开发");
 //                intent = new Intent(getActivity(), PhoneInputActivity.class);
 //                intent.putExtra(Constant.INPUT_PHONE_FLAG, 1);
 //                startActivity(intent);

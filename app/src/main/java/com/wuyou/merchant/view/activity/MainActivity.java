@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MainPagerAdapter;
 import com.wuyou.merchant.mvp.circle.CircleFragment;
@@ -61,7 +63,7 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
         bottomView.setViewPager(viewPager);
         bottomView.setOnTabChangedListner(this);
         bottomView.setTabCurrenItem(0);
-
+        CrashReport.putUserData(getApplicationContext(), "userkey", CarefreeDaoSession.getInstance().getUserInfo() == null ? "unLogin" : CarefreeDaoSession.getInstance().getUserId());
     }
 
     private Fragment getMessageFragment() {
@@ -76,6 +78,7 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
         fragment.setUri(uri);
         return fragment;
     }
+
     private void initIM() {
         if (getApplicationInfo().packageName.equals(CarefreeApplication.getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(CarefreeApplication.getCurProcessName(getApplicationContext()))) {
@@ -87,20 +90,21 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
             RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                 @Override
                 public io.rong.imlib.model.UserInfo getUserInfo(String s) {
-                    return new io.rong.imlib.model.UserInfo(s,"haha",null);
+                    return new io.rong.imlib.model.UserInfo(s, "haha", null);
                 }
-            },true);
+            }, true);
             //全局推送
 
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mkeyTime) > 2000) {
                 mkeyTime = System.currentTimeMillis();
-                ToastUtils.ToastMessage(getCtx(),"再按一次退出");
+                ToastUtils.ToastMessage(getCtx(), "再按一次退出");
             } else {
                 finish();
                 System.exit(0);
@@ -117,6 +121,7 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
         setIntent(intent);
         orderFragment.loadDatas();
     }
+
     private void connect(String token) {
 
         if (getApplicationInfo().packageName.equals(CarefreeApplication.getCurProcessName(getApplicationContext()))) {

@@ -67,4 +67,5 @@ dependencies {
     compile('cn.qqtheme.framework:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }
+    compile 'com.tencent.bugly:crashreport:latest.release'
 }

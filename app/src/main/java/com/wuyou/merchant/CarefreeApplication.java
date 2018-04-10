@@ -6,6 +6,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.gs.buluo.common.BaseApplication;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.bean.DaoMaster;
 import com.wuyou.merchant.bean.DaoSession;
 import com.wuyou.merchant.bean.UserInfo;
@@ -27,6 +28,7 @@ public class CarefreeApplication extends BaseApplication {
         super.onCreate();
         instance = this;
         initDB();
+        CrashReport.initCrashReport(getApplicationContext(), "505e4fa223", true);
     }
 
 
