@@ -100,7 +100,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                 break;
             case R.id.create_contract_pay_type_choose:
                 Intent intent = new Intent(getCtx(), ContractPayChooseActivity.class);
-                startActivityForResult(intent, 201);
+                startActivityForResult(intent, Constant.IntentRequestCode.CHOOSE_PAY_TYPE);
                 break;
             case R.id.create_contract_project_choose:
                 choseServiceCategory();
@@ -122,19 +122,22 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     private void choseServiceCategory() {
         Intent intent = new Intent(getCtx(), ServeChooseActivity.class);
         intent.putExtra(Constant.SHOP_ID, entity.shop_id);
-        startActivityForResult(intent, 200);
+        startActivityForResult(intent, Constant.IntentRequestCode.CHOOSE_SERVICE_CATEGORY);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 200 && resultCode == RESULT_OK) {
-            serviceEntity = data.getParcelableExtra(Constant.SERVE_BEAN);
-            tvServeName.setText(serviceEntity.service_name);
-            etSum.setText(CommonUtil.formatPrice(serviceEntity.price));
-        } else if (requestCode == 1 && resultCode == RESULT_OK) {
-            payEntity = data.getParcelableExtra(Constant.PAY_TYPE);
-            tvPayType.setText(payEntity.type_name);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == Constant.IntentRequestCode.CHOOSE_SERVICE_CATEGORY) {
+
+                serviceEntity = data.getParcelableExtra(Constant.SERVE_BEAN);
+                tvServeName.setText(serviceEntity.service_name);
+                etSum.setText(CommonUtil.formatPrice(serviceEntity.price));
+            } else if (requestCode == Constant.IntentRequestCode.CHOOSE_PAY_TYPE) {
+                payEntity = data.getParcelableExtra(Constant.PAY_TYPE);
+                tvPayType.setText(payEntity.type_name);
+            }
         }
     }
 
