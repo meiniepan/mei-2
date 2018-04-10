@@ -32,6 +32,5 @@ public class Constant {
     public static class IntentRequestCode{
         public static final int CHOOSE_SERVICE_CATEGORY = 200;
         public static final int CHOOSE_PAY_TYPE = 201;
-
     }
 }
