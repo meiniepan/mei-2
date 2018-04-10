@@ -132,7 +132,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
             serviceEntity = data.getParcelableExtra(Constant.SERVE_BEAN);
             tvServeName.setText(serviceEntity.service_name);
             etSum.setText(CommonUtil.formatPrice(serviceEntity.price));
-        } else {
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
             payEntity = data.getParcelableExtra(Constant.PAY_TYPE);
             tvPayType.setText(payEntity.type_name);
         }

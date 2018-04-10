@@ -22,6 +22,7 @@ import com.zhihu.matisse.engine.impl.PicassoEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -73,23 +74,23 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
                 break;
             case R.id.iv_calendar:
                 Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH)+1;
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
                 final DatePicker picker = new DatePicker(this);
                 picker.setCanceledOnTouchOutside(true);
                 picker.setUseWeight(true);
                 picker.setTopPadding(ConvertUtils.toPx(this, 10));
                 picker.setRangeEnd(2111, 1, 11);
-                picker.setRangeStart(2016, 8, 29);
-                picker.setSelectedItem(year, month, day);
+                calendar.setTime(new Date(System.currentTimeMillis() + 24 * 3600 * 1000));
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH) + 1;
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                picker.setRangeStart(year, month, day);
                 picker.setResetWhileWheel(false);
                 picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
                     @Override
                     public void onDatePicked(String year, String month, String day) {
+                        calendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(day));
+                        endTime = calendar.getTimeInMillis() / 1000;
                         tvEndTime.setText(year + "-" + month + "-" + day);
-                        calendar.set(Integer.parseInt(year),Integer.parseInt(month)-1,Integer.parseInt(day));
-                        endTime = calendar.getTimeInMillis()/1000;
                     }
                 });
                 picker.setOnWheelListener(new DatePicker.OnWheelListener() {
@@ -136,24 +137,25 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
         entity.contact_address = etCompanyAddress.getText().toString();
         entity.mobile = etPhone.getText().toString().trim();
         if (TextUtils.isEmpty(entity.contract_name)
-                || entity.end_at==0
+                || entity.end_at == 0
                 || TextUtils.isEmpty(entity.shop_name)
                 || TextUtils.isEmpty(entity.contact_address)
                 || TextUtils.isEmpty(entity.mobile)
-                || (imagePath == null)){
-            ToastUtils.ToastMessage(getCtx(),"请完善资料");
+                || (imagePath == null)) {
+            ToastUtils.ToastMessage(getCtx(), "请完善资料");
             return;
         }
-        if (entity.mobile.length()!= 11){
-            ToastUtils.ToastMessage(getCtx(),"手机号码格式不正确");
+        if (entity.mobile.length() != 11) {
+            ToastUtils.ToastMessage(getCtx(), "手机号码格式不正确");
             return;
         }
-        intent.putExtra(Constant.CONTRACT_ENTITY,entity);
-        intent.putExtra(Constant.IMAGE1_URL,imagePath);
+        intent.putExtra(Constant.CONTRACT_ENTITY, entity);
+        intent.putExtra(Constant.IMAGE1_URL, imagePath);
         startActivity(intent);
     }
 
-    @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
             imagePath = Matisse.obtainResult(data).get(0);

@@ -2,7 +2,6 @@ package com.wuyou.merchant.mvp.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,7 +39,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Administrator on 2018\1\29 0029.
  */
 
-public class WalletFragment extends BaseFragment implements ScrollViewListener {
+public class WalletFragment extends BaseFragment implements ScrollViewListener, WalletFootAdapter.OnRefreshListener {
 
     @BindView(R.id.rv_head)
     WalletHeadRecyclerView rvHead;
@@ -65,6 +64,10 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
     protected void bindView(Bundle savedInstanceState) {
         rvFoot.setOnScrollViewListener(this);
         rvHead.setOnScrollViewListener(this);
+    }
+
+    @Override
+    public void fetchData() {
         initWalletInfo();
     }
 
@@ -81,8 +84,6 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                LinearLayoutManager layoutManager = (LinearLayoutManager) rvHead.getLayoutManager();
-//                int first = layoutManager.findFirstVisibleItemPosition() - 1;
                 if (position == 0) {
                     Intent intent1 = new Intent(getContext(), CreditDetailActivity.class);
                     intent1.putExtra(Constant.CREDIT_SCORE, sCredit);
@@ -91,29 +92,31 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
 
             }
         });
-//        mRecyclerView.setOnSelectListener(new CustomWheelRecyclerView.OnSelectListener() {
-//            @Override
-//            public void onSelect(int position) {
-//
-//            }
-//        });
     }
 
     private void initRvFoot() {
-        List list = new ArrayList();
+        ArrayList<WalletInfoEntity> list = new ArrayList<>();
         list.add(entity);
         list.add(entity);
         list.add(entity);
         adapterFoot = new WalletFootAdapter(getActivity(), R.layout.item_wallet_foot, list);
         rvFoot.setAdapter(adapterFoot);
-        adapterFoot.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                LinearLayoutManager layoutManager = (LinearLayoutManager) rvHead.getLayoutManager();
-                int first = layoutManager.findFirstVisibleItemPosition() - 1;
-            }
-        });
+        adapterFoot.setOnRefreshListener(this);
+    }
 
+    @Override
+    public void onRefresh() {
+        CarefreeRetrofit.getInstance().createApi(WalletApis.class).getWalletIncome(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildGet())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<WalletIncomeEntity>>() {
+                    @Override
+                    public void onSuccess(BaseResponse<WalletIncomeEntity> walletInfoEntityBaseResponse) {
+                        adapter.setData(1, new WalletInfoEntity(walletInfoEntityBaseResponse.data.order));
+                        adapter.setData(2, new WalletInfoEntity(walletInfoEntityBaseResponse.data.contract));
+                        adapter.notifyDataSetChanged();
+                    }
+                });
     }
 
     private void initHeadFoot() {
@@ -133,6 +136,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener {
     }
 
     private void initWalletInfo() {
+        showLoadingDialog();
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
                 .getCredit(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet())
                 .subscribeOn(Schedulers.io())

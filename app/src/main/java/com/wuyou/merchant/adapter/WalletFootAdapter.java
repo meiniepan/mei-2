@@ -107,7 +107,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void initContractIncomeAdapter() {
         getContractTradeList("0", "1");
-        contractListRvAdapter = new TradeListRvAdapter(2,R.layout.item_trade);
+        contractListRvAdapter = new TradeListRvAdapter(2, R.layout.item_trade);
         contractStatusLayout.setErrorAndEmptyAction(v -> {
             contractStatusLayout.showProgressView();
             getContractTradeList("0", "1");
@@ -120,12 +120,15 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
         contractRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
         contractRecyclerView.setAdapter(contractListRvAdapter);
         contractListRvAdapter.setOnLoadMoreListener(() -> getContractTradeList(lastContractId, "2"), contractRecyclerView.getRecyclerView());
-        contractRecyclerView.setRefreshAction(() -> getContractTradeList("0", "1"));
+        contractRecyclerView.setRefreshAction(() -> {
+            if (onRefreshListener != null) onRefreshListener.onRefresh();
+            getContractTradeList("0", "1");
+        });
     }
 
     private void initOrderInComeAdapter() {
         getOrderTradeList("0", "1");
-        tradeListRvAdapter = new TradeListRvAdapter(1,R.layout.item_trade);
+        tradeListRvAdapter = new TradeListRvAdapter(1, R.layout.item_trade);
         orderStatusLayout.setErrorAndEmptyAction(v -> {
             orderStatusLayout.showProgressView();
             getOrderTradeList("0", "1");
@@ -138,7 +141,10 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
         orderRecyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(activity));
         orderRecyclerView.setAdapter(tradeListRvAdapter);
         tradeListRvAdapter.setOnLoadMoreListener(() -> getOrderTradeList(lastTradeId, "2"), orderRecyclerView.getRecyclerView());
-        orderRecyclerView.setRefreshAction(() -> getOrderTradeList("0", "1"));
+        orderRecyclerView.setRefreshAction(() -> {
+            getOrderTradeList("0", "1");
+            if (onRefreshListener != null) onRefreshListener.onRefresh();
+        });
     }
 
     private void initAdapter1() {
@@ -312,5 +318,15 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                         }
                     }
                 });
+    }
+
+    public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
+        this.onRefreshListener = onRefreshListener;
+    }
+
+    private OnRefreshListener onRefreshListener;
+
+    public interface OnRefreshListener {
+        void onRefresh();
     }
 }
