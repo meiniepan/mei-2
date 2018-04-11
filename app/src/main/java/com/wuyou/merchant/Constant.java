@@ -29,6 +29,8 @@ public class Constant {
     public static final String SIGN_NUMBER = "sign_number";
     public static final String FUND_STATUS = "fund_status" ;
     public static final String SELF_MAX = "self_max";
+    public static final java.lang.String FIRST_OPEN = "first_open";
+
     public static class IntentRequestCode{
         public static final int CHOOSE_SERVICE_CATEGORY = 200;
         public static final int CHOOSE_PAY_TYPE = 201;
