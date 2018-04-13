@@ -70,11 +70,7 @@ public class GuidePagerAdapter extends PagerAdapter {
      * 判断 view和object的对应关系
      */
     public boolean isViewFromObject(View view, Object object) {
-        if (view == object) {
-            return true;
-        } else {
-            return false;
-        }
+        return  (view == object) ;
     }
 
     /**

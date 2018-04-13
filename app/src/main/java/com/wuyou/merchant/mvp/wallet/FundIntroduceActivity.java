@@ -1,5 +1,7 @@
 package com.wuyou.merchant.mvp.wallet;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +22,7 @@ import com.wuyou.merchant.bean.entity.FundEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.activity.MainActivity;
 
 import java.util.Date;
 
@@ -114,8 +117,16 @@ public class FundIntroduceActivity extends BaseActivity {
 
     private void showDialog() {
         CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getCtx());
+        builder.setCancelable(false);
         builder.setMessage("您的申请已提交！\n请保持您的手机通畅，等待工作人员联系。");
-        builder.setPositiveButton("确定", null);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getCtx(), MainActivity.class);
+                intent.putExtra(Constant.MAIN_ACTIVITY_FROM_WHERE,Constant.MAIN_ACTIVITY_FROM_APPLY_FUND);
+                startActivity(intent);
+            }
+        });
         builder.create().show();
     }
 }

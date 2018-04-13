@@ -29,7 +29,10 @@ public class Constant {
     public static final String SIGN_NUMBER = "sign_number";
     public static final String FUND_STATUS = "fund_status" ;
     public static final String SELF_MAX = "self_max";
-    public static final java.lang.String FIRST_OPEN = "first_open";
+    public static final String FIRST_OPEN = "first_open";
+    public static final String MAIN_ACTIVITY_FROM_WHERE = "main_activity_from_where";
+    public static final String MAIN_ACTIVITY_FROM_CREATE_CONTRACT = "main_activity_from_create_contract";
+    public static final String MAIN_ACTIVITY_FROM_APPLY_FUND = "main_activity_from_apply_fund";
 
     public static class IntentRequestCode{
         public static final int CHOOSE_SERVICE_CATEGORY = 200;

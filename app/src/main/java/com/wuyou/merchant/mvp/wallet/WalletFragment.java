@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
@@ -24,9 +25,9 @@ import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
+import com.wuyou.merchant.view.widget.StatusLayout;
 import com.wuyou.merchant.view.widget.WalletFootRecyclerView;
 import com.wuyou.merchant.view.widget.WalletHeadRecyclerView;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,8 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
     WalletHeadRecyclerView rvHead;
     @BindView(R.id.rv_foot)
     WalletFootRecyclerView rvFoot;
+    @BindView(R.id.sl_wallet)
+    StatusLayout statusLayout;
     private WalletInfoEntity entity = new WalletInfoEntity();
     private WalletHeaderAdapter adapter;
     private WalletFootAdapter adapterFoot;
@@ -62,6 +65,13 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusLayout.showProgressView();
+                initWalletInfo();
+            }
+        });
         rvFoot.setOnScrollViewListener(this);
         rvHead.setOnScrollViewListener(this);
     }
@@ -81,16 +91,13 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         rvHead.setAdapter(adapter);
         adapter.setData(1, new WalletInfoEntity(data.order));
         adapter.setData(2, new WalletInfoEntity(data.contract));
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (position == 0) {
-                    Intent intent1 = new Intent(getContext(), CreditDetailActivity.class);
-                    intent1.putExtra(Constant.CREDIT_SCORE, sCredit);
-                    startActivity(intent1);
-                }
-
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            if (position == 0) {
+                Intent intent1 = new Intent(getContext(), CreditDetailActivity.class);
+                intent1.putExtra(Constant.CREDIT_SCORE, sCredit);
+                startActivity(intent1);
             }
+
         });
     }
 
@@ -136,7 +143,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
     }
 
     private void initWalletInfo() {
-        showLoadingDialog();
+        statusLayout.showProgressView();
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
                 .getCredit(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet())
                 .subscribeOn(Schedulers.io())
@@ -149,10 +156,15 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
                 .subscribe(new BaseSubscriber<BaseResponse<WalletIncomeEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<WalletIncomeEntity> response) {
+                        statusLayout.showContentView();
                         initRvHead(response.data);
                         initRvFoot();
                     }
 
+                    @Override
+                    protected void onFail(ApiException e) {
+                        statusLayout.showErrorView(e.getDisplayMessage());
+                    }
                 });
     }
 
@@ -175,5 +187,8 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         }
         rvHead.setmark(true);
         rvFoot.setmark(true);
+    }
+    public void refreshFundList() {
+        adapterFoot.getFunList();
     }
 }

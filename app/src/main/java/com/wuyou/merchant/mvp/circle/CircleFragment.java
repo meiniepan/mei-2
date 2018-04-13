@@ -21,6 +21,7 @@ public class CircleFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
+    CreatedFragment createdFragment = new CreatedFragment();
     String[] mTitle = {"我创建的合约", "我加入的合约", "合约市场"};
 
 
@@ -47,7 +48,7 @@ public class CircleFragment extends BaseFragment {
                 //创建Fragment并返回
                 Fragment fragment = null;
                 if (position == 0)
-                    fragment = new CreatedFragment();
+                    fragment = createdFragment;
                 else if (position == 1)
                     fragment = new JoinedFragment();
                 else if (position == 2)
@@ -63,23 +64,7 @@ public class CircleFragment extends BaseFragment {
         //将ViewPager关联到TabLayout上
         mTabLayout.setupWithViewPager(mViewPager);
 
-//  设置监听,注意:如果设置了setOnTabSelectedListener,则setupWithViewPager不会生效
-//  因为setupWithViewPager内部也是通过设置该监听来触发ViewPager的切换的.
-//  mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//   @Override
-//   public void onTabSelected(TabLayout.Tab tab) {
-//   }
-//
-//   @Override
-//   public void onTabUnselected(TabLayout.Tab tab) {
-//
-//   }
-//
-//   @Override
-//   public void onTabReselected(TabLayout.Tab tab) {
-//
-//   }
-//  });
+
 //  那我们如果真的需要监听tab的点击或者ViewPager的切换,则需要手动配置ViewPager的切换,例如:
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -104,5 +89,8 @@ public class CircleFragment extends BaseFragment {
     @Override
     public void showError(String message, int res) {
 
+    }
+    public void refreshCreatedList() {
+        createdFragment.loadData();
     }
 }

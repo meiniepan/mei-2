@@ -196,7 +196,9 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                     @Override
                     public void onSuccess(BaseResponse baseResponse) {
                         ToastUtils.ToastMessage(getCtx(), "创建成功！");
-                        startActivity(new Intent(getCtx(), MainActivity.class));
+                        Intent intent = new Intent(getCtx(), MainActivity.class);
+                        intent.putExtra(Constant.MAIN_ACTIVITY_FROM_WHERE,Constant.MAIN_ACTIVITY_FROM_CREATE_CONTRACT);
+                        startActivity(intent);
                     }
                 });
     }
