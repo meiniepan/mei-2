@@ -469,6 +469,7 @@
                 android:visibility="gone">
 
                 <LinearLayout
+                    android:id="@+id/ll_merchants_detail"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/common_height"
                     android:gravity="center_vertical">
@@ -483,7 +484,7 @@
                         android:id="@+id/tv_merchant_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2"
+                        android:text=" "
                         android:textColor="@color/common_gray" />
 
                     <TextView

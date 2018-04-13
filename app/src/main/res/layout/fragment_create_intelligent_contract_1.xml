@@ -56,7 +56,8 @@
             <EditText
                 android:id="@+id/et_contract_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/common_margin"
                 android:background="@null" />
         </LinearLayout>
@@ -106,7 +107,8 @@
             <EditText
                 android:id="@+id/et_company_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/common_margin"
                 android:background="@null" />
         </LinearLayout>
@@ -127,7 +129,8 @@
             <EditText
                 android:id="@+id/et_company_address"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/common_margin"
                 android:background="@null" />
         </LinearLayout>
@@ -148,7 +151,8 @@
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:layout_marginStart="@dimen/common_margin"
                 android:inputType="phone"
                 android:background="@null" />

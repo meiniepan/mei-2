@@ -197,7 +197,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                 });
     }
 
-    private void getFunList() {
+    public void getFunList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
                 .getFundList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
                         .put("start_id", "0")

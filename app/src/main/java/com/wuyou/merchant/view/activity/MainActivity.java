@@ -13,6 +13,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MainPagerAdapter;
 import com.wuyou.merchant.mvp.circle.CircleFragment;
@@ -43,6 +44,8 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
     View titleView;
     List<Fragment> fragments = new ArrayList<>();
     MyOrderFragment orderFragment = new MyOrderFragment();
+    CircleFragment circleFragment = new CircleFragment();
+    WalletFragment walletFragment = new WalletFragment();
     private long mkeyTime = 0;
 
     @Override
@@ -54,12 +57,12 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
     protected void bindView(Bundle savedInstanceState) {
         initIM();
         fragments.add(orderFragment);
-        fragments.add(new CircleFragment());
-        fragments.add(new WalletFragment());
+        fragments.add(circleFragment);
+        fragments.add(walletFragment);
 //        fragments.add(getMessageFragment());
         fragments.add(new StoreFragment());
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
         bottomView.setViewPager(viewPager);
         bottomView.setOnTabChangedListner(this);
         bottomView.setTabCurrenItem(0);
@@ -119,7 +122,14 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        orderFragment.loadDatas();
+        if (Constant.MAIN_ACTIVITY_FROM_CREATE_CONTRACT.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
+            circleFragment.refreshCreatedList();
+        } else if (Constant.MAIN_ACTIVITY_FROM_APPLY_FUND.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
+            walletFragment.refreshFundList();
+            ToastUtils.ToastMessage(getCtx(),"fund");
+        } else {
+            orderFragment.loadDatas();
+        }
     }
 
     private void connect(String token) {

@@ -210,11 +210,17 @@ public class ContractDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_contact})
+    @OnClick({R.id.btn_contact, R.id.ll_authentication, R.id.ll_merchants_detail})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_contact:
-                ToastUtils.ToastMessage(getCtx(), "暂未开通！");
+                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
+                break;
+            case R.id.ll_authentication:
+                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
+                break;
+            case R.id.ll_merchants_detail:
+                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
                 break;
         }
     }

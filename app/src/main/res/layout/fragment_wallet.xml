@@ -9,19 +9,33 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-
-    <com.wuyou.merchant.view.widget.WalletHeadRecyclerView
-        android:id="@+id/rv_head"
-        android:background="@color/white"
-        android:overScrollMode="never"
+    <com.wuyou.merchant.view.widget.StatusLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/sl_wallet"
+        android:layout_height="match_parent"
+        app:emptyDrawable="@mipmap/empty_order"
+        app:errorDrawable="@mipmap/net_error">
+        >
 
-    <include layout="@layout/split_area" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <com.wuyou.merchant.view.widget.WalletFootRecyclerView
-        android:id="@+id/rv_foot"
-        android:layout_width="match_parent"
-        android:overScrollMode="never"
-        android:layout_height="match_parent" />
+            <com.wuyou.merchant.view.widget.WalletHeadRecyclerView
+                android:id="@+id/rv_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:overScrollMode="never" />
+
+            <include layout="@layout/split_area" />
+
+            <com.wuyou.merchant.view.widget.WalletFootRecyclerView
+                android:id="@+id/rv_foot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+        </LinearLayout>
+    </com.wuyou.merchant.view.widget.StatusLayout>
 </LinearLayout>

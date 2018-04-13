@@ -5,7 +5,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.widget.TextView;
 
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.fragment.BaseFragment;
@@ -109,6 +108,11 @@ public class MyOrderFragment extends BaseFragment {
     @Override
     public void showError(String message, int res) {
 
+    }
+
+    @Override
+    public void loadData() {
+        mViewPager.setCurrentItem(0);
     }
 
     public void loadDatas() {
