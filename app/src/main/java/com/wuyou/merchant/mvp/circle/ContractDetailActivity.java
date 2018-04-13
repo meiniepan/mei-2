@@ -194,7 +194,7 @@ public class ContractDetailActivity extends BaseActivity {
                 }
             });
         } else if (fromId == 3) {
-            button.setText("加入合约");
+            button.setText("签署并购买");
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
