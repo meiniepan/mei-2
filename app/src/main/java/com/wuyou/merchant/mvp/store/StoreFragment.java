@@ -89,22 +89,22 @@ public class StoreFragment extends BaseFragment {
 
                 break;
             case R.id.ll_worker_list:
-                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_service:
-                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_information:
-                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_intro:
-                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_mark:
                 ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_setting:
-                ToastUtils.ToastMessage(getContext(), "功能还在开发！");
+                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
         }
     }

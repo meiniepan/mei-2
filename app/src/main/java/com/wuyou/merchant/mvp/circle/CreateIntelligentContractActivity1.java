@@ -15,10 +15,10 @@ import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.util.glide.Glide4Engine;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.PicassoEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.util.Calendar;
@@ -120,7 +120,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
                         .theme(R.style.Matisse_Dracula)
                         .countable(false)
                         .maxSelectable(1)
-                        .imageEngine(new PicassoEngine())
+                        .imageEngine(new Glide4Engine())
                         .forResult(Constant.REQUEST_CODE_CHOOSE_IMAGE);
                 break;
             case R.id.iv_add_other:
