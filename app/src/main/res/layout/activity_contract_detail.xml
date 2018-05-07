@@ -478,7 +478,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="联盟商家" />
+                        android:text="签署合约的商家" />
 
                     <TextView
                         android:id="@+id/tv_merchant_num"

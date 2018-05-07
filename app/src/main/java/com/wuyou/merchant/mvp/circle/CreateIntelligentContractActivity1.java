@@ -53,6 +53,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     @BindView(R.id.iv_add_other)
     ImageView ivAddOther;
     private Uri imagePath;
+    private Uri imagePath2;
     ContractEntity entity = new ContractEntity();
     private long endTime;
 
@@ -121,9 +122,19 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
                         .countable(false)
                         .maxSelectable(1)
                         .imageEngine(new Glide4Engine())
-                        .forResult(Constant.REQUEST_CODE_CHOOSE_IMAGE);
+                        .forResult(Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE);
                 break;
             case R.id.iv_add_other:
+                Matisse.from(this)
+                        .choose(MimeType.ofImage())
+                        .capture(true)
+                        .captureStrategy(new CaptureStrategy(true, "com.wuyou.merchant.FileProvider"))
+                        .showSingleMediaType(true)
+                        .theme(R.style.Matisse_Dracula)
+                        .countable(false)
+                        .maxSelectable(1)
+                        .imageEngine(new Glide4Engine())
+                        .forResult(Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE_2);
                 break;
         }
     }
@@ -151,15 +162,21 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
         }
         intent.putExtra(Constant.CONTRACT_ENTITY, entity);
         intent.putExtra(Constant.IMAGE1_URL, imagePath);
+        intent.putExtra(Constant.IMAGE1_URL_2, imagePath2);
         startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
+        if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
             imagePath = Matisse.obtainResult(data).get(0);
+//            File file = CommonUtil.getFileByUri(imagePath, getCtx());
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddBusinessLicense);
+        }
+        if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE_2 && resultCode == RESULT_OK) {
+            imagePath2 = Matisse.obtainResult(data).get(0);
+            Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddOther);
         }
     }
 }

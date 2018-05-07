@@ -150,9 +150,6 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
             ToastUtils.ToastMessage(getCtx(), "请选择支付方式");
             return;
         }
-
-        entity.service = serviceEntity;
-        entity.service.service_id = serviceIndex;
         List addressList = new ArrayList();
         addressList.add(etInput1.getText().toString());
         if (n == 2) addressList.add(etInput2.getText().toString());
@@ -187,7 +184,6 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                         .put("shop_id", entity.shop_id)
                         .put("shop_name", entity.shop_name)
                         .put("service_id", serviceEntity.service_id)
-                        .put("other_image", "")
                         .put("pay_type", payEntity.type_id)
                         .buildPost())
                 .subscribeOn(Schedulers.io())

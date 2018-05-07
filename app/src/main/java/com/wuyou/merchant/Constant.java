@@ -13,7 +13,6 @@ public class Constant {
     public static final String PHONE = "phone";
     public static final String CAPTCHA = "captcha";
     public static final String CONTRACT_ID = "contract_id";
-    public static final int REQUEST_CODE_CHOOSE_IMAGE = 200;
     public static final String CONTRACT_ENTITY = "contract_entity";
     public static final String IMAGE1_URL = "image1_url";
     public static final String FUND_ID = "fund_id";
@@ -33,9 +32,13 @@ public class Constant {
     public static final String MAIN_ACTIVITY_FROM_WHERE = "main_activity_from_where";
     public static final String MAIN_ACTIVITY_FROM_CREATE_CONTRACT = "main_activity_from_create_contract";
     public static final String MAIN_ACTIVITY_FROM_APPLY_FUND = "main_activity_from_apply_fund";
+    public static String IMAGE1_URL_2 = "image1_url_2";
+
 
     public static class IntentRequestCode{
         public static final int CHOOSE_SERVICE_CATEGORY = 200;
         public static final int CHOOSE_PAY_TYPE = 201;
+        public static final int REQUEST_CODE_CHOOSE_IMAGE = 202;
+        public static final int REQUEST_CODE_CHOOSE_IMAGE_2 = 203;
     }
 }
