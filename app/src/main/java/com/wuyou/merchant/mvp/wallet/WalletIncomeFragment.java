@@ -55,7 +55,7 @@ public class WalletIncomeFragment extends BaseFragment<WalletContract.View, Wall
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        statusLayout.setErrorAndEmptyAction(v -> {
+        statusLayout.setErrorAction(v -> {
             statusLayout.showProgressView();
             adapter.clearData();
             fetchDatas();

@@ -15,7 +15,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
@@ -46,7 +45,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -478,53 +476,5 @@ public class CommonUtil {
         }
         return null;
     }
-
-    public static String getFilePathFromURI(Context context, Uri contentUri) {
-        //copy file and send new file path
-        String fileName = getFileName(contentUri);
-        if (!TextUtils.isEmpty(fileName)) {
-            File copyFile = new File(Environment.getExternalStorageDirectory() + File.separator + fileName);
-            copy(context, contentUri, copyFile);
-            return copyFile.getAbsolutePath();
-        }
-        return null;
-    }
-
-    public static String getFileName(Uri uri) {
-        if (uri == null) return null;
-        String fileName = null;
-        String path = uri.getPath();
-        int cut = path.lastIndexOf('/');
-        if (cut != -1) {
-            fileName = path.substring(cut + 1);
-        }
-        return fileName;
-    }
-
-    public static void copy(Context context, Uri srcUri, File dstFile) {
-        try {
-            InputStream inputStream = context.getContentResolver().openInputStream(srcUri);
-            if (inputStream == null) return;
-            OutputStream outputStream = new FileOutputStream(dstFile);
-            copys(inputStream, outputStream);
-            inputStream.close();
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static void copys(InputStream inputStream, OutputStream outputStream) throws IOException{
-        if (inputStream != null && outputStream != null) {
-            int temp = 0;
-            // 开始拷贝
-            while ((temp = inputStream.read()) != -1) {
-                // 边读边写
-                outputStream.write(temp);
-            }
-            // 关闭输入输出流
-            inputStream.close();
-            outputStream.close();
-    }}
 
 }

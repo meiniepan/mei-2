@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.TokenEvent;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.CarefreeApplication;
@@ -17,12 +18,16 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MainPagerAdapter;
 import com.wuyou.merchant.mvp.circle.CircleFragment;
+import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.mvp.order.MyOrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 import com.yinglan.alphatabs.OnTabChangedListner;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,5 +192,10 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
                 break;
 
         }
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTokenExpired(TokenEvent event) {
+        Intent intent = new Intent(getCtx(), LoginActivity.class);
+        startActivity(intent);
     }
 }

@@ -81,7 +81,7 @@
 //
 //        entity = getArguments().getParcelable(Constant.WALLET_INFO_ENTITY);
 //        initWalletInfo();
-//        statusLayout.setErrorAndEmptyAction(v -> {
+//        statusLayout.setErrorAction(v -> {
 //            statusLayout.showProgressView();
 //            adapter.clearData();
 //            fetchDatas();

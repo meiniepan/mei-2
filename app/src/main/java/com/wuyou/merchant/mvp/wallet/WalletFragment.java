@@ -65,7 +65,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        statusLayout.setErrorAndEmptyAction(new View.OnClickListener() {
+        statusLayout.setErrorAction(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 statusLayout.showProgressView();

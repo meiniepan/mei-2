@@ -5,7 +5,7 @@ package com.wuyou.merchant;
  */
 
 public class Constant {
-    public static final String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
+    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";
     public static final String MERCHANT_ID = "merchant_id";

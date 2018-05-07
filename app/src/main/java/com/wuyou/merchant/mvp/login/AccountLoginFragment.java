@@ -46,7 +46,7 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
 
     @Override
     public void loginSuccess() {
-        ToastUtils.ToastMessage(getContext(), "登陆成功");
+        ToastUtils.ToastMessage(getContext(), "登录成功");
         Intent view = new Intent(getActivity(), MainActivity.class);
         startActivity(view);
         getActivity().finish();

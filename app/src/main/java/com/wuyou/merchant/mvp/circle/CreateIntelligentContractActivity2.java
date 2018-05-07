@@ -1,7 +1,6 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -71,7 +70,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     @BindView(R.id.create_contract_pay_type)
     TextView tvPayType;
     ContractEntity entity;
-    Uri imagePath;
+    String imagePath;
     private int n = 1;
     private String serviceIndex = "1";
     private ServiceEntity serviceEntity;
@@ -85,7 +84,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         entity = getIntent().getParcelableExtra(Constant.CONTRACT_ENTITY);
-        imagePath = getIntent().getParcelableExtra(Constant.IMAGE1_URL);
+        imagePath = getIntent().getStringExtra(Constant.IMAGE1_URL);
     }
 
     @OnClick({R.id.tv_commit, R.id.ll_time_service, R.id.ll_deduct_scale, R.id.btn_new_address, R.id.create_contract_project_choose, R.id.create_contract_pay_type_choose})
@@ -169,7 +168,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
             return;
         }
 
-        File file = CommonUtil.getFileByUri(imagePath, getCtx());
+        File file = new File(imagePath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("license", file.getName(), requestFile);
         LoadingDialog.getInstance().show(getCtx(), "创建中...", false);

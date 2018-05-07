@@ -108,7 +108,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private void initContractIncomeAdapter() {
         getContractTradeList("0", "1");
         contractListRvAdapter = new TradeListRvAdapter(2, R.layout.item_trade);
-        contractStatusLayout.setErrorAndEmptyAction(v -> {
+        contractStatusLayout.setErrorAction(v -> {
             contractStatusLayout.showProgressView();
             getContractTradeList("0", "1");
         });
@@ -129,7 +129,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private void initOrderInComeAdapter() {
         getOrderTradeList("0", "1");
         tradeListRvAdapter = new TradeListRvAdapter(1, R.layout.item_trade);
-        orderStatusLayout.setErrorAndEmptyAction(v -> {
+        orderStatusLayout.setErrorAction(v -> {
             orderStatusLayout.showProgressView();
             getOrderTradeList("0", "1");
         });

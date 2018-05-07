@@ -1,7 +1,6 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -52,8 +51,8 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     ImageView ivAddBusinessLicense;
     @BindView(R.id.iv_add_other)
     ImageView ivAddOther;
-    private Uri imagePath;
-    private Uri imagePath2;
+    private String imagePath;
+    private String imagePath2;
     ContractEntity entity = new ContractEntity();
     private long endTime;
 
@@ -170,12 +169,11 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
-            imagePath = Matisse.obtainResult(data).get(0);
-//            File file = CommonUtil.getFileByUri(imagePath, getCtx());
+            imagePath = Matisse.obtainPathResult(data).get(0);
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddBusinessLicense);
         }
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE_2 && resultCode == RESULT_OK) {
-            imagePath2 = Matisse.obtainResult(data).get(0);
+            imagePath2 = Matisse.obtainPathResult(data).get(0);
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddOther);
         }
     }
