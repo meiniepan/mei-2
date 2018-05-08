@@ -150,7 +150,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private void initAdapter1() {
         getFunList();
         fundListRvAdapter = new FundListRvAdapter(R.layout.item_fund, data);
-        statusLayout1.setErrorAndEmptyAction(v -> {
+        statusLayout1.setErrorAction(v -> {
             statusLayout1.showProgressView();
             fundListRvAdapter.clearData();
             getFunList();

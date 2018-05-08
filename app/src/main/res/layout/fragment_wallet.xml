@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <com.wuyou.merchant.view.widget.StatusLayout
+    <com.gs.buluo.common.widget.StatusLayout
         android:layout_width="match_parent"
         android:id="@+id/sl_wallet"
         android:layout_height="match_parent"
@@ -37,5 +37,5 @@
                 android:layout_height="match_parent"
                 android:overScrollMode="never" />
         </LinearLayout>
-    </com.wuyou.merchant.view.widget.StatusLayout>
+    </com.gs.buluo.common.widget.StatusLayout>
 </LinearLayout>

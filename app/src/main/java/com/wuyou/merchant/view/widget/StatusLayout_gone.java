@@ -28,7 +28,7 @@ import com.gs.buluo.common.R.styleable;
 import com.gs.buluo.common.widget.ViewAnimProvider;
 import com.wuyou.merchant.R;
 
-public class StatusLayout extends FrameLayout {
+public class StatusLayout_gone extends FrameLayout {
     private View contentView;
     private View emptyView;
     private View emptyContentView;
@@ -54,15 +54,15 @@ public class StatusLayout extends FrameLayout {
     private Animation hideAnimation;
     private Animation showAnimation;
 
-    public StatusLayout(@NonNull Context context) {
+    public StatusLayout_gone(@NonNull Context context) {
         this(context, (AttributeSet)null);
     }
 
-    public StatusLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public StatusLayout_gone(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public StatusLayout(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
+    public StatusLayout_gone(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.shouldPlayAnim = true;
         this.init(context, attrs);

@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
@@ -25,7 +26,6 @@ import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.fragment.BaseFragment;
-import com.wuyou.merchant.view.widget.StatusLayout;
 import com.wuyou.merchant.view.widget.WalletFootRecyclerView;
 import com.wuyou.merchant.view.widget.WalletHeadRecyclerView;
 
