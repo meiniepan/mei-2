@@ -104,7 +104,7 @@ public class StatusLayout extends FrameLayout {
         }
 
         this.addView(this.progressView);
-        this.errorView = inflater.inflate(R.layout.status_view_error, this, false);
+        this.errorView = inflater.inflate(R.layout.status_view_error_gone, this, false);
         this.errorContentView = this.errorView.findViewById(id.error_content);
         this.errorTextView = (TextView)this.errorView.findViewById(id.errorTextView);
         this.errorActView = (TextView)this.errorView.findViewById(id.error_click_view);
@@ -114,7 +114,7 @@ public class StatusLayout extends FrameLayout {
         }
 
         this.addView(this.errorView);
-        this.emptyView = inflater.inflate(R.layout.status_view_empty, this, false);
+        this.emptyView = inflater.inflate(R.layout.status_view_empty_gone, this, false);
         this.emptyContentView = this.emptyView.findViewById(id.empty_content);
         this.emptyTextView = (TextView)this.emptyView.findViewById(id.emptyTextView);
         this.emptyImageView = (ImageView)this.emptyView.findViewById(id.emptyImageView);
