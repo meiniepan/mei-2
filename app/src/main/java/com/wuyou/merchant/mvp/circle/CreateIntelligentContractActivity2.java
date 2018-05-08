@@ -2,6 +2,7 @@ package com.wuyou.merchant.mvp.circle;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -167,8 +168,8 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
             ToastUtils.ToastMessage(getCtx(), "请完善资料");
             return;
         }
-
-        File file = new File(imagePath);
+        String newPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
+        File file = new File(newPath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("license", file.getName(), requestFile);
         LoadingDialog.getInstance().show(getCtx(), "创建中...", false);
@@ -192,7 +193,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                     public void onSuccess(BaseResponse baseResponse) {
                         ToastUtils.ToastMessage(getCtx(), "创建成功！");
                         Intent intent = new Intent(getCtx(), MainActivity.class);
-                        intent.putExtra(Constant.MAIN_ACTIVITY_FROM_WHERE,Constant.MAIN_ACTIVITY_FROM_CREATE_CONTRACT);
+                        intent.putExtra(Constant.MAIN_ACTIVITY_FROM_WHERE, Constant.MAIN_ACTIVITY_FROM_CREATE_CONTRACT);
                         startActivity(intent);
                     }
                 });

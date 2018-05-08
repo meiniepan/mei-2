@@ -1,7 +1,10 @@
 package com.wuyou.merchant.mvp.circle;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -14,6 +17,7 @@ import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
+import com.wuyou.merchant.util.ImageUtil;
 import com.wuyou.merchant.util.glide.Glide4Engine;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.zhihu.matisse.Matisse;
@@ -170,6 +174,9 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
             imagePath = Matisse.obtainPathResult(data).get(0);
+            String newPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
+            Bitmap bb = ImageUtil.compressByScale(BitmapFactory.decodeFile(imagePath), 320, 320, false);
+            ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddBusinessLicense);
         }
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE_2 && resultCode == RESULT_OK) {
