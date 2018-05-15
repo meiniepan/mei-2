@@ -35,7 +35,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by solang on 2018/1/31.
  */
 
-public class ChoseArtisanFragment extends BaseActivity {
+public class ChoseArtisanActivity extends BaseActivity {
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
@@ -46,7 +46,7 @@ public class ChoseArtisanFragment extends BaseActivity {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.fragment_chose_artisan;
+        return R.layout.activity_chose_artisan;
     }
 
     @Override
@@ -107,7 +107,7 @@ public class ChoseArtisanFragment extends BaseActivity {
                             @Override
                             public void onSuccess(BaseResponse response) {
                                 ToastUtils.ToastMessage(getCtx(), "完成");
-                                Intent intent = new Intent( ChoseArtisanFragment.this,MainActivity.class);
+                                Intent intent = new Intent( ChoseArtisanActivity.this,MainActivity.class);
                                 startActivity(intent);
                             }
 

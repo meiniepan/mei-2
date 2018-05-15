@@ -37,6 +37,8 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
+import me.shaohui.shareutil.ShareConfig;
+import me.shaohui.shareutil.ShareManager;
 
 public class MainActivity extends BaseActivity implements OnTabChangedListner {
     @BindView(R.id.main_tab)
@@ -71,6 +73,8 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
         bottomView.setViewPager(viewPager);
         bottomView.setOnTabChangedListner(this);
         bottomView.setTabCurrenItem(0);
+        ShareConfig config = ShareConfig.instance().wxId(Constant.WX_ID).wxSecret(Constant.WX_SECRET);
+        ShareManager.init(config);
         CrashReport.putUserData(getApplicationContext(), "userkey", CarefreeDaoSession.getInstance().getUserInfo() == null ? "unLogin" : CarefreeDaoSession.getInstance().getUserId());
     }
 

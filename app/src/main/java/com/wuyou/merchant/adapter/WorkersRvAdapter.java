@@ -26,9 +26,8 @@ public class WorkersRvAdapter extends BaseQuickAdapter<WorkerEntity, BaseHolder>
 
     @Override
     protected void convert(BaseHolder helper, WorkerEntity item) {
-        helper.setText(R.id.tv_name, item.worker_name)
-                .setText(R.id.tv_distance, item.distance);
+        helper.setText(R.id.tv_name, item.worker_name);
         ImageView imageView = helper.getView(R.id.avatar);
-        CommonUtil.GlideCircleLoad(activity,item.avatar,imageView);
+        CommonUtil.GlideCircleLoad(activity, item.avatar, imageView);
     }
 }

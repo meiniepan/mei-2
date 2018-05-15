@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tint_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/white">
+
+        <include layout="@layout/back_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="修改邮箱"
+            android:textSize="@dimen/title_size" />
+
+    </RelativeLayout>
+
+    <include layout="@layout/split_area" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_height"
+                android:background="@color/white"
+                android:hint="请填写邮箱"
+                android:paddingEnd="@dimen/common_margin_16"
+                android:paddingStart="@dimen/common_margin_16" />
+
+            <Button
+                android:id="@+id/btn_mail_commit"
+                android:text="提交"
+                style="@style/button_style" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

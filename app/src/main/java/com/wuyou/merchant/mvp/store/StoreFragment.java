@@ -89,13 +89,15 @@ public class StoreFragment extends BaseFragment {
 
                 break;
             case R.id.ll_worker_list:
-                ToastUtils.ToastMessage(getContext(), R.string.not_open);
+//                ToastUtils.ToastMessage(getContext(), R.string.not_open);
+                startActivity(new Intent(getContext(), WorkerListActivity.class));
                 break;
             case R.id.ll_service:
                 ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_information:
-                ToastUtils.ToastMessage(getContext(), R.string.not_open);
+//                ToastUtils.ToastMessage(getContext(), R.string.not_open);
+                startActivity(new Intent(getActivity(), CompanyInfoActivity.class));
                 break;
             case R.id.ll_intro:
                 ToastUtils.ToastMessage(getContext(), R.string.not_open);

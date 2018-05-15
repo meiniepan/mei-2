@@ -22,6 +22,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.CircleHeadAdapter;
 import com.wuyou.merchant.adapter.ContractAddressAdapter;
+import com.wuyou.merchant.bean.HomeVideoBean;
 import com.wuyou.merchant.bean.entity.ContractEntity;
 import com.wuyou.merchant.bean.entity.ContractInfoEntity;
 import com.wuyou.merchant.bean.entity.ContractMerchantEntity;
@@ -31,7 +32,10 @@ import com.wuyou.merchant.network.apis.CircleApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.widget.ContractCountPanel;
+import com.wuyou.merchant.view.widget.panel.BigImagePanel;
+import com.wuyou.merchant.view.widget.panel.ShareBottomBoard;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -180,7 +184,11 @@ public class ContractDetailActivity extends BaseActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ToastUtils.ToastMessage(getCtx(), "暂未开通！");
+                    HomeVideoBean homeVideoBean = new HomeVideoBean();
+                    homeVideoBean.title = "推荐给你一个合约";
+                    ShareBottomBoard bottomBoard = new ShareBottomBoard(getCtx());
+                    bottomBoard.setData(homeVideoBean);
+                    bottomBoard.show();
                 }
             });
         } else if (fromId == 2) {
@@ -217,7 +225,13 @@ public class ContractDetailActivity extends BaseActivity {
                 ToastUtils.ToastMessage(getCtx(), R.string.not_open);
                 break;
             case R.id.ll_authentication:
-                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
+//                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
+                List data = new ArrayList();
+                data.add(Constant.AUTH_IMG_PATH_1);
+                data.add(Constant.AUTH_IMG_PATH_1);
+                BigImagePanel panel = new BigImagePanel(getCtx(), data);
+                panel.setPos(0);
+                panel.show();
                 break;
             case R.id.ll_merchants_detail:
                 ToastUtils.ToastMessage(getCtx(), R.string.not_open);

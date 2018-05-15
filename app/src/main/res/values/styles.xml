@@ -11,6 +11,13 @@
         <item name="android:textSize">@dimen/dimens_14sp</item>
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
     </style>
+    <style name="big_img_dialog" parent="@style/sheet_dialog">
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimationScale</item>
+    </style>
+    <style name="ActionSheetDialogAnimationScale" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/scale_in</item>
+        <item name="android:windowExitAnimation">@anim/scale_out</item>
+    </style>
 
     <style name="sheet_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>

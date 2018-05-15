@@ -1,10 +1,13 @@
 package com.wuyou.merchant;
 
+import android.os.Environment;
+
 /**
  * Created by Administrator on 2018\1\26 0026.
  */
 
 public class Constant {
+//    public static final String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
     public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";
@@ -32,6 +35,9 @@ public class Constant {
     public static final String MAIN_ACTIVITY_FROM_WHERE = "main_activity_from_where";
     public static final String MAIN_ACTIVITY_FROM_CREATE_CONTRACT = "main_activity_from_create_contract";
     public static final String MAIN_ACTIVITY_FROM_APPLY_FUND = "main_activity_from_apply_fund";
+    public static final String WX_ID ="wxe2e5a62bbca300f8" ;
+    public static final String WX_SECRET = "bbd423f317d663032ea7c40f3ba2cbb5";
+    public static final String AUTH_IMG_PATH_1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
     public static String IMAGE1_URL_2 = "image1_url_2";
 
 

@@ -1,5 +1,6 @@
 package com.wuyou.merchant.mvp.store;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,20 +39,20 @@ public class StoreInfoEditActivity extends BaseActivity {
         tvPhone.setText(CarefreeApplication.getInstance().getUserInfo().getTel());
     }
 
-    @OnClick({R.id.iv_avatar, R.id.iv_edit, R.id.ll_phone, R.id.ll_mail})
+    @OnClick({R.id.iv_avatar, R.id.ll_phone, R.id.ll_store_name, R.id.ll_mail})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_avatar:
-                ToastUtils.ToastMessage(getCtx(),"功能还在开发！");
+                ToastUtils.ToastMessage(getCtx(), "功能还在开发！");
                 break;
-            case R.id.iv_edit:
-                ToastUtils.ToastMessage(getCtx(),"功能还在开发！");
+            case R.id.ll_store_name:
+                startActivity(new Intent(getCtx(), ModifyStoreNameActivity.class));
                 break;
             case R.id.ll_phone:
-                ToastUtils.ToastMessage(getCtx(),"功能还在开发！");
+                startActivity(new Intent(getCtx(), ModifyPhoneActivity.class));
                 break;
             case R.id.ll_mail:
-                ToastUtils.ToastMessage(getCtx(),"功能还在开发！");
+                startActivity(new Intent(getCtx(), ModifyEmailActivity.class));
                 break;
         }
     }

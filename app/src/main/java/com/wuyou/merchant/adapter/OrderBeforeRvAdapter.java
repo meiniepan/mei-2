@@ -5,13 +5,14 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
-import com.wuyou.merchant.mvp.order.ChoseArtisanFragment;
+import com.wuyou.merchant.mvp.order.ChoseArtisanActivity;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
@@ -36,8 +37,23 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
         int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.custom_green, R.color.main_blue, R.color.main_blue};
         int i = Integer.parseInt(item.status) - 1;
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at * 1000));
-        helper.setText(R.id.tv_create_time, create_time)
-                .setText(R.id.tv_status, s[i])
+        TextView tvOrderCode = helper.getView(R.id.tv_order_code_1);//状态为“进行中”时，该字段可见，其余GONE
+        TextView tvCreateTime1 = helper.getView(R.id.tv_create_time);//状态为“进行中”时，该字段显示订单编号（字体黑色），其余显示订单时间（字体灰色）
+        TextView tvCreateTime2 = helper.getView(R.id.tv_order_create_time_2);//状态为“进行中”时，该字段显示订单时间，其余gone
+
+        if (item.status.equals("3")) {
+            tvOrderCode.setVisibility(View.VISIBLE);
+            tvCreateTime1.setTextColor(activity.getResources().getColor(R.color.common_dark));
+            tvCreateTime1.setText("");
+            tvCreateTime2.setVisibility(View.VISIBLE);
+            tvCreateTime2.setText(create_time);
+        } else {
+            tvOrderCode.setVisibility(View.GONE);
+            tvCreateTime1.setTextColor(activity.getResources().getColor(R.color.common_gray));
+            tvCreateTime1.setText(create_time);
+            tvCreateTime2.setVisibility(View.GONE);
+        }
+        helper.setText(R.id.tv_status, s[i])
                 .setText(R.id.tv_server_time, item.service_date + " " + item.service_time)
                 .setTextColor(R.id.tv_status, activity.getResources().getColor(colors[i]))
                 .setText(R.id.tv_category, item.service.service_name)
@@ -52,7 +68,7 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
             ll_receiver.setVisibility(View.GONE);
             dispatch.setText("分单");
             dispatch.setOnClickListener(view -> {
-                Intent intent = new Intent(activity, ChoseArtisanFragment.class);
+                Intent intent = new Intent(activity, ChoseArtisanActivity.class);
                 intent.putExtra(Constant.ORDER_ID, item.order_id);
                 activity.startActivity(intent);
             });
@@ -62,7 +78,7 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
             helper.setText(R.id.tv_receiver, item.worker.worker_name);
             dispatch.setText("发信息");
             dispatch.setOnClickListener(view -> {
-                ToastUtils.ToastMessage(mContext,R.string.not_open);
+                ToastUtils.ToastMessage(mContext, R.string.not_open);
 //                TextMessage myTextMessage = TextMessage.obtain("请准备服务！");
 //
 //                Message myMessage = Message.obtain(item.worker.rc_id, Conversation.ConversationType.PRIVATE, myTextMessage);

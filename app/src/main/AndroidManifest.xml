@@ -125,7 +125,7 @@
             android:name=".mvp.wallet.CreditDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.order.ChoseArtisanFragment"
+            android:name=".mvp.order.ChoseArtisanActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".mvp.circle.SelfFundActivity"
             android:screenOrientation="portrait"
@@ -135,6 +135,15 @@
         <activity android:name=".mvp.circle.ServeChooseActivity" />
         <activity android:name=".mvp.circle.ContractPayChooseActivity" />
         <activity android:name=".mvp.wallet.ContractTradeDetailActivity" />
+        <activity android:name=".mvp.store.CompanyInfoActivity" />
+        <activity android:name=".mvp.store.WorkerListActivity" />
+        <activity android:name=".mvp.store.ModifyPhoneActivity" />
+        <activity android:name=".mvp.store.ModifyEmailActivity" />
+        <activity android:name=".mvp.store.ModifyStoreNameActivity" />
+
+        <meta-data
+            android:name="WEIXIN_APP_ID"
+            android:value="wxe2e5a62bbca300f8" />
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

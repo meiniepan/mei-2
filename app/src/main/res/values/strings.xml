@@ -46,4 +46,6 @@
     <string name="not_open">该功能正在开发！</string>
     <string name="reset_pwd_success">设置密码成功</string>
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
+    <string name="wx">微信</string>
+    <string name="pyq">朋友圈</string>
 </resources>

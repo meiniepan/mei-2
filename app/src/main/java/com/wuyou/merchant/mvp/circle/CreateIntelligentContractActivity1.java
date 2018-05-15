@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -174,7 +173,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
             imagePath = Matisse.obtainPathResult(data).get(0);
-            String newPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
+            String newPath = Constant.AUTH_IMG_PATH_1;
             Bitmap bb = ImageUtil.compressByScale(BitmapFactory.decodeFile(imagePath), 320, 320, false);
             ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddBusinessLicense);

@@ -2,7 +2,6 @@ package com.wuyou.merchant.mvp.circle;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
@@ -168,7 +168,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
             ToastUtils.ToastMessage(getCtx(), "请完善资料");
             return;
         }
-        String newPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
+        String newPath = Constant.AUTH_IMG_PATH_1;
         File file = new File(newPath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("license", file.getName(), requestFile);
@@ -191,10 +191,15 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse baseResponse) {
-                        ToastUtils.ToastMessage(getCtx(), "创建成功！");
+                        ToastUtils.ToastMessage(getCtx(), "合约创建成功！");
                         Intent intent = new Intent(getCtx(), MainActivity.class);
                         intent.putExtra(Constant.MAIN_ACTIVITY_FROM_WHERE, Constant.MAIN_ACTIVITY_FROM_CREATE_CONTRACT);
                         startActivity(intent);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        ToastUtils.ToastMessage(getCtx(), "合约创建失败！");
                     }
                 });
     }
