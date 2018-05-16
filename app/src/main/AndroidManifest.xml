@@ -143,7 +143,7 @@
 
         <meta-data
             android:name="WEIXIN_APP_ID"
-            android:value="wxe2e5a62bbca300f8" />
+            android:value="wxb60eda0adace922f" />
 
         <!--<provider-->
         <!--android:name="android.support.v4.content.FileProvider"-->

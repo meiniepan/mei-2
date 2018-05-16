@@ -15,6 +15,9 @@ import com.wuyou.merchant.bean.HomeVideoBean;
 import com.wuyou.merchant.util.WechatShareModel;
 
 import butterknife.ButterKnife;
+import me.shaohui.shareutil.ShareUtil;
+import me.shaohui.shareutil.share.ShareListener;
+import me.shaohui.shareutil.share.SharePlatform;
 
 /**
  * Created by hjn on 2016/11/17.
@@ -55,23 +58,23 @@ public class ShareBottomBoard extends Dialog implements View.OnClickListener {
                 ToastUtils.ToastMessage(getContext(),R.string.not_open);
                 break;
             case R.id.share_board_moment:
-//                ShareUtil.shareMedia(mCtx, SharePlatform.WX_TIMELINE, homeVideoBean.title, "", homeVideoBean.video, homeVideoBean.preview, new ShareListener() {
-//                    @Override
-//                    public void shareSuccess() {
-//                        ToastUtils.ToastMessage(mCtx,"分享成功");
-//                    }
-//
-//                    @Override
-//                    public void shareFailure(Exception e) {
-//                        ToastUtils.ToastMessage(mCtx,"分享失败");
-//                    }
-//
-//                    @Override
-//                    public void shareCancel() {
-//                        ToastUtils.ToastMessage(mCtx,"分享取消");
-//                    }
-//                });
-                ToastUtils.ToastMessage(getContext(),R.string.not_open);
+                ShareUtil.shareMedia(mCtx, SharePlatform.WX_TIMELINE, homeVideoBean.title, "", homeVideoBean.video, homeVideoBean.preview, new ShareListener() {
+                    @Override
+                    public void shareSuccess() {
+                        ToastUtils.ToastMessage(mCtx,"分享成功");
+                    }
+
+                    @Override
+                    public void shareFailure(Exception e) {
+                        ToastUtils.ToastMessage(mCtx,"分享失败");
+                    }
+
+                    @Override
+                    public void shareCancel() {
+                        ToastUtils.ToastMessage(mCtx,"分享取消");
+                    }
+                });
+//                ToastUtils.ToastMessage(getContext(),R.string.not_open);
                 break;
             case R.id.share_cancel:
                 dismiss();

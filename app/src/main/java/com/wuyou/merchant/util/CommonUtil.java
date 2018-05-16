@@ -37,6 +37,7 @@ import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.RecycleViewDivider;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 
 import java.io.ByteArrayInputStream;
@@ -475,6 +476,11 @@ public class CommonUtil {
             //Log.i(TAG, "Uri Scheme:" + uri.getScheme());
         }
         return null;
+    }
+    public static void compressAndSaveImgToLocal(String imagePath) {
+        String newPath = Constant.AUTH_IMG_PATH_1;
+        Bitmap bb = ImageUtil.compressByScale(BitmapFactory.decodeFile(imagePath), 320, 320, false);
+        ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
     }
 
 }
