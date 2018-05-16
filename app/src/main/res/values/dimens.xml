@@ -22,6 +22,7 @@
     <dimen name="common_margin">20dp</dimen>
     <dimen name="common_margin_15">15dp</dimen>
     <dimen name="common_margin_16">16dp</dimen>
+    <dimen name="common_margin_18">18dp</dimen>
     <dimen name="common_margin_12">12dp</dimen>
     <dimen name="dimens_18sp">18sp</dimen>
     <dimen name="dimens_27sp">27sp</dimen>
