@@ -54,11 +54,26 @@ public class ShareBottomBoard extends Dialog implements View.OnClickListener {
         if (homeVideoBean == null) return;
         switch (v.getId()) {
             case R.id.share_board_wx:
-//                ShareUtil.shareMedia(mCtx, SharePlatform.WX);
-                ToastUtils.ToastMessage(getContext(),R.string.not_open);
+                ShareUtil.shareText(mCtx, SharePlatform.WX, homeVideoBean.title, new ShareListener() {
+                    @Override
+                    public void shareSuccess() {
+                        ToastUtils.ToastMessage(mCtx,"分享成功");
+                    }
+
+                    @Override
+                    public void shareFailure(Exception e) {
+                        ToastUtils.ToastMessage(mCtx,"分享失败");
+                    }
+
+                    @Override
+                    public void shareCancel() {
+                        ToastUtils.ToastMessage(mCtx,"分享取消");
+                    }
+                });
+//                ToastUtils.ToastMessage(getContext(),R.string.not_open);
                 break;
             case R.id.share_board_moment:
-                ShareUtil.shareMedia(mCtx, SharePlatform.WX_TIMELINE, homeVideoBean.title, "", homeVideoBean.video, homeVideoBean.preview, new ShareListener() {
+                ShareUtil.shareText(mCtx, SharePlatform.WX_TIMELINE, homeVideoBean.title, new ShareListener() {
                     @Override
                     public void shareSuccess() {
                         ToastUtils.ToastMessage(mCtx,"分享成功");

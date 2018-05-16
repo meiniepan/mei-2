@@ -27,7 +27,7 @@ public class CircleFragment extends BaseFragment {
 
     @Override
     protected int getContentLayout() {
-        return R.layout.fragment_order_my;
+        return R.layout.fragment_circle_2;
     }
 
     @Override

@@ -11,7 +11,7 @@
         android:layout_height="@dimen/title_height"
         android:background="@color/main_blue"
         android:textColor="@color/white"
-        android:text="@string/main_deal_order"
+        android:text="@string/main_circle"
         android:gravity="center"
         android:textSize="@dimen/title_size" />
 

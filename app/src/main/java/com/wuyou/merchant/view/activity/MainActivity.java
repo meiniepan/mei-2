@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TextView;
 
 import com.gs.buluo.common.network.TokenEvent;
 import com.gs.buluo.common.utils.ToastUtils;
@@ -24,7 +22,6 @@ import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
-import com.yinglan.alphatabs.OnTabChangedListner;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -40,15 +37,11 @@ import io.rong.imlib.model.Conversation;
 import me.shaohui.shareutil.ShareConfig;
 import me.shaohui.shareutil.ShareManager;
 
-public class MainActivity extends BaseActivity implements OnTabChangedListner {
+public class MainActivity extends BaseActivity {
     @BindView(R.id.main_tab)
     AlphaTabsIndicator bottomView;
     @BindView(R.id.main_pager)
     NoScrollViewPager viewPager;
-    @BindView(R.id.main_title)
-    TextView mainTitle;
-    @BindView(R.id.main_title_area)
-    View titleView;
     List<Fragment> fragments = new ArrayList<>();
     MyOrderFragment orderFragment = new MyOrderFragment();
     CircleFragment circleFragment = new CircleFragment();
@@ -71,7 +64,6 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager(), fragments));
         viewPager.setOffscreenPageLimit(3);
         bottomView.setViewPager(viewPager);
-        bottomView.setOnTabChangedListner(this);
         bottomView.setTabCurrenItem(0);
         ShareConfig config = ShareConfig.instance().wxId(Constant.WX_ID).wxSecret(Constant.WX_SECRET);
         ShareManager.init(config);
@@ -175,28 +167,6 @@ public class MainActivity extends BaseActivity implements OnTabChangedListner {
         }
     }
 
-    @Override
-    public void onTabSelected(int tabNum) {
-        switch (tabNum) {
-            case 0:
-
-                mainTitle.setText(R.string.main_deal_order);
-                titleView.setVisibility(View.VISIBLE);
-                break;
-            case 1:
-                mainTitle.setText(R.string.main_circle);
-                titleView.setVisibility(View.VISIBLE);
-                break;
-            case 2:
-                mainTitle.setText(R.string.main_wallet);
-                titleView.setVisibility(View.VISIBLE);
-                break;
-            case 3:
-                titleView.setVisibility(View.GONE);
-                break;
-
-        }
-    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTokenExpired(TokenEvent event) {
         Intent intent = new Intent(getCtx(), LoginActivity.class);
