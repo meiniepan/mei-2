@@ -38,9 +38,6 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.order.OrderDetailActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".mvp.login.CaptchaInputActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -142,6 +139,7 @@
         <activity android:name=".mvp.store.ModifyStoreNameActivity" />
         <activity android:name=".mvp.store.SettingActivity" />
         <activity android:name=".mvp.store.CompanyInfoUpdateActivity" />
+        <activity android:name=".mvp.order.OrderDetailActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

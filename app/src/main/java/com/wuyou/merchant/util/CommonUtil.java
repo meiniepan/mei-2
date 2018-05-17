@@ -482,5 +482,19 @@ public class CommonUtil {
         Bitmap bb = ImageUtil.compressByScale(BitmapFactory.decodeFile(imagePath), 320, 320, false);
         ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
     }
-
+    public static String getOrderStatusString(int status) {
+        switch (status) {
+            case 1:
+                return "待分单";
+            case 2:
+                return "待技工确认";
+            case 3:
+                return "进行中";
+            case 4:
+                return "待用户评价";
+            case 5:
+                return "已完成";
+        }
+        return "";
+    }
 }

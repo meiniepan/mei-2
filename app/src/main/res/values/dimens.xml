@@ -32,4 +32,6 @@
     <dimen name="text_margin">10dp</dimen>
     <dimen name="small_text_margin">5dp</dimen>
     <dimen name="dimens_24sp">24sp</dimen>
+    <dimen name="short_button_width">84dp</dimen>
+    <dimen name="short_button_height">30dp</dimen>
 </resources>

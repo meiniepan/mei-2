@@ -48,4 +48,12 @@
     <string name="error_gif">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
     <string name="wx">微信</string>
     <string name="pyq">朋友圈</string>
+    <string name="order_detail">订单明细</string>
+    <string name="order_status">订单状态</string>
+    <string name="serve_fee">服务费用</string>
+    <string name="door_serve_fee">上门费用</string>
+    <string name="total">合计</string>
+    <string name="extra_fee">附加费用</string>
+    <string name="contact_store">联系客服</string>
+    <string name="go_pay">去支付</string>
 </resources>

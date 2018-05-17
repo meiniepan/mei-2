@@ -4,7 +4,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.entity.ContractMerchantEntity;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
-import com.wuyou.merchant.bean.entity.OrderInfoEntity;
+import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.bean.entity.PartnerListEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
@@ -33,34 +33,8 @@ public interface OrderApis {
     Observable<BaseResponse<OrderInfoListEntity>> getOrders(
             @QueryMap SortedTreeMap<String, String> map);
 
-    /**
-     * 获取联盟订单列表
-     *
-     * @param merchant_id
-     * @param status
-     * @param start_id
-     * @param flag
-     * @param map
-     * @return
-     */
-    @GET("union_orders/{merchant_id}/{status}/{start_id}/{flag}")
-    Observable<BaseResponse<OrderInfoListEntity>> getAllianceOrders(
-            @Path("merchant_id") String merchant_id, @Path("status") String status,
-            @Path("start_id") String start_id, @Path("flag") String flag,
-            @QueryMap SortedTreeMap<String, String> map);
-
-    /**
-     * 订单详情
-     *
-     * @param uid
-     * @param order_id
-     * @param map
-     * @return
-     */
-    @GET("order/{uid}/{order_id}")
-    Observable<BaseResponse<OrderInfoEntity>> getOrdersDetail(
-            @Path("uid") String uid, @Path("order_id") String order_id,
-            @QueryMap SortedTreeMap<String, String> map);
+    @GET("order/{orderId}")
+    Observable<BaseResponse<OrderBeanDetail>> getOrderDetail(@Path("orderId") String id, @QueryMap SortedTreeMap<String, String> map);
 
     /**
      * 合伙人列表

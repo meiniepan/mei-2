@@ -4,7 +4,8 @@ import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
-import com.gs.buluo.common.widget.LoadingDialog;
+import com.wuyou.merchant.CarefreeDaoSession;
+import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
@@ -42,27 +43,6 @@ public class OrderPresenter extends OrderContract.Presenter {
     }
 
     @Override
-    void getAllianceOrders(String merchant_id, String status) {
-        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getAllianceOrders(merchant_id, status, "0", "1", QueryMapBuilder.getIns().buildGet())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<OrderInfoListEntity> userInfoBaseResponse) {
-                        if (userInfoBaseResponse.data.list.size() > 0)
-                            lastId = userInfoBaseResponse.data.list.get(userInfoBaseResponse.data.list.size() - 1).order_id;
-                        if (isAttach()) mView.getSuccess(userInfoBaseResponse.data);
-                    }
-
-                    @Override
-                    protected void onFail(ApiException e) {
-                        if (isAttach()) mView.showError(e.getDisplayMessage(), e.getCode());
-                    }
-                });
-    }
-
-    @Override
     void loadMore(String merchant_id, String status) {
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
                 .getOrders(QueryMapBuilder.getIns().put("shop_id",merchant_id).put("start_id",lastId).put("size","10").put("flag","2").put("status",status).buildGet())
@@ -84,25 +64,21 @@ public class OrderPresenter extends OrderContract.Presenter {
     }
 
     @Override
-    void loadAllianceMore(String merchant_id, String status) {
+    void getOrderDetail(String orderId) {
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getAllianceOrders(merchant_id, status, lastId, "2", QueryMapBuilder.getIns().buildGet())
+                .getOrderDetail(orderId, QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getShop_id()).buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {
+                .subscribe(new BaseSubscriber<BaseResponse<OrderBeanDetail>>() {
                     @Override
-                    public void onSuccess(BaseResponse<OrderInfoListEntity> userInfoBaseResponse) {
-                        if (userInfoBaseResponse.data.list.size() > 0)
-                            lastId = userInfoBaseResponse.data.list.get(userInfoBaseResponse.data.list.size() - 1).order_id;
-                        if (isAttach()) mView.getMore(userInfoBaseResponse.data);
+                    public void onSuccess(BaseResponse<OrderBeanDetail> orderResponse) {
+                        mView.getOrderDetailSuccess(orderResponse.data);
                     }
 
                     @Override
                     protected void onFail(ApiException e) {
-                        if (isAttach())mView.loadMoreError(e.getCode());
+                        mView.showError(e.getDisplayMessage(), e.getCode());
                     }
                 });
     }
-
-
 }
