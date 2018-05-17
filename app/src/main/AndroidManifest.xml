@@ -140,6 +140,8 @@
         <activity android:name=".mvp.store.ModifyPhoneActivity" />
         <activity android:name=".mvp.store.ModifyEmailActivity" />
         <activity android:name=".mvp.store.ModifyStoreNameActivity" />
+        <activity android:name=".mvp.store.SettingActivity" />
+        <activity android:name=".mvp.store.CompanyInfoUpdateActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

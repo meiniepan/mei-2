@@ -31,8 +31,6 @@ public class CreatedFragment extends BaseFragment<CircleContract.View, CircleCon
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     NewRefreshRecyclerView recyclerView;
-    @BindView(R.id.fl_add)
-    View add;
     List<ContractEntity> data = new ArrayList();
     CreatedContractListRvAdapter adapter;
 

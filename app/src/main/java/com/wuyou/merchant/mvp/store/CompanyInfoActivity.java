@@ -1,10 +1,10 @@
 package com.wuyou.merchant.mvp.store;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
@@ -41,6 +41,6 @@ public class CompanyInfoActivity extends BaseActivity {
 
     @OnClick(R.id.iv_company_edit)
     public void onViewClicked() {
-        ToastUtils.ToastMessage(getCtx(), R.string.not_open);
+        startActivity(new Intent(getCtx(), CompanyInfoUpdateActivity.class));
     }
 }

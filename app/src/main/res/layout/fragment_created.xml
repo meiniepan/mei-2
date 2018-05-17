@@ -6,13 +6,12 @@
     android:background="@color/tint_bg"
     android:orientation="vertical">
 
-    <include layout="@layout/split_area" />
-
     <FrameLayout
-        android:id="@+id/fl_add"
+        android:id="@+id/fl_add_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:visibility="gone"
         android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
@@ -39,7 +38,9 @@
                 android:textSize="@dimen/dimens_16sp" />
         </LinearLayout>
     </FrameLayout>
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <com.gs.buluo.common.widget.StatusLayout
         android:id="@+id/sl_list_layout"
         android:layout_width="match_parent"
@@ -52,4 +53,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.gs.buluo.common.widget.StatusLayout>
+    <TextView
+        android:id="@+id/fl_add"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/orange_circle_bac"
+        android:layout_gravity="end|bottom"
+        android:text="创建\n新合约"
+        android:textSize="@dimen/dimens_12sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        />
+</FrameLayout>
 </LinearLayout>
