@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
@@ -28,6 +29,6 @@ public class WorkersRvAdapter extends BaseQuickAdapter<WorkerEntity, BaseHolder>
     protected void convert(BaseHolder helper, WorkerEntity item) {
         helper.setText(R.id.tv_name, item.worker_name);
         ImageView imageView = helper.getView(R.id.avatar);
-        CommonUtil.GlideCircleLoad(activity, item.avatar, imageView);
+        GlideUtils.loadImage(activity,item.avatar,imageView,true);
     }
 }

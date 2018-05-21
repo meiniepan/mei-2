@@ -1,8 +1,13 @@
 package com.wuyou.merchant.mvp.order;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +21,7 @@ import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.widget.panel.SendMessagePanel;
 
 import java.util.Date;
 
@@ -112,12 +118,11 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
 
     public void setData(OrderBeanDetail data) {
         beanDetail = data;
-        if (beanDetail.status == 1) orderDetailWarn.setVisibility(View.VISIBLE);
         if (beanDetail.status == 2 && beanDetail.second_payment != 0) {
             orderDetailWarn.setVisibility(View.VISIBLE);
-            orderDetailWarn.setText("待支付附加金额 " + data.second_payment+"元");
+            orderDetailWarn.setText("待支付附加金额 " + data.second_payment + "元");
         }
-        if (beanDetail.status!=2 &&beanDetail.second_payment!=0){
+        if (beanDetail.status != 2 && beanDetail.second_payment != 0) {
             findViewById(R.id.order_detail_second_payment_area).setVisibility(View.VISIBLE);
         }
         GlideUtils.loadImage(this, data.service.photo, orderDetailPicture);
@@ -142,6 +147,50 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         orderDetailPayTime.setText(TribeDateUtils.dateFormat(new Date(data.pay_time * 1000)));
 
         setActionStatus();
+        switch (beanDetail.status) {
+            case 1:
+                dispatch();
+                break;
+            case 2:
+                sendMessage();
+                break;
+            case 3:
+                sendMessage();
+                break;
+            case 5:
+                uploadVoucher();
+                break;
+        }
+    }
+
+    private void uploadVoucher() {
+        orderDetailBottom.setVisibility(View.VISIBLE);
+        orderDetailContactStore.setText("上传凭证");
+        orderDetailContactStore.setOnClickListener(view -> {
+            Intent intent = new Intent(getCtx(), VoucherUploadActivity.class);
+            intent.putExtra(Constant.ORDER_ID, beanDetail.order_id);
+            startActivity(intent);
+        });
+    }
+
+    private void dispatch() {
+        orderDetailBottom.setVisibility(View.VISIBLE);
+        orderDetailContactStore.setText("分单");
+        orderDetailContactStore.setOnClickListener(view -> {
+            Intent intent = new Intent(getCtx(), ChoseArtisanActivity.class);
+            intent.putExtra(Constant.ORDER_ID, beanDetail.order_id);
+            startActivity(intent);
+        });
+    }
+
+    private void sendMessage() {
+        orderDetailBottom.setVisibility(View.VISIBLE);
+        orderDetailContactStore.setText("发信息");
+        orderDetailContactStore.setOnClickListener(view -> {
+            SendMessagePanel sendMessagePanel = new SendMessagePanel(getCtx());
+            sendMessagePanel.setData(beanDetail.worker.rc_id);
+            sendMessagePanel.show();
+        });
     }
 
 
@@ -177,23 +226,9 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         }
     }
 
-//    private void payOrder() {
-//        Intent intent = new Intent(getCtx(), PayChooseActivity.class);
-//        intent.putExtra(Constant.ORDER_ID, beanDetail.order_id);
-//        intent.putExtra(Constant.SECOND_PAY, 1);
-//        startActivity(intent);
-//    }
-//
-//    private void paySecond() {
-//        Intent intent = new Intent(getCtx(), PayChooseActivity.class);
-//        intent.putExtra(Constant.ORDER_ID, beanDetail.order_id);
-//        intent.putExtra(Constant.SECOND_PAY, 2);
-//        startActivity(intent);
-//    }
-
     public void setActionStatus() {
         int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.custom_green, R.color.main_blue, R.color.main_blue};
-                orderDetailStatus.setTextColor(getResources().getColor(colors[beanDetail.status]));
+        orderDetailStatus.setTextColor(getResources().getColor(colors[beanDetail.status]));
     }
 
     @Override

@@ -140,6 +140,7 @@
         <activity android:name=".mvp.store.SettingActivity" />
         <activity android:name=".mvp.store.CompanyInfoUpdateActivity" />
         <activity android:name=".mvp.order.OrderDetailActivity" />
+        <activity android:name=".mvp.order.VoucherUploadActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

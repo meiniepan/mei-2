@@ -3,6 +3,8 @@ package com.wuyou.merchant.view.widget;
 import android.content.Context;
 import android.graphics.Rect;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -123,7 +125,32 @@ public class WalletHeadRecyclerView extends RecyclerView {
             scrollViewListener.onScrollChanged(this, sx, 0);
         }
     }
+    private static final String STATE_INSTANCE = "instance_state";
+    private static final String STATE_ITEM = "state_item";
 
+    /**
+     * @return 当View被销毁的时候，保存数据
+     */
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(STATE_INSTANCE, super.onSaveInstanceState());
+        bundle.putInt(STATE_ITEM, sx);
+        return bundle;
+    }
+
+    /**
+     * @param state 用于恢复数据使用
+     */
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof Bundle) {
+            Bundle bundle = (Bundle) state;
+            sx = bundle.getInt(STATE_ITEM);
+            super.onRestoreInstanceState(bundle.getParcelable(STATE_INSTANCE));
+        }
+
+    }
     @Override
     public void scrollTo(int x, int y) {
 //        super.scrollTo(x, y);

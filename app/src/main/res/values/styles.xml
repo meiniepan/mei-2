@@ -32,6 +32,10 @@
     <style name="my_dialog" parent="@style/sheet_dialog">
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
     </style>
+    <style name="my_dialog_1" parent="@style/sheet_dialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>
+    </style>
     <style name="bottom_dialog" parent="@style/sheet_dialog">
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowAnimationStyle">@style/ActionSheetDialogAnimation</item>

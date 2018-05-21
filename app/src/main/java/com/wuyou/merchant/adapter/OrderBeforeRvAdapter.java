@@ -1,9 +1,12 @@
 package com.wuyou.merchant.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -13,6 +16,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.mvp.order.ChoseArtisanActivity;
+import com.wuyou.merchant.view.widget.panel.SendMessagePanel;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
@@ -78,29 +82,10 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
             helper.setText(R.id.tv_receiver, item.worker.worker_name);
             dispatch.setText("发信息");
             dispatch.setOnClickListener(view -> {
-                ToastUtils.ToastMessage(mContext, R.string.not_open);
-//                TextMessage myTextMessage = TextMessage.obtain("请准备服务！");
-//
-//                Message myMessage = Message.obtain(item.worker.rc_id, Conversation.ConversationType.PRIVATE, myTextMessage);
-//
-//                RongIM.getInstance().sendMessage(myMessage, null, null, new IRongCallback.ISendMessageCallback() {
-//                    @Override
-//                    public void onAttached(Message message) {
-//                        //消息本地数据库存储成功的回调
-//                    }
-//
-//                    @Override
-//                    public void onSuccess(Message message) {
-//                        //消息通过网络发送成功的回调
-//                        ToastUtils.ToastMessage(activity, "消息发送成功！");
-//                    }
-//
-//                    @Override
-//                    public void onError(Message message, RongIMClient.ErrorCode errorCode) {
-//                        //消息发送失败的回调
-//                        ToastUtils.ToastMessage(activity, "消息发送失败！");
-//                    }
-//                });
+//                ToastUtils.ToastMessage(mContext, R.string.not_open);
+                SendMessagePanel sendMessagePanel = new SendMessagePanel(mContext);
+                sendMessagePanel.setData(item.worker.rc_id);
+                sendMessagePanel.show();
             });
         }
     }

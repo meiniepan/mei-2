@@ -546,11 +546,11 @@
         android:id="@+id/order_detail_bottom"
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:background="@color/night_blue"
+        android:background="@color/main_blue"
         android:gravity="center_vertical|end"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:visibility="gone">
+        >
 
         <TextView
             android:id="@+id/order_detail_contact_store"
