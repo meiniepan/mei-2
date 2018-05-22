@@ -191,4 +191,11 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
     public void refreshFundList() {
         adapterFoot.getFunList();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if (rvHead!=null)
+//        rvHead.smoothScrollToPosition(1);
+    }
 }

@@ -136,6 +136,7 @@ public class WalletHeadRecyclerView extends RecyclerView {
         Bundle bundle = new Bundle();
         bundle.putParcelable(STATE_INSTANCE, super.onSaveInstanceState());
         bundle.putInt(STATE_ITEM, sx);
+//        mLayoutManager.fir
         return bundle;
     }
 
@@ -165,7 +166,6 @@ public class WalletHeadRecyclerView extends RecyclerView {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-
             if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                 int mmSelected;
                 //当控件停止滚动时，获取可视范围第一个item的位置，滚动调整控件以使选中的item刚好处于正中间

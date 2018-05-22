@@ -36,7 +36,8 @@
         <activity
             android:name=".view.activity.MainActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NoSplitMotionEvents" />
         <activity
             android:name=".mvp.login.CaptchaInputActivity"
             android:screenOrientation="portrait" />
@@ -124,23 +125,49 @@
         <activity
             android:name=".mvp.order.ChoseArtisanActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".mvp.circle.SelfFundActivity"
+        <activity
+            android:name=".mvp.circle.SelfFundActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".mvp.circle.SignContractActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".mvp.circle.ServeChooseActivity" />
-        <activity android:name=".mvp.circle.ContractPayChooseActivity" />
-        <activity android:name=".mvp.wallet.ContractTradeDetailActivity" />
-        <activity android:name=".mvp.store.CompanyInfoActivity" />
-        <activity android:name=".mvp.store.WorkerListActivity" />
-        <activity android:name=".mvp.store.ModifyPhoneActivity" />
-        <activity android:name=".mvp.store.ModifyEmailActivity" />
-        <activity android:name=".mvp.store.ModifyStoreNameActivity" />
-        <activity android:name=".mvp.store.SettingActivity" />
-        <activity android:name=".mvp.store.CompanyInfoUpdateActivity" />
-        <activity android:name=".mvp.order.OrderDetailActivity" />
-        <activity android:name=".mvp.order.VoucherUploadActivity" />
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".mvp.circle.SignContractActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.circle.ServeChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.circle.ContractPayChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.wallet.ContractTradeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.CompanyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.WorkerListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.ModifyPhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.ModifyEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.ModifyStoreNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.store.CompanyInfoUpdateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.order.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.order.VoucherUploadActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"
