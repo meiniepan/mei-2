@@ -54,7 +54,7 @@ public interface UserApis {
     Observable<BaseResponse> loginOut(
             @Path("merchant_id") String merchant_id, @FieldMap SortedTreeMap<String, String> map);
 
-    @GET("captcha")
+    @GET("mobile/captcha")
     Observable<BaseResponse> getCaptchaCode(
             @QueryMap SortedTreeMap<String, String> map);
 
