@@ -10,7 +10,7 @@ import android.os.Parcelable;
 public class AddressBean implements Parcelable {
     public String id;
     public String city_id;
-    public String city_name;
+    public String city;
     public String area;
     public String address;
     public Double lat;
@@ -32,7 +32,7 @@ public class AddressBean implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
         dest.writeString(this.city_id);
-        dest.writeString(this.city_name);
+        dest.writeString(this.city);
         dest.writeString(this.area);
         dest.writeString(this.address);
         dest.writeValue(this.lat);
@@ -46,7 +46,7 @@ public class AddressBean implements Parcelable {
     protected AddressBean(Parcel in) {
         this.id = in.readString();
         this.city_id = in.readString();
-        this.city_name = in.readString();
+        this.city = in.readString();
         this.area = in.readString();
         this.address = in.readString();
         this.lat = (Double) in.readValue(Double.class.getClassLoader());

@@ -12,6 +12,7 @@ public class ServeBean implements Parcelable {
     public String shop_id;
     public String category;
     public String service_name;
+    public String title;
     public float price;
     public String sold;
     public String lng;
@@ -22,6 +23,7 @@ public class ServeBean implements Parcelable {
     public String photo;
     public String image;
     public String unit;
+    public float visiting_fee;
 
     public ServeBean() {
     }
@@ -37,6 +39,7 @@ public class ServeBean implements Parcelable {
         dest.writeString(this.shop_id);
         dest.writeString(this.category);
         dest.writeString(this.service_name);
+        dest.writeString(this.title);
         dest.writeFloat(this.price);
         dest.writeString(this.sold);
         dest.writeString(this.lng);
@@ -47,6 +50,7 @@ public class ServeBean implements Parcelable {
         dest.writeString(this.photo);
         dest.writeString(this.image);
         dest.writeString(this.unit);
+        dest.writeFloat(this.visiting_fee);
     }
 
     protected ServeBean(Parcel in) {
@@ -54,6 +58,7 @@ public class ServeBean implements Parcelable {
         this.shop_id = in.readString();
         this.category = in.readString();
         this.service_name = in.readString();
+        this.title = in.readString();
         this.price = in.readFloat();
         this.sold = in.readString();
         this.lng = in.readString();
@@ -64,6 +69,7 @@ public class ServeBean implements Parcelable {
         this.photo = in.readString();
         this.image = in.readString();
         this.unit = in.readString();
+        this.visiting_fee = in.readFloat();
     }
 
     public static final Creator<ServeBean> CREATOR = new Creator<ServeBean>() {

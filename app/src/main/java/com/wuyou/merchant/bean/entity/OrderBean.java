@@ -19,7 +19,7 @@ public class OrderBean implements Parcelable {
      */
 
     public String order_id;
-    public String order_number;
+    public String order_no;
     public int status;
     public String serial;
     public float amount;
@@ -39,7 +39,7 @@ public class OrderBean implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.order_id);
-        dest.writeString(this.order_number);
+        dest.writeString(this.order_no);
         dest.writeInt(this.status);
         dest.writeString(this.serial);
         dest.writeFloat(this.amount);
@@ -51,7 +51,7 @@ public class OrderBean implements Parcelable {
 
     protected OrderBean(Parcel in) {
         this.order_id = in.readString();
-        this.order_number = in.readString();
+        this.order_no = in.readString();
         this.status = in.readInt();
         this.serial = in.readString();
         this.amount = in.readFloat();

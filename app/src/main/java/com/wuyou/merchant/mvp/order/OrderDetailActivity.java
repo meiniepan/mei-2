@@ -1,13 +1,9 @@
 package com.wuyou.merchant.mvp.order;
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -128,17 +124,19 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         GlideUtils.loadImage(this, data.service.photo, orderDetailPicture);
         orderDetailStatus.setText(CommonUtil.getOrderStatusString(data.status));
         orderDetailStoreName.setText(data.shop.shop_name);
-        orderDetailServeName.setText(data.service.service_name);
+        orderDetailServeName.setText(data.service.title);
+        orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
         orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
         orderDetailGoodsNumber.setText(data.number + "");
+        orderDetailOtherFee.setText(CommonUtil.formatPrice(data.service.visiting_fee));
         orderDetailFee.setText(CommonUtil.formatPrice(data.service.price));
-        orderDetailAmount.setText(CommonUtil.formatPrice(data.total_amount));
+        orderDetailAmount.setText(CommonUtil.formatPrice(data.amount));
         orderDetailName.setText(data.address.name);
-        orderDetailAddress.setText(String.format("%s%s%s%s", data.address.city_name, data.address.district, data.address.area, data.address.address));
+        orderDetailAddress.setText(String.format("%s%s%s%s", data.address.city, data.address.district, data.address.area, data.address.address));
         orderDetailPhone.setText(data.address.mobile);
 
         orderDetailCreateTime.setText(TribeDateUtils.dateFormat(new Date(data.created_at * 1000)));
-        orderDetailNumber.setText(data.order_number);
+        orderDetailNumber.setText(data.order_no);
         orderDetailServeWay.setText(data.service_mode);
         orderDetailServeTime.setText(data.service_date + "  " + data.service_time);
         orderDetailRemark.setText(data.remark);
