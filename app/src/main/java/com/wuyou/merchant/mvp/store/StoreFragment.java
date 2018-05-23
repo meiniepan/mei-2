@@ -8,9 +8,9 @@ import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
-import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import butterknife.BindView;
@@ -36,7 +36,7 @@ public class StoreFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        CommonUtil.GlideCircleLoad(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar);
+        GlideUtils.loadImage(getContext(), CarefreeApplication.getInstance().getUserInfo().getLogo(), ivAvatar,true);
         tvName.setText(CarefreeApplication.getInstance().getUserInfo().getShop_name());
         tvPhone.setText(CarefreeApplication.getInstance().getUserInfo().getTel());
     }
@@ -47,7 +47,7 @@ public class StoreFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.iv_store_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
+    @OnClick({R.id.iv_store_info,  R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_store_info:

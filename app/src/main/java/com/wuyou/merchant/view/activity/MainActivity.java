@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.gs.buluo.common.network.TokenEvent;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.CarefreeApplication;
@@ -172,4 +173,5 @@ public class MainActivity extends BaseActivity {
         Intent intent = new Intent(getCtx(), LoginActivity.class);
         startActivity(intent);
     }
+
 }

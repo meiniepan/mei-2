@@ -65,7 +65,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DataCleanManager.clearAllCache(SettingActivity.this);
-                        tvCache.setText("0.00K");
+                        tvCache.setText("0K");
                     }
                 }).setNegativeButton(getCtx().getString(R.string.cancel), null).create().show();
                 break;

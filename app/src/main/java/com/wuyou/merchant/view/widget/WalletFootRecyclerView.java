@@ -27,6 +27,7 @@ public class WalletFootRecyclerView extends RecyclerView {
     private ScrollViewListener scrollViewListener;
     private int sx = 0;
     private boolean isMark = true;
+    private boolean isManual;
 
     public WalletFootRecyclerView(Context context) {
         super(context);
@@ -115,12 +116,19 @@ public class WalletFootRecyclerView extends RecyclerView {
         return (int) (1000.0 * Math.exp(l / decelMinusOne));
     }
 
+    public void setManual(boolean manual) {
+        isManual = manual;
+    }
+
     @Override
     public void onScrolled(int dx, int dy) {
         super.onScrolled(dx, dy);
-        sx = sx + dx;
-        if (scrollViewListener != null && isMark) {
-            scrollViewListener.onScrollChanged(this, sx, 0);
+        Log.e("foot", sx+"" );
+        if (!isManual) {
+            sx = sx + dx;
+            if (scrollViewListener != null && isMark) {
+                scrollViewListener.onScrollChanged(this, sx, 0);
+            }
         }
     }
 
@@ -175,7 +183,7 @@ public class WalletFootRecyclerView extends RecyclerView {
                 }
                 Rect rect = new Rect();
                 mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
-                Log.e("left2", rect.left + "");
+//                Log.e("left2", rect.left + "");
                 if (Math.abs(rect.left) > mItemWidth / 2) {
                     smoothScrollBy(rect.right, 0);
                     mmSelected = firstVisiblePos + 1;

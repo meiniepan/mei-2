@@ -57,7 +57,7 @@ public class ModifyNickActivity extends BaseActivity {
                     ToastUtils.ToastMessage(getCtx(), getString(R.string.nickname_not_right));
                     return;
                 }
-                updateInfo("nickname", input);
+                updateInfo("shop_name", input);
                 break;
         }
     }

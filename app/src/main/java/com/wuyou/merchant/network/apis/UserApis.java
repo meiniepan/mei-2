@@ -3,6 +3,7 @@ package com.wuyou.merchant.network.apis;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.UserInfo;
+import com.wuyou.merchant.bean.entity.LogoEntity;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -60,7 +61,7 @@ public interface UserApis {
 
     @Multipart
     @POST("logo/{uid}")
-    Observable<BaseResponse> updateAvatar(
+    Observable<BaseResponse<LogoEntity>> updateAvatar(
             @Path("uid")String uid,
             @Part MultipartBody.Part file,
             @QueryMap SortedTreeMap<String, String> map);

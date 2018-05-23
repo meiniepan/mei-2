@@ -171,11 +171,12 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
             imagePath = Matisse.obtainPathResult(data).get(0);
-            CommonUtil.compressAndSaveImgToLocal(imagePath);
+            CommonUtil.compressAndSaveImgToLocal(imagePath,1);
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddBusinessLicense);
         }
         if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE_2 && resultCode == RESULT_OK) {
             imagePath2 = Matisse.obtainPathResult(data).get(0);
+            CommonUtil.compressAndSaveImgToLocal(imagePath2,2);
             Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivAddOther);
         }
     }
