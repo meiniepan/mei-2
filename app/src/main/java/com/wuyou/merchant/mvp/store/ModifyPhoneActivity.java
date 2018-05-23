@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.CommonUtil;
@@ -64,6 +65,9 @@ public class ModifyPhoneActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseResponse baseResponse) {
                         ToastUtils.ToastMessage(getCtx(), R.string.update_success);
+                        UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
+                        userInfo.setPhone(phone);
+                        CarefreeDaoSession.getInstance().updateUserInfo(userInfo);
                         setResult(RESULT_OK, new Intent().putExtra("info", phone));
                         finish();
                     }

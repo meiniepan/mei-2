@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.glide.GlideUtils;
@@ -36,9 +37,13 @@ public class StoreFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+//        initInfo();
+    }
+
+    private void initInfo() {
         GlideUtils.loadImage(getContext(), CarefreeApplication.getInstance().getUserInfo().getLogo(), ivAvatar,true);
-        tvName.setText(CarefreeApplication.getInstance().getUserInfo().getShop_name());
-        tvPhone.setText(CarefreeApplication.getInstance().getUserInfo().getTel());
+        tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
+        tvPhone.setText(CarefreeDaoSession.getInstance().getUserInfo().getPhone());
     }
 
     @Override
@@ -78,4 +83,9 @@ public class StoreFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initInfo();
+    }
 }

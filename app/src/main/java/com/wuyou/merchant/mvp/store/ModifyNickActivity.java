@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
@@ -74,6 +75,9 @@ public class ModifyNickActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse>() {
                     @Override
                     public void onSuccess(BaseResponse baseResponse) {
+                        UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
+                        userInfo.setShop_name(value);
+                        CarefreeDaoSession.getInstance().updateUserInfo(userInfo);
                         setResult(RESULT_OK, new Intent().putExtra("info", editText.getText().toString()));
                         finish();
                     }
