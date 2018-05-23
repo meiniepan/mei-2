@@ -56,4 +56,8 @@
     <string name="extra_fee">附加费用</string>
     <string name="contact_store">联系客服</string>
     <string name="go_pay">去支付</string>
+    <string name="update_success">更新信息成功</string>
+    <string name="nickname_not_right">昵称格式不正确</string>
+    <string name="please_input_right_email">请输入正确的邮箱</string>
+    <string name="photo_choose_fail">图片选择失败</string>
 </resources>

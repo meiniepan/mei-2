@@ -64,6 +64,13 @@ import java.util.regex.Pattern;
  * Created by hjn on 2016/11/10.
  */
 public class CommonUtil {
+
+    public static String getPhoneWithStar(String mobile) {
+        if (mobile.length() == 11) {
+            return mobile.substring(0, 3) + "****" + mobile.substring(7);
+        }
+        return mobile;
+    }
     public static String formatPrice(float price) {
         NumberFormat nf = new DecimalFormat("0.00");
         return nf.format(price);

@@ -5,11 +5,14 @@ import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.UserInfo;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
@@ -51,4 +54,14 @@ public interface UserApis {
     Observable<BaseResponse> loginOut(
             @Path("merchant_id") String merchant_id, @FieldMap SortedTreeMap<String, String> map);
 
+    @GET("captcha")
+    Observable<BaseResponse> getCaptchaCode(
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @Multipart
+    @POST("logo/{uid}")
+    Observable<BaseResponse> updateAvatar(
+            @Path("uid")String uid,
+            @Part MultipartBody.Part file,
+            @QueryMap SortedTreeMap<String, String> map);
 }

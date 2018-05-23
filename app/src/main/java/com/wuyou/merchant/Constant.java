@@ -39,6 +39,13 @@ public class Constant {
     public static final String WX_ID ="wxb60eda0adace922f" ;
     public static final String WX_SECRET = "f69fe20fe89637098fe08474ce8b90bd";
     public static final String AUTH_IMG_PATH_1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
+    public static final String FROM = "from";
+    public static final String NICK = "nick";
+    public static final String EMAIL = "email";
+    public static final String GENDER = "gender";
+    public static final int REQUEST_CODE_CHOOSE_IMAGE = 666;
+    public static final int REQUEST_NICK = 777;
+    public static final int REQUEST_PHONE = 888;
     public static String IMAGE1_URL_2 = "image1_url_2";
 
 

@@ -148,15 +148,6 @@
             android:name=".mvp.store.WorkerListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".mvp.store.ModifyPhoneActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".mvp.store.ModifyEmailActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".mvp.store.ModifyStoreNameActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".mvp.store.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -168,6 +159,8 @@
         <activity
             android:name=".mvp.order.VoucherUploadActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".mvp.store.ModifyNickActivity" />
+        <activity android:name=".mvp.store.ModifyPhoneActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

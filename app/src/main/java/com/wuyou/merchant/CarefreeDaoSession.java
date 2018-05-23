@@ -34,8 +34,9 @@ public class CarefreeDaoSession {
         return daoSession.getUserInfoDao();
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+    public UserInfo setUserInfo(UserInfo userInfo) {
         getUserInfoDao().insert(userInfo);
+        return userInfo;
     }
 
     public void updateUserInfo(UserInfo userInfo) {
