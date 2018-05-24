@@ -61,7 +61,7 @@ public class OrderBeforeBeforeFragment extends BaseFragment<OrderContract.View, 
         adapter = new OrderBeforeRvAdapter(getActivity(), R.layout.item_order_before, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
-            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).order_id);
+            intent.putExtra(Constant.ORDER_ID, adapter.getItem(position).order_id);
 //            intent.putExtra(Constant.DIVIDE_ORDER_FROM,1);
             startActivity(intent);
         });
@@ -106,7 +106,7 @@ public class OrderBeforeBeforeFragment extends BaseFragment<OrderContract.View, 
             adapter.loadMoreEnd(true);
         }
         if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有订单");
+            statusLayout.showEmptyView(getString(R.string.order_empty));
         }
     }
 

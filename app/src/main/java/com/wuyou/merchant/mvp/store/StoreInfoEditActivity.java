@@ -62,7 +62,7 @@ public class StoreInfoEditActivity extends BaseActivity {
         CommonUtil.GlideCircleLoad(getCtx(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar);
         GlideUtils.loadImage(getCtx(), CarefreeApplication.getInstance().getUserInfo().getLogo(), ivAvatar,true);
         tvName.setText(CarefreeApplication.getInstance().getUserInfo().getShop_name());
-        tvPhone.setText(CarefreeApplication.getInstance().getUserInfo().getTel());
+        tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeApplication.getInstance().getUserInfo().getTel()));
     }
 
     @OnClick({R.id.iv_avatar, R.id.ll_phone, R.id.ll_store_name})

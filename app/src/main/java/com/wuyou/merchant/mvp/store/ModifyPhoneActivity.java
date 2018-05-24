@@ -66,7 +66,7 @@ public class ModifyPhoneActivity extends BaseActivity {
                     public void onSuccess(BaseResponse baseResponse) {
                         ToastUtils.ToastMessage(getCtx(), R.string.update_success);
                         UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
-                        userInfo.setPhone(phone);
+                        userInfo.setTel(phone);
                         CarefreeDaoSession.getInstance().updateUserInfo(userInfo);
                         setResult(RESULT_OK, new Intent().putExtra("info", phone));
                         finish();

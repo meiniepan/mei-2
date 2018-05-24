@@ -87,10 +87,16 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     @Override
     protected void bindView(Bundle savedInstanceState) {
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         showLoadingDialog();
         mPresenter.getOrderDetail(orderId);
     }
-
 
     @Override
     protected int getContentLayout() {
@@ -156,9 +162,17 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
                 sendMessage();
                 break;
             case 5:
+                if (beanDetail.has_voucher.equals("0"))
                 uploadVoucher();
+                else uploadVoucherDone();
                 break;
         }
+    }
+
+    private void uploadVoucherDone() {
+        orderDetailBottom.setVisibility(View.VISIBLE);
+        orderDetailContactStore.setText("凭证已上传");
+        orderDetailContactStore.setEnabled(false);
     }
 
     private void uploadVoucher() {

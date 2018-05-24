@@ -104,7 +104,7 @@ public class CreatedFragment extends BaseFragment<CircleContract.View, CircleCon
             adapter.loadMoreEnd(true);
         }
         if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有合约");
+            statusLayout.showEmptyView(getString(R.string.contract_empty));
         }
     }
 

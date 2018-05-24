@@ -41,9 +41,9 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void initInfo() {
-        GlideUtils.loadImage(getContext(), CarefreeApplication.getInstance().getUserInfo().getLogo(), ivAvatar,true);
+        GlideUtils.loadImage(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar,true);
         tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
-        tvPhone.setText(CarefreeDaoSession.getInstance().getUserInfo().getPhone());
+        tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeDaoSession.getInstance().getUserInfo().getTel()));
     }
 
     @Override

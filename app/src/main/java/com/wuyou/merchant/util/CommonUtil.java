@@ -500,7 +500,8 @@ public class CommonUtil {
         } else {
             newPath = Constant.AUTH_IMG_PATH_2;
         }
-        Bitmap bb = ImageUtil.compressByQuality(BitmapFactory.decodeFile(imagePath), 320*320*2, false);
+        Bitmap src = BitmapFactory.decodeFile(imagePath);
+        Bitmap bb = ImageUtil.compressByScale(src, 640, 640*src.getHeight()/src.getWidth(), false);
         ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
     }
 
