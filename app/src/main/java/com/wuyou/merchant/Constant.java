@@ -47,6 +47,7 @@ public class Constant {
     public static final int REQUEST_NICK = 777;
     public static final int REQUEST_PHONE = 888;
     public static final String AUTH_IMG_PATH_2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp_2.jpg";
+    public static final String COMPANY_INFO = "company_info";
     public static String IMAGE1_URL_2 = "image1_url_2";
 
 
