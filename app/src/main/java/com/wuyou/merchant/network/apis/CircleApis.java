@@ -29,7 +29,7 @@ public interface CircleApis {
     @Multipart
     @POST("contract")
     Observable<BaseResponse> createContract(
-            @Part MultipartBody.Part file,
+            @Part MultipartBody.Part file, @Part MultipartBody.Part file2,
             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("purchased_contracts/{shop_id}")

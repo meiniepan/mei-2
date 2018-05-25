@@ -105,7 +105,7 @@ public class JoinedFragment extends BaseFragment<CircleContract.View, CircleCont
             adapter.loadMoreEnd(true);
         }
         if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有合约");
+            statusLayout.showEmptyView(getString(R.string.contract_empty));
         }
     }
 

@@ -3,6 +3,8 @@ package com.wuyou.merchant.network.apis;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.UserInfo;
+import com.wuyou.merchant.bean.entity.LogoEntity;
+import com.wuyou.merchant.bean.entity.OfficialEntityOut;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -60,8 +62,19 @@ public interface UserApis {
 
     @Multipart
     @POST("logo/{uid}")
-    Observable<BaseResponse> updateAvatar(
+    Observable<BaseResponse<LogoEntity>> updateAvatar(
             @Path("uid")String uid,
+            @Part MultipartBody.Part file,
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @GET("shop/{shop_id}")
+    Observable<BaseResponse<OfficialEntityOut>> getCompanyInfo(
+            @Path("shop_id") String shop_id, @QueryMap SortedTreeMap<String, String> map);
+
+    @Multipart
+    @POST("official/{shop_id}")
+    Observable<BaseResponse> updateCompanyInfo(
+            @Path("shop_id")String shopId,
             @Part MultipartBody.Part file,
             @QueryMap SortedTreeMap<String, String> map);
 }

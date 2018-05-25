@@ -95,6 +95,7 @@ public class ContractDetailActivity extends BaseActivity {
     private List<String> addressData;
     private int fromId;
     private String ownerId;
+    private ContractEntity resData;
 
     @Override
     protected int getContentLayout() {
@@ -118,6 +119,7 @@ public class ContractDetailActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseResponse<ContractEntity> response) {
                         ownerId = response.data.shop.shop_id;
+                        resData = response.data;
                         initUI(response.data);
                     }
 
@@ -226,9 +228,11 @@ public class ContractDetailActivity extends BaseActivity {
                 break;
             case R.id.ll_authentication:
 //                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
+                if (resData ==null)return;
                 List data = new ArrayList();
-                data.add(Constant.AUTH_IMG_PATH_1);
-                data.add(Constant.AUTH_IMG_PATH_1);
+                data.add(resData.shop.license);
+                if (!resData.shop.other_image.isEmpty())
+                data.add(resData.shop.other_image);
                 BigImagePanel panel = new BigImagePanel(getCtx(), data);
                 panel.setPos(0);
                 panel.show();

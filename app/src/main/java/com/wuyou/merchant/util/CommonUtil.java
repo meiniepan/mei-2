@@ -75,6 +75,7 @@ public class CommonUtil {
         NumberFormat nf = new DecimalFormat("0.00");
         return nf.format(price);
     }
+
     public static Map<String, String> ConvertObjToMap(Object obj) {
         Map<String, String> reMap = new HashMap<>();
         if (obj == null)
@@ -103,9 +104,11 @@ public class CommonUtil {
         }
         return reMap;
     }
+
     public static RecycleViewDivider getRecyclerDivider(Context context) {
         return new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL, DensityUtils.dip2px(context, 0.5f), context.getResources().getColor(R.color.divide_gray));
     }
+
     public static boolean checkPhone(String area, String phone, Context context) {
         if (TextUtils.isEmpty(phone)) {
             ToastUtils.ToastMessage(context, "手机号不能为�?!");
@@ -416,30 +419,35 @@ public class CommonUtil {
 
     /**
      * Check if there is any connectivity to a mobile network
+     *
      * @param context
      * @return
      */
-    public static boolean isConnectedMobile(Context context){
+    public static boolean isConnectedMobile(Context context) {
         NetworkInfo info = getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_MOBILE);
     }
-    public static boolean isConnected(Context context){
+
+    public static boolean isConnected(Context context) {
         NetworkInfo info = getNetworkInfo(context);
         return (info != null && info.isConnected());
     }
 
-    public static NetworkInfo getNetworkInfo(Context context){
+    public static NetworkInfo getNetworkInfo(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo();
     }
-    public static boolean isConnectedWifi(Context context){
+
+    public static boolean isConnectedWifi(Context context) {
         NetworkInfo info = getNetworkInfo(context);
         return (info != null && info.isConnected() && info.getType() == ConnectivityManager.TYPE_WIFI);
     }
-    public static void GlideCircleLoad(Context context, String url, ImageView imageView){
+
+    public static void GlideCircleLoad(Context context, String url, ImageView imageView) {
         Glide.with(context).load(url)
                 .apply(RequestOptions.bitmapTransform(new CircleCrop())).into(imageView);
     }
+
     public static File getFileByUri(Uri uri, Context context) {
         String path = null;
         if ("file".equals(uri.getScheme())) {
@@ -449,7 +457,7 @@ public class CommonUtil {
                 ContentResolver cr = context.getContentResolver();
                 StringBuffer buff = new StringBuffer();
                 buff.append("(").append(MediaStore.Images.ImageColumns.DATA).append("=").append("'" + path + "'").append(")");
-                Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[] { MediaStore.Images.ImageColumns._ID, MediaStore.Images.ImageColumns.DATA }, buff.toString(), null, null);
+                Cursor cur = cr.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, new String[]{MediaStore.Images.ImageColumns._ID, MediaStore.Images.ImageColumns.DATA}, buff.toString(), null, null);
                 int index = 0;
                 int dataIdx = 0;
                 for (cur.moveToFirst(); !cur.isAfterLast(); cur.moveToNext()) {
@@ -470,7 +478,7 @@ public class CommonUtil {
             }
         } else if ("content".equals(uri.getScheme())) {
             // 4.2.2以后
-            String[] proj = { MediaStore.Images.Media.DATA };
+            String[] proj = {MediaStore.Images.Media.DATA};
             Cursor cursor = context.getContentResolver().query(uri, proj, null, null, null);
             if (cursor.moveToFirst()) {
                 int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
@@ -484,11 +492,19 @@ public class CommonUtil {
         }
         return null;
     }
-    public static void compressAndSaveImgToLocal(String imagePath) {
-        String newPath = Constant.AUTH_IMG_PATH_1;
-        Bitmap bb = ImageUtil.compressByScale(BitmapFactory.decodeFile(imagePath), 320, 320, false);
+
+    public static void compressAndSaveImgToLocal(String imagePath, int which) {
+        String newPath;
+        if (which == 1) {
+            newPath = Constant.AUTH_IMG_PATH_1;
+        } else {
+            newPath = Constant.AUTH_IMG_PATH_2;
+        }
+        Bitmap src = BitmapFactory.decodeFile(imagePath);
+        Bitmap bb = ImageUtil.compressByScale(src, 640, 640*src.getHeight()/src.getWidth(), false);
         ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
     }
+
     public static String getOrderStatusString(int status) {
         switch (status) {
             case 1:

@@ -102,7 +102,7 @@ public class ContractMarketFragment extends BaseFragment<CircleContract.View, Ci
         adapter.setNewData(data.list);
         statusLayout.showContentView();
         if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView("没有合约");
+            statusLayout.showEmptyView(getString(R.string.contract_empty));
             return;
         }
         if ("0".equals(data.has_more)) {

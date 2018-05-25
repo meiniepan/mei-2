@@ -34,7 +34,7 @@ public class BigImgPagerAdapter extends PagerAdapter {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
         imageView.setLayoutParams(params);
-        imageView.setScaleType(ImageView.ScaleType.MATRIX);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         GlideUtils.loadImageNoHolder(mAct,lists.get(position),imageView);
         container.addView(imageView);
         return imageView;

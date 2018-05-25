@@ -10,6 +10,7 @@ import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.HelpRobotActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
@@ -36,9 +37,13 @@ public class StoreFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        CommonUtil.GlideCircleLoad(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar);
-        tvName.setText(CarefreeApplication.getInstance().getUserInfo().getShop_name());
-        tvPhone.setText(CarefreeApplication.getInstance().getUserInfo().getTel());
+//        initInfo();
+    }
+
+    private void initInfo() {
+        GlideUtils.loadImage(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar,true);
+        tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
+        tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeDaoSession.getInstance().getUserInfo().getTel()));
     }
 
     @Override

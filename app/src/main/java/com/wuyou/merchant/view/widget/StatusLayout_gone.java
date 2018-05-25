@@ -114,7 +114,7 @@ public class StatusLayout_gone extends FrameLayout {
         }
 
         this.addView(this.errorView);
-        this.emptyView = inflater.inflate(R.layout.status_view_empty_gone, this, false);
+        this.emptyView = inflater.inflate(R.layout.status_view_empty, this, false);
         this.emptyContentView = this.emptyView.findViewById(id.empty_content);
         this.emptyTextView = (TextView)this.emptyView.findViewById(id.emptyTextView);
         this.emptyImageView = (ImageView)this.emptyView.findViewById(id.emptyImageView);

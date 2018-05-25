@@ -17,6 +17,7 @@ import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.UserInfo;
+import com.wuyou.merchant.bean.entity.LogoEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.CommonUtil;
@@ -33,6 +34,7 @@ import java.io.File;
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -58,8 +60,9 @@ public class StoreInfoEditActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         CommonUtil.GlideCircleLoad(getCtx(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar);
+        GlideUtils.loadImage(getCtx(), CarefreeApplication.getInstance().getUserInfo().getLogo(), ivAvatar,true);
         tvName.setText(CarefreeApplication.getInstance().getUserInfo().getShop_name());
-        tvPhone.setText(CarefreeApplication.getInstance().getUserInfo().getTel());
+        tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeApplication.getInstance().getUserInfo().getTel()));
     }
 
     @OnClick({R.id.iv_avatar, R.id.ll_phone, R.id.ll_store_name})
@@ -69,10 +72,10 @@ public class StoreInfoEditActivity extends BaseActivity {
                 chosePhoto();
                 break;
             case R.id.ll_store_name:
-                startActivity(new Intent(getCtx(), ModifyNickActivity.class));
+                startActivityForResult(new Intent(getCtx(), ModifyNickActivity.class),Constant.REQUEST_NICK);
                 break;
             case R.id.ll_phone:
-                startActivity(new Intent(getCtx(), ModifyPhoneActivity.class));
+                startActivityForResult(new Intent(getCtx(), ModifyPhoneActivity.class),Constant.REQUEST_PHONE);
                 break;
         }
     }
@@ -120,18 +123,18 @@ public class StoreInfoEditActivity extends BaseActivity {
                     ImageUtil.save(compressBitmap, imagePath, Bitmap.CompressFormat.JPEG);
                     File file = new File(imagePath);
                     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                    MultipartBody.Part body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+                    MultipartBody.Part body = MultipartBody.Part.createFormData("logo", file.getName(), requestFile);
                     return CarefreeRetrofit.getInstance().createApi(UserApis.class).updateAvatar(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), body, QueryMapBuilder.getIns().buildPost());
                 })
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new BaseSubscriber<BaseResponse>() {
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseResponse<LogoEntity>>() {
                     @Override
-                    public void onSuccess(BaseResponse baseResponse) {
-                        GlideUtils.loadImage(getCtx(), path, ivAvatar, true);
+                    public void onSuccess(BaseResponse<LogoEntity> baseResponse) {
+                        GlideUtils.loadImage(getCtx(), baseResponse.data.logo, ivAvatar, true);
                         UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
-                        userInfo.setLogo(path);
-                        CarefreeDaoSession.getInstance().setUserInfo(userInfo);
+                        userInfo.setLogo(baseResponse.data.logo);
+                        CarefreeDaoSession.getInstance().updateUserInfo(userInfo);
                     }
 
                     @Override

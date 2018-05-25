@@ -34,4 +34,5 @@ public class OrderBeanDetail extends OrderBean {
     public int number;
     public WorkerEntity worker;
     public AddressBean address;
+    public String has_voucher;
 }

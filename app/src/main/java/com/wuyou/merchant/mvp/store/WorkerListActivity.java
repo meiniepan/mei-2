@@ -53,9 +53,6 @@ public class WorkerListActivity extends BaseActivity {
     protected void bindView(Bundle savedInstanceState) {
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
         adapter = new WorkersRvAdapter( this,R.layout.item_worker, data);
-        adapter.setOnItemClickListener((adapter1, view, position) -> {
-            showAlert(adapter.getItem(position).worker_name, adapter.getItem(position).worker_id);
-        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));
         recyclerView.setAdapter(adapter);
         getData();
@@ -88,41 +85,7 @@ public class WorkerListActivity extends BaseActivity {
                 });
     }
 
-    private void showAlert(String name, String serverId) {
-        CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(getCtx());
-        builder.setTitle("是否分单给服务者").setMessage(name);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                        .dispatchOrder(
-                                QueryMapBuilder.getIns().put("dispatcher_id", CarefreeApplication.getInstance().getUserInfo().getUid())
-                                        .put("worker_id", serverId)
-                                        .put("type", "1")
-                                        .put("order_id", orderId)
-                                        .buildPost())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(new BaseSubscriber<BaseResponse>() {
-                            @Override
-                            public void onSuccess(BaseResponse response) {
-                                ToastUtils.ToastMessage(getCtx(), "完成");
-                                Intent intent = new Intent( WorkerListActivity.this,MainActivity.class);
-                                startActivity(intent);
-                            }
 
-                        });
-
-            }
-        });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.create().show();
-    }
 
     @Override
     public void showError(String message, int res) {

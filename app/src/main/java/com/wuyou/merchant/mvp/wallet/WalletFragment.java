@@ -2,7 +2,9 @@ package com.wuyou.merchant.mvp.wallet;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -43,9 +45,9 @@ import io.reactivex.schedulers.Schedulers;
 public class WalletFragment extends BaseFragment implements ScrollViewListener, WalletFootAdapter.OnRefreshListener {
 
     @BindView(R.id.rv_head)
-    WalletHeadRecyclerView rvHead;
+    public WalletHeadRecyclerView rvHead;
     @BindView(R.id.rv_foot)
-    WalletFootRecyclerView rvFoot;
+   public WalletFootRecyclerView rvFoot;
     @BindView(R.id.sl_wallet)
     StatusLayout statusLayout;
     private WalletInfoEntity entity = new WalletInfoEntity();
@@ -192,10 +194,4 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         adapterFoot.getFunList();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-//        if (rvHead!=null)
-//        rvHead.smoothScrollToPosition(1);
-    }
 }

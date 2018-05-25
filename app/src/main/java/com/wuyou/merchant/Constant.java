@@ -49,6 +49,8 @@ public class Constant {
     public static final String WEB_INTENT = "web_intent";
     public static final String WEB_TYPE = "web_type";
     public static final String WEB_URL = "web_url";
+    public static final String AUTH_IMG_PATH_2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp_2.jpg";
+    public static final String COMPANY_INFO = "company_info";
     public static String IMAGE1_URL_2 = "image1_url_2";
     public static String HELP_SERVE_AGENT_ID="181385";
 

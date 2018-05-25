@@ -71,7 +71,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     @BindView(R.id.create_contract_pay_type)
     TextView tvPayType;
     ContractEntity entity;
-    String imagePath;
+    String imagePath2;
     private int n = 1;
     private String serviceIndex = "1";
     private ServiceEntity serviceEntity;
@@ -85,7 +85,7 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         entity = getIntent().getParcelableExtra(Constant.CONTRACT_ENTITY);
-        imagePath = getIntent().getStringExtra(Constant.IMAGE1_URL);
+        imagePath2 = getIntent().getStringExtra(Constant.IMAGE1_URL_2);
     }
 
     @OnClick({R.id.tv_commit, R.id.ll_time_service, R.id.ll_deduct_scale, R.id.btn_new_address, R.id.create_contract_project_choose, R.id.create_contract_pay_type_choose})
@@ -172,9 +172,15 @@ public class CreateIntelligentContractActivity2 extends BaseActivity {
         File file = new File(newPath);
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("license", file.getName(), requestFile);
+        MultipartBody.Part body2 = null;
+        if (imagePath2 !=null){
+            File file2 = new File(Constant.AUTH_IMG_PATH_2);
+            RequestBody requestFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), file2);
+            body2 = MultipartBody.Part.createFormData("other_image", file2.getName(), requestFile2);
+        }
         LoadingDialog.getInstance().show(getCtx(), "创建中...", false);
         CarefreeRetrofit.getInstance().createApi(CircleApis.class)
-                .createContract(body, QueryMapBuilder.getIns()
+                .createContract(body,body2, QueryMapBuilder.getIns()
                         .put("contact_address", entity.contact_address)
                         .put("contract_name", entity.contract_name)
                         .put("end_at", entity.end_at + "")

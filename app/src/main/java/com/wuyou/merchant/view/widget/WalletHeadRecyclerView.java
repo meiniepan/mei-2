@@ -28,6 +28,7 @@ public class WalletHeadRecyclerView extends RecyclerView {
     private ScrollViewListener scrollViewListener;
     private int sx =0;
     private boolean isMark = true;
+    private boolean isManual;
 
     public WalletHeadRecyclerView(Context context) {
         super(context);
@@ -116,13 +117,18 @@ public class WalletHeadRecyclerView extends RecyclerView {
         final double decelMinusOne = DECELERATION_RATE - 1.0;
         return (int) (1000.0 * Math.exp(l / decelMinusOne));
     }
-
+    public void setManual(boolean manual) {
+        isManual = manual;
+    }
     @Override
     public void onScrolled(int dx, int dy) {
         super.onScrolled(dx, dy);
-        sx = sx +dx;
-        if (scrollViewListener != null && isMark) {
-            scrollViewListener.onScrollChanged(this, sx, 0);
+        Log.e("head", sx+"" );
+        if (!isManual) {
+            sx = sx + dx;
+            if (scrollViewListener != null && isMark) {
+                scrollViewListener.onScrollChanged(this, sx, 0);
+            }
         }
     }
     private static final String STATE_INSTANCE = "instance_state";
@@ -175,7 +181,7 @@ public class WalletHeadRecyclerView extends RecyclerView {
                 }
                 Rect rect = new Rect();
                 mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
-                Log.e("left1",rect.left+"");
+//                Log.e("left1",rect.left+"");
                 if (rect.left == 0)return;
                 if (Math.abs(rect.left) > mItemWidth / 2) {
                     smoothScrollBy(rect.right - DensityUtils.dip2px(getContext(), 20), 0);

@@ -60,4 +60,7 @@
     <string name="nickname_not_right">昵称格式不正确</string>
     <string name="please_input_right_email">请输入正确的邮箱</string>
     <string name="photo_choose_fail">图片选择失败</string>
+    <string name="contract_empty">您还没有相关合约</string>
+    <string name="order_empty">您还没有相关订单</string>
+    <string name="not_all">请完善信息</string>
 </resources>
