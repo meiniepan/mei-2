@@ -29,7 +29,7 @@ import butterknife.BindView;
  * Created by solang on 2018/1/31.
  */
 
-public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderContract.Presenter> implements OrderContract.View {
+public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderContract.Presenter> implements OrderContract.View {
     @BindView(R.id.rv_orders)
     NewRefreshRecyclerView recyclerView;
     @BindView(R.id.sl_list_layout)
@@ -38,6 +38,7 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
     View toTop;
     OrderBeforeRvAdapter adapter;
     List<OrderInfoEntity> data = new ArrayList();
+    private String orderState;
 
     @Override
     protected int getContentLayout() {
@@ -138,7 +139,11 @@ public class OrderBeforeFragment extends BaseFragment<OrderContract.View, OrderC
     }
 
     private void fetchDatas() {
-        mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
+        if (orderState.equals("4"))
+            orderState = "0";
+        mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState);
     }
-
+    public void setOrderState(int orderState) {
+        this.orderState = orderState+"";
+    }
 }

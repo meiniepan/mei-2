@@ -79,7 +79,7 @@
         android:id="@+id/sl_wallet_foot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:emptyDrawable="@mipmap/status_empty_order"
+        app:emptyDrawable="@mipmap/status_empty_wallet"
         app:errorDrawable="@mipmap/net_error">
 
         <com.wuyou.merchant.view.widget.MyRefreshRecyclerView

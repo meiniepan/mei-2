@@ -126,6 +126,7 @@ public class CompanyInfoUpdateActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseResponse orderResponse) {
                         ToastUtils.ToastMessage(getCtx(),"更新成功！");
+                        setResult(RESULT_OK);
                         finish();
                     }
 

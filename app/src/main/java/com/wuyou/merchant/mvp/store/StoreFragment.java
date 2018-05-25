@@ -37,7 +37,12 @@ public class StoreFragment extends BaseFragment {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-//        initInfo();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initInfo();
     }
 
     private void initInfo() {

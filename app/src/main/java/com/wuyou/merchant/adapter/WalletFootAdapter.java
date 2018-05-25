@@ -218,7 +218,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                             fundListRvAdapter.loadMoreEnd(true);
                         }
                         if (fundListRvAdapter.getData().size() == 0) {
-                            statusLayout1.showEmptyView("没有基金");
+                            statusLayout1.showEmptyView(mContext.getString(R.string.fund_empty));
                         }
                     }
 
@@ -253,7 +253,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                         }
 
                         if (tradeListRvAdapter.getData().size() == 0) {
-                            orderStatusLayout.showEmptyView("暂无营收记录");
+                            orderStatusLayout.showEmptyView(mContext.getString(R.string.wallet_empty));
                         } else {
                             orderStatusLayout.showContentView();
                             lastTradeId = res.list.get(res.list.size() - 1).order_id;
@@ -298,7 +298,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                         }
 
                         if (contractListRvAdapter.getData().size() == 0) {
-                            contractStatusLayout.showEmptyView("暂无营收记录");
+                            contractStatusLayout.showEmptyView(mContext.getString(R.string.wallet_empty));
                         } else {
                             contractStatusLayout.showContentView();
                             lastContractId = res.list.get(res.list.size() - 1).order_id;

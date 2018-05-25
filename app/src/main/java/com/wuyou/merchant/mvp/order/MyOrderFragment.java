@@ -22,7 +22,7 @@ public class MyOrderFragment extends BaseFragment {
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
     String[] mTitle = {"待分单","未开始", "进行中", "全部"};
-    OrderBeforeBeforeFragment orderBeforeBeforeFragment = new OrderBeforeBeforeFragment();
+    FragmentPagerAdapter fragmentPagerAdapter;
 
 
     @Override
@@ -37,7 +37,7 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     private void initView() {
-        mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+         fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
             public CharSequence getPageTitle(int position) {
@@ -47,15 +47,8 @@ public class MyOrderFragment extends BaseFragment {
             @Override
             public Fragment getItem(int position) {
                 //创建Fragment并返回
-                Fragment fragment = null;
-                if (position == 0)
-                    fragment = orderBeforeBeforeFragment;
-                else if (position == 1)
-                    fragment = new OrderBeforeFragment();
-                else if (position == 2)
-                    fragment = new OrderIngFragment();
-                else if (position == 3)
-                    fragment = new OrderAfterFragment();
+                OrderStatusFragment fragment = new OrderStatusFragment();
+                fragment.setOrderState(position+1);
                 return fragment;
             }
 
@@ -63,7 +56,8 @@ public class MyOrderFragment extends BaseFragment {
             public int getCount() {
                 return mTitle.length;
             }
-        });
+        };
+        mViewPager.setAdapter(fragmentPagerAdapter);
         //将ViewPager关联到TabLayout上
         mTabLayout.setupWithViewPager(mViewPager);
 
@@ -116,6 +110,6 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     public void loadDatas() {
-        orderBeforeBeforeFragment.loadData();
+        ((OrderStatusFragment) fragmentPagerAdapter.getItem(0)).loadData();
     }
 }

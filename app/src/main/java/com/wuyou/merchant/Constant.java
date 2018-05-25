@@ -60,5 +60,6 @@ public class Constant {
         public static final int CHOOSE_PAY_TYPE = 201;
         public static final int REQUEST_CODE_CHOOSE_IMAGE = 202;
         public static final int REQUEST_CODE_CHOOSE_IMAGE_2 = 203;
+        public static final int REQUEST_UPDATE_COMPANY_INFO = 204;
     }
 }
