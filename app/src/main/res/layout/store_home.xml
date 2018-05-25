@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_work_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/store_home_title_bac"
@@ -112,11 +113,13 @@
             android:orientation="horizontal"
             android:paddingEnd="@dimen/common_margin"
             android:paddingStart="@dimen/common_margin">
+
             <View
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_lkefu" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -137,11 +140,13 @@
             android:orientation="horizontal"
             android:paddingEnd="@dimen/common_margin"
             android:paddingStart="@dimen/common_margin">
+
             <View
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_qiye" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -150,8 +155,6 @@
 
             <include layout="@layout/layout_next" />
         </LinearLayout>
-
-        <include layout="@layout/split_area" />
 
 
         <LinearLayout
@@ -162,12 +165,15 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
+            android:paddingStart="@dimen/common_margin"
+            android:visibility="gone">
+
             <View
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_sqjs" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -177,7 +183,6 @@
             <include layout="@layout/layout_next" />
         </LinearLayout>
 
-        <include layout="@layout/split_line_margin" />
 
         <LinearLayout
             android:id="@+id/ll_mark"
@@ -187,12 +192,15 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
+            android:paddingStart="@dimen/common_margin"
+            android:visibility="gone">
+
             <View
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_pf" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -214,11 +222,13 @@
             android:orientation="horizontal"
             android:paddingEnd="@dimen/common_margin"
             android:paddingStart="@dimen/common_margin">
+
             <View
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_setting" />
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -7,13 +7,15 @@ import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.gnway.bangwoba.activity.Leaving_message;
 import com.gs.buluo.common.utils.DataCleanManager;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.wuyou.merchant.CarefreeDaoSession;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.activity.WebActivity;
 
 import butterknife.BindView;
 
@@ -55,10 +57,13 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.setting_about:
-                ToastUtils.ToastMessage(getCtx(),R.string.not_open);
+                intent.setClass(getCtx(), WebActivity.class);
+                intent.putExtra(Constant.WEB_URL, "http://39.105.52.20:8086/apphtml/about-us.html");
+                startActivity(intent);
                 break;
             case R.id.setting_feedback:
-                ToastUtils.ToastMessage(getCtx(),R.string.not_open);
+                intent.setClass(getCtx(), Leaving_message.class);
+                startActivity(intent);
                 break;
             case R.id.setting_clear_cache:
                 new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("确定清除所有缓存?").setPositiveButton("清除", new DialogInterface.OnClickListener() {
@@ -71,7 +76,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.setting_update:
 //                checkUpdate();
-                ToastUtils.ToastMessage(getCtx(), R.string.not_open);
                 break;
             case R.id.exit:
                 customAlertDialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("您确定要退出登录吗?")

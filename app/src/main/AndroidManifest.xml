@@ -161,6 +161,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".mvp.store.ModifyNickActivity" />
         <activity android:name=".mvp.store.ModifyPhoneActivity" />
+        <activity android:name=".view.activity.WebActivity" />
+        <activity android:name=".view.activity.HelpRobotActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"
@@ -184,6 +186,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+        <service android:name=".service.HelpChatService" />
         <receiver
             android:name=".mvp.message.MyNotificationReceiver"
             android:exported="true">

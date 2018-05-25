@@ -6,11 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.view.activity.HelpRobotActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import butterknife.BindView;
@@ -47,33 +47,33 @@ public class StoreFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.iv_store_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
+    @OnClick({R.id.ll_work_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
     public void onViewClicked(View view) {
+        Intent intent = new Intent();
         switch (view.getId()) {
-            case R.id.iv_store_info:
-                startActivity(new Intent(getContext(), StoreInfoEditActivity.class));
+            case R.id.ll_work_info:
+                intent.setClass(getContext(), StoreInfoEditActivity.class);
+                startActivity(intent);
                 break;
-
             case R.id.ll_worker_list:
-//                ToastUtils.ToastMessage(getContext(), R.string.not_open);
-                startActivity(new Intent(getContext(), WorkerListActivity.class));
+                intent.setClass(getContext(), WorkerListActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_service:
-                ToastUtils.ToastMessage(getContext(), R.string.not_open);
+                intent.setClass(getContext(), HelpRobotActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_information:
-//                ToastUtils.ToastMessage(getContext(), R.string.not_open);
-                startActivity(new Intent(getContext(), CompanyInfoActivity.class));
+                intent.setClass(getContext(), CompanyInfoActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_intro:
-                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_mark:
-                ToastUtils.ToastMessage(getContext(), R.string.not_open);
                 break;
             case R.id.ll_setting:
-//                ToastUtils.ToastMessage(getContext(), R.string.not_open);
-                startActivity(new Intent(getContext(), SettingActivity.class));
+                intent.setClass(getContext(), SettingActivity.class);
+                startActivity(intent);
                 break;
         }
     }

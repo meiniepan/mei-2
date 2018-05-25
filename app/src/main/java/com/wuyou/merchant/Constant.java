@@ -46,7 +46,11 @@ public class Constant {
     public static final int REQUEST_CODE_CHOOSE_IMAGE = 666;
     public static final int REQUEST_NICK = 777;
     public static final int REQUEST_PHONE = 888;
+    public static final String WEB_INTENT = "web_intent";
+    public static final String WEB_TYPE = "web_type";
+    public static final String WEB_URL = "web_url";
     public static String IMAGE1_URL_2 = "image1_url_2";
+    public static String HELP_SERVE_AGENT_ID="181385";
 
 
     public static class IntentRequestCode{
