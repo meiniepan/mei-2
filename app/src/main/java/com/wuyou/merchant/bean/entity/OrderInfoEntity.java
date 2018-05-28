@@ -11,6 +11,8 @@ public class OrderInfoEntity {
     public String service_time;
     public String service_date;
     public String status;
+    public String order_no;
+    public String voucher;
     public ServiceEntity service;
     public WorkerEntity worker;
     public AddressEntity address;

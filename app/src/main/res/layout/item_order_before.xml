@@ -21,12 +21,11 @@
     android:layout_marginEnd="@dimen/small_text_margin"
     />
         <TextView
-            android:id="@+id/tv_create_time"
+            android:id="@+id/tv_order_code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="2018-01-11 08:00"
-            android:textColor="@color/main_gray" />
+             />
 
         <TextView
             android:id="@+id/tv_status"
@@ -60,7 +59,7 @@
                 android:text="空调维修"
                 android:textSize="@dimen/dimens_16sp" />
             <TextView
-                android:id="@+id/tv_order_create_time_2"
+                android:id="@+id/tv_order_create_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

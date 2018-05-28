@@ -2,6 +2,7 @@ package com.wuyou.merchant.adapter;
 
 import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.wuyou.merchant.R;
@@ -28,6 +29,9 @@ public class WorkersRvAdapter extends BaseQuickAdapter<WorkerEntity, BaseHolder>
     @Override
     protected void convert(BaseHolder helper, WorkerEntity item) {
         helper.setText(R.id.tv_name, item.worker_name);
+        if (!TextUtils.isEmpty(item.mobile)){
+            helper.setText(R.id.tv_distance, item.mobile);
+        }
         ImageView imageView = helper.getView(R.id.avatar);
         GlideUtils.loadImage(activity,item.avatar,imageView,true);
     }

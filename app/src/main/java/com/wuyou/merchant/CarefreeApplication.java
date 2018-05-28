@@ -5,11 +5,16 @@ import android.content.Context;
 import android.os.Environment;
 
 import com.gs.buluo.common.BaseApplication;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.bean.DaoMaster;
 import com.wuyou.merchant.bean.DaoSession;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.UserInfoDao;
+import com.wuyou.merchant.mvp.login.LoginActivity;
+import com.wuyou.merchant.mvp.store.SettingActivity;
+import com.wuyou.merchant.view.activity.MainActivity;
 
 /**
  * Created by hjn on 2016/11/1.
@@ -24,7 +29,16 @@ public class CarefreeApplication extends BaseApplication {
         super.onCreate();
         instance = this;
         initDB();
-        CrashReport.initCrashReport(getApplicationContext(), "505e4fa223", true);
+//        CrashReport.initCrashReport(getApplicationContext(), "505e4fa223", true);
+        initBuglyUpgrade();
+    }
+
+    private void initBuglyUpgrade() {
+        Beta.upgradeDialogLayoutId = R.layout.upgrade_dialog;
+        Beta.canShowUpgradeActs.add(MainActivity.class);
+        Beta.canShowUpgradeActs.add(LoginActivity.class);
+        Beta.canShowUpgradeActs.add(SettingActivity.class);
+        Bugly.init(getApplicationContext(), "0481bd3314", false);
     }
 
 

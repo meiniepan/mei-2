@@ -187,7 +187,7 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
 
     private void dispatch() {
         orderDetailBottom.setVisibility(View.VISIBLE);
-        orderDetailContactStore.setText("分单");
+        orderDetailContactStore.setText("去分单");
         orderDetailContactStore.setOnClickListener(view -> {
             Intent intent = new Intent(getCtx(), ChoseArtisanActivity.class);
             intent.putExtra(Constant.ORDER_ID, beanDetail.order_id);
@@ -239,7 +239,7 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     }
 
     public void setActionStatus() {
-        int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.custom_green, R.color.main_blue, R.color.main_blue};
+        int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.main_red};
         orderDetailStatus.setTextColor(getResources().getColor(colors[beanDetail.status]));
     }
 

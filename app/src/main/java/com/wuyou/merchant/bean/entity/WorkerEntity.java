@@ -14,5 +14,6 @@ public class WorkerEntity {
     public String avatar;
     public String rc_id;
     public String rc_token;
+    public String mobile;
 
 }

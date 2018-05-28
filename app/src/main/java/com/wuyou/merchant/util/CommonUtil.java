@@ -71,6 +71,7 @@ public class CommonUtil {
         }
         return mobile;
     }
+
     public static String formatPrice(float price) {
         NumberFormat nf = new DecimalFormat("0.00");
         return nf.format(price);
@@ -501,7 +502,7 @@ public class CommonUtil {
             newPath = Constant.AUTH_IMG_PATH_2;
         }
         Bitmap src = BitmapFactory.decodeFile(imagePath);
-        Bitmap bb = ImageUtil.compressByScale(src, 640, 640*src.getHeight()/src.getWidth(), false);
+        Bitmap bb = ImageUtil.compressByScale(src, 640, 640 * src.getHeight() / src.getWidth(), false);
         ImageUtil.save(bb, newPath, Bitmap.CompressFormat.JPEG);
     }
 
@@ -510,13 +511,15 @@ public class CommonUtil {
             case 1:
                 return "待分单";
             case 2:
-                return "待技工确认";
+                return "未开始";
             case 3:
                 return "进行中";
             case 4:
-                return "待用户评价";
+                return "待评价";
             case 5:
                 return "已完成";
+            case 6:
+                return "已取消";
         }
         return "";
     }

@@ -18,6 +18,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.mvp.order.ChoseArtisanActivity;
+import com.wuyou.merchant.mvp.order.VoucherUploadActivity;
 import com.wuyou.merchant.view.widget.panel.SendMessagePanel;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
 import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
@@ -32,10 +33,10 @@ import io.rong.imlib.RongIMClient;
  * Created by solang on 2018/2/5.
  */
 
-public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, BaseHolder> {
+public class OrderStatusRvAdapter extends BaseQuickAdapter<OrderInfoEntity, BaseHolder> {
     private Activity activity;
 
-    public OrderBeforeRvAdapter(Activity activity, int layoutResId, @Nullable List<OrderInfoEntity> data) {
+    public OrderStatusRvAdapter(Activity activity, int layoutResId, @Nullable List<OrderInfoEntity> data) {
         super(layoutResId, data);
         this.activity = activity;
     }
@@ -43,26 +44,12 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
     @Override
     protected void convert(BaseHolder helper, OrderInfoEntity item) {
         String[] s = {"待分单", "未开始", "进行中", "待评价", "已完成", "已取消"};
-        int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.custom_green, R.color.main_blue, R.color.main_blue};
+        int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.main_red};
         int i = Integer.parseInt(item.status) - 1;
         String create_time = TribeDateUtils.dateFormat(new Date(item.created_at * 1000));
-        TextView tvOrderCode = helper.getView(R.id.tv_order_code_1);//状态为“进行中”时，该字段可见，其余GONE
-        TextView tvCreateTime1 = helper.getView(R.id.tv_create_time);//状态为“进行中”时，该字段显示订单编号（字体黑色），其余显示订单时间（字体灰色）
-        TextView tvCreateTime2 = helper.getView(R.id.tv_order_create_time_2);//状态为“进行中”时，该字段显示订单时间，其余gone
-
-        if (item.status.equals("3")) {
-            tvOrderCode.setVisibility(View.VISIBLE);
-            tvCreateTime1.setTextColor(activity.getResources().getColor(R.color.common_dark));
-            tvCreateTime1.setText("");
-            tvCreateTime2.setVisibility(View.VISIBLE);
-            tvCreateTime2.setText(create_time);
-        } else {
-            tvOrderCode.setVisibility(View.GONE);
-            tvCreateTime1.setTextColor(activity.getResources().getColor(R.color.common_gray));
-            tvCreateTime1.setText(create_time);
-            tvCreateTime2.setVisibility(View.GONE);
-        }
         helper.setText(R.id.tv_status, s[i])
+                .setText(R.id.tv_order_code, item.order_no)
+                .setText(R.id.tv_order_create_time, create_time)
                 .setText(R.id.tv_server_time, item.service_date + " " + item.service_time)
                 .setTextColor(R.id.tv_status, activity.getResources().getColor(colors[i]))
                 .setText(R.id.tv_category, item.service.service_name)
@@ -74,7 +61,6 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
         ll_receiver.setVisibility(View.GONE);
         if (item.status.equals("1")) {
             dispatch.setVisibility(View.VISIBLE);
-            ll_receiver.setVisibility(View.GONE);
             dispatch.setText("分单");
             dispatch.setOnClickListener(view -> {
                 Intent intent = new Intent(activity, ChoseArtisanActivity.class);
@@ -92,6 +78,17 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
                 sendMessagePanel.setData(item.worker.rc_id);
                 sendMessagePanel.show();
             });
+        } else if (item.status.equals("5")) {
+            dispatch.setVisibility(View.VISIBLE);
+            if (item.voucher.equals("0")) {
+                dispatch.setText("上传凭证");
+                dispatch.setOnClickListener(view -> {
+                    uploadVoucher(item);
+                });
+            } else {
+                dispatch.setText("凭证已上传");
+                dispatch.setEnabled(false);
+            }
         }
     }
 
@@ -127,5 +124,11 @@ public class OrderBeforeRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
                 }
             });
         }
+    }
+
+    private void uploadVoucher(OrderInfoEntity item) {
+        Intent intent = new Intent(mContext, VoucherUploadActivity.class);
+        intent.putExtra(Constant.ORDER_ID, item.order_id);
+        mContext.startActivity(intent);
     }
 }

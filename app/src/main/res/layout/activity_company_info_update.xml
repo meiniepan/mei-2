@@ -63,6 +63,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
+                        android:maxLength="35"
                         android:layout_marginStart="@dimen/small_text_margin"
                         tool:text="北京广安无忧科技" />
                 </LinearLayout>
@@ -85,6 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/small_text_margin"
+                        android:maxLength="15"
                         android:background="@null"
                         tool:text="北京广安无忧科技" />
                 </LinearLayout>
@@ -108,6 +110,7 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:layout_marginStart="@dimen/small_text_margin"
+                        android:maxLength="25"
                         tool:text="北京广安无忧科技" />
                 </LinearLayout>
 
@@ -131,6 +134,7 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:layout_marginStart="@dimen/small_text_margin"
+                        android:maxLength="50"
                         tool:text="北京广安无忧科sdfsdfsdfsdfsdfsdfsdfsdfsd技" />
                 </LinearLayout>
             </LinearLayout>

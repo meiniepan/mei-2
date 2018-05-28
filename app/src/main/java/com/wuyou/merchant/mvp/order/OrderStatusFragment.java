@@ -10,7 +10,7 @@ import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.OrderBeforeRvAdapter;
+import com.wuyou.merchant.adapter.OrderStatusRvAdapter;
 import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
@@ -36,7 +36,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
     StatusLayout statusLayout;
     @BindView(R.id.rl_to_top)
     View toTop;
-    OrderBeforeRvAdapter adapter;
+    OrderStatusRvAdapter adapter;
     List<OrderInfoEntity> data = new ArrayList();
     private String orderState;
 
@@ -60,7 +60,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
                 fetchDatas();
             }
         });
-        adapter = new OrderBeforeRvAdapter(getActivity(), R.layout.item_order_before, data);
+        adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_before, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
             intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).order_id);
@@ -135,7 +135,6 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
     public void loadData() {
         statusLayout.showProgressView();
         fetchDatas();
-        Log.e("haha", "1");
     }
 
     private void fetchDatas() {

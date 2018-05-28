@@ -3,6 +3,7 @@ package com.wuyou.merchant.mvp.store;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.gnway.bangwoba.activity.Leaving_message;
 import com.gs.buluo.common.utils.DataCleanManager;
 import com.gs.buluo.common.widget.CustomAlertDialog;
+import com.tencent.bugly.beta.Beta;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
@@ -75,7 +77,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 }).setNegativeButton(getCtx().getString(R.string.cancel), null).create().show();
                 break;
             case R.id.setting_update:
-//                checkUpdate();
+                checkUpdate();
                 break;
             case R.id.exit:
                 customAlertDialog = new CustomAlertDialog.Builder(this).setTitle(R.string.prompt).setMessage("您确定要退出登录吗?")
@@ -86,6 +88,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 customAlertDialog.show();
                 break;
         }
+    }
+
+    private void checkUpdate() {
+        Beta.checkUpgrade(true,false);
     }
 
     private void logout() {
