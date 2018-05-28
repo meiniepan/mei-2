@@ -21,8 +21,12 @@ public class MyOrderFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
-    String[] mTitle = {"待分单","未开始", "进行中", "全部"};
+    String[] mTitle = {"待分单", "未开始", "进行中", "全部"};
     FragmentPagerAdapter fragmentPagerAdapter;
+    private OrderStatusFragment fragment1;
+    private OrderStatusFragment fragment2;
+    private OrderStatusFragment fragment3;
+    private OrderStatusFragment fragment4;
 
 
     @Override
@@ -37,7 +41,7 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     private void initView() {
-         fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
+        fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
             public CharSequence getPageTitle(int position) {
@@ -47,9 +51,15 @@ public class MyOrderFragment extends BaseFragment {
             @Override
             public Fragment getItem(int position) {
                 //创建Fragment并返回
-                OrderStatusFragment fragment = new OrderStatusFragment();
-                fragment.setOrderState(position+1);
-                return fragment;
+                if (position == 0) {
+                    fragment1 = new OrderStatusFragment();
+                    fragment1.setOrderState(position+1);
+                    return fragment1;
+                } else {
+                    OrderStatusFragment fragment = new OrderStatusFragment();
+                    fragment.setOrderState(position + 1);
+                    return fragment;
+                }
             }
 
             @Override
@@ -110,6 +120,7 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     public void loadDatas() {
-        ((OrderStatusFragment) fragmentPagerAdapter.getItem(0)).loadData();
+//        ((OrderStatusFragment) fragmentPagerAdapter.getItem(0)).loadData();
+        fragment1.loadData();
     }
 }

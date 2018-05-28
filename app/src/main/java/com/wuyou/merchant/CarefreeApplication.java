@@ -38,7 +38,7 @@ public class CarefreeApplication extends BaseApplication {
         Beta.canShowUpgradeActs.add(MainActivity.class);
         Beta.canShowUpgradeActs.add(LoginActivity.class);
         Beta.canShowUpgradeActs.add(SettingActivity.class);
-        Bugly.init(getApplicationContext(), "0481bd3314", false);
+        Bugly.init(getApplicationContext(), "5c7ecfcc54", false);
     }
 
 

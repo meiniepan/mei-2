@@ -131,6 +131,7 @@ public class StoreInfoEditActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<LogoEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<LogoEntity> baseResponse) {
+                        ToastUtils.ToastMessage(getCtx(), "上传成功！");
                         GlideUtils.loadImage(getCtx(), baseResponse.data.logo, ivAvatar, true);
                         UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
                         userInfo.setLogo(baseResponse.data.logo);

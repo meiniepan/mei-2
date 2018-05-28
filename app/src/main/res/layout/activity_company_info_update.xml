@@ -49,8 +49,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/common_height"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="18dp"
+                    android:paddingTop="18dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -61,7 +62,7 @@
                     <EditText
                         android:id="@+id/tv_company_info_update_name"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:maxLength="35"
                         android:layout_marginStart="@dimen/small_text_margin"
@@ -72,8 +73,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/common_height"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="18dp"
+                    android:paddingTop="18dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -84,7 +86,7 @@
                     <EditText
                         android:id="@+id/tv_company_info_update_legal_person"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/small_text_margin"
                         android:maxLength="15"
                         android:background="@null"
@@ -95,8 +97,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/common_height"
-                    android:gravity="center_vertical">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="18dp"
+                    android:paddingTop="18dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -107,7 +110,7 @@
                     <EditText
                         android:id="@+id/tv_company_info_update_code"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:layout_marginStart="@dimen/small_text_margin"
                         android:maxLength="25"
@@ -131,7 +134,7 @@
                     <EditText
                         android:id="@+id/tv_company_info_update_address"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="@null"
                         android:layout_marginStart="@dimen/small_text_margin"
                         android:maxLength="50"

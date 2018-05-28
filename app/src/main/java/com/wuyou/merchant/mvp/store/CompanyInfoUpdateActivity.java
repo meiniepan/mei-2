@@ -76,6 +76,7 @@ public class CompanyInfoUpdateActivity extends BaseActivity {
         tvCompanyInfoUpdateCode.setText(companyInfo.code);
         tvCompanyInfoUpdateAddress.setText(companyInfo.registered_address);
         GlideUtils.loadImage(getCtx(), companyInfo.license, ivCompanyUpdateAdd);
+        imagePath = companyInfo.license;
     }
 
     @OnClick({R.id.iv_company_update_add, R.id.btn_company_update_commit})
