@@ -138,8 +138,8 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
     }
 
     private void fetchDatas() {
-        if (orderState.equals("4"))
-            orderState = "0";
+//        if (orderState.equals("4"))
+//            orderState = "0";
         mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState);
     }
     public void setOrderState(int orderState) {

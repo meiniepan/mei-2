@@ -51,6 +51,7 @@ public class StoreInfoEditActivity extends BaseActivity {
     ImageView ivAvatar;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
+    private String path;
 
     @Override
     protected int getContentLayout() {
@@ -90,7 +91,6 @@ public class StoreInfoEditActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             if (requestCode == PictureConfig.CHOOSE_REQUEST) {
                 List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                String path = "";
                 if (selectList != null && selectList.size() > 0) {
                     LocalMedia localMedia = selectList.get(0);
                     if (localMedia.isCompressed()) {
@@ -110,8 +110,6 @@ public class StoreInfoEditActivity extends BaseActivity {
         }
     }
 
-    private static final long MAX_NUM_PIXELS_THUMBNAIL = 64 * 64;
-
     private void uploadAvatar(final String path) {
         showLoadingDialog();
         Observable.just(path)
@@ -128,7 +126,7 @@ public class StoreInfoEditActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BaseResponse<LogoEntity> baseResponse) {
                         ToastUtils.ToastMessage(getCtx(), "上传成功！");
-                        GlideUtils.loadImage(getCtx(), baseResponse.data.logo, ivAvatar, true);
+                        GlideUtils.loadImage(getCtx(), path, ivAvatar, true);
                         UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
                         userInfo.setLogo(baseResponse.data.logo);
                         CarefreeDaoSession.getInstance().updateUserInfo(userInfo);

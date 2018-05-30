@@ -41,6 +41,14 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     private void initView() {
+        fragment1 = new OrderStatusFragment();
+        fragment1.setOrderState(1);
+        fragment2 = new OrderStatusFragment();
+        fragment2.setOrderState(2);
+        fragment3 = new OrderStatusFragment();
+        fragment3.setOrderState(3);
+        fragment4 = new OrderStatusFragment();
+        fragment4.setOrderState(0);
         fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
@@ -53,20 +61,16 @@ public class MyOrderFragment extends BaseFragment {
                 //创建Fragment并返回
                 Fragment fragment = null;
                 if (position == 0) {
-                    fragment1 = new OrderStatusFragment();
-                    fragment1.setOrderState(position+1);
+
                     fragment = fragment1;
                 } else if (position == 1) {
-                    fragment2 = new OrderStatusFragment();
-                    fragment2.setOrderState(position+1);
+
                     fragment = fragment2;
                 }else if (position == 2) {
-                    fragment3 = new OrderStatusFragment();
-                    fragment3.setOrderState(position+1);
+
                     fragment = fragment3;
                 }else if (position == 3) {
-                    fragment4 = new OrderStatusFragment();
-                    fragment4.setOrderState(position+1);
+
                     fragment = fragment4;
                 }
                 return fragment;

@@ -31,10 +31,10 @@ public class CarefreeHttpInterceptor implements Interceptor {
         Request.Builder builder = req.newBuilder();
         HttpUrl url = req.url();
         String query = url.encodedQuery();
-        if (!TextUtils.isEmpty(query)&&!query.contains("sign=")) {
+        if (!TextUtils.isEmpty(query) && !query.contains("sign=")) {
             HttpUrl.Builder newBuilder = url.newBuilder();
             sign = EncryptUtil.getSha1(Base64.encode(query.getBytes(), Base64.NO_WRAP)).toUpperCase();
-            newBuilder.addQueryParameter("sign",sign);
+            newBuilder.addQueryParameter("sign", sign);
             url = newBuilder.build();
         }
         if (CarefreeDaoSession.getInstance().getUserInfo() != null) {
@@ -52,12 +52,13 @@ public class CarefreeHttpInterceptor implements Interceptor {
 
     private void AddAuthToken(Request.Builder builder) throws Exception {
         AuthTokenEntity e = new AuthTokenEntity();
-        e.client_id = CarefreeDaoSession.getInstance().getUserInfo().getShop_id();
+        if (CarefreeDaoSession.getInstance().getUserInfo() != null)
+            e.client_id = CarefreeDaoSession.getInstance().getUserInfo().getShop_id();
         e.client = "merchant";
         e.lng = 116.36968727736242d;
         e.lat = 39.89528271571901d;
         Gson gson = new Gson();
         String sInfomation = gson.toJson(e);
-        builder.addHeader("AuthToken", EncodeUtil.get3DES(sInfomation,sign));
+        builder.addHeader("AuthToken", EncodeUtil.get3DES(sInfomation, sign));
     }
 }
