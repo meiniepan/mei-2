@@ -50,9 +50,10 @@ public class PhoneLoginFragment extends BaseFragment<LoginContract.View, LoginCo
 
     @Override
     public void loginSuccess() {
-        ToastUtils.ToastMessage(getContext(), "login success");
         Intent view = new Intent(getActivity(), MainActivity.class);
         startActivity(view);
+        ToastUtils.ToastMessage(getContext(), getString(R.string.login_success));
+        getActivity().finish();
     }
 
     @Override
