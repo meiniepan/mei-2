@@ -2,28 +2,22 @@ package com.wuyou.merchant.mvp.store;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.bean.DaoSession;
-import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.entity.OfficialEntity;
 import com.wuyou.merchant.bean.entity.OfficialEntityOut;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
-import com.zhihu.matisse.Matisse;
 
 import butterknife.BindView;
 import butterknife.OnClick;

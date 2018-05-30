@@ -92,7 +92,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="@color/night_blue"
+                        android:textColor="@color/main_blue"
                         android:textSize="@dimen/dimens_16sp"
                         android:textStyle="bold"
                         tool:text="100.00" />
@@ -119,7 +119,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="@color/night_blue"
+                        android:textColor="@color/main_blue"
                         android:textSize="@dimen/dimens_16sp"
                         android:textStyle="bold"
                         tool:text="100.00" />
@@ -146,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:textColor="@color/night_blue"
+                        android:textColor="@color/main_blue"
                         android:textSize="@dimen/dimens_16sp"
                         android:textStyle="bold"
                         tool:text="100.00" />

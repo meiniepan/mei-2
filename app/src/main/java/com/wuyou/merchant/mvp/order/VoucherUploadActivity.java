@@ -7,30 +7,27 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.LoadingDialog;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.util.CommonUtil;
-import com.wuyou.merchant.util.glide.Glide4Engine;
+import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -65,16 +62,7 @@ public class VoucherUploadActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_company_update_add:
-                Matisse.from(this)
-                        .choose(MimeType.ofImage())
-                        .capture(true)
-                        .captureStrategy(new CaptureStrategy(true, "com.wuyou.merchant.FileProvider"))
-                        .showSingleMediaType(true)
-                        .theme(R.style.Matisse_Dracula)
-                        .countable(false)
-                        .maxSelectable(1)
-                        .imageEngine(new Glide4Engine())
-                        .forResult(Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE);
+                CommonUtil.choosePhoto(this, PictureConfig.CHOOSE_REQUEST);
                 break;
             case R.id.btn_voucher_upload_commit:
                 if (TextUtils.isEmpty(imagePath)){
@@ -108,10 +96,23 @@ public class VoucherUploadActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constant.IntentRequestCode.REQUEST_CODE_CHOOSE_IMAGE && resultCode == RESULT_OK) {
-            imagePath = Matisse.obtainPathResult(data).get(0);
-            CommonUtil.compressAndSaveImgToLocal(imagePath, 1);
-            Glide.with(getCtx()).load(Matisse.obtainResult(data).get(0).toString()).into(ivUpdate);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+
+                if (selectList != null && selectList.size() > 0) {
+                    LocalMedia localMedia = selectList.get(0);
+                    if (localMedia.isCompressed()) {
+                        imagePath = localMedia.getCompressPath();
+                    } else if (localMedia.isCut()) {
+                        imagePath = localMedia.getCutPath();
+                    } else {
+                        imagePath = localMedia.getPath();
+                    }
+                }
+                CommonUtil.compressAndSaveImgToLocal(imagePath,1);
+                GlideUtils.loadImage(getCtx(), imagePath, ivUpdate);
+            }
         }
     }
 }
