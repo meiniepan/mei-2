@@ -21,6 +21,7 @@ import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.mvp.order.MyOrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
+import com.wuyou.merchant.util.EncodeUtil;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 

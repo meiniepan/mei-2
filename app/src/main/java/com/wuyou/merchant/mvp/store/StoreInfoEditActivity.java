@@ -12,6 +12,9 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
@@ -22,14 +25,11 @@ import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.ImageUtil;
-import com.wuyou.merchant.util.glide.Glide4Engine;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -81,29 +81,27 @@ public class StoreInfoEditActivity extends BaseActivity {
     }
 
     private void chosePhoto() {
-        Matisse.from(this)
-                .choose(MimeType.ofImage())
-                .capture(true)
-                .captureStrategy(new CaptureStrategy(true, "com.wuyou.user.FileProvider"))
-                .showSingleMediaType(true)
-                .theme(R.style.Matisse_Dracula)
-                .countable(false)
-                .maxSelectable(1)
-                .imageEngine(new Glide4Engine())
-                .forResult(Constant.REQUEST_CODE_CHOOSE_IMAGE);
+        CommonUtil.chooseCirclePhoto(this, PictureConfig.CHOOSE_REQUEST);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            if (requestCode == Constant.REQUEST_CODE_CHOOSE_IMAGE) {
-                String imagePath = Matisse.obtainPathResult(data).get(0);
-                if (imagePath != null) {
-                    uploadAvatar(imagePath);
-                } else {
-                    ToastUtils.ToastMessage(getCtx(), getString(R.string.photo_choose_fail));
+            if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                String path = "";
+                if (selectList != null && selectList.size() > 0) {
+                    LocalMedia localMedia = selectList.get(0);
+                    if (localMedia.isCompressed()) {
+                        path = localMedia.getCompressPath();
+                    } else if (localMedia.isCut()) {
+                        path = localMedia.getCutPath();
+                    } else {
+                        path = localMedia.getPath();
+                    }
                 }
+                uploadAvatar(path);
             } else if (requestCode == Constant.REQUEST_NICK) {
                 tvName.setText(data.getStringExtra("info"));
             } else if (requestCode == Constant.REQUEST_PHONE) {
@@ -118,10 +116,8 @@ public class StoreInfoEditActivity extends BaseActivity {
         showLoadingDialog();
         Observable.just(path)
                 .flatMap(imagePath -> {
-                    Bitmap bitmap = ImageUtil.getBitmap(new File(imagePath));
-                    Bitmap compressBitmap = ImageUtil.compressByQuality(bitmap, MAX_NUM_PIXELS_THUMBNAIL);
-                    ImageUtil.save(compressBitmap, imagePath, Bitmap.CompressFormat.JPEG);
-                    File file = new File(imagePath);
+                    CommonUtil.compressAndSaveImgToLocal(imagePath,1);
+                    File file = new File(Constant.AUTH_IMG_PATH_1);
                     RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                     MultipartBody.Part body = MultipartBody.Part.createFormData("logo", file.getName(), requestFile);
                     return CarefreeRetrofit.getInstance().createApi(UserApis.class).updateAvatar(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), body, QueryMapBuilder.getIns().buildPost());

@@ -3,10 +3,13 @@ package com.wuyou.merchant.network;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import com.google.gson.Gson;
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.common.network.EncryptUtil;
 import com.gs.buluo.common.utils.Utils;
 import com.wuyou.merchant.CarefreeDaoSession;
+import com.wuyou.merchant.bean.entity.AuthTokenEntity;
+import com.wuyou.merchant.util.EncodeUtil;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,6 +23,8 @@ import okhttp3.Response;
  * Created by hjn on 2016/11/10.
  */
 public class CarefreeHttpInterceptor implements Interceptor {
+    private String sign;
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request req = chain.request();
@@ -28,14 +33,31 @@ public class CarefreeHttpInterceptor implements Interceptor {
         String query = url.encodedQuery();
         if (!TextUtils.isEmpty(query)&&!query.contains("sign=")) {
             HttpUrl.Builder newBuilder = url.newBuilder();
-            newBuilder.addQueryParameter("sign",EncryptUtil.getSha1(Base64.encode(query.getBytes(), Base64.NO_WRAP)).toUpperCase());
+            sign = EncryptUtil.getSha1(Base64.encode(query.getBytes(), Base64.NO_WRAP)).toUpperCase();
+            newBuilder.addQueryParameter("sign",sign);
             url = newBuilder.build();
         }
         if (CarefreeDaoSession.getInstance().getUserInfo() != null) {
             builder.addHeader("Authorization", CarefreeDaoSession.getInstance().getUserInfo().getToken());
         }
+        try {
+            AddAuthToken(builder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Request request = builder.addHeader("Accept", "application/json").url(url).addHeader("Content-Type", "application/json").
                 addHeader("User-Agent", Utils.getDeviceInfo(BaseApplication.getInstance().getApplicationContext())).build();
         return chain.proceed(request);
+    }
+
+    private void AddAuthToken(Request.Builder builder) throws Exception {
+        AuthTokenEntity e = new AuthTokenEntity();
+        e.client_id = CarefreeDaoSession.getInstance().getUserInfo().getShop_id();
+        e.client = "merchant";
+        e.lng = 116.36968727736242d;
+        e.lat = 39.89528271571901d;
+        Gson gson = new Gson();
+        String sInfomation = gson.toJson(e);
+        builder.addHeader("AuthToken", EncodeUtil.get3DES(sInfomation,sign));
     }
 }
