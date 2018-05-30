@@ -3,11 +3,11 @@ package com.wuyou.merchant;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Environment;
+import android.support.multidex.MultiDex;
 
 import com.gs.buluo.common.BaseApplication;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.bean.DaoMaster;
 import com.wuyou.merchant.bean.DaoSession;
 import com.wuyou.merchant.bean.UserInfo;
@@ -106,5 +106,10 @@ public class CarefreeApplication extends BaseApplication {
         return null;
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+    }
 
 }

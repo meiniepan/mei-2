@@ -7,13 +7,11 @@ import android.os.Environment;
  */
 
 public class Constant {
-    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
+//    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //    public static final String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-//    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";
-    public static final String MERCHANT_ID = "merchant_id";
-    public static final String DIVIDE_ORDER_FROM = "divide_order_from";
     public static final String PHONE = "phone";
     public static final String CAPTCHA = "captcha";
     public static final String CONTRACT_ID = "contract_id";
@@ -31,7 +29,6 @@ public class Constant {
     public static final String CONTRACT = "contract";
     public static final String SIGN_NUMBER = "sign_number";
     public static final String FUND_STATUS = "fund_status" ;
-    public static final String SELF_MAX = "self_max";
     public static final String FIRST_OPEN = "first_open";
     public static final String MAIN_ACTIVITY_FROM_WHERE = "main_activity_from_where";
     public static final String MAIN_ACTIVITY_FROM_CREATE_CONTRACT = "main_activity_from_create_contract";
@@ -39,11 +36,6 @@ public class Constant {
     public static final String WX_ID ="wxb60eda0adace922f" ;
     public static final String WX_SECRET = "f69fe20fe89637098fe08474ce8b90bd";
     public static final String AUTH_IMG_PATH_1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
-    public static final String FROM = "from";
-    public static final String NICK = "nick";
-    public static final String EMAIL = "email";
-    public static final String GENDER = "gender";
-    public static final int REQUEST_CODE_CHOOSE_IMAGE = 666;
     public static final int REQUEST_NICK = 777;
     public static final int REQUEST_PHONE = 888;
     public static final String WEB_INTENT = "web_intent";
