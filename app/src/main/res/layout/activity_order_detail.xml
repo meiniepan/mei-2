@@ -59,17 +59,36 @@
                     android:textColor="@color/custom_orange"
                     android:textSize="@dimen/dimens_18sp" />
 
-                <TextView
-                    android:id="@+id/order_detail_un_pay_warn"
+                <LinearLayout
+                    android:id="@+id/order_detail_dispatch_warn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@+id/order_detail_status"
                     android:layout_marginTop="2dp"
-                    android:text="请在半小时内支付，否则将自动关闭"
-                    android:textColor="@color/main_red"
-                    android:textSize="@dimen/dimens_12sp"
-                    android:visibility="gone" />
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="已分单给"
+                        android:textColor="@color/main_red"
+                        android:textSize="@dimen/dimens_12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_worker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/main_red"
+                        android:textSize="@dimen/dimens_12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="，正在服务中"
+                        android:textColor="@color/main_red"
+                        android:textSize="@dimen/dimens_12sp" />
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -549,8 +568,7 @@
         android:background="@color/main_blue"
         android:gravity="center_vertical|end"
         android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        >
+        android:paddingStart="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/order_detail_contact_store"

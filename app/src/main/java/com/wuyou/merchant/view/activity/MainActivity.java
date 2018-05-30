@@ -25,6 +25,7 @@ import com.wuyou.merchant.util.EncodeUtil;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -57,6 +58,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        if (!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
         initIM();
         fragments.add(orderFragment);
         fragments.add(circleFragment);

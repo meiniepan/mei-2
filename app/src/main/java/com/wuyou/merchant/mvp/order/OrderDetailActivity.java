@@ -35,8 +35,10 @@ import butterknife.OnClick;
 public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderContract.Presenter> implements OrderContract.View {
     @BindView(R.id.order_detail_status)
     TextView orderDetailStatus;
-    @BindView(R.id.order_detail_un_pay_warn)
-    TextView orderDetailWarn;
+    @BindView(R.id.order_detail_dispatch_warn)
+    LinearLayout orderDetailWarn;
+    @BindView(R.id.tv_worker)
+    TextView tvWorker;
     @BindView(R.id.order_detail_address)
     TextView orderDetailAddress;
     @BindView(R.id.order_detail_name)
@@ -122,9 +124,9 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
 
     public void setData(OrderBeanDetail data) {
         beanDetail = data;
-        if (beanDetail.status == 2 && beanDetail.second_payment != 0) {
+        if (beanDetail.status == 2 || beanDetail.status == 3) {
             orderDetailWarn.setVisibility(View.VISIBLE);
-            orderDetailWarn.setText("待支付附加金额 " + data.second_payment + "元");
+            tvWorker.setText(beanDetail.worker.worker_name);
         }
         if (beanDetail.status != 2 && beanDetail.second_payment != 0) {
             findViewById(R.id.order_detail_second_payment_area).setVisibility(View.VISIBLE);
@@ -165,7 +167,7 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
                 break;
             case 5:
                 if (beanDetail.has_voucher.equals("0"))
-                uploadVoucher();
+                    uploadVoucher();
                 else uploadVoucherDone();
                 break;
         }

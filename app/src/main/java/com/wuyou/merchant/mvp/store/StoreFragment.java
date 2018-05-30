@@ -56,28 +56,12 @@ public class StoreFragment extends BaseFragment {
     }
 
     private void initInfo() {
-        getUserInfo();
         GlideUtils.loadImage(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar, true);
         tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
         tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeDaoSession.getInstance().getUserInfo().getTel()));
     }
 
-    private void getUserInfo() {
-        CarefreeRetrofit.getInstance().createApi(UserApis.class)
-                .getUserInfo(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildGet())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<UserInfo>>() {
-                    @Override
-                    public void onSuccess(BaseResponse<UserInfo> userInfoBaseResponse) {
-                        UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
-                        userInfo.setLogo(userInfoBaseResponse.data.getLogo());
-                        userInfo.setShop_name(userInfoBaseResponse.data.getShop_name());
-                        userInfo.setTel(userInfoBaseResponse.data.getTel());
-                        CarefreeDaoSession.getInstance().updateUserInfo(userInfo);
-                    }
-                });
-    }
+
 
     @Override
     public void showError(String message, int res) {

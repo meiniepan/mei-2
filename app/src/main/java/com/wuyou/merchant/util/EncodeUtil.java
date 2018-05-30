@@ -34,7 +34,7 @@ public class EncodeUtil {
         IvParameterSpec ips = new IvParameterSpec(sign.getBytes(),0,8);
         cipher.init(Cipher.ENCRYPT_MODE, deskey, ips);
         byte[] encryptData = cipher.doFinal(str.getBytes("utf-8"));
-        return Base64.encodeToString(encryptData, Base64.DEFAULT);
+        return Base64.encodeToString(encryptData, Base64.NO_WRAP);
     }
 
 //    /**

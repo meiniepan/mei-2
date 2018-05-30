@@ -51,15 +51,25 @@ public class MyOrderFragment extends BaseFragment {
             @Override
             public Fragment getItem(int position) {
                 //创建Fragment并返回
+                Fragment fragment = null;
                 if (position == 0) {
                     fragment1 = new OrderStatusFragment();
                     fragment1.setOrderState(position+1);
-                    return fragment1;
-                } else {
-                    OrderStatusFragment fragment = new OrderStatusFragment();
-                    fragment.setOrderState(position + 1);
-                    return fragment;
+                    fragment = fragment1;
+                } else if (position == 1) {
+                    fragment2 = new OrderStatusFragment();
+                    fragment2.setOrderState(position+1);
+                    fragment = fragment2;
+                }else if (position == 2) {
+                    fragment3 = new OrderStatusFragment();
+                    fragment3.setOrderState(position+1);
+                    fragment = fragment3;
+                }else if (position == 3) {
+                    fragment4 = new OrderStatusFragment();
+                    fragment4.setOrderState(position+1);
+                    fragment = fragment4;
                 }
+                return fragment;
             }
 
             @Override

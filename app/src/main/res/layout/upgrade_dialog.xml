@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33333333"
+    android:background="#40000000"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="284dp"
         android:layout_height="330dp"
         android:layout_centerInParent="true"
-        android:background="@color/white"
+        android:background="@mipmap/update_bac"
         android:orientation="vertical">
 
         <EditText
@@ -85,9 +85,9 @@
             android:layout_height="39dp"
             android:layout_gravity="center"
             android:layout_marginBottom="14dp"
-            android:background="@color/main_blue"
+            android:background="@drawable/login_selector"
             android:tag="beta_confirm_button"
-            android:text="立即更新"
+            android:text="立刻升级"
             android:textColor="@color/white"/>
     </LinearLayout>
 </RelativeLayout>
