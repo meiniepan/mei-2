@@ -2,11 +2,13 @@ package com.wuyou.merchant.mvp.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.event.LoginEvent;
 import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
@@ -84,4 +86,5 @@ public class AccountLoginFragment extends BaseFragment<LoginContract.View, Login
 
         }
     }
+
 }
