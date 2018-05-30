@@ -243,7 +243,7 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     }
 
     public void setActionStatus() {
-        int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.main_red};
+        int[] colors = {R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_orange, R.color.custom_green, R.color.common_gray};
         orderDetailStatus.setTextColor(getResources().getColor(colors[beanDetail.status]));
     }
 
