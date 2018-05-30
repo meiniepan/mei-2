@@ -175,8 +175,14 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTokenExpired(TokenEvent event) {
+        CarefreeDaoSession.getInstance().clearUserInfo();
         Intent intent = new Intent(getCtx(), LoginActivity.class);
         startActivity(intent);
+        finish();
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
