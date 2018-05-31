@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import com.gs.buluo.common.network.TokenEvent;
-import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.wuyou.merchant.CarefreeApplication;
@@ -21,7 +20,6 @@ import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.mvp.order.MyOrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
-import com.wuyou.merchant.util.EncodeUtil;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
