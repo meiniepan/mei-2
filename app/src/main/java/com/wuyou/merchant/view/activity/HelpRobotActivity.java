@@ -41,7 +41,7 @@ public class HelpRobotActivity extends BaseActivity implements View.OnClickListe
     private void initHelpService() {
         Variable.AgentId = Constant.HELP_SERVE_AGENT_ID;
         if (CarefreeDaoSession.getInstance().getUserInfo() != null) {
-            Variable.loginUser = "u4_" + CarefreeDaoSession.getInstance().getUserInfo().getPhone();
+            Variable.loginUser = "u4_" + CarefreeDaoSession.getInstance().getUserInfo().getTel();
         } else {
             Variable.loginUser = "u4_" + Settings.System.getString(getCtx().getContentResolver(), Settings.Secure.ANDROID_ID).substring(0, 11);
         }
