@@ -137,4 +137,8 @@ public class MyOrderFragment extends BaseFragment {
 //        ((OrderStatusFragment) fragmentPagerAdapter.getItem(0)).loadData();
         fragment1.loadData();
     }
+
+    public void loadDataAll() {
+        fragment4.loadData();
+    }
 }

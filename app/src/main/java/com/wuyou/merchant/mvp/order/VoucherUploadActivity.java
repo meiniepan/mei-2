@@ -23,6 +23,7 @@ import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.activity.MainActivity;
 
 import java.io.File;
 import java.util.List;
@@ -84,6 +85,7 @@ public class VoucherUploadActivity extends BaseActivity {
                             @Override
                             public void onSuccess(BaseResponse orderResponse) {
                                 ToastUtils.ToastMessage(getCtx(),"上传完成！");
+                                startActivity(new Intent(getCtx(), MainActivity.class).putExtra(Constant.MAIN_ACTIVITY_FROM_WHERE,Constant.MAIN_ACTIVITY_FROM_VOUCHER));
                                 finish();
                             }
 

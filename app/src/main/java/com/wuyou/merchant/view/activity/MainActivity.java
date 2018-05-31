@@ -133,7 +133,8 @@ public class MainActivity extends BaseActivity {
             circleFragment.refreshCreatedList();
         } else if (Constant.MAIN_ACTIVITY_FROM_APPLY_FUND.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
             walletFragment.refreshFundList();
-            ToastUtils.ToastMessage(getCtx(),"fund");
+        }else if (Constant.MAIN_ACTIVITY_FROM_VOUCHER.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
+            orderFragment.loadDataAll();
         } else {
             orderFragment.loadDatas();
         }

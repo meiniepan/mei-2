@@ -7,9 +7,9 @@ import android.os.Environment;
  */
 
 public class Constant {
-    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
+//    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //    public static final String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-//    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";
     public static final String PHONE = "phone";
@@ -33,6 +33,7 @@ public class Constant {
     public static final String MAIN_ACTIVITY_FROM_WHERE = "main_activity_from_where";
     public static final String MAIN_ACTIVITY_FROM_CREATE_CONTRACT = "main_activity_from_create_contract";
     public static final String MAIN_ACTIVITY_FROM_APPLY_FUND = "main_activity_from_apply_fund";
+    public static final String MAIN_ACTIVITY_FROM_VOUCHER = "main_activity_from_voucher";
     public static final String WX_ID ="wxb60eda0adace922f" ;
     public static final String WX_SECRET = "f69fe20fe89637098fe08474ce8b90bd";
     public static final String AUTH_IMG_PATH_1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
