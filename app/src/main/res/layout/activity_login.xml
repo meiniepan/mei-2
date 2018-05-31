@@ -21,9 +21,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/title_size" />
 
-        <include
-            android:id="@+id/back"
-            layout="@layout/back_white" />
     </RelativeLayout>
 
     <FrameLayout
