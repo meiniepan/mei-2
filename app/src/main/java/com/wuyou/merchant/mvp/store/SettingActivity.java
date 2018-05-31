@@ -9,6 +9,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.gnway.bangwoba.activity.Leaving_message;
+import com.gs.buluo.common.utils.AppManager;
 import com.gs.buluo.common.utils.DataCleanManager;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.tencent.bugly.beta.Beta;
@@ -17,6 +18,7 @@ import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.view.activity.BaseActivity;
+import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.activity.WebActivity;
 
 import butterknife.BindView;
@@ -98,6 +100,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         CarefreeDaoSession.getInstance().clearUserInfo();
         Intent intent = new Intent(getCtx(), LoginActivity.class);
         startActivity(intent);
+        AppManager.getAppManager().finishActivity(MainActivity.class);
         finish();
     }
 }
