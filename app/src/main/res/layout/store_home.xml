@@ -25,7 +25,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_margin="@dimen/line_horizontal_margin"
-                android:src="@mipmap/default_pic" />
+                android:src="@mipmap/default_head" />
 
             <LinearLayout
                 android:layout_width="0dp"

@@ -41,7 +41,7 @@
             android:id="@+id/iv_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:src="@mipmap/default_pic" />
+            android:src="@mipmap/default_head" />
 
     </LinearLayout>
 
