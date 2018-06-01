@@ -38,25 +38,25 @@ public class TradeListRvAdapter extends BaseQuickAdapter<TradeItemEntity, BaseHo
 
         TextView textView = helper.getView(R.id.textView2);
         if (!TextUtils.isEmpty(item.buyer)) {
-            textView.setText("付款方");
+            textView.setText("付款方:");
             helper.setText(R.id.item_wallet_record_id, item.buyer);
         } else if (item.type == 0) {//签约者
-            textView.setText("收款方");
+            textView.setText("收款方:");
             helper.setText(R.id.item_wallet_record_id, item.shop_name);
         } else {
-            textView.setText("付款方");
+            textView.setText("付款方:");
             helper.setText(R.id.item_wallet_record_id, item.merchant_name);
         }
 
         if (type == 1) {
-            helper.setText(R.id.textView3, "订单总金额");
+            helper.setText(R.id.textView3, "订单总金额:");
             float total = 0;
             for (TradeEntity entity : item.transactions) {
                 total += entity.amount;
             }
             helper.setText(R.id.item_wallet_record_account, CommonUtil.formatPrice(total));
         } else {
-            helper.setText(R.id.textView3, "合约总金额").setText(R.id.item_wallet_record_account, CommonUtil.formatPrice(item.total_amount));
+            helper.setText(R.id.textView3, "合约总金额:").setText(R.id.item_wallet_record_account, CommonUtil.formatPrice(item.total_amount));
         }
 
 
