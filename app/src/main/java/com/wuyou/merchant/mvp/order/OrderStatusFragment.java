@@ -3,7 +3,6 @@ package com.wuyou.merchant.mvp.order;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.gs.buluo.common.widget.StatusLayout;
@@ -60,7 +59,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
                 fetchDatas();
             }
         });
-        adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_before, data);
+        adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_status, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
             intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).order_id);
