@@ -47,7 +47,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
     @BindView(R.id.rv_head)
     public WalletHeadRecyclerView rvHead;
     @BindView(R.id.rv_foot)
-   public WalletFootRecyclerView rvFoot;
+    public WalletFootRecyclerView rvFoot;
     @BindView(R.id.sl_wallet)
     StatusLayout statusLayout;
     private WalletInfoEntity entity = new WalletInfoEntity();
@@ -91,6 +91,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         adapter = new WalletHeaderAdapter(R.layout.item_wallet_header, list);
         initHeadFoot();
         rvHead.setAdapter(adapter);
+        new PagerSnapHelper().attachToRecyclerView(rvHead);
         adapter.setData(1, new WalletInfoEntity(data.order));
         adapter.setData(2, new WalletInfoEntity(data.contract));
         adapter.setOnItemClickListener((adapter, view, position) -> {
@@ -110,6 +111,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         list.add(entity);
         adapterFoot = new WalletFootAdapter(getActivity(), R.layout.item_wallet_foot, list);
         rvFoot.setAdapter(adapterFoot);
+        new PagerSnapHelper().attachToRecyclerView(rvFoot);
         adapterFoot.setOnRefreshListener(this);
     }
 
@@ -131,8 +133,8 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
     private void initHeadFoot() {
         View head = LayoutInflater.from(getContext()).inflate(R.layout.wallet_header_foot, rvHead, false);
         View foot = LayoutInflater.from(getContext()).inflate(R.layout.wallet_header_foot, rvHead, false);
-        int width = DensityUtils.dip2px(getContext(), 20);
-        int width1 = DensityUtils.dip2px(getContext(), 40);
+        int width = DensityUtils.dip2px(getContext(), 30);
+        int width1 = DensityUtils.dip2px(getContext(), 30);
 
         RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) head.getLayoutParams();
         params.width = width;
@@ -190,6 +192,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         rvHead.setmark(true);
         rvFoot.setmark(true);
     }
+
     public void refreshFundList() {
         adapterFoot.getFunList();
     }

@@ -42,7 +42,7 @@ public class WalletFootRecyclerView extends RecyclerView {
     private void init() {
         mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         setLayoutManager(mLayoutManager);
-        addOnScrollListener(new OnWheelScrollListener());
+//        addOnScrollListener(new OnWheelScrollListener());
     }
 
     public void setOnSelectListener(OnSelectListener listener) {
@@ -54,30 +54,30 @@ public class WalletFootRecyclerView extends RecyclerView {
     }
 
 
-    @Override
-    public boolean fling(int velocityX, int velocityY) {
-        int v;
-        int touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
-        if (Math.abs(velocityX) <= 3 * touchSlop) return false;
-        mPhysicalCoeff = SensorManager.GRAVITY_EARTH   // g (m/s^2)
-                * 39.37f               // inch/meter
-                * getContext().getResources().getDisplayMetrics().density * 160.0f                 // pixels per inch
-                * 0.84f;
-        int firstVisiblePos = mLayoutManager.findFirstVisibleItemPosition();
-        if (firstVisiblePos == RecyclerView.NO_POSITION) {
-            return false;
-        }
-        Rect rect = new Rect();
-        mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
-        double n = getSplineFlingDistance(velocityX) / mItemWidth;
-        int num = Double.valueOf(n).intValue();
-        if (velocityX > 0)
-            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right))).intValue();
-        else
-            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left))).intValue();
-        if (velocityX < 0) v = -v;
-        return super.fling(v, velocityY);
-    }
+//    @Override
+//    public boolean fling(int velocityX, int velocityY) {
+//        int v;
+//        int touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+//        if (Math.abs(velocityX) <= 3 * touchSlop) return false;
+//        mPhysicalCoeff = SensorManager.GRAVITY_EARTH   // g (m/s^2)
+//                * 39.37f               // inch/meter
+//                * getContext().getResources().getDisplayMetrics().density * 160.0f                 // pixels per inch
+//                * 0.84f;
+//        int firstVisiblePos = mLayoutManager.findFirstVisibleItemPosition();
+//        if (firstVisiblePos == RecyclerView.NO_POSITION) {
+//            return false;
+//        }
+//        Rect rect = new Rect();
+//        mLayoutManager.findViewByPosition(firstVisiblePos).getHitRect(rect);
+//        double n = getSplineFlingDistance(velocityX) / mItemWidth;
+//        int num = Double.valueOf(n).intValue();
+//        if (velocityX > 0)
+//            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.right))).intValue();
+//        else
+//            v = Double.valueOf(getVelocityByDistance(num * mItemWidth + Math.abs(rect.left))).intValue();
+//        if (velocityX < 0) v = -v;
+//        return super.fling(v, velocityY);
+//    }
 
     private static final float INFLEXION = 0.35f; // Tension lines cross at (INFLEXION, 1)
     // Fling friction
@@ -135,29 +135,29 @@ public class WalletFootRecyclerView extends RecyclerView {
     private static final String STATE_INSTANCE = "instance_state";
     private static final String STATE_ITEM = "state_item";
 
-    /**
-     * @return 当View被销毁的时候，保存数据
-     */
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable(STATE_INSTANCE, super.onSaveInstanceState());
-        bundle.putInt(STATE_ITEM, sx);
-        return bundle;
-    }
-
-    /**
-     * @param state 用于恢复数据使用
-     */
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            Bundle bundle = (Bundle) state;
-            sx = bundle.getInt(STATE_ITEM);
-            super.onRestoreInstanceState(bundle.getParcelable(STATE_INSTANCE));
-        }
-
-    }
+//    /**
+//     * @return 当View被销毁的时候，保存数据
+//     */
+//    @Override
+//    protected Parcelable onSaveInstanceState() {
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable(STATE_INSTANCE, super.onSaveInstanceState());
+//        bundle.putInt(STATE_ITEM, sx);
+//        return bundle;
+//    }
+//
+//    /**
+//     * @param state 用于恢复数据使用
+//     */
+//    @Override
+//    protected void onRestoreInstanceState(Parcelable state) {
+//        if (state instanceof Bundle) {
+//            Bundle bundle = (Bundle) state;
+//            sx = bundle.getInt(STATE_ITEM);
+//            super.onRestoreInstanceState(bundle.getParcelable(STATE_INSTANCE));
+//        }
+//
+//    }
 
     @Override
     public void scrollTo(int x, int y) {
