@@ -45,7 +45,7 @@ public class OrderPresenter extends OrderContract.Presenter {
     @Override
     void loadMore(String merchant_id, String status) {
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getOrders(QueryMapBuilder.getIns().put("shop_id",merchant_id).put("start_id",lastId).put("size","10").put("flag","2").put("status",status).buildGet())
+                .getOrders(QueryMapBuilder.getIns().put("shop_id",merchant_id).put("start_id",lastId).put("flag","2").put("status",status).buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<OrderInfoListEntity>>() {

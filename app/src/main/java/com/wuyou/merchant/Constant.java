@@ -7,9 +7,9 @@ import android.os.Environment;
  */
 
 public class Constant {
-    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
+//    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //    public static final String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-//    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String ABOUT_US_URL = "https://ulaidao.iwantmei.com/apphtml/about-us.html";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";

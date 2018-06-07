@@ -62,7 +62,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
         adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_status, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
-            intent.putExtra(Constant.ORDER_ID,adapter.getItem(position).order_id);
+            intent.putExtra(Constant.ORDER_ID, adapter.getItem(position).order_id);
 //            intent.putExtra(Constant.DIVIDE_ORDER_FROM,1);
             startActivity(intent);
         });
@@ -73,7 +73,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), "2");
+                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState);
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(new OnRefreshListener() {
@@ -141,7 +141,8 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 //            orderState = "0";
         mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState);
     }
+
     public void setOrderState(int orderState) {
-        this.orderState = orderState+"";
+        this.orderState = orderState + "";
     }
 }
