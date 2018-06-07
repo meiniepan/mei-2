@@ -7,6 +7,7 @@ import android.os.Environment;
  */
 
 public class Constant {
+    //切环境时候注意融云ID变更
 //    public static final String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //    public static final String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
     public static final String BASE_URL = "https://api.iwantmei.com/merchants/v1/";

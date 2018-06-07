@@ -74,6 +74,8 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
                 initWalletInfo();
             }
         });
+        initRvHead();
+        initRvFoot();
         rvFoot.setOnScrollViewListener(this);
         rvHead.setOnScrollViewListener(this);
     }
@@ -83,7 +85,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         initWalletInfo();
     }
 
-    private void initRvHead(WalletIncomeEntity data) {
+    private void initRvHead() {
         List list = new ArrayList();
         list.add(entity);
         list.add(entity);
@@ -92,8 +94,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         initHeadFoot();
         rvHead.setAdapter(adapter);
         new PagerSnapHelper().attachToRecyclerView(rvHead);
-        adapter.setData(1, new WalletInfoEntity(data.order));
-        adapter.setData(2, new WalletInfoEntity(data.contract));
+
         adapter.setOnItemClickListener((adapter, view, position) -> {
             if (position == 0) {
                 Intent intent1 = new Intent(getContext(), CreditDetailActivity.class);
@@ -161,8 +162,7 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
                     @Override
                     public void onSuccess(BaseResponse<WalletIncomeEntity> response) {
                         statusLayout.showContentView();
-                        initRvHead(response.data);
-                        initRvFoot();
+                        initData(response.data);
                     }
 
                     @Override
@@ -170,6 +170,11 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
                         statusLayout.showErrorView(e.getDisplayMessage());
                     }
                 });
+    }
+
+    private void initData(WalletIncomeEntity data) {
+        adapter.setData(1, new WalletInfoEntity(data.order));
+        adapter.setData(2, new WalletInfoEntity(data.contract));
     }
 
     @Override

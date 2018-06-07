@@ -123,7 +123,6 @@ public class WalletHeadRecyclerView extends RecyclerView {
     @Override
     public void onScrolled(int dx, int dy) {
         super.onScrolled(dx, dy);
-        Log.e("head", sx+"" );
         if (!isManual) {
             sx = sx + dx;
             if (scrollViewListener != null && isMark) {
