@@ -94,14 +94,12 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         initHeadFoot();
         rvHead.setAdapter(adapter);
         new PagerSnapHelper().attachToRecyclerView(rvHead);
-
         adapter.setOnItemClickListener((adapter, view, position) -> {
             if (position == 0) {
                 Intent intent1 = new Intent(getContext(), CreditDetailActivity.class);
                 intent1.putExtra(Constant.CREDIT_SCORE, sCredit);
                 startActivity(intent1);
             }
-
         });
     }
 
@@ -136,7 +134,6 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
         View foot = LayoutInflater.from(getContext()).inflate(R.layout.wallet_header_foot, rvHead, false);
         int width = DensityUtils.dip2px(getContext(), 30);
         int width1 = DensityUtils.dip2px(getContext(), 30);
-
         RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) head.getLayoutParams();
         params.width = width;
         head.setLayoutParams(params);
@@ -162,6 +159,8 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
                     @Override
                     public void onSuccess(BaseResponse<WalletIncomeEntity> response) {
                         statusLayout.showContentView();
+                        rvHead.scrollToPosition(0);
+                        rvFoot.scrollToPosition(0);
                         initData(response.data);
                     }
 
