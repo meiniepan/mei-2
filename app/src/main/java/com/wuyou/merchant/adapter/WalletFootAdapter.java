@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.common.widget.StatusLayout;
+import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
@@ -43,16 +44,13 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private final Activity activity;
     private String lastId_list;
     List<FundEntity> data;
-    private StatusLayout statusLayout1;
-    private MyRefreshRecyclerView recyclerView1;
+    private RefreshRecyclerView recyclerView1;
     private FundListRvAdapter fundListRvAdapter;
 
-    private StatusLayout orderStatusLayout;
-    private MyRefreshRecyclerView orderRecyclerView;
+    private RefreshRecyclerView orderRecyclerView;
     private TradeListRvAdapter tradeListRvAdapter;
 
-    private StatusLayout contractStatusLayout;
-    private MyRefreshRecyclerView contractRecyclerView;
+    private RefreshRecyclerView contractRecyclerView;
     private TradeListRvAdapter contractListRvAdapter;
 
 
@@ -69,7 +67,6 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
 
         if (helper.getAdapterPosition() == 0) {
-            statusLayout1 = helper.getView(R.id.sl_wallet_foot);
             recyclerView1 = helper.getView(R.id.rv_wallet_foot);
             title.setVisibility(View.VISIBLE);
             helper.setText(R.id.tv_wallet_limit0, item.available_amount)
@@ -94,12 +91,10 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
             initAdapter1();
         } else if (helper.getAdapterPosition() == 1) {
             title.setVisibility(View.GONE);
-            orderStatusLayout = helper.getView(R.id.sl_wallet_foot);
             orderRecyclerView = helper.getView(R.id.rv_wallet_foot);
             initOrderInComeAdapter();
         } else if (helper.getAdapterPosition() == 2) {
             title.setVisibility(View.GONE);
-            contractStatusLayout = helper.getView(R.id.sl_wallet_foot);
             contractRecyclerView = helper.getView(R.id.rv_wallet_foot);
             initContractIncomeAdapter();
         }
@@ -108,10 +103,6 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private void initContractIncomeAdapter() {
         getContractTradeList("0", "1");
         contractListRvAdapter = new TradeListRvAdapter(2, R.layout.item_trade);
-        contractStatusLayout.setErrorAction(v -> {
-            contractStatusLayout.showProgressView();
-            getContractTradeList("0", "1");
-        });
         contractListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, ContractTradeDetailActivity.class);
             intent.putExtra(Constant.TRANSACTION_ENTITY, contractListRvAdapter.getItem(position));
@@ -129,10 +120,6 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private void initOrderInComeAdapter() {
         getOrderTradeList("0", "1");
         tradeListRvAdapter = new TradeListRvAdapter(1, R.layout.item_trade);
-        orderStatusLayout.setErrorAction(v -> {
-            orderStatusLayout.showProgressView();
-            getOrderTradeList("0", "1");
-        });
         tradeListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, TradeDetailActivity.class);
             intent.putExtra(Constant.TRANSACTION_ENTITY, tradeListRvAdapter.getItem(position));
@@ -150,11 +137,6 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     private void initAdapter1() {
         getFunList();
         fundListRvAdapter = new FundListRvAdapter(R.layout.item_fund, data);
-        statusLayout1.setErrorAction(v -> {
-            statusLayout1.showProgressView();
-            fundListRvAdapter.clearData();
-            getFunList();
-        });
         fundListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(activity, FundIntroduceActivity.class);
             intent.putExtra(Constant.FUND_ID, fundListRvAdapter.getItem(position).fund_id);
@@ -213,19 +195,19 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                             lastId_list = response.data.list.get(response.data.list.size() - 1).fund_id;
                         recyclerView1.setRefreshFinished();
                         fundListRvAdapter.setNewData(response.data.list);
-                        statusLayout1.showContentView();
+                        recyclerView1.showContentView();
                         if (response.data.has_more.equals("0")) {
                             fundListRvAdapter.loadMoreEnd(true);
                         }
                         if (fundListRvAdapter.getData().size() == 0) {
-                            statusLayout1.showEmptyView(mContext.getString(R.string.fund_empty));
+                            recyclerView1.showEmptyView(mContext.getString(R.string.fund_empty));
                         }
                     }
 
                     @Override
                     protected void onFail(ApiException e) {
                         recyclerView1.setRefreshFinished();
-                        statusLayout1.showErrorView(e.getDisplayMessage());
+                        recyclerView1.showErrorView(e.getDisplayMessage());
                     }
                 });
     }
@@ -253,9 +235,9 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                         }
 
                         if (tradeListRvAdapter.getData().size() == 0) {
-                            orderStatusLayout.showEmptyView(mContext.getString(R.string.wallet_empty));
+                            orderRecyclerView.showEmptyView(mContext.getString(R.string.wallet_empty));
                         } else {
-                            orderStatusLayout.showContentView();
+                            orderRecyclerView.showContentView();
                             lastTradeId = res.list.get(res.list.size() - 1).order_id;
                         }
                         if (res.has_more.equals("0")) {
@@ -269,7 +251,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                             tradeListRvAdapter.loadMoreFail();
                         } else {
                             orderRecyclerView.setRefreshFinished();
-                            orderStatusLayout.showErrorView(e.getDisplayMessage());
+                            orderRecyclerView.showErrorView(e.getDisplayMessage());
                         }
                     }
                 });
@@ -298,9 +280,9 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                         }
 
                         if (contractListRvAdapter.getData().size() == 0) {
-                            contractStatusLayout.showEmptyView(mContext.getString(R.string.wallet_empty));
+                            contractRecyclerView.showEmptyView(mContext.getString(R.string.wallet_empty));
                         } else {
-                            contractStatusLayout.showContentView();
+                            contractRecyclerView.showContentView();
                             lastContractId = res.list.get(res.list.size() - 1).order_id;
                         }
                         if (res.has_more.equals("0")) {
@@ -314,7 +296,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                             contractListRvAdapter.loadMoreFail();
                         } else {
                             contractRecyclerView.setRefreshFinished();
-                            contractStatusLayout.showErrorView(e.getDisplayMessage());
+                            contractRecyclerView.showErrorView(e.getDisplayMessage());
                         }
                     }
                 });

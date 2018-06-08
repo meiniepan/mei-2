@@ -4,8 +4,10 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.os.Environment;
 import android.support.multidex.MultiDex;
+import android.text.TextUtils;
 
 import com.gs.buluo.common.BaseApplication;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 import com.wuyou.merchant.bean.DaoMaster;
@@ -28,11 +30,15 @@ public class CarefreeApplication extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        initUrl();
         initDB();
 //        CrashReport.initCrashReport(getApplicationContext(), "505e4fa223", true);
         initBuglyUpgrade();
     }
-
+    private void initUrl() {
+        String baseUrl = SharePreferenceManager.getInstance(this).getStringValue(Constant.SP_BASE_URL);
+        if (!TextUtils.isEmpty(baseUrl)) Constant.BASE_URL = baseUrl;
+    }
     private void initBuglyUpgrade() {
         Beta.upgradeDialogLayoutId = R.layout.upgrade_dialog;
         Beta.canShowUpgradeActs.add(MainActivity.class);

@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
+import com.gs.buluo.common.widget.recyclerHelper.BaseHolder;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
@@ -20,8 +22,6 @@ import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.mvp.order.ChoseArtisanActivity;
 import com.wuyou.merchant.mvp.order.VoucherUploadActivity;
 import com.wuyou.merchant.view.widget.panel.SendMessagePanel;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.Date;
 import java.util.List;

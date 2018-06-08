@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.mvp.order.OrderStatusFragment;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import butterknife.BindView;
@@ -21,9 +22,10 @@ public class CircleFragment extends BaseFragment {
     TabLayout mTabLayout;
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
-    CreatedFragment createdFragment = new CreatedFragment();
     String[] mTitle = {"我创建的合约", "我加入的合约", "合约市场"};
-
+    private CircleStatusFragment fragment1;
+    private CircleStatusFragment fragment2;
+    private CircleStatusFragment fragment3;
 
     @Override
     protected int getContentLayout() {
@@ -36,6 +38,12 @@ public class CircleFragment extends BaseFragment {
     }
 
     private void initView() {
+        fragment1 = new CircleStatusFragment();
+        fragment1.setCircleState(1);
+        fragment2 = new CircleStatusFragment();
+        fragment2.setCircleState(2);
+        fragment3 = new CircleStatusFragment();
+        fragment3.setCircleState(3);
         mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
@@ -45,14 +53,17 @@ public class CircleFragment extends BaseFragment {
 
             @Override
             public Fragment getItem(int position) {
-                //创建Fragment并返回
                 Fragment fragment = null;
-                if (position == 0)
-                    fragment = createdFragment;
-                else if (position == 1)
-                    fragment = new JoinedFragment();
-                else if (position == 2)
-                    fragment = new ContractMarketFragment();
+                if (position == 0) {
+
+                    fragment = fragment1;
+                } else if (position == 1) {
+
+                    fragment = fragment2;
+                } else if (position == 2) {
+
+                    fragment = fragment3;
+                }
                 return fragment;
             }
 
@@ -63,34 +74,14 @@ public class CircleFragment extends BaseFragment {
         });
         //将ViewPager关联到TabLayout上
         mTabLayout.setupWithViewPager(mViewPager);
-
-
-//  那我们如果真的需要监听tab的点击或者ViewPager的切换,则需要手动配置ViewPager的切换,例如:
-        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                //切换ViewPager
-                mViewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
     }
 
     @Override
     public void showError(String message, int res) {
 
     }
+
     public void refreshCreatedList() {
-        createdFragment.loadData();
+        fragment1.loadData();
     }
 }

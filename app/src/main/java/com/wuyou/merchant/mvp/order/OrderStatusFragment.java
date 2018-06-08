@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.gs.buluo.common.widget.StatusLayout;
+import com.gs.buluo.common.utils.ToastUtils;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
+import com.gs.buluo.common.widget.recyclerHelper.OnRefreshListener;
+import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
@@ -15,9 +18,6 @@ import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.util.MyRecyclerViewScrollListener;
 import com.wuyou.merchant.view.fragment.BaseFragment;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
-import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
-import com.wuyou.merchant.view.widget.recyclerHelper.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +30,7 @@ import butterknife.BindView;
 
 public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderContract.Presenter> implements OrderContract.View {
     @BindView(R.id.rv_orders)
-    NewRefreshRecyclerView recyclerView;
-    @BindView(R.id.sl_list_layout)
-    StatusLayout statusLayout;
+    RefreshRecyclerView recyclerView;
     @BindView(R.id.rl_to_top)
     View toTop;
     OrderStatusRvAdapter adapter;
@@ -41,7 +39,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     protected int getContentLayout() {
-        return R.layout.fragment_order_before;
+        return R.layout.fragment_order_status;
     }
 
     @Override
@@ -51,14 +49,6 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        statusLayout.setErrorAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statusLayout.showProgressView();
-                adapter.clearData();
-                fetchDatas();
-            }
-        });
         adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_status, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
@@ -95,19 +85,23 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
     @Override
     public void showError(String message, int res) {
         recyclerView.setRefreshFinished();
-        statusLayout.showErrorView(message);
+        if (res == 100) {
+            ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
+        } else {
+            recyclerView.getStatusLayout().showErrorView(getString(R.string.connect_fail));
+        }
     }
 
     @Override
     public void getSuccess(OrderInfoListEntity data) {
         recyclerView.setRefreshFinished();
         adapter.setNewData(data.list);
-        statusLayout.showContentView();
+        recyclerView.getStatusLayout().showContentView();
         if (data.has_more.equals("0")) {
             adapter.loadMoreEnd(true);
         }
         if (adapter.getData().size() == 0) {
-            statusLayout.showEmptyView(getString(R.string.order_empty));
+            recyclerView.getStatusLayout().showEmptyView(getString(R.string.order_empty));
         }
     }
 
@@ -132,7 +126,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     public void loadData() {
-        statusLayout.showProgressView();
+        recyclerView.showProgressView();
         fetchDatas();
     }
 

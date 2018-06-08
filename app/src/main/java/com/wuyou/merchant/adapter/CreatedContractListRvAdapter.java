@@ -3,10 +3,10 @@ package com.wuyou.merchant.adapter;
 import android.support.annotation.Nullable;
 
 import com.gs.buluo.common.utils.TribeDateUtils;
+import com.gs.buluo.common.widget.recyclerHelper.BaseHolder;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.Date;
 import java.util.List;

@@ -13,16 +13,23 @@ import com.wuyou.merchant.mvp.IBaseView;
 public interface CircleContract {
     interface View extends IBaseView {
         void getSuccess(ResponseListEntity<ContractEntity> data);
+
         void getMore(ResponseListEntity<ContractEntity> data);
+
         void loadMoreError(int code);
     }
 
     abstract class Presenter extends BasePresenter<View> {
-        abstract void getCreatedContract(String type);
-        abstract void getContractMarket( );
-        abstract void loadListMore(String type);
+        abstract void getCreatedContract();
+
+        abstract void getContractMarket();
+
+        abstract void loadCreatedContractMore();
+
         abstract void loadMarketMore();
+
         abstract void getJoinedContract();
-        abstract void getJoinedContractMore();
+
+        abstract void loadJoinedContractMore();
     }
 }

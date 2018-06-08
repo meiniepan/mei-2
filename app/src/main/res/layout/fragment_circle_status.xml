@@ -41,18 +41,12 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <com.gs.buluo.common.widget.StatusLayout
-        android:id="@+id/sl_list_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:emptyDrawable="@mipmap/status_empty_order"
-        app:errorDrawable="@mipmap/net_error">
-
-        <com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView
+        <com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView
             android:id="@+id/rv_orders"
+            app:emptyDrawable="@mipmap/status_empty_order"
+            app:errorDrawable="@mipmap/net_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.gs.buluo.common.widget.StatusLayout>
     <TextView
         android:id="@+id/fl_add"
         android:layout_width="70dp"

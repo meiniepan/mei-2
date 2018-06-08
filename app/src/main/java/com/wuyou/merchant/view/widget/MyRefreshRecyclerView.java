@@ -6,13 +6,13 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
+import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
 
 /**
  * Created by Solang on 2018/3/30.
  */
 
-public class MyRefreshRecyclerView extends NewRefreshRecyclerView {
+public class MyRefreshRecyclerView extends RefreshRecyclerView {
     private final int mTouchSlop;
     private float startY;
     private float startX;

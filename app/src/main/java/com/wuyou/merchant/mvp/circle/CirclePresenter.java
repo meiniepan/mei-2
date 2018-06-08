@@ -25,7 +25,7 @@ public class CirclePresenter extends CircleContract.Presenter {
 
 
     @Override
-    void getCreatedContract(String type) {
+    void getCreatedContract( ) {
         CarefreeRetrofit.getInstance().createApi(CircleApis.class)
                 .getMyCreatedContractList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().put("start_id", "0")
                         .put("flag", "1")
@@ -49,7 +49,7 @@ public class CirclePresenter extends CircleContract.Presenter {
     }
 
     @Override
-    void loadListMore(String type) {
+    void loadCreatedContractMore() {
         CarefreeRetrofit.getInstance().createApi(CircleApis.class)
                 .getMyCreatedContractList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),
                         QueryMapBuilder.getIns().put("start_id", lastId_list)
@@ -101,7 +101,7 @@ public class CirclePresenter extends CircleContract.Presenter {
     public String last_joined;
 
     @Override
-    void getJoinedContractMore() {
+    void loadJoinedContractMore() {
         CarefreeRetrofit.getInstance().createApi(CircleApis.class)
                 .getContractMarket(QueryMapBuilder.getIns()
                         .put("start_id", last_joined)

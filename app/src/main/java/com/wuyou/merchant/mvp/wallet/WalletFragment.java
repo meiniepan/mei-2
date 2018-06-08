@@ -67,12 +67,9 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        statusLayout.setErrorAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                statusLayout.showProgressView();
-                initWalletInfo();
-            }
+        statusLayout.setErrorAction(v -> {
+            statusLayout.showProgressView();
+            initWalletInfo();
         });
         initRvHead();
         initRvFoot();
