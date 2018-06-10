@@ -23,6 +23,7 @@ public class CircleFragment extends BaseFragment {
     @BindView(R.id.vp_pager)
     ViewPager mViewPager;
     String[] mTitle = {"我创建的合约", "我加入的合约", "合约市场"};
+    FragmentPagerAdapter fragmentPagerAdapter;
     private CircleStatusFragment fragment1;
     private CircleStatusFragment fragment2;
     private CircleStatusFragment fragment3;
@@ -38,13 +39,19 @@ public class CircleFragment extends BaseFragment {
     }
 
     private void initView() {
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("h",1);
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt("h",2);
+        Bundle bundle3 = new Bundle();
+        bundle3.putInt("h",3);
         fragment1 = new CircleStatusFragment();
-        fragment1.setCircleState(1);
+        fragment1.setArguments(bundle1);
         fragment2 = new CircleStatusFragment();
-        fragment2.setCircleState(2);
+        fragment2.setArguments(bundle2);
         fragment3 = new CircleStatusFragment();
-        fragment3.setCircleState(3);
-        mViewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+        fragment3.setArguments(bundle3);
+        fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
             public CharSequence getPageTitle(int position) {
@@ -71,7 +78,8 @@ public class CircleFragment extends BaseFragment {
             public int getCount() {
                 return mTitle.length;
             }
-        });
+        };
+        mViewPager.setAdapter(fragmentPagerAdapter);
         //将ViewPager关联到TabLayout上
         mTabLayout.setupWithViewPager(mViewPager);
     }

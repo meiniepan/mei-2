@@ -47,6 +47,7 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+
         if (1 == status) {
             add.setVisibility(View.VISIBLE);
         } else {
@@ -66,20 +67,17 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
         });
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                switch (status) {
-                    case 1:
-                        mPresenter.loadCreatedContractMore();
-                        break;
-                    case 2:
-                        mPresenter.loadJoinedContractMore();
-                        break;
-                    case 3:
-                        mPresenter.loadCreatedContractMore();
-                        break;
-                }
+        adapter.setOnLoadMoreListener(() -> {
+            switch (status) {
+                case 1:
+                    mPresenter.loadCreatedContractMore();
+                    break;
+                case 2:
+                    mPresenter.loadJoinedContractMore();
+                    break;
+                case 3:
+                    mPresenter.loadCreatedContractMore();
+                    break;
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(() -> {
@@ -95,6 +93,7 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
     }
 
     private void fetchDatas() {
+        status = getArguments().getInt("h");
         switch (status) {
             case 1:
                 mPresenter.getCreatedContract();
@@ -163,7 +162,4 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
         }
     }
 
-    public void setCircleState(int i) {
-        status = i;
-    }
 }

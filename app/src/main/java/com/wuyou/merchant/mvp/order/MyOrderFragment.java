@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.mvp.circle.CircleStatusFragment;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 import com.wuyou.merchant.view.widget.panel.EnvironmentChoosePanel;
 
@@ -43,14 +44,22 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     private void initView() {
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("h", 1);
+        Bundle bundle2 = new Bundle();
+        bundle2.putInt("h", 2);
+        Bundle bundle3 = new Bundle();
+        bundle3.putInt("h", 3);
+        Bundle bundle4 = new Bundle();
+        bundle4.putInt("h", 0);
         fragment1 = new OrderStatusFragment();
-        fragment1.setOrderState(1);
+        fragment1.setArguments(bundle1);
         fragment2 = new OrderStatusFragment();
-        fragment2.setOrderState(2);
+        fragment2.setArguments(bundle2);
         fragment3 = new OrderStatusFragment();
-        fragment3.setOrderState(3);
+        fragment3.setArguments(bundle3);
         fragment4 = new OrderStatusFragment();
-        fragment4.setOrderState(0);
+        fragment4.setArguments(bundle4);
         fragmentPagerAdapter = new FragmentPagerAdapter(getChildFragmentManager()) {
             //此方法用来显示tab上的名字
             @Override
@@ -68,10 +77,10 @@ public class MyOrderFragment extends BaseFragment {
                 } else if (position == 1) {
 
                     fragment = fragment2;
-                }else if (position == 2) {
+                } else if (position == 2) {
 
                     fragment = fragment3;
-                }else if (position == 3) {
+                } else if (position == 3) {
 
                     fragment = fragment4;
                 }
