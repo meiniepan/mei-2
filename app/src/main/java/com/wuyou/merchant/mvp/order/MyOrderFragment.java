@@ -44,6 +44,7 @@ public class MyOrderFragment extends BaseFragment {
     }
 
     private void initView() {
+        //防止Activity被回收后Fragment状态不正确
         Bundle bundle1 = new Bundle();
         bundle1.putInt("h", 1);
         Bundle bundle2 = new Bundle();
