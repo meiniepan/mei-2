@@ -487,11 +487,7 @@ public class DoubleScaleImageView extends android.support.v7.widget.AppCompatIma
         if (rectF.right < width && isCheckLeftAndRight) {
             deltaX = width - rectF.right;
         }
-        if(rectF.left > 0 || rectF.right < width && isCheckLeftAndRight){
-            isDisallowInterceptTouchEvent = false;
-        }else {
-            isDisallowInterceptTouchEvent = true;
-        }
+        isDisallowInterceptTouchEvent = !(rectF.left > 0 || rectF.right < width && isCheckLeftAndRight);
         mScaleMatrix.postTranslate(deltaX, deltaY);
 
     }

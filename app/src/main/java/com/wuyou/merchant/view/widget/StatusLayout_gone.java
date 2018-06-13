@@ -55,7 +55,7 @@ public class StatusLayout_gone extends FrameLayout {
     private Animation showAnimation;
 
     public StatusLayout_gone(@NonNull Context context) {
-        this(context, (AttributeSet)null);
+        this(context, null);
     }
 
     public StatusLayout_gone(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -98,17 +98,17 @@ public class StatusLayout_gone extends FrameLayout {
             this.progressView = inflater.inflate(progressViewId, this, false);
         } else {
             this.progressView = inflater.inflate(layout.status_view_progress, this, false);
-            this.progressBar = (ProgressBar)this.progressView.findViewById(id.progress_wheel);
-            this.progressTextView = (TextView)this.progressView.findViewById(id.progressTextView);
+            this.progressBar = this.progressView.findViewById(id.progress_wheel);
+            this.progressTextView = this.progressView.findViewById(id.progressTextView);
             this.progressContentView = this.progressView.findViewById(id.progress_content);
         }
 
         this.addView(this.progressView);
         this.errorView = inflater.inflate(R.layout.status_view_error, this, false);
         this.errorContentView = this.errorView.findViewById(id.error_content);
-        this.errorTextView = (TextView)this.errorView.findViewById(id.errorTextView);
-        this.errorActView = (TextView)this.errorView.findViewById(id.error_click_view);
-        this.errorImageView = (ImageView)this.errorView.findViewById(id.errorImageView);
+        this.errorTextView = this.errorView.findViewById(id.errorTextView);
+        this.errorActView = this.errorView.findViewById(id.error_click_view);
+        this.errorImageView = this.errorView.findViewById(id.errorImageView);
         if(errorDrawable != null) {
             this.errorImageView.setImageDrawable(errorDrawable);
         }
@@ -116,9 +116,9 @@ public class StatusLayout_gone extends FrameLayout {
         this.addView(this.errorView);
         this.emptyView = inflater.inflate(R.layout.status_view_empty, this, false);
         this.emptyContentView = this.emptyView.findViewById(id.empty_content);
-        this.emptyTextView = (TextView)this.emptyView.findViewById(id.emptyTextView);
-        this.emptyImageView = (ImageView)this.emptyView.findViewById(id.emptyImageView);
-        this.emptyActView = (TextView)this.emptyView.findViewById(id.empty_click_view);
+        this.emptyTextView = this.emptyView.findViewById(id.emptyTextView);
+        this.emptyImageView = this.emptyView.findViewById(id.emptyImageView);
+        this.emptyActView = this.emptyView.findViewById(id.empty_click_view);
         if(emptyDrawable != null) {
             this.emptyImageView.setImageDrawable(emptyDrawable);
         }
@@ -126,9 +126,9 @@ public class StatusLayout_gone extends FrameLayout {
         this.addView(this.emptyView);
         this.loginView = inflater.inflate(layout.status_view_login, this, false);
         this.loginContentView = this.loginView.findViewById(id.login_content);
-        this.loginTextView = (TextView)this.loginView.findViewById(id.loginTextView);
-        this.loginImageView = (ImageView)this.loginView.findViewById(id.loginImageView);
-        this.loginActView = (TextView)this.loginView.findViewById(id.login_click_view);
+        this.loginTextView = this.loginView.findViewById(id.loginTextView);
+        this.loginImageView = this.loginView.findViewById(id.loginImageView);
+        this.loginActView = this.loginView.findViewById(id.login_click_view);
         if(loginDrawable != null) {
             this.loginImageView.setImageDrawable(loginDrawable);
         }
@@ -263,7 +263,7 @@ public class StatusLayout_gone extends FrameLayout {
     }
 
     public void showEmptyView() {
-        this.showEmptyView((String)null);
+        this.showEmptyView(null);
     }
 
     public void showEmptyView(String msg) {
@@ -276,7 +276,7 @@ public class StatusLayout_gone extends FrameLayout {
     }
 
     public void showErrorView() {
-        this.showErrorView((String)null);
+        this.showErrorView(null);
     }
 
     public void showErrorView(String msg) {
@@ -298,11 +298,11 @@ public class StatusLayout_gone extends FrameLayout {
     }
 
     public void showLoginView() {
-        this.showLoginView((String)null);
+        this.showLoginView(null);
     }
 
     public void showProgressView() {
-        this.showProgressView((String)null);
+        this.showProgressView(null);
     }
 
     public void showProgressView(String msg) {

@@ -66,4 +66,5 @@
     <string name="wallet_empty">您还没有相关收入</string>
     <string name="fund_empty">暂无相关基金</string>
     <string name="login_success">登录成功</string>
+    <string name="commit_success">提交成功！</string>
 </resources>

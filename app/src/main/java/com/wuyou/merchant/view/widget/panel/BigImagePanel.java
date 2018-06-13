@@ -32,7 +32,7 @@ public class BigImagePanel extends Dialog {
         View rootView = LayoutInflater.from(getContext()).inflate(R.layout.big_img_board, null);
         setContentView(rootView);
         ButterKnife.bind(this, rootView);
-        pager = (ViewPager) rootView.findViewById(R.id.big_img_pager);
+        pager = rootView.findViewById(R.id.big_img_pager);
         pager.setAdapter(new BigImgPagerAdapter(getContext(),list));
 
         if (list.size()==1)return;
@@ -40,7 +40,7 @@ public class BigImagePanel extends Dialog {
     }
 
     private void initPagerPoint(final List<String> list, View rootView) {
-        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.point_parent);
+        final LinearLayout linearLayout = rootView.findViewById(R.id.point_parent);
         for (int i = 0; i < list.size(); i++) {
             View imageView = new View(getContext());
             if (i==0){

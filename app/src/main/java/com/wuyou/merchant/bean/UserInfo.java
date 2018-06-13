@@ -1,9 +1,14 @@
 package com.wuyou.merchant.bean;
 
+import com.google.gson.Gson;
+import com.wuyou.merchant.bean.entity.OfficialEntity;
+
+import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.converter.PropertyConverter;
 
 /**
  * Created by Administrator on 2018\1\25 0025.
@@ -34,11 +39,32 @@ public class UserInfo {
     private String logo;
     @Property(nameInDb = "SHOPNAME")
     private String shop_name;
+    @Property
+    @Convert(converter = CatConverter.class, columnType = String.class)
+    private OfficialEntity official;
 
-    @Generated(hash = 1798654350)
+    public static class CatConverter implements PropertyConverter<OfficialEntity, String> {
+        @Override
+        public OfficialEntity convertToEntityProperty(String databaseValue) {
+            if (databaseValue == null) {
+                return null;
+            }
+            return new Gson().fromJson(databaseValue, OfficialEntity.class);
+        }
+
+        @Override
+        public String convertToDatabaseValue(OfficialEntity entityProperty) {
+            if (entityProperty == null) {
+                return null;
+            }
+            return new Gson().toJson(entityProperty);
+        }
+    }
+
+    @Generated(hash = 1116246544)
     public UserInfo(long mid, String name, String phone, String uid, String head_image, String token,
-            String password, String rc_token, String shop_id, String tel, String logo,
-            String shop_name) {
+            String password, String rc_token, String shop_id, String tel, String logo, String shop_name,
+            OfficialEntity official) {
         this.mid = mid;
         this.name = name;
         this.phone = phone;
@@ -51,6 +77,7 @@ public class UserInfo {
         this.tel = tel;
         this.logo = logo;
         this.shop_name = shop_name;
+        this.official = official;
     }
 
     @Generated(hash = 1279772520)
@@ -152,5 +179,13 @@ public class UserInfo {
 
     public void setShop_name(String shop_name) {
         this.shop_name = shop_name;
+    }
+
+    public OfficialEntity getOfficial() {
+        return this.official;
+    }
+
+    public void setOfficial(OfficialEntity official) {
+        this.official = official;
     }
 }

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
@@ -17,6 +18,7 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.entity.OfficialEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
@@ -60,7 +62,7 @@ public class CompanyInfoUpdateActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        companyInfo = getIntent().getParcelableExtra(Constant.COMPANY_INFO);
+        companyInfo = CarefreeDaoSession.getInstance().getUserInfo().getOfficial();
         if (companyInfo != null) {
             initData();
         }
@@ -109,11 +111,14 @@ public class CompanyInfoUpdateActivity extends BaseActivity {
                         .put("registered_address", tvCompanyInfoUpdateAddress.getText().toString().trim())
                         .buildGet())
                 .subscribeOn(Schedulers.io())
+                .flatMap(baseResponse -> CarefreeRetrofit.getInstance().createApi(UserApis.class)
+                        .getUserInfo(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns().buildGet()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse>() {
+                .subscribe(new BaseSubscriber<BaseResponse<UserInfo>>() {
                     @Override
-                    public void onSuccess(BaseResponse orderResponse) {
-                        ToastUtils.ToastMessage(getCtx(), "更新成功！");
+                    public void onSuccess(BaseResponse<UserInfo> response) {
+                        CarefreeDaoSession.getInstance().updateUserInfo(response.data);
+                        ToastUtils.ToastMessage(getCtx(), R.string.commit_success);
                         setResult(RESULT_OK);
                         finish();
                     }

@@ -41,11 +41,7 @@ public class BigImgPagerAdapter extends PagerAdapter {
     }
 
     public boolean isViewFromObject(View view, Object object) {
-        if (view == object) {
-            return true;
-        } else {
-            return false;
-        }
+        return view == object;
     }
 
     public void destroyItem(ViewGroup container, int position, Object object) {

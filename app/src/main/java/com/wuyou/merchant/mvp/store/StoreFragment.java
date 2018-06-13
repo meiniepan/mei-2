@@ -2,6 +2,7 @@ package com.wuyou.merchant.mvp.store;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,8 +11,10 @@ import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.network.CarefreeRetrofit;
@@ -86,7 +89,13 @@ public class StoreFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.ll_information:
-                intent.setClass(getContext(), CompanyInfoActivity.class);
+                if (TextUtils.isEmpty(CarefreeDaoSession.getInstance().getUserInfo().getOfficial().name))
+                {
+                    intent.setClass(getContext(), CompanyInfoUpdateActivity.class);
+                }else {
+                    intent.setClass(getContext(), CompanyInfoActivity.class);
+                }
+
                 startActivity(intent);
                 break;
             case R.id.ll_intro:

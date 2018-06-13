@@ -526,6 +526,5 @@
     <Button
         android:id="@+id/btn_contact"
         style="@style/button_full_style"
-        android:onClick="contractDetailButton"
         android:text="联系合约创建方" />
 </LinearLayout>

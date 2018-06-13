@@ -119,7 +119,7 @@ public class CustomAlertDialog extends Dialog {
             }
 
             if (positiveButtonText != null) {
-                TextView positiveBtn = (TextView) layout.findViewById(R.id.positiveButton);
+                TextView positiveBtn = layout.findViewById(R.id.positiveButton);
                 positiveBtn.setText(positiveButtonText);
                 if (positiveButtonClickListener != null) {
                     positiveBtn.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +143,7 @@ public class CustomAlertDialog extends Dialog {
             }
 
             if (negativeButtonText != null) {
-                TextView negativeBtn = (TextView) layout.findViewById(R.id.negativeButton);
+                TextView negativeBtn = layout.findViewById(R.id.negativeButton);
                 negativeBtn.setText(negativeButtonText);
                 if (negativeButtonClickListener != null) {
                     negativeBtn.setOnClickListener(new View.OnClickListener() {

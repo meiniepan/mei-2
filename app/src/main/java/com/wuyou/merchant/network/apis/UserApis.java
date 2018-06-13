@@ -4,7 +4,6 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.entity.LogoEntity;
-import com.wuyou.merchant.bean.entity.OfficialEntityOut;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -68,7 +67,7 @@ public interface UserApis {
             @QueryMap SortedTreeMap<String, String> map);
 
     @GET("shop/{shop_id}")
-    Observable<BaseResponse<OfficialEntityOut>> getCompanyInfo(
+    Observable<BaseResponse<UserInfo>> getCompanyInfo(
             @Path("shop_id") String shop_id, @QueryMap SortedTreeMap<String, String> map);
 
     @Multipart

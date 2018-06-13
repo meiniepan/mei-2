@@ -46,7 +46,7 @@ android {
     }
 }
 greendao {
-    schemaVersion 7
+    schemaVersion 8
     targetGenDir 'src/main/java'
 }
 

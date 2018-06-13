@@ -160,11 +160,7 @@ public class SectionDecoration extends RecyclerView.ItemDecoration {
             String prevGroupId = callback.getGroupId(pos - 1);
             String groupId = callback.getGroupId(pos);
             //判断前一个字符串 与 当前字符串 是否相同
-            if (prevGroupId.equals(groupId)) {
-                return false;
-            } else {
-                return true;
-            }
+            return !prevGroupId.equals(groupId);
         }
     }
 

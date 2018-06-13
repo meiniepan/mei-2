@@ -48,7 +48,6 @@ public class FundIntroduceActivity extends BaseActivity {
     Button btnApply;
     FundRateListRvAdapter adapter;
     String id;
-    private int statu;
     String[] status = {"申请基金","审核中","审核通过","审核失败"};
     @Override
     protected int getContentLayout() {
@@ -58,7 +57,7 @@ public class FundIntroduceActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         id = getIntent().getStringExtra(Constant.FUND_ID);
-        statu = getIntent().getIntExtra(Constant.FUND_STATUS,-1);
+        int statu = getIntent().getIntExtra(Constant.FUND_STATUS, -1);
         btnApply.setEnabled(false);
         if (statu == 0){
             btnApply.setText(status[statu]);
