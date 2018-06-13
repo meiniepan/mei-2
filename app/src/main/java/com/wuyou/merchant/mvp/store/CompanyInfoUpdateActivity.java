@@ -117,7 +117,9 @@ public class CompanyInfoUpdateActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<UserInfo>>() {
                     @Override
                     public void onSuccess(BaseResponse<UserInfo> response) {
-                        CarefreeDaoSession.getInstance().updateUserInfo(response.data);
+                        UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
+                        userInfo.setOfficial(response.data.getOfficial());
+                        CarefreeDaoSession.getInstance().updateUserInfo(userInfo);
                         ToastUtils.ToastMessage(getCtx(), R.string.commit_success);
                         setResult(RESULT_OK);
                         finish();
