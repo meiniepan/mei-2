@@ -4,6 +4,9 @@ import com.wuyou.merchant.util.EncodeUtil;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -21,5 +24,8 @@ public class ExampleUnitTest {
         assertEquals(4, 2 + 2);
         String a = EncodeUtil.get3DES("aaa","1AE48E613CD877D041A21E6F383C7FE682F6C7EC");
         System.out.println(a);
+        int[] aa = {1,2,5,3};
+        Arrays.sort(aa);
+        Collections.reverse(Arrays.asList(aa));
     }
 }

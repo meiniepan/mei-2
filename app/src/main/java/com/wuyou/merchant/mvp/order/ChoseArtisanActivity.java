@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
@@ -51,6 +52,7 @@ public class ChoseArtisanActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        statusLayout.setErrorAction(v -> getData());
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
         adapter = new WorkersRvAdapter( this,R.layout.item_chose_artisan, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
@@ -115,17 +117,9 @@ public class ChoseArtisanActivity extends BaseActivity {
 
             }
         });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        builder.setNegativeButton("取消", (dialog, which) -> {
 
-            }
         });
         builder.create().show();
-    }
-
-    @Override
-    public void showError(String message, int res) {
-
     }
 }

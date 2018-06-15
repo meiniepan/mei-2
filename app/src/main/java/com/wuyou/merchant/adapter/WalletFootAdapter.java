@@ -95,6 +95,10 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     }
 
     private void initContractIncomeAdapter() {
+        contractRecyclerView.getStatusLayout().setErrorAction(v -> {
+            contractRecyclerView.showProgressView();
+            getContractTradeList("0", "1");
+        });
         getContractTradeList("0", "1");
         contractListRvAdapter = new TradeListRvAdapter(2, R.layout.item_trade);
         contractListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
@@ -112,6 +116,10 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     }
 
     private void initOrderInComeAdapter() {
+        orderRecyclerView.getStatusLayout().setErrorAction(v -> {
+            orderRecyclerView.showProgressView();
+            getOrderTradeList("0", "1");
+        });
         getOrderTradeList("0", "1");
         tradeListRvAdapter = new TradeListRvAdapter(1, R.layout.item_trade);
         tradeListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
@@ -129,6 +137,10 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     }
 
     private void initAdapter1() {
+        recyclerView1.getStatusLayout().setErrorAction(v -> {
+            recyclerView1.showProgressView();
+            getFunList();
+        });
         getFunList();
         fundListRvAdapter = new FundListRvAdapter(R.layout.item_fund, data);
         fundListRvAdapter.setOnItemClickListener((adapter1, view, position) -> {
@@ -185,6 +197,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                 .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<FundEntity>>>() {
                     @Override
                     public void onSuccess(BaseResponse<ResponseListEntity<FundEntity>> response) {
+                        recyclerView1.getRefreshLayout().setEnabled(true);
                         if (response.data.list.size() > 0)
                             lastId_list = response.data.list.get(response.data.list.size() - 1).fund_id;
                         recyclerView1.setRefreshFinished();
@@ -200,6 +213,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
                     @Override
                     protected void onFail(ApiException e) {
+                        recyclerView1.getRefreshLayout().setEnabled(false);
                         recyclerView1.setRefreshFinished();
                         recyclerView1.showErrorView(e.getDisplayMessage());
                     }
@@ -220,6 +234,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                 .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeItemEntity>>>() {
                     @Override
                     public void onSuccess(BaseResponse<ResponseListEntity<TradeItemEntity>> response) {
+                        orderRecyclerView.getRefreshLayout().setEnabled(true);
                         ResponseListEntity<TradeItemEntity> res = response.data;
                         if ("2".equals(flag)) {
                             tradeListRvAdapter.addData(res.list);
@@ -241,6 +256,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
                     @Override
                     protected void onFail(ApiException e) {
+                        orderRecyclerView.getRefreshLayout().setEnabled(false);
                         if ("2".equals(flag)) {
                             tradeListRvAdapter.loadMoreFail();
                         } else {
@@ -265,6 +281,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
                 .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeItemEntity>>>() {
                     @Override
                     public void onSuccess(BaseResponse<ResponseListEntity<TradeItemEntity>> response) {
+                        contractRecyclerView.getRefreshLayout().setEnabled(true);
                         ResponseListEntity<TradeItemEntity> res = response.data;
                         if ("2".equals(flag)) {
                             contractListRvAdapter.addData(res.list);
@@ -286,6 +303,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
                     @Override
                     protected void onFail(ApiException e) {
+                        contractRecyclerView.getRefreshLayout().setEnabled(false);
                         if ("2".equals(flag)) {
                             contractListRvAdapter.loadMoreFail();
                         } else {

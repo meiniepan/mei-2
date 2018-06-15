@@ -123,6 +123,10 @@ public class WalletFragment extends BaseFragment implements ScrollViewListener, 
                         adapter.setData(2, new WalletInfoEntity(walletInfoEntityBaseResponse.data.contract));
                         adapter.notifyDataSetChanged();
                     }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                    }
                 });
     }
 

@@ -49,6 +49,10 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        recyclerView.getStatusLayout().setErrorAction(v -> {
+            recyclerView.showProgressView();
+            fetchDatas();
+        });
         adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_status, data);
         adapter.setOnItemClickListener((adapter1, view, position) -> {
             Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
@@ -60,40 +64,25 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
         final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);
 //        recyclerView.getRecyclerView().addOnScrollListener(scrollListener);
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState);
-            }
-        }, recyclerView.getRecyclerView());
-        recyclerView.setRefreshAction(new OnRefreshListener() {
-            @Override
-            public void onAction() {
-                scrollListener.setRefresh();
-                adapter.clearData();
-                fetchDatas();
-            }
+        adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
+        recyclerView.setRefreshAction(() -> {
+            scrollListener.setRefresh();
+            adapter.clearData();
+            fetchDatas();
         });
-        toTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                recyclerView.getRecyclerView().smoothScrollToPosition(0);
-            }
-        });
+        toTop.setOnClickListener(v -> recyclerView.getRecyclerView().smoothScrollToPosition(0));
     }
 
     @Override
     public void showError(String message, int res) {
+        recyclerView.getRefreshLayout().setEnabled(false);
         recyclerView.setRefreshFinished();
-        if (res == 100) {
-            ToastUtils.ToastMessage(mCtx, R.string.connect_fail);
-        } else {
-            recyclerView.getStatusLayout().showErrorView(getString(R.string.connect_fail));
-        }
+        recyclerView.getStatusLayout().showErrorView(getString(R.string.connect_fail));
     }
 
     @Override
     public void getSuccess(OrderInfoListEntity data) {
+        recyclerView.getRefreshLayout().setEnabled(true);
         recyclerView.setRefreshFinished();
         adapter.setNewData(data.list);
         recyclerView.getStatusLayout().showContentView();

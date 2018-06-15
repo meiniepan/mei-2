@@ -12,6 +12,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.SharePreferenceManager;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
@@ -20,6 +21,7 @@ import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.util.NetTool;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.HelpRobotActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
@@ -85,6 +87,10 @@ public class StoreFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.ll_service:
+                if (!NetTool.isConnected(mCtx)) {
+                    ToastUtils.ToastMessage(mCtx, R.string.no_network);
+                    return;
+                }
                 intent.setClass(getContext(), HelpRobotActivity.class);
                 startActivity(intent);
                 break;

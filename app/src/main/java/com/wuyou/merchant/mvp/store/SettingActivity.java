@@ -11,12 +11,14 @@ import android.widget.TextView;
 import com.gnway.bangwoba.activity.Leaving_message;
 import com.gs.buluo.common.utils.AppManager;
 import com.gs.buluo.common.utils.DataCleanManager;
+import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.tencent.bugly.beta.Beta;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.login.LoginActivity;
+import com.wuyou.merchant.util.NetTool;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.activity.MainActivity;
 import com.wuyou.merchant.view.activity.WebActivity;
@@ -61,6 +63,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.setting_about:
+                if (!NetTool.isConnected(getCtx())) {
+                    ToastUtils.ToastMessage(getCtx(), R.string.no_network);
+                    return;
+                }
                 intent.setClass(getCtx(), WebActivity.class);
                 intent.putExtra(Constant.WEB_INTENT, Constant.ABOUT_US_URL);
                 startActivity(intent);
