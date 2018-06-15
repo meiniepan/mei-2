@@ -3,6 +3,7 @@ package com.wuyou.merchant.mvp.store;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -45,6 +46,9 @@ public class CompanyInfoActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        setTitleText(R.string.company_info);
+        setTitleIcon(R.mipmap.icon_company_edit_w, v ->
+                startActivityForResult(new Intent(getCtx(), CompanyInfoUpdateActivity.class).putExtra(Constant.COMPANY_INFO, companyInfo), Constant.IntentRequestCode.REQUEST_UPDATE_COMPANY_INFO));
         getData();
     }
 
@@ -60,10 +64,6 @@ public class CompanyInfoActivity extends BaseActivity {
         GlideUtils.loadImage(getCtx(), response.license, ivCompanyInfoAffix);
     }
 
-    @OnClick(R.id.iv_company_edit)
-    public void onViewClicked() {
-        startActivityForResult(new Intent(getCtx(), CompanyInfoUpdateActivity.class).putExtra(Constant.COMPANY_INFO, companyInfo), Constant.IntentRequestCode.REQUEST_UPDATE_COMPANY_INFO);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

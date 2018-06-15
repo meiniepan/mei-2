@@ -71,22 +71,16 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
             title.setVisibility(View.VISIBLE);
             helper.setText(R.id.tv_wallet_limit0, item.available_amount)
                     .setText(R.id.tv_wallet_borrow0, item.used_amount);
-            limit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(activity);
-                    builder.setMessage("由商家服务和经营，以及履约能力等各方面综合分析以后，决定的借款额度，请保持良好的守约习惯，提高信用分。");
-                    builder.setPositiveButton("确定", null);
-                    builder.create().show();
-                }
+            limit.setOnClickListener(v -> {
+                CustomAlertDialog.Builder builder = new CustomAlertDialog.Builder(activity);
+                builder.setMessage("由商家服务和经营，以及履约能力等各方面综合分析以后，决定的借款额度，请保持良好的守约习惯，提高信用分。");
+                builder.setPositiveButton("确定", null);
+                builder.create().show();
             });
-            borrowed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(activity, Loan2Activity.class);
-                    intent.putExtra(Constant.WALLET_INFO_ENTITY, item);
-                    activity.startActivity(intent);
-                }
+            borrowed.setOnClickListener(v -> {
+                Intent intent = new Intent(activity, Loan2Activity.class);
+                intent.putExtra(Constant.WALLET_INFO_ENTITY, item);
+                activity.startActivity(intent);
             });
             initAdapter1();
         } else if (helper.getAdapterPosition() == 1) {

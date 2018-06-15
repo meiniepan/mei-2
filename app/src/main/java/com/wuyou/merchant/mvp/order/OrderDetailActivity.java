@@ -91,20 +91,24 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     private OrderBeanDetail beanDetail;
 
     @Override
+    protected int getContentLayout() {
+        return R.layout.activity_order_detail;
+    }
+
+    @Override
     protected void bindView(Bundle savedInstanceState) {
+        setTitleText(R.string.order_detail);
+        baseStatusLayout.setErrorAction(
+                v -> mPresenter.getOrderDetail(orderId)
+        );
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        showLoadingDialog();
+        baseStatusLayout.showProgressView();
         mPresenter.getOrderDetail(orderId);
-    }
-
-    @Override
-    protected int getContentLayout() {
-        return R.layout.activity_order_detail;
     }
 
     @Override
@@ -112,13 +116,10 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         return new OrderPresenter();
     }
 
-    @Override
-    public void showError(String message, int res) {
-        ToastUtils.ToastMessage(getCtx(), R.string.connect_fail);
-    }
 
     @Override
     public void getOrderDetailSuccess(OrderBeanDetail bean) {
+        baseStatusLayout.showContentView();
         setData(bean);
     }
 
@@ -216,29 +217,6 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         switch (view.getId()) {
 
             case R.id.order_detail_action:
-//                switch (beanDetail.status) {
-//                    case 1:
-//                        payOrder();
-//                        break;
-//                    case 3:
-//                        Intent intent1 = new Intent(getCtx(), CommentActivity.class);
-//                        intent1.putExtra(Constant.ORDER_BEAN, beanDetail);
-//                        startActivity(intent1);
-//                        break;
-//                    case 2:
-//                        if (beanDetail.second_payment == 0) {
-//                            mPresenter.finishOrder(orderId);
-//                        } else {
-//                            paySecond();
-//                        }
-//                        break;
-//                }
-//                break;
-//            case R.id.order_detail_cancel:
-//                new CustomAlertDialog.Builder(getCtx()).setTitle(R.string.prompt).setMessage("确认取消?")
-//                        .setPositiveButton(getCtx().getString(R.string.yes), (dialog, which) ->
-//                                mPresenter.cancelOrder(0, orderId)).setNegativeButton(getCtx().getResources().getString(R.string.cancel), null).create().show();
-//                break;
         }
     }
 

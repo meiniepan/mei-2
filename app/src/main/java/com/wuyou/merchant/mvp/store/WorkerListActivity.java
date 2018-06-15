@@ -1,7 +1,5 @@
 package com.wuyou.merchant.mvp.store;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +8,6 @@ import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
-import com.gs.buluo.common.utils.ToastUtils;
-import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
@@ -22,7 +18,6 @@ import com.wuyou.merchant.bean.entity.WorkerListEntity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
-import com.wuyou.merchant.view.activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

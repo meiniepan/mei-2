@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
@@ -56,6 +57,10 @@ public class FundIntroduceActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        setTitleText(R.string.fund_intro);
+        baseStatusLayout.setErrorAction(
+                v -> getData(id)
+        );
         id = getIntent().getStringExtra(Constant.FUND_ID);
         int statu = getIntent().getIntExtra(Constant.FUND_STATUS, -1);
         btnApply.setEnabled(false);
@@ -71,7 +76,7 @@ public class FundIntroduceActivity extends BaseActivity {
     }
 
     private void getData(String id) {
-        showLoadingDialog();
+        baseStatusLayout.showProgressView();
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
                 .getFundDetail(id,
                         QueryMapBuilder.getIns()
@@ -81,7 +86,13 @@ public class FundIntroduceActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<FundEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<FundEntity> response) {
+                        baseStatusLayout.showContentView();
                         initUI(response.data);
+                    }
+
+                    @Override
+                    protected void onFail(ApiException e) {
+                        showError(e.getDisplayMessage(),e.getCode());
                     }
                 });
     }

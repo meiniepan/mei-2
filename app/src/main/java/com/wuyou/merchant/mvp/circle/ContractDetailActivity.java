@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
@@ -104,13 +105,17 @@ public class ContractDetailActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        setTitleText(R.string.contract_detail);
+        baseStatusLayout.setErrorAction(
+                v -> initData(id)
+        );
         id = getIntent().getStringExtra(Constant.CONTRACT_ID);
         fromId = getIntent().getIntExtra(Constant.CONTRACT_FROM, 1);
         initData(id);
     }
 
     private void initData(String id) {
-        showLoadingDialog();
+        baseStatusLayout.showProgressView();
         CarefreeRetrofit.getInstance().createApi(CircleApis.class)
                 .getContractDetail(id, QueryMapBuilder.getIns().put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid()).buildGet())
                 .subscribeOn(Schedulers.io())
@@ -118,11 +123,16 @@ public class ContractDetailActivity extends BaseActivity {
                 .subscribe(new BaseSubscriber<BaseResponse<ContractEntity>>() {
                     @Override
                     public void onSuccess(BaseResponse<ContractEntity> response) {
+                        baseStatusLayout.showContentView();
                         ownerId = response.data.shop.shop_id;
                         resData = response.data;
                         initUI(response.data);
                     }
 
+                    @Override
+                    protected void onFail(ApiException e) {
+                        showError(e.getDisplayMessage(),e.getCode());
+                    }
                 });
         CarefreeRetrofit.getInstance().createApi(CircleApis.class)
                 .getContractSigner(QueryMapBuilder.getIns().put("contract_id", id).put("start_id", "0").put("flag", "1").put("size", "10").buildGet())
