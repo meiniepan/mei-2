@@ -72,6 +72,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 startActivity(intent);
                 break;
             case R.id.setting_feedback:
+                if (!NetTool.isConnected(getCtx())) {
+                    ToastUtils.ToastMessage(getCtx(), R.string.no_network);
+                    return;
+                }
                 intent.setClass(getCtx(), Leaving_message.class);
                 startActivity(intent);
                 break;

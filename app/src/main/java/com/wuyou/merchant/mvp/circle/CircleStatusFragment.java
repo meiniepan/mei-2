@@ -79,7 +79,7 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
                     mPresenter.loadJoinedContractMore();
                     break;
                 case 3:
-                    mPresenter.loadCreatedContractMore();
+                    mPresenter.loadMarketMore();
                     break;
             }
         }, recyclerView.getRecyclerView());
@@ -134,17 +134,17 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
 
     @Override
     public void getMore(ResponseListEntity<ContractEntity> data) {
-        if (3 == status) {
-            List list = new ArrayList();
-            for (ContractEntity e : data.list) {
-                if ("2".equals(e.type)) {
-                    list.add(e);
-                }
-            }
-            adapter.addData(list);
-        } else {
-            adapter.addData(data.list);
-        }
+//        if (3 == status) {
+//            List list = new ArrayList();
+//            for (ContractEntity e : data.list) {
+//                if ("0".equals(e.type)) {
+//                    list.add(e);
+//                }
+//            }
+//            adapter.addData(list);
+//        } else {
+        adapter.addData(data.list);
+//        }
         if (data.has_more.equals("0")) {
             adapter.loadMoreEnd(true);
         }

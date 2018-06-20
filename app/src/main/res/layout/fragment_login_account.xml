@@ -28,8 +28,9 @@
                 android:layout_height="@dimen/edit_height"
                 android:background="@null"
                 android:drawablePadding="6dp"
+                android:maxLength="11"
                 android:hint="@string/edit_phone"
-                android:inputType="number"
+                android:inputType="phone"
                 android:paddingStart="6dp"
                 android:textSize="@dimen/dimens_14sp" />
 

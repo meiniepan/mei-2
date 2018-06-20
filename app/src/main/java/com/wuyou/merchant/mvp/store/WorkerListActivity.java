@@ -46,6 +46,7 @@ public class WorkerListActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        statusLayout.setErrorAction(v -> getData());
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
         adapter = new WorkersRvAdapter( this,R.layout.item_chose_artisan, data);
         recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));

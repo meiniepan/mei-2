@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools"
     android:background="@color/tint_bg"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
@@ -91,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/text_margin"
-            android:text="13888888888" />
+            tool:text="13888888888" />
 
         <include layout="@layout/layout_next" />
 

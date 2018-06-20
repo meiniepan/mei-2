@@ -63,7 +63,7 @@ public class CirclePresenter extends CircleContract.Presenter {
                     public void onSuccess(BaseResponse<ResponseListEntity<ContractEntity>> response) {
                         if (response.data.list.size() > 0)
                             lastId_list = response.data.list.get(response.data.list.size() - 1).contract_id;
-                        if (isAttach()) mView.getSuccess(response.data);
+                        if (isAttach()) mView.getMore(response.data);
                     }
 
                     @Override
@@ -116,7 +116,7 @@ public class CirclePresenter extends CircleContract.Presenter {
                         List<ContractEntity> list = responseListEntityBaseResponse.data.list;
                         if (list.size() > 0)
                             last_joined = list.get(list.size() - 1).contract_id;
-                        if (isAttach()) mView.getSuccess(responseListEntityBaseResponse.data);
+                        if (isAttach()) mView.getMore(responseListEntityBaseResponse.data);
                     }
 
                     @Override
@@ -169,7 +169,7 @@ public class CirclePresenter extends CircleContract.Presenter {
                     public void onSuccess(BaseResponse<ResponseListEntity<ContractEntity>> response) {
                         if (response.data.list.size() > 0)
                             lastId_market = response.data.list.get(response.data.list.size() - 1).contract_id;
-                        if (isAttach()) mView.getSuccess(response.data);
+                        if (isAttach()) mView.getMore(response.data);
                     }
 
                     @Override
