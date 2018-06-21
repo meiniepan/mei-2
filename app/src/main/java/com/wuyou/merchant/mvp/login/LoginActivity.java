@@ -92,6 +92,8 @@ public class LoginActivity extends BaseActivity {
             if (nowTime - firstTime <= 2000) {
                 EnvironmentChoosePanel choosePanel = new EnvironmentChoosePanel(this);
                 choosePanel.show();
+                clickTime = 0;
+                firstTime = 0;
             }
         }
     }
