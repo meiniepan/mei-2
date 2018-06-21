@@ -12,6 +12,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
+import com.wuyou.merchant.view.widget.panel.EnvironmentChoosePanel;
 
 import butterknife.BindView;
 
@@ -37,7 +38,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         initView();
-
+        findViewById(R.id.back_door).setOnClickListener(v -> showChangeEnvironment());
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -79,6 +80,20 @@ public class LoginActivity extends BaseActivity {
         });
 
     }
-
+    private int clickTime = 0;
+    private long firstTime = 0;
+    private void showChangeEnvironment() {
+        if (clickTime == 0) {
+            firstTime = System.currentTimeMillis();
+        }
+        clickTime++;
+        if (clickTime == 5) {
+            long nowTime = System.currentTimeMillis();
+            if (nowTime - firstTime <= 2000) {
+                EnvironmentChoosePanel choosePanel = new EnvironmentChoosePanel(this);
+                choosePanel.show();
+            }
+        }
+    }
 
 }
