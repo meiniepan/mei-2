@@ -3,22 +3,17 @@ package com.wuyou.merchant.mvp.order;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.bean.entity.AuthTokenEntity;
 import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.util.CommonUtil;
-import com.wuyou.merchant.util.EncodeUtil;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.widget.panel.SendMessagePanel;
@@ -83,6 +78,8 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     TextView orderDetailOtherFee;
     @BindView(R.id.order_detail_amount)
     TextView orderDetailAmount;
+    @BindView(R.id.order_detail_specification)
+    TextView orderDetailSpec;
     @BindView(R.id.order_detail_pay_area)
     LinearLayout orderDetailPayArea;
     @BindView(R.id.order_detail_bottom)
@@ -140,7 +137,14 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
         orderDetailGoodsNumber.setText(data.number + "");
         orderDetailOtherFee.setText(CommonUtil.formatPrice(data.service.visiting_fee));
-        orderDetailFee.setText(CommonUtil.formatPrice(data.service.price));
+        float price;
+        if (data.specification != null && data.specification.id != null) {
+            price = data.specification.price * data.number;
+            orderDetailSpec.setText(data.specification.name);
+        } else {
+            price = data.service.price * data.number;
+        }
+        orderDetailFee.setText(CommonUtil.formatPrice(price));
         orderDetailAmount.setText(CommonUtil.formatPrice(data.amount));
         orderDetailName.setText(data.address.name);
         orderDetailAddress.setText(String.format("%s%s%s%s", data.address.city, data.address.district, data.address.area, data.address.address));
@@ -169,7 +173,8 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
             case 5:
                 if (beanDetail.has_voucher.equals("0"))
                     uploadVoucher();
-                else uploadVoucherDone();
+                else
+                    uploadVoucherDone();
                 break;
         }
     }
