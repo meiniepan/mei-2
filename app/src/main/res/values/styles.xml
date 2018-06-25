@@ -11,6 +11,9 @@
         <item name="android:textSize">@dimen/dimens_14sp</item>
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
     </style>
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">@dimen/dimens_14dp</item>
+    </style>
     <style name="NoSplitMotionEvents" parent="AppTheme">
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>

@@ -46,7 +46,7 @@ public class EnvironmentChoosePanel extends Dialog {
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> setEnv(checkedId));
 
-        findViewById(R.id.env_login).setOnClickListener(v -> EventBus.getDefault().post(new TokenEvent()));
+        findViewById(R.id.env_login).setOnClickListener(v -> dismiss());
     }
 
 
