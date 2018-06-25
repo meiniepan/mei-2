@@ -140,7 +140,7 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         float price;
         if (data.specification != null && data.specification.id != null) {
             price = data.specification.price * data.number;
-            orderDetailSpec.setText(data.specification.name);
+            orderDetailSpec.setText(String.format("规格：%s", data.specification.name));
         } else {
             price = data.service.price * data.number;
         }
