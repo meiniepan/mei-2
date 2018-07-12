@@ -29,7 +29,6 @@ public class LoginActivity extends BaseActivity {
     Button btnLoginMusk;
     String[] mTitle = {"手机号快捷登录", "账户密码登录"};
 
-
     @Override
     protected int getContentLayout() {
         return R.layout.activity_login;

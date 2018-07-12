@@ -25,14 +25,19 @@ import java.util.List;
  * Created by Administrator on 2018\1\29 0029.
  */
 
-public class AppStartActivity extends AppCompatActivity {
+public class AppStartActivity extends BaseActivity {
     ViewPager viewPager;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        init();
+    protected int getContentLayout() {
+        return R.layout.activity_start;
+    }
+
+    @Override
+    protected void bindView(Bundle savedInstanceState) {
+        disableFitSystemWindow();
+        setBarColor(R.color.transparent);
+        inits();
     }
 
     private void initViewPager() {
@@ -44,8 +49,7 @@ public class AppStartActivity extends AppCompatActivity {
         viewPager.setAdapter(new GuidePagerAdapter(this, imageList));
     }
 
-    public void init() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    public void inits() {
         new Handler().postDelayed(() -> {
             if (SharePreferenceManager.getInstance(this).getBooeanValue(Constant.FIRST_OPEN + getVersionCode(), true)) {
                 SharePreferenceManager.getInstance(this).setValue(Constant.FIRST_OPEN + getVersionCode(), false);
