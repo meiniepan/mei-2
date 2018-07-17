@@ -2,23 +2,27 @@ package com.wuyou.merchant.mvp.order;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.adapter.OrderDetailServiceAdapter;
 import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
+import com.wuyou.merchant.bean.entity.ServiceEntity;
+import com.wuyou.merchant.bean.entity.ServicesEntity;
 import com.wuyou.merchant.util.CommonUtil;
-import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.widget.panel.SendMessagePanel;
 
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -66,20 +70,18 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     TextView orderDetailCancel;
     @BindView(R.id.order_detail_store_name)
     TextView orderDetailStoreName;
-    @BindView(R.id.order_detail_picture)
-    ImageView orderDetailPicture;
-    @BindView(R.id.order_detail_serve_name)
-    TextView orderDetailServeName;
-    @BindView(R.id.order_detail_goods_number)
-    TextView orderDetailGoodsNumber;
+    @BindView(R.id.rv_service_detail)
+    RecyclerView recyclerView;
+    OrderDetailServiceAdapter adapter;
+
+
     @BindView(R.id.order_detail_fee)
     TextView orderDetailFee;
     @BindView(R.id.order_detail_other_fee)
     TextView orderDetailOtherFee;
     @BindView(R.id.order_detail_amount)
     TextView orderDetailAmount;
-    @BindView(R.id.order_detail_specification)
-    TextView orderDetailSpec;
+
     @BindView(R.id.order_detail_pay_area)
     LinearLayout orderDetailPayArea;
     @BindView(R.id.order_detail_bottom)
@@ -127,25 +129,25 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
             tvWorker.setText(beanDetail.worker.worker_name);
         }
         if (beanDetail.status != 2 && beanDetail.second_payment != 0) {
-            findViewById(R.id.order_detail_second_payment_area).setVisibility(View.VISIBLE);
+            findViewById(R.id.order_detail_second_payment_area).setVisibility(View.GONE);
         }
-        GlideUtils.loadImage(this, data.service.photo, orderDetailPicture);
+        float pureFee = 0f;
+        float visitFee = 0;
+        float total;
+        for (ServicesEntity e : data.services
+                ) {
+            pureFee = pureFee + e.amount;
+            visitFee = visitFee + e.visiting_fee;
+        }
+        total = pureFee + visitFee;
+        orderDetailFee.setText(CommonUtil.formatPrice(pureFee));
+        orderDetailOtherFee.setText(CommonUtil.formatPrice(visitFee));
+        orderDetailAmount.setText(CommonUtil.formatPrice(total));
         orderDetailStatus.setText(CommonUtil.getOrderStatusString(data.status));
         orderDetailStoreName.setText(data.shop.shop_name);
-        orderDetailServeName.setText(data.service.title);
         orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
         orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
-        orderDetailGoodsNumber.setText(data.number + "");
-        orderDetailOtherFee.setText(CommonUtil.formatPrice(data.service.visiting_fee));
-        float price;
-        if (data.specification != null && data.specification.id != null) {
-            price = data.specification.price * data.number;
-            orderDetailSpec.setText(String.format("规格：%s", data.specification.name));
-        } else {
-            price = data.service.price * data.number;
-        }
-        orderDetailFee.setText(CommonUtil.formatPrice(price));
-        orderDetailAmount.setText(CommonUtil.formatPrice(data.amount));
+        initRv(data.services);
         orderDetailName.setText(data.address.name);
         orderDetailAddress.setText(String.format("%s%s%s%s", data.address.city, data.address.district, data.address.area, data.address.address));
         orderDetailPhone.setText(data.address.mobile);
@@ -239,7 +241,14 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     public void getMore(OrderInfoListEntity data) {
 
     }
-
+    private void initRv(List<ServicesEntity> service) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getCtx());
+        linearLayoutManager.setAutoMeasureEnabled(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        adapter = new OrderDetailServiceAdapter(R.layout.item_order_detail_service_confirm, service);
+        recyclerView.setAdapter(adapter);
+    }
     @Override
     public void loadMoreError(int code) {
 

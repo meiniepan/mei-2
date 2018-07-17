@@ -1,5 +1,7 @@
 package com.wuyou.merchant.bean.entity;
 
+import java.util.List;
+
 /**
  * Created by hjn on 2018/2/6.
  */
@@ -21,7 +23,7 @@ public class OrderBeanDetail extends OrderBean {
      * total_amount : 980
      * number : 1
      * shop : {"shop_id":2,"shop_name":"重庆鸡公煲"}
-     * service : {"service_id":1,"service_name":"空调清洗","photo":"http://images4.5maiche.cn/2016-07-11_57833334133a7.jpg","specification":[],"price":0,"visiting_fee":0}
+     * services : {"service_id":1,"service_name":"空调清洗","photo":"http://images4.5maiche.cn/2016-07-11_57833334133a7.jpg","specification":[],"price":0,"visiting_fee":0}
      * address : {"address_id":23,"username":"张三","city":"北京市","district":"西城区","area":"庄胜广场南馆","address":"燃气热水器","mobile":"13666666666","lng":"116.375622","lat":"39.896681"}
      */
     public long created_at;
@@ -35,5 +37,5 @@ public class OrderBeanDetail extends OrderBean {
     public WorkerEntity worker;
     public AddressBean address;
     public String has_voucher;
-    public ServeSpecificationEntity specification;
+    public List<ServicesEntity> services;
 }
