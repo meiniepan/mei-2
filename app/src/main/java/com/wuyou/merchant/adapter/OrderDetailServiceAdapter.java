@@ -34,6 +34,7 @@ public class OrderDetailServiceAdapter extends BaseQuickAdapter<ServicesEntity, 
         } else {
             tag.setVisibility(View.VISIBLE);
         }
+
         ImageView imageView = helper.getView(R.id.iv_service_confirm);
         GlideUtils.loadRoundCornerImage(mContext, item.image, imageView);
         helper.setText(R.id.tv_name2, item.service_name).setText(R.id.tv_service_confirm_num, "x " + item.number)

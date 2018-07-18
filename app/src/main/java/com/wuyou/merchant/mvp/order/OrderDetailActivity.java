@@ -64,8 +64,6 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     TextView orderDetailPayTime;
     @BindView(R.id.order_detail_contact_store)
     TextView orderDetailContactStore;
-    @BindView(R.id.order_detail_second_payment)
-    TextView orderDetailSecondPayment;
     @BindView(R.id.order_detail_cancel)
     TextView orderDetailCancel;
     @BindView(R.id.order_detail_store_name)
@@ -128,16 +126,14 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
             orderDetailWarn.setVisibility(View.VISIBLE);
             tvWorker.setText(beanDetail.worker.worker_name);
         }
-        if (beanDetail.status != 2 && beanDetail.second_payment != 0) {
-            findViewById(R.id.order_detail_second_payment_area).setVisibility(View.GONE);
-        }
-        float pureFee = 0f;
+        float pureFee = data.amount+data.second_payment;
         float visitFee = 0;
         float total;
         for (ServicesEntity e : data.services
                 ) {
-            pureFee = pureFee + e.amount;
-            visitFee = visitFee + e.visiting_fee;
+            if (e.stage.equals("1")){
+                visitFee = e.visiting_fee;
+            }
         }
         total = pureFee + visitFee;
         orderDetailFee.setText(CommonUtil.formatPrice(pureFee));
@@ -145,8 +141,6 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         orderDetailAmount.setText(CommonUtil.formatPrice(total));
         orderDetailStatus.setText(CommonUtil.getOrderStatusString(data.status));
         orderDetailStoreName.setText(data.shop.shop_name);
-        orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
-        orderDetailSecondPayment.setText(CommonUtil.formatPrice(data.second_payment));
         initRv(data.services);
         orderDetailName.setText(data.address.name);
         orderDetailAddress.setText(String.format("%s%s%s%s", data.address.city, data.address.district, data.address.area, data.address.address));
