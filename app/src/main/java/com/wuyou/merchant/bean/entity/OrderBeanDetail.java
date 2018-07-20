@@ -32,6 +32,7 @@ public class OrderBeanDetail extends OrderBean {
     public String service_time;
     public String remark;
     public String pay_type;
+    public long second_pay_time;
     public long pay_time;
     public int number;
     public WorkerEntity worker;

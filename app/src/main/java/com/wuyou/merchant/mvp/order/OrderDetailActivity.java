@@ -71,15 +71,16 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
     @BindView(R.id.rv_service_detail)
     RecyclerView recyclerView;
     OrderDetailServiceAdapter adapter;
-
-
     @BindView(R.id.order_detail_fee)
     TextView orderDetailFee;
     @BindView(R.id.order_detail_other_fee)
     TextView orderDetailOtherFee;
     @BindView(R.id.order_detail_amount)
     TextView orderDetailAmount;
-
+    @BindView(R.id.tv_second_time)
+    TextView orderSecondTime;
+    @BindView(R.id.ll_second_time)
+    LinearLayout llSecondTime;
     @BindView(R.id.order_detail_pay_area)
     LinearLayout orderDetailPayArea;
     @BindView(R.id.order_detail_bottom)
@@ -154,7 +155,10 @@ public class OrderDetailActivity extends BaseActivity<OrderContract.View, OrderC
         if (!TextUtils.isEmpty(data.serial)) orderDetailBillSerial.setText(data.serial);
         orderDetailPayMethod.setText(data.pay_type);
         orderDetailPayTime.setText(TribeDateUtils.dateFormat(new Date(data.pay_time * 1000)));
-
+        if (data.second_pay_time > 0) {
+            llSecondTime.setVisibility(View.VISIBLE);
+            orderSecondTime.setText(TribeDateUtils.dateFormat(new Date(data.second_pay_time * 1000)));
+        }
         setActionStatus();
         switch (beanDetail.status) {
             case 1:
