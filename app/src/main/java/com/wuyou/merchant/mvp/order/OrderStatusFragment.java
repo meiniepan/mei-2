@@ -9,6 +9,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.gs.buluo.common.widget.recyclerHelper.OnRefreshListener;
 import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
+import com.tendcloud.tenddata.TCAgent;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
@@ -20,7 +21,9 @@ import com.wuyou.merchant.util.MyRecyclerViewScrollListener;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -59,6 +62,11 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
             intent.putExtra(Constant.ORDER_ID, adapter.getItem(position).order_id);
 //            intent.putExtra(Constant.DIVIDE_ORDER_FROM,1);
             startActivity(intent);
+            //代码事件
+            Map kv = new HashMap();
+            kv.put("动作类型", "订单详情");
+            kv.put("订单ID",adapter.getItem(position).order_id );
+            TCAgent.onEvent(getContext(), "点击首页推荐位", "第3推广位", kv);
         });
         recyclerView.setAdapter(adapter);
         final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);

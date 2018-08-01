@@ -67,7 +67,37 @@ import java.util.regex.Pattern;
  * Created by hjn on 2016/11/10.
  */
 public class CommonUtil {
-    public static void choosePhoto(Activity context,int requestCode){
+
+
+    public static void CountingSort(int[] A, int n) {
+        int k = 5;   // 基数为100，排序[0,99]内的整数
+        int C[] = new int[k];            // 计数数组
+        int B[] = new int[n];
+
+        for (int i = 0; i < k; i++)   // 初始化，将数组C中的元素置0(此步骤可省略，整型数组元素默认值为0)
+        {
+            C[i] = 0;
+        }
+        for (int i = 0; i < n; i++)   // 使C[i]保存着等于i的元素个数
+        {
+            C[A[i]]++;
+        }
+        for (int i = 1; i < k; i++)   // 使C[i]保存着小于等于i的元素个数，排序后元素i就放在第C[i]个输出位置上
+        {
+            C[i] = C[i] + C[i - 1];
+        }
+        for (int i = n - 1; i >= 0; i--)    // 从后向前扫描保证计数排序的稳定性(重复元素相对次序不变)
+        {
+            B[--C[A[i]]] = A[i];      // 把每个元素A[i]放到它在输出数组B中的正确位置上
+            // 当再遇到重复元素时会被放在当前元素的前一个位置上保证计数排序的稳定性
+        }
+        for (int i = 0; i < n; i++)   // 把临时空间B中的数据拷贝回A
+        {
+            A[i] = B[i];
+        }
+    }
+
+    public static void choosePhoto(Activity context, int requestCode) {
         PictureSelector.create(context)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
 //                .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style
@@ -110,7 +140,8 @@ public class CommonUtil {
                 .isDragFrame(false)// 是否可拖动裁剪框(固定)
                 .forResult(requestCode);//结果回调onActivityResult code
     }
-    public static void chooseCirclePhoto(Activity context,int requestCode){
+
+    public static void chooseCirclePhoto(Activity context, int requestCode) {
         PictureSelector.create(context)
                 .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
 //                .theme()//主题样式(不设置为默认样式) 也可参考demo values/styles下 例如：R.style.picture.white.style

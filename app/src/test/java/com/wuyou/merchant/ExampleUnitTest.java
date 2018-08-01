@@ -1,5 +1,6 @@
 package com.wuyou.merchant;
 
+import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.EncodeUtil;
 
 import org.junit.Test;
@@ -22,10 +23,14 @@ public class ExampleUnitTest {
     @Test
     public void aa() throws Exception {
         assertEquals(4, 2 + 2);
-        String a = EncodeUtil.get3DES("aaa","1AE48E613CD877D041A21E6F383C7FE682F6C7EC");
-        System.out.println(a);
-        int[] aa = {1,2,5,3};
-        Arrays.sort(aa);
-        Collections.reverse(Arrays.asList(aa));
+        int A[] = { 3,2,1,4};  // 针对计数排序设计的输入，每一个元素都在[0,100]上且有重复元素
+        int n = A.length;
+        CommonUtil.CountingSort(A, n);
+        System.out.println("计数排序结果：");
+        for (int i = 0; i < n; i++)
+        {
+            System.out.println(A[i] + "");
+        }
     }
 }
+
