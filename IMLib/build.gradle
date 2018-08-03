@@ -18,6 +18,13 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    lintOptions {
+
+        abortOnError false
+
+        // if true, only report errors
+        ignoreWarnings true
+    }
 }
 
 dependencies {
