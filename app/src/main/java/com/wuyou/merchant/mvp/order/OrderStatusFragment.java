@@ -52,7 +52,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        recyclerView.getStatusLayout().setErrorAction(v -> {
+        recyclerView.getRecyclerView().setErrorAction(v -> {
             recyclerView.showProgressView();
             fetchDatas();
         });
@@ -73,10 +73,13 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 //        recyclerView.getRecyclerView().addOnScrollListener(scrollListener);
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
         adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
-        recyclerView.setRefreshAction(() -> {
-            scrollListener.setRefresh();
-            adapter.clearData();
-            fetchDatas();
+        recyclerView.setRefreshAction(new OnRefreshListener() {
+            @Override
+            public void onAction() {
+//                scrollListener.setRefresh();
+                adapter.clearData();
+                OrderStatusFragment.this.fetchDatas();
+            }
         });
         toTop.setOnClickListener(v -> recyclerView.getRecyclerView().smoothScrollToPosition(0));
     }
@@ -85,7 +88,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
     public void showError(String message, int res) {
         recyclerView.getRefreshLayout().setEnabled(false);
         recyclerView.setRefreshFinished();
-        recyclerView.getStatusLayout().showErrorView(getString(R.string.connect_fail));
+        recyclerView.getRecyclerView().showErrorView(getString(R.string.connect_fail));
     }
 
     @Override
@@ -93,12 +96,12 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
         recyclerView.getRefreshLayout().setEnabled(true);
         recyclerView.setRefreshFinished();
         adapter.setNewData(data.list);
-        recyclerView.getStatusLayout().showContentView();
+        recyclerView.getRecyclerView().showContentView();
         if (data.has_more.equals("0")) {
             adapter.loadMoreEnd(true);
         }
         if (adapter.getData().size() == 0) {
-            recyclerView.getStatusLayout().showEmptyView(getString(R.string.order_empty));
+            recyclerView.getRecyclerView().showEmptyView(getString(R.string.order_empty));
         }
     }
 
