@@ -84,7 +84,6 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(() -> {
-            adapter.clearData();
             fetchDatas();
         });
     }

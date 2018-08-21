@@ -69,7 +69,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
             TCAgent.onEvent(getContext(), "点击首页推荐位", "第3推广位", kv);
         });
         recyclerView.setAdapter(adapter);
-        final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);
+//        final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);
 //        recyclerView.getRecyclerView().addOnScrollListener(scrollListener);
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
         adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
@@ -77,11 +77,10 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
             @Override
             public void onAction() {
 //                scrollListener.setRefresh();
-                adapter.clearData();
                 OrderStatusFragment.this.fetchDatas();
             }
         });
-        toTop.setOnClickListener(v -> recyclerView.getRecyclerView().smoothScrollToPosition(0));
+//        toTop.setOnClickListener(v -> recyclerView.getRecyclerView().smoothScrollToPosition(0));
     }
 
     @Override
