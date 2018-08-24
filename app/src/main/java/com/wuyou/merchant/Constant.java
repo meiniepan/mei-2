@@ -10,7 +10,8 @@ public class Constant {
     //切环境时候注意融云ID变更
 //    public static String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //        public static  String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-    public static  String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static String ONLINE_BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String ABOUT_US_URL = "https://ulaidao.iwantmei.com/apphtml/about-us.html";
     public static final String SP_BASE_URL = "sp_base_url";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
@@ -31,13 +32,13 @@ public class Constant {
     public static final String PAY_TYPE = "pay_type";
     public static final String CONTRACT = "contract";
     public static final String SIGN_NUMBER = "sign_number";
-    public static final String FUND_STATUS = "fund_status" ;
+    public static final String FUND_STATUS = "fund_status";
     public static final String FIRST_OPEN = "first_open";
     public static final String MAIN_ACTIVITY_FROM_WHERE = "main_activity_from_where";
     public static final String MAIN_ACTIVITY_FROM_CREATE_CONTRACT = "main_activity_from_create_contract";
     public static final String MAIN_ACTIVITY_FROM_APPLY_FUND = "main_activity_from_apply_fund";
     public static final String MAIN_ACTIVITY_FROM_VOUCHER = "main_activity_from_voucher";
-    public static final String WX_ID ="wxb60eda0adace922f" ;
+    public static final String WX_ID = "wxb60eda0adace922f";
     public static final String WX_SECRET = "f69fe20fe89637098fe08474ce8b90bd";
     public static final String AUTH_IMG_PATH_1 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp.jpg";
     public static final int REQUEST_NICK = 777;
@@ -48,10 +49,10 @@ public class Constant {
     public static final String AUTH_IMG_PATH_2 = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Pictures/wuyou_tmp_2.jpg";
     public static final String COMPANY_INFO = "company_info";
     public static String IMAGE1_URL_2 = "image1_url_2";
-    public static String HELP_SERVE_AGENT_ID="181385";
+    public static String HELP_SERVE_AGENT_ID = "181385";
 
 
-    public static class IntentRequestCode{
+    public static class IntentRequestCode {
         public static final int CHOOSE_SERVICE_CATEGORY = 200;
         public static final int CHOOSE_PAY_TYPE = 201;
         public static final int REQUEST_CODE_CHOOSE_IMAGE = 202;
