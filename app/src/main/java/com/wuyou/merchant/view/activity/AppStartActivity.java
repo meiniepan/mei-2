@@ -5,13 +5,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.gs.buluo.common.utils.SharePreferenceManager;
+import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
@@ -62,10 +61,10 @@ public class AppStartActivity extends BaseActivity {
     }
 
     private void doJump() {
-        if (CarefreeDaoSession.getInstance().getUserInfo() != null) {
-            startActivity(new Intent(AppStartActivity.this, MainActivity.class));
+        if (!CarefreeDaoSession.isLogin()) {
+            startActivity(new Intent(AppStartActivity.this, LoginActivity.class));
         } else {
-            Intent view = new Intent(AppStartActivity.this, LoginActivity.class);
+            Intent view = new Intent(AppStartActivity.this, MainActivity.class);
             startActivity(view);
         }
         finish();

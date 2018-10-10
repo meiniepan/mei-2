@@ -61,9 +61,9 @@ public class StoreInfoEditActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         CommonUtil.GlideCircleLoad(getCtx(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar);
-        GlideUtils.loadImage(getCtx(), CarefreeApplication.getInstance().getUserInfo().getLogo(), ivAvatar,true);
-        tvName.setText(CarefreeApplication.getInstance().getUserInfo().getShop_name());
-        tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeApplication.getInstance().getUserInfo().getTel()));
+        GlideUtils.loadImage(getCtx(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar,true);
+        tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
+        tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeDaoSession.getInstance().getUserInfo().getTel()));
     }
 
     @OnClick({R.id.iv_avatar, R.id.ll_phone, R.id.ll_store_name})

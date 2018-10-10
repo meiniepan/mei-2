@@ -35,10 +35,12 @@ public class CarefreeApplication extends BaseApplication {
 //        CrashReport.initCrashReport(getApplicationContext(), "505e4fa223", true);
         initBuglyUpgrade();
     }
+
     private void initUrl() {
         String baseUrl = SharePreferenceManager.getInstance(this).getStringValue(Constant.SP_BASE_URL);
         if (!TextUtils.isEmpty(baseUrl)) Constant.BASE_URL = baseUrl;
     }
+
     private void initBuglyUpgrade() {
         Beta.upgradeDialogLayoutId = R.layout.upgrade_dialog;
         Beta.canShowUpgradeActs.add(MainActivity.class);
@@ -68,30 +70,6 @@ public class CarefreeApplication extends BaseApplication {
     @Override
     public String getFilePath() {
         return Environment.getExternalStorageDirectory().toString() + "/carefree/";
-    }
-
-    public UserInfo getUserInfo() {
-        if (userInfo != null)
-            return userInfo;
-        else {
-            UserInfo userInfo = userInfoDao.loadByRowId(0);
-            return userInfo;
-        }
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        CarefreeApplication.getInstance().getUserInfoDao().insert(userInfo);
-        this.userInfo = userInfo;
-    }
-
-    public void clearUserInfo() {
-        userInfoDao.deleteAll();
-        userInfo = null;
-
-    }
-
-    public UserInfoDao getUserInfoDao() {
-        return userInfoDao;
     }
 
     public static String getCurProcessName(Context context) {

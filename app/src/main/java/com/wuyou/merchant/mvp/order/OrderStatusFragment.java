@@ -10,6 +10,7 @@ import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.gs.buluo.common.widget.recyclerHelper.OnRefreshListener;
 import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.OrderStatusRvAdapter;
@@ -64,7 +65,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
         final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);
 //        recyclerView.getRecyclerView().addOnScrollListener(scrollListener);
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
+        adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeDaoSession.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(() -> {
             scrollListener.setRefresh();
             adapter.clearData();
@@ -121,7 +122,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 
     private void fetchDatas() {
         orderState = getArguments().getInt("h")+"";
-        mPresenter.getOrders(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState);
+        mPresenter.getOrders(CarefreeDaoSession.getInstance().getUserInfo().getUid(), orderState);
     }
 
 }

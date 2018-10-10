@@ -6,14 +6,15 @@ import android.util.Base64;
 import com.google.gson.Gson;
 import com.gs.buluo.common.BaseApplication;
 import com.gs.buluo.common.network.EncryptUtil;
+import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.gs.buluo.common.utils.Utils;
+import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.bean.entity.AuthTokenEntity;
 import com.wuyou.merchant.util.EncodeUtil;
 
 import java.io.IOException;
-import java.net.URL;
 
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -43,7 +44,7 @@ public class CarefreeHttpInterceptor implements Interceptor {
             newBuilder.addQueryParameter("sign", sign);
             newFullUrl = newBuilder.build();
         }
-        if (CarefreeDaoSession.getInstance().getUserInfo() != null) {
+        if (CarefreeDaoSession.isLogin()) {
             builder.addHeader("Authorization", CarefreeDaoSession.getInstance().getUserInfo().getToken());
         }
         try {
@@ -58,8 +59,9 @@ public class CarefreeHttpInterceptor implements Interceptor {
 
     private void AddAuthToken(Request.Builder builder) throws Exception {
         AuthTokenEntity e = new AuthTokenEntity();
-        if (CarefreeDaoSession.getInstance().getUserInfo() != null)
+        if (CarefreeDaoSession.isLogin()) {
             e.client_id = CarefreeDaoSession.getInstance().getUserInfo().getShop_id();
+        }
         e.client = "merchant";
         e.lng = 116.36968727736242d;
         e.lat = 39.89528271571901d;

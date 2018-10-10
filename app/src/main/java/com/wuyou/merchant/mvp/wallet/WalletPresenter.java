@@ -53,7 +53,7 @@ public class WalletPresenter extends WalletContract.Presenter {
     @Override
     void getTradeList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getOrderTradeList(CarefreeApplication.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns().buildGet())
+                .getOrderTradeList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(),QueryMapBuilder.getIns().buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse<ResponseListEntity<TradeItemEntity>>>() {
@@ -98,7 +98,7 @@ public class WalletPresenter extends WalletContract.Presenter {
     @Override
     void getRepayRecordsList() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getRepayRecords(CarefreeApplication.getInstance().getUserInfo().getUid(),
+                .getRepayRecords(CarefreeDaoSession.getInstance().getUserInfo().getUid(),
                         QueryMapBuilder.getIns()
                                 .put("start_id", "0")
                                 .put("flag", "1")
@@ -124,7 +124,7 @@ public class WalletPresenter extends WalletContract.Presenter {
     @Override
     void loadMoreRepayRecords() {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getRepayRecords(CarefreeApplication.getInstance().getUserInfo().getUid(),
+                .getRepayRecords(CarefreeDaoSession.getInstance().getUserInfo().getUid(),
                         QueryMapBuilder.getIns()
                                 .put("start_id", lastId_repay_record)
                                 .put("flag", "2")

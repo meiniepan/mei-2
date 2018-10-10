@@ -12,6 +12,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractEntity;
@@ -122,7 +123,7 @@ public class CreateIntelligentContractActivity1 extends BaseActivity {
 
     private void doNext() {
         Intent intent = new Intent(getCtx(), CreateIntelligentContractActivity2.class);
-        entity.shop_id = CarefreeApplication.getInstance().getUserInfo().getUid();
+        entity.shop_id = CarefreeDaoSession.getInstance().getUserInfo().getUid();
         entity.contract_name = etContractName.getText().toString();
         entity.end_at = endTime;
         entity.shop_name = etCompanyName.getText().toString();

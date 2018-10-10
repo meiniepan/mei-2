@@ -33,6 +33,7 @@ import android.widget.ListView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.gson.GsonBuilder;
 import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.RecycleViewDivider;
@@ -611,5 +612,12 @@ public class CommonUtil {
                 return "已取消";
         }
         return "";
+    }
+
+    public static String prettyPrintJson(Object object) {
+        return new GsonBuilder()
+                .registerTypeAdapterFactory(new GsonEosTypeAdapterFactory())
+                .excludeFieldsWithoutExposeAnnotation()
+                .setPrettyPrinting().create().toJson(object);
     }
 }

@@ -10,13 +10,23 @@ public class Constant {
     //切环境时候注意融云ID变更
 //    public static String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //        public static  String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
+    public static String CHAIN_URL = " http://192.168.1.186:8888/";
+    public static String IPFS_URL = "192.168.1.184:5001";
     public static  String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+
+    public static final String EOSIO_SYSTEM_ACCOUNT = "signupcoming";
+    public static final String EOSIO_DAILAY_REWARDS = "dailyrewards";
+    public static final String ACTIVITY_DAILAY_REWARDS = "activity1111";
+    public static final String EOSIO_TOKEN_CONTRACT = "eosio.token";
+    public static final int TX_EXPIRATION_IN_MILSEC = 30000;
+
     public static final String ABOUT_US_URL = "https://ulaidao.iwantmei.com/apphtml/about-us.html";
     public static final String SP_BASE_URL = "sp_base_url";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";
     public static final String PHONE = "phone";
     public static final String CAPTCHA = "captcha";
+    public static final String DB_FORM_NAME = "form_name";
     public static final String CONTRACT_ID = "contract_id";
     public static final String CONTRACT_ENTITY = "contract_entity";
     public static final String IMAGE1_URL = "image1_url";

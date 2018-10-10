@@ -8,6 +8,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
@@ -45,10 +46,10 @@ public class LoanConfirmActivity extends BaseActivity {
         showLoadingDialog();
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
                 .loan(QueryMapBuilder.getIns()
-                        .put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid())
-                        .put("amount", CarefreeApplication.getInstance().getUserInfo().getUid())
-                        .put("stage_number", CarefreeApplication.getInstance().getUserInfo().getUid())
-                        .put("information", CarefreeApplication.getInstance().getUserInfo().getUid())
+                        .put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getUid())
+                        .put("amount", CarefreeDaoSession.getInstance().getUserInfo().getUid())
+                        .put("stage_number", CarefreeDaoSession.getInstance().getUserInfo().getUid())
+                        .put("information", CarefreeDaoSession.getInstance().getUserInfo().getUid())
                         .buildGet())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

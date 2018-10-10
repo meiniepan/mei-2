@@ -15,6 +15,7 @@ import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.widget.CustomAlertDialog;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
@@ -66,7 +67,7 @@ public class ChoseArtisanActivity extends BaseActivity {
     private void getData() {
         statusLayout.showProgressView();
         CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getWorkersInfo(QueryMapBuilder.getIns().put("shop_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                .getWorkersInfo(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getUid())
                         .put("start_id", "0")
                         .put("flag", "1")
                         .put("size", "10")
@@ -98,7 +99,7 @@ public class ChoseArtisanActivity extends BaseActivity {
             public void onClick(DialogInterface dialog, int which) {
                 CarefreeRetrofit.getInstance().createApi(OrderApis.class)
                         .dispatchOrder(
-                                QueryMapBuilder.getIns().put("dispatcher_id", CarefreeApplication.getInstance().getUserInfo().getUid())
+                                QueryMapBuilder.getIns().put("dispatcher_id", CarefreeDaoSession.getInstance().getUserInfo().getUid())
                                         .put("worker_id", serverId)
                                         .put("type", "1")
                                         .put("order_id", orderId)

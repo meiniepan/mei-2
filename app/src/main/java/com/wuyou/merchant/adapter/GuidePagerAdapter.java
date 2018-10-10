@@ -3,12 +3,16 @@ package com.wuyou.merchant.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.gs.buluo.common.utils.SharePreferenceManager;
+import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.view.activity.MainActivity;
 
@@ -52,7 +56,7 @@ public class GuidePagerAdapter extends PagerAdapter {
         if (position == lists.size() - 1) {
             imgView.setOnClickListener(v -> {
                 Intent intent = new Intent();
-                if (CarefreeDaoSession.getInstance().getUserInfo() != null) {
+                if (CarefreeDaoSession.isLogin()) {
                     intent.setClass(mAct, MainActivity.class);
                 } else {
                     intent.setClass(mAct, LoginActivity.class);

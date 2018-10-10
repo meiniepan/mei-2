@@ -93,7 +93,7 @@ public class MainActivity extends BaseActivity {
             RongIM.init(this);
             //连接服务器
 
-            connect(CarefreeApplication.getInstance().getUserInfo().getRc_token());
+            connect(CarefreeDaoSession.getInstance().getUserInfo().getRc_token());
             //设置用户信息
             RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
                 @Override

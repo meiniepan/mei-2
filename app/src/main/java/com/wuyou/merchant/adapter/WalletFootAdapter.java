@@ -224,7 +224,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
 
     private void getOrderTradeList(String startId, String flag) {
         CarefreeRetrofit.getInstance().createApi(WalletApis.class)
-                .getOrderTradeList(CarefreeApplication.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
+                .getOrderTradeList(CarefreeDaoSession.getInstance().getUserInfo().getShop_id(), QueryMapBuilder.getIns()
                         .put("start_id", startId)
                         .put("flag", flag)
                         .put("size", "10")

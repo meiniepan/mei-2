@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.util.CommonUtil;
@@ -47,9 +48,9 @@ public class ResetPwdActivity extends BaseActivity {
             ToastUtils.ToastMessage(getCtx(), "两次密码输入不一致");
             return;
         }
-        UserInfo userInfo = CarefreeApplication.getInstance().getUserInfo();
+        UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
         userInfo.setPassword(CommonUtil.getMD5Str(pwd));
-        CarefreeApplication.getInstance().getUserInfoDao().save(userInfo);
+        CarefreeDaoSession.getInstance().setUserInfo(userInfo);
         ToastUtils.ToastMessage(getCtx(), R.string.reset_pwd_success);
         Intent intent = new Intent(getCtx(), MainActivity.class);
         startActivity(intent);

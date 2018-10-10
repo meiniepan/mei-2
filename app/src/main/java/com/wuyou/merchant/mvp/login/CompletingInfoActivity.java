@@ -13,6 +13,7 @@ import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.network.CarefreeRetrofit;
@@ -64,14 +65,14 @@ public class CompletingInfoActivity extends BaseActivity {
             return;
         }
 
-        UserInfo userInfo = CarefreeApplication.getInstance().getUserInfo();
+        UserInfo userInfo = CarefreeDaoSession.getInstance().getUserInfo();
         CarefreeRetrofit.getInstance().createApi(UserApis.class)
                 .updatePwd(userInfo.getUid(),
                         QueryMapBuilder.getIns().put("password", CommonUtil.getMD5Str(pwd)).put("confirm_password", pwdAgain).buildPost())
                 .subscribeOn(Schedulers.io())
                 .doOnNext(baseResponse -> {
                     userInfo.setPassword(pwd);
-                    CarefreeApplication.getInstance().getUserInfoDao().save(userInfo);
+                    CarefreeDaoSession.getInstance().setUserInfo(userInfo);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSubscriber<BaseResponse>() {

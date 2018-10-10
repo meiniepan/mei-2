@@ -46,7 +46,7 @@ android {
     }
 }
 greendao {
-    schemaVersion 8
+    schemaVersion 9
     targetGenDir 'src/main/java'
 }
 
@@ -77,10 +77,13 @@ dependencies { //glide 在 bangwoba里
     compile('cn.qqtheme.framework:WheelPicker:1.5.5') {
         exclude group: 'com.android.support'
     }
+    implementation 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v2.1.0'
     compile project(path: ':shareutil')
     compile 'com.android.support:multidex:1.0.3'
     compile project(':bangwo8Ui')
     compile 'com.tencent.bugly:crashreport_upgrade:latest.release'//其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.2.0
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+    implementation 'com.google.guava:guava:23.0-android'
+    compile 'io.github.novacrypto:BIP32:0.0.8'
     testCompile 'junit:junit:4.12'
 }

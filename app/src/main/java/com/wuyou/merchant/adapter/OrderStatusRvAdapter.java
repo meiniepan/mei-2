@@ -16,6 +16,7 @@ import com.gs.buluo.common.utils.TribeDateUtils;
 import com.gs.buluo.common.widget.recyclerHelper.BaseHolder;
 import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.wuyou.merchant.CarefreeApplication;
+import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
@@ -73,7 +74,7 @@ public class OrderStatusRvAdapter extends BaseQuickAdapter<OrderInfoEntity, Base
             helper.setText(R.id.tv_receiver, item.worker.worker_name);
             dispatch.setText("发信息");
             dispatch.setOnClickListener(view -> {
-                connectRongYun(CarefreeApplication.getInstance().getUserInfo().getRc_token());
+                connectRongYun(CarefreeDaoSession.getInstance().getUserInfo().getRc_token());
                 SendMessagePanel sendMessagePanel = new SendMessagePanel(mContext);
                 sendMessagePanel.setData(item.worker.rc_id);
                 sendMessagePanel.show();
