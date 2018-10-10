@@ -95,7 +95,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     }
 
     private void initContractIncomeAdapter() {
-        contractRecyclerView.getStatusLayout().setErrorAction(v -> {
+        contractRecyclerView.getRecyclerView().setErrorAction(v -> {
             contractRecyclerView.showProgressView();
             getContractTradeList("0", "1");
         });
@@ -116,7 +116,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     }
 
     private void initOrderInComeAdapter() {
-        orderRecyclerView.getStatusLayout().setErrorAction(v -> {
+        orderRecyclerView.getRecyclerView().setErrorAction(v -> {
             orderRecyclerView.showProgressView();
             getOrderTradeList("0", "1");
         });
@@ -137,7 +137,7 @@ public class WalletFootAdapter extends BaseQuickAdapter<WalletInfoEntity, BaseHo
     }
 
     private void initAdapter1() {
-        recyclerView1.getStatusLayout().setErrorAction(v -> {
+        recyclerView1.getRecyclerView().setErrorAction(v -> {
             recyclerView1.showProgressView();
             getFunList();
         });

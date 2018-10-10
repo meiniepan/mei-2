@@ -4,6 +4,7 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.entity.LogoEntity;
+import com.wuyou.merchant.bean.entity.UpdateEntity;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -76,4 +77,8 @@ public interface UserApis {
             @Path("shop_id")String shopId,
             @Part MultipartBody.Part file,
             @QueryMap SortedTreeMap<String, String> map);
+    @GET("client/update")
+    Observable<BaseResponse<UpdateEntity>> checkUpdate(
+            @QueryMap SortedTreeMap<String, String> map);
+
 }

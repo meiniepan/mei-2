@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.gs.buluo.common.utils.ToastUtils;
+import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.activity.BaseActivity;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
@@ -36,6 +37,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        CarefreeApplication.getInstance().ManualCheckOnForceUpdate();
         initView();
         findViewById(R.id.back_door).setOnClickListener(v -> showChangeEnvironment());
     }

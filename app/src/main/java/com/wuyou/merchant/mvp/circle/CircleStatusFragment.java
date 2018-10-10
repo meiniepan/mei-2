@@ -47,7 +47,7 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        recyclerView.getStatusLayout().setErrorAction(v -> {
+        recyclerView.getRecyclerView().setErrorAction(v -> {
             recyclerView.showProgressView();
             fetchDatas();
         });
@@ -84,7 +84,6 @@ public class CircleStatusFragment extends BaseFragment<CircleContract.View, Circ
             }
         }, recyclerView.getRecyclerView());
         recyclerView.setRefreshAction(() -> {
-            adapter.clearData();
             fetchDatas();
         });
     }

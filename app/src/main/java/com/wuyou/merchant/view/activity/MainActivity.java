@@ -56,6 +56,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        CarefreeApplication.getInstance().ManualCheckOnForceUpdate();
         if (!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
