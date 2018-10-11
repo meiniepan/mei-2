@@ -25,7 +25,6 @@
             android:value="2.1" />
         <activity
             android:name=".view.activity.AppStartActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -162,6 +161,14 @@
         <activity android:name=".mvp.store.ModifyPhoneActivity" />
         <activity android:name=".view.activity.WebActivity" />
         <activity android:name=".view.activity.HelpRobotActivity" />
+        <activity android:name=".mvp.account.ManagerAccountActivity" />
+        <activity android:name=".mvp.account.CreateAccountActivity" />
+        <activity android:name=".mvp.account.CreateOrImportAccountActivity" />
+        <activity android:name=".mvp.account.CreateAccountSuccessActivity" />
+        <activity android:name=".mvp.account.ScoreAccountActivity" />
+        <activity android:name=".mvp.account.BackupPKeyActivity" />
+        <activity android:name=".mvp.account.AccountInfoActivity" />
+        <activity android:name=".mvp.account.ImportAccountActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

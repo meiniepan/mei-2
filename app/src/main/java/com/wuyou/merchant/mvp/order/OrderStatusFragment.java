@@ -73,14 +73,8 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
 //        final MyRecyclerViewScrollListener scrollListener = new MyRecyclerViewScrollListener(getActivity(), toTop);
 //        recyclerView.getRecyclerView().addOnScrollListener(scrollListener);
         recyclerView.getRecyclerView().setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeApplication.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
-        recyclerView.setRefreshAction(new OnRefreshListener() {
-            @Override
-            public void onAction() {
-//                scrollListener.setRefresh();
-                OrderStatusFragment.this.fetchDatas();
-            }
-        });
+        adapter.setOnLoadMoreListener(() -> mPresenter.loadMore(CarefreeDaoSession.getInstance().getUserInfo().getUid(), orderState), recyclerView.getRecyclerView());
+        recyclerView.setRefreshAction(OrderStatusFragment.this::fetchDatas);
 //        toTop.setOnClickListener(v -> recyclerView.getRecyclerView().smoothScrollToPosition(0));
     }
 

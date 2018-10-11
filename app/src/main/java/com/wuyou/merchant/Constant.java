@@ -20,7 +20,6 @@ public class Constant {
     public static final String EOSIO_TOKEN_CONTRACT = "eosio.token";
     public static final int TX_EXPIRATION_IN_MILSEC = 30000;
 
-    public static String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static String ONLINE_BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String ABOUT_US_URL = "https://ulaidao.iwantmei.com/apphtml/about-us.html";
     public static final String SP_BASE_URL = "sp_base_url";
@@ -61,6 +60,11 @@ public class Constant {
     public static final String COMPANY_INFO = "company_info";
     public static String IMAGE1_URL_2 = "image1_url_2";
     public static String HELP_SERVE_AGENT_ID = "181385";
+    public static final String IMPORT_ACCOUNT = "import_account";
+    public static final String BACKUP_FROM_CREATE = "back_from_create";
+    public static final int COUNT_DOWN = 119;
+    public static final String CAPTCHA_NEW_ACCOUNT = "new_account";
+    public static int GET_CAPTCHA_FAIL = 600;
 
 
     public static class IntentRequestCode {

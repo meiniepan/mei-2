@@ -1,6 +1,7 @@
 package com.wuyou.merchant;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.gs.buluo.common.utils.SharePreferenceManager;
 import com.wuyou.merchant.bean.DaoMaster;
@@ -8,6 +9,8 @@ import com.wuyou.merchant.bean.DaoSession;
 import com.wuyou.merchant.bean.UserInfo;
 import com.wuyou.merchant.bean.UserInfoDao;
 import com.wuyou.merchant.data.local.db.CarefreeOpenHelper;
+import com.wuyou.merchant.data.local.db.EosAccount;
+import com.wuyou.merchant.data.local.db.EosAccountDao;
 
 import java.util.List;
 
@@ -88,5 +91,63 @@ public class CarefreeDaoSession {
         } else {
             return uid;
         }
+    }
+
+
+    /*    --------------------------------------------------------------------------------------------    */
+    //eos database operate
+
+
+    public EosAccountDao getEosDao() {
+        return daoSession.getEosAccountDao();
+    }
+
+    public void deleteAll() {
+        CarefreeDaoSession.getInstance().getEosDao().deleteAll();
+    }
+
+    public void delete(String accountName) {
+        CarefreeDaoSession.getInstance().getEosDao().deleteByKey(accountName);
+    }
+
+    public List<EosAccount> getAllEosAccount() {
+        return CarefreeDaoSession.getInstance().getEosDao().loadAll();
+    }
+
+    public EosAccount searchName(String nameStarts) {
+        return CarefreeDaoSession.getInstance().getEosDao().queryBuilder().where(EosAccountDao.Properties.Name.like("%" + nameStarts + "%")).build().unique();
+    }
+
+    public EosAccount getMainAccount() {
+        return CarefreeDaoSession.getInstance().getEosDao().queryBuilder().where(EosAccountDao.Properties.Main.like("TRUE")).build().unique();
+    }
+
+    public EosAccount setMainAccount(String account) throws IllegalStateException { //remember to try/catch
+        EosAccount eosAccount = searchName(account);
+        if (eosAccount == null) {
+            Log.e("Carefree", "Account not found in database:" + account);
+            return null;
+        }
+        if (eosAccount.getMain()) {
+            return eosAccount;
+        }
+        EosAccount mainAccount = getMainAccount();
+        mainAccount.setMain(false);
+        getEosDao().update(mainAccount);
+
+        eosAccount.setMain(true);
+        getEosDao().update(eosAccount);
+        return eosAccount;
+    }
+
+    public EosAccount setMainAccount(EosAccount account) {
+        EosAccount mainAccount = getMainAccount();
+        if (mainAccount != null) {
+            mainAccount.setMain(false);
+            getEosDao().update(mainAccount);
+        }
+        account.setMain(true);
+        getEosDao().update(account);
+        return account;
     }
 }

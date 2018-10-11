@@ -18,6 +18,8 @@ import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.UserInfo;
+import com.wuyou.merchant.mvp.account.CreateOrImportAccountActivity;
+import com.wuyou.merchant.mvp.account.ScoreAccountActivity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.UserApis;
 import com.wuyou.merchant.util.CommonUtil;
@@ -74,7 +76,7 @@ public class StoreFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.ll_work_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_information, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting})
+    @OnClick({R.id.ll_work_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting,R.id.ll_vote,R.id.ll_information})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -111,6 +113,15 @@ public class StoreFragment extends BaseFragment {
             case R.id.ll_setting:
                 intent.setClass(getContext(), SettingActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.ll_vote:
+                if (CarefreeDaoSession.getInstance().getMainAccount() == null) {
+                    intent.setClass(mCtx, CreateOrImportAccountActivity.class);
+                    startActivity(intent);
+                } else {
+                    intent.setClass(mCtx, ScoreAccountActivity.class);
+                    startActivity(intent);
+                }
                 break;
         }
     }
