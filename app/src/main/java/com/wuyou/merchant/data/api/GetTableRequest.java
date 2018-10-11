@@ -48,4 +48,10 @@ public class GetTableRequest {
         this.upper_bound = StringUtils.isEmpty( upperBound) ? "" : upperBound;
         this.limit = limit <= 0 ? DEFAULT_FETCH_LIMIT : limit;
     }
+
+    public GetTableRequest(String scope, String code, String table) {
+        this.scope = scope;
+        this.code = code;
+        this.table = table;
+    }
 }

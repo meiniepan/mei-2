@@ -38,6 +38,8 @@ import com.wuyou.merchant.data.abi.EosAbiMain;
 import com.wuyou.merchant.data.api.AccountInfoRequest;
 import com.wuyou.merchant.data.api.EosAccountInfo;
 import com.wuyou.merchant.data.api.EosChainInfo;
+import com.wuyou.merchant.data.api.EosCreateVoteBean;
+import com.wuyou.merchant.data.api.EosVoteBean;
 import com.wuyou.merchant.data.api.GetBalanceRequest;
 import com.wuyou.merchant.data.api.GetCodeRequest;
 import com.wuyou.merchant.data.api.GetCodeResponse;
@@ -45,6 +47,8 @@ import com.wuyou.merchant.data.api.GetRequestForCurrency;
 import com.wuyou.merchant.data.api.GetRequiredKeys;
 import com.wuyou.merchant.data.api.GetTableRequest;
 import com.wuyou.merchant.data.api.JsonToBinRequest;
+import com.wuyou.merchant.data.api.VoteOption;
+import com.wuyou.merchant.data.api.VoteQuestion;
 import com.wuyou.merchant.data.chain.Action;
 import com.wuyou.merchant.data.chain.PackedTransaction;
 import com.wuyou.merchant.data.chain.SignedTransaction;
@@ -58,6 +62,7 @@ import com.wuyou.merchant.data.types.TypeChainId;
 import com.wuyou.merchant.network.ChainRetrofit;
 import com.wuyou.merchant.network.apis.NodeosApi;
 import com.wuyou.merchant.util.CommonUtil;
+import com.wuyou.merchant.util.EosUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,16 +98,19 @@ public class EoscDataManager {
 
     private EosAccount currentOperateAccount;
 
-//    public Observable<JsonObject> transfer(String from, String to, long amount, String memo) {
-//        EosAccount account = CarefreeDaoSession.getInstance().searchName(from);
-//        if (account == null) {
-//            return Observable.error(new ApiException(600, "账户名称错误 或者 钱包中无该账户", "ApiException"));
-//        } else {
-//            currentOperateAccount = account;
-//        }
-//        EosTransfer transfer = new EosTransfer(from, to, amount, memo);
-//        return pushActionRetJson(Constant.EOSIO_TOKEN_CONTRACT, transfer.getActionName(), CommonUtil.prettyPrintJson(transfer), getActivePermission(from)); //transfer.getAsHex()
-//    }
+
+    public Observable<JsonObject> createVote(String title, String logo, String description, String organization, List<VoteQuestion> contents) {
+        currentOperateAccount = CarefreeDaoSession.getInstance().getMainAccount();
+        EosCreateVoteBean activityRewards = new EosCreateVoteBean(currentOperateAccount.getName(), title, logo, description, organization, contents, EosUtil.formatTimePoint(System.currentTimeMillis() + 48 * 3600 * 1000));
+        return pushActionRetJson(Constant.ACTIVITY_CREATE_VOTE, activityRewards.getActionName(), CommonUtil.prettyPrintJson(activityRewards), getActivePermission(currentOperateAccount.getName()));
+    }
+
+    public Observable<JsonObject> doVote(String id , List<VoteOption> option){
+        currentOperateAccount = CarefreeDaoSession.getInstance().getMainAccount();
+        EosVoteBean voteBean = new EosVoteBean(id,currentOperateAccount.getName(),option);
+        return pushActionRetJson(Constant.ACTIVITY_CREATE_VOTE, voteBean.getActionName(), CommonUtil.prettyPrintJson(voteBean), getActivePermission(currentOperateAccount.getName()));
+
+    }
 
     public Observable<EosChainInfo> getChainInfo() {
         return ChainRetrofit.getInstance().createApi(NodeosApi.class).readInfo("get_info");
@@ -111,6 +119,12 @@ public class EoscDataManager {
     public Observable<String> getTable(String accountName, String code, String table, String tableKey, String lowerBound, String upperBound, int limit) {
         return ChainRetrofit.getInstance().createApi(NodeosApi.class).getTable(
                 new GetTableRequest(accountName, code, table, tableKey, lowerBound, upperBound, limit))
+                .map(tableResult -> CommonUtil.prettyPrintJson(tableResult));
+    }
+
+    public Observable<String> getTable(String accountName, String code, String table) {
+        return ChainRetrofit.getInstance().createApi(NodeosApi.class).getTable(
+                new GetTableRequest(accountName, code, table))
                 .map(tableResult -> CommonUtil.prettyPrintJson(tableResult));
     }
 
