@@ -115,7 +115,7 @@
         app:emptyDrawable="@mipmap/status_empty_order"
         app:errorDrawable="@mipmap/net_error">
 
-        <com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView
+        <com.wuyou.merchant.view.widget.CarefreeRecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

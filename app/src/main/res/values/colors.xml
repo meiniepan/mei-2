@@ -6,6 +6,7 @@
 
     <color name="common_dark">#333333</color>
     <color name="common_gray">#666666</color>
+    <color name="shadow_gray">#e5e5e5</color>
     <color name="common_gray_99">#999999</color>
     <color name="gray40">#66000000</color>
     <color name="gray80">#cc000000</color>

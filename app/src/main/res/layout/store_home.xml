@@ -88,8 +88,8 @@
             android:paddingStart="@dimen/common_margin">
 
             <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_liabiao" />
 
@@ -115,8 +115,8 @@
             android:paddingStart="@dimen/common_margin">
 
             <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_lkefu" />
 
@@ -142,8 +142,8 @@
             android:paddingStart="@dimen/common_margin">
 
             <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_qiye" />
 
@@ -168,8 +168,8 @@
             android:paddingStart="@dimen/common_margin">
 
             <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="5dp"
                 android:background="@mipmap/icon_qiye" />
 
@@ -192,22 +192,37 @@
             android:paddingEnd="@dimen/common_margin"
             android:paddingStart="@dimen/common_margin">
 
-            <View
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/icon_qiye" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="创建投票"
+                android:drawableStart="@drawable/ic_create_vote"/>
+
+            <include layout="@layout/layout_next" />
+        </LinearLayout>
+        <include layout="@layout/split_line_margin" />
+        <LinearLayout
+            android:id="@+id/ll_vote_record"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/common_margin"
+            android:paddingStart="@dimen/common_margin">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="创建投票" />
+                android:drawableStart="@drawable/ic_create_vote"
+                android:text="我创建的投票"
+                android:gravity="center_vertical"
+                android:drawablePadding="2dp"/>
 
             <include layout="@layout/layout_next" />
         </LinearLayout>
-        <include layout="@layout/split_line_margin" />
-
         <LinearLayout
             android:id="@+id/ll_intro"
             android:layout_width="match_parent"

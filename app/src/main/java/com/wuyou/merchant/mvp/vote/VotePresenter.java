@@ -5,21 +5,25 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.ErrorBody;
-import com.wuyou.merchant.CarefreeDaoSession;
+import com.gs.buluo.common.utils.ToastUtils;
+import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.data.EoscDataManager;
-import com.wuyou.merchant.data.api.OptionContent;
+import com.wuyou.merchant.data.api.VoteOptionContent;
 import com.wuyou.merchant.data.api.VoteOption;
 import com.wuyou.merchant.data.api.VoteQuestion;
 import com.wuyou.merchant.util.RxUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import io.ipfs.api.IPFS;
 import io.ipfs.api.MerkleNode;
 import io.ipfs.api.NamedStreamable;
+import io.ipfs.multiaddr.MultiAddress;
+import io.ipfs.multihash.Multihash;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -72,35 +76,30 @@ public class VotePresenter {
                 });
     }
 
-    public void uploadFileToIpfs(File des) throws IOException {
-        Observable.create(new ObservableOnSubscribe<String>() {
+    public void getFile(){
+        Observable.create(new ObservableOnSubscribe<byte[]>() {
             @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
+            public void subscribe(ObservableEmitter<byte[]> e) throws Exception {
                 IPFS ipfs = new IPFS(Constant.IPFS_URL);
-                ipfs.refs.local();
+                Multihash filePointer = Multihash.fromBase58("");
+                byte[] fileContents = ipfs.cat(filePointer);
 
-                NamedStreamable.FileWrapper file = new NamedStreamable.FileWrapper(des);
-                MerkleNode addResult = ipfs.add(file).get(0);
-
-
-                e.onNext(addResult.hash.toBase58());
             }
         }).compose(RxUtil.switchSchedulers())
-                .subscribe(new BaseSubscriber<String>() {
+                .subscribe(new BaseSubscriber<byte[]>() {
                     @Override
-                    public void onSuccess(String s) {
-                        Log.e("Carefree", "onSuccess: " + s);//QmWuW8X5KVTKjg7LHGVqLCJGS3VHquxNc9QAAqBaPxST6x
-
+                    public void onSuccess(byte[] bytes) {
 
                     }
                 });
+
     }
 
 
     public void createVote(String logo) {
-        ArrayList<OptionContent> optionContents = new ArrayList<>();
-        OptionContent content = new OptionContent("yes");
-        OptionContent content1 = new OptionContent("what");
+        ArrayList<VoteOptionContent> optionContents = new ArrayList<>();
+        VoteOptionContent content = new VoteOptionContent("yes");
+        VoteOptionContent content1 = new VoteOptionContent("what");
 
         ArrayList<VoteQuestion> contents = new ArrayList<>();
         VoteQuestion question = new VoteQuestion();
@@ -112,18 +111,36 @@ public class VotePresenter {
         VoteQuestion question1 = new VoteQuestion();
         question1.question = "你是 zz 么";
         question1.option = optionContents;
+        question1.single = 1;
 
 
         VoteQuestion question2 = new VoteQuestion();
         question2.question = "hello merchant?";
         question2.option = optionContents;
+        question2.single = 0;
 
+        ArrayList<VoteOptionContent> optionContents1 = new ArrayList<>();
+        VoteOptionContent content11 = new VoteOptionContent("yes");
+        VoteOptionContent content22 = new VoteOptionContent("what");
+        VoteOptionContent content33 = new VoteOptionContent("nono");
+        VoteOptionContent content44 = new VoteOptionContent("I don't know");
+        VoteOptionContent content55 = new VoteOptionContent("what the f**k");
+        optionContents1.add(content11);
+        optionContents1.add(content22);
+        optionContents1.add(content33);
+        optionContents1.add(content44);
+        optionContents1.add(content55);
+        VoteQuestion question3 = new VoteQuestion();
+        question3.question = "hello ,how are u?";
+        question3.option = optionContents1;
+        question3.single = 1;
+
+        contents.add(question);
         contents.add(question1);
-//        contents.add(question1);
-//        contents.add(question2);
-//        contents.add(question);
+        contents.add(question2);
+        contents.add(question3);
 
-        EoscDataManager.getIns().createVote("merchant 问卷test", "QmWuW8X5KVTKjg7LHGVqLCJGS3VHquxNc9QAAqBaPxST6x", "desc", "org", contents)
+        EoscDataManager.getIns().createVote("merchant 问卷test8888", "QmefdCKsLhfdSLxEH9k8ediJ3pRtBsq788rhAuh63UX9xr", "desc11111", "org", contents)
                 .compose(RxUtil.switchSchedulers())
                 .subscribe(new BaseSubscriber<JsonObject>() {
                     @Override
@@ -134,61 +151,11 @@ public class VotePresenter {
                     @Override
                     protected void onNodeFail(int code, ErrorBody.DetailErrorBean message) {
                         if (message.message.contains("same title vote existed")) {
-//                            ToastUtils.ToastMessage(getContext(), "投票标题不能重复");
+                            ToastUtils.ToastMessage(CarefreeApplication.getInstance().getApplicationContext(), "投票标题不能重复");
                         } else {
-//                            ToastUtils.ToastMessage(getContext(), message.message);
+                            ToastUtils.ToastMessage(CarefreeApplication.getInstance().getApplicationContext(), message.message);
                         }
                     }
                 });
     }
-
-//    private void chosePhoto() {
-//        PictureSelector.create()
-//                .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-//                .maxSelectNum(1)// 最大图片选择数量 int
-//                .imageSpanCount(4)// 每行显示个数 int
-//                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-//                .isCamera(true)// 是否显示拍照按钮 true or false
-//                .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-//                .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
-//                .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
-//                .enableCrop(true)// 是否裁剪 true or false
-//                .compress(true)// 是否压缩 true or false
-//                .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-//                .compressSavePath(CarefreeApplication.getInstance().getApplicationContext().getFilesDir().getAbsolutePath())//压缩图片保存地址
-//                .freeStyleCropEnabled(false)// 裁剪框是否可拖拽 true or false
-//                .openClickSound(false)// 是否开启点击声音 true or false
-//                .cropCompressQuality(50)// 裁剪压缩质量 默认90 int
-//                .minimumCompressSize(50)// 小于100kb的图片不压缩
-//                .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
-//                .isDragFrame(false)// 是否可拖动裁剪框(固定)
-//                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-//    }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK) {
-//            if (requestCode == PictureConfig.CHOOSE_REQUEST) {
-//                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-//                String path = "";
-//                if (selectList != null && selectList.size() > 0) {
-//                    LocalMedia localMedia = selectList.get(0);
-//                    if (localMedia.isCompressed()) {
-//                        path = localMedia.getCompressPath();
-//                    } else if (localMedia.isCut()) {
-//                        path = localMedia.getCutPath();
-//                    } else {
-//                        path = localMedia.getPath();
-//                    }
-//                }
-//                try {
-//                    uploadFileToIpfs(new File(path));
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }
-//    }
 }

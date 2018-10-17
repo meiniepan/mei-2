@@ -101,7 +101,8 @@ public class EoscDataManager {
 
     public Observable<JsonObject> createVote(String title, String logo, String description, String organization, List<VoteQuestion> contents) {
         currentOperateAccount = CarefreeDaoSession.getInstance().getMainAccount();
-        EosCreateVoteBean activityRewards = new EosCreateVoteBean(currentOperateAccount.getName(), title, logo, description, organization, contents, EosUtil.formatTimePoint(System.currentTimeMillis() + 48 * 3600 * 1000));
+        long time = 480 * 3600 * 1000;
+        EosCreateVoteBean activityRewards = new EosCreateVoteBean(currentOperateAccount.getName(), title, logo, description, organization, contents, EosUtil.formatTimePoint(System.currentTimeMillis() + time));
         return pushActionRetJson(Constant.ACTIVITY_CREATE_VOTE, activityRewards.getActionName(), CommonUtil.prettyPrintJson(activityRewards), getActivePermission(currentOperateAccount.getName()));
     }
 

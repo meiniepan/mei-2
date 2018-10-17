@@ -5,14 +5,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.gs.buluo.common.widget.StatusLayout;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
+import com.gs.buluo.common.widget.recyclerHelper.OnRefreshListener;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.RepayRecordListRvAdapter;
 import com.wuyou.merchant.bean.entity.RepayRecordEntity;
 import com.wuyou.merchant.bean.entity.ResponseListEntity;
 import com.wuyou.merchant.view.activity.BaseActivity;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
-import com.wuyou.merchant.view.widget.recyclerHelper.NewRefreshRecyclerView;
-import com.wuyou.merchant.view.widget.recyclerHelper.OnRefreshListener;
+import com.wuyou.merchant.view.widget.CarefreeRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,9 @@ import butterknife.BindView;
  * Created by Solang on 2018/3/21.
  */
 
-public class RepayRecordActivity extends BaseActivity<WalletContract.View,WalletContract.Presenter> implements WalletContract.View{
+public class RepayRecordActivity extends BaseActivity<WalletContract.View, WalletContract.Presenter> implements WalletContract.View {
     @BindView(R.id.rv_list)
-    NewRefreshRecyclerView recyclerView;
+    CarefreeRecyclerView recyclerView;
     @BindView(R.id.sl_list_layout)
     StatusLayout statusLayout;
     List<RepayRecordEntity> data = new ArrayList();

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.support.annotation.Nullable;
 
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
+import com.gs.buluo.common.widget.recyclerHelper.BaseHolder;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.List;
 

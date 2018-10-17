@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.ContractMerchantEntity;
 import com.wuyou.merchant.util.glide.GlideUtils;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
+import com.gs.buluo.common.widget.recyclerHelper.BaseHolder;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.List;
 

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tool="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:background="@color/white">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/common_gray"
+                android:text="投票标题:"/>
+
+            <EditText
+
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:maxLength="50"
+                android:hint="请输入投票标题"
+                tool:text="数据库垃圾的喀什假大空垃圾打开了设计的撒旦卡" />
+        </LinearLayout>
+        <include layout="@layout/split_line_margin"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/common_gray"
+                android:text="投票说明:"/>
+
+            <EditText
+                android:id="@+id/create_vote_intro"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:maxLength="100"
+                android:hint="请输入投票描述，100字以内"
+                tool:text="数据库垃圾的喀什假大空垃圾sdasdasdadasdasdasdadsad打开了设计的撒旦卡" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingTop="15dp"
+            android:background="@color/white"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/common_gray"
+                android:text="投票图片:"/>
+
+            <ImageView
+                android:id="@+id/create_vote_picture"
+                android:layout_width="120dp"
+                android:layout_height="80dp"
+                android:src="@mipmap/add_pic"
+                android:layout_marginStart="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="建议尺寸: 750(w)*350(h)"
+                android:layout_marginStart="6dp"
+                android:textColor="@color/common_gray"
+                android:textSize="@dimen/dimens_10sp"/>
+        </LinearLayout>
+
+        <include layout="@layout/split_line_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/common_gray"
+                android:text="投票机构:"/>
+
+            <EditText
+                android:id="@+id/create_vote_org"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:maxLines="2"
+                android:hint="请输入投票发起机构，20字以内"
+                android:maxLength="20"
+                tool:text="数据库垃圾的喀什假大空垃圾打开了设计的撒旦卡" />
+        </LinearLayout>
+        <include layout="@layout/split_line_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/common_gray"
+                android:text="结束时间:"/>
+
+            <TextView
+                android:id="@+id/create_vote_calendar"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/shadow_border"
+                android:paddingEnd="6dp"
+                android:textSize="@dimen/dimens_12sp"
+                android:drawableEnd="@drawable/ic_create_vote_calendar"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/create_vote_question_group"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:id="@+id/create_vote_add_single_question"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="新增单选"
+                android:gravity="center"
+                android:textColor="@color/main_blue"
+                android:background="@drawable/blue_border"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/create_vote_add_multi_question"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="新增多选"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/blue_radius_button"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin">
+            <TextView
+                android:id="@+id/create_vote_preview"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:text="预览"
+                android:gravity="center"
+                android:textColor="@color/main_blue"
+                android:background="@drawable/blue_border"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/create_vote_release"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:text="发布"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/blue_radius_button"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

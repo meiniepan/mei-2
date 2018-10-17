@@ -28,8 +28,8 @@ import com.wuyou.merchant.mvp.wallet.TradeDetailActivity;
 import com.wuyou.merchant.network.CarefreeRetrofit;
 import com.wuyou.merchant.network.apis.WalletApis;
 import com.wuyou.merchant.view.widget.MyRefreshRecyclerView;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseHolder;
-import com.wuyou.merchant.view.widget.recyclerHelper.BaseQuickAdapter;
+import com.gs.buluo.common.widget.recyclerHelper.BaseHolder;
+import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 
 import java.util.List;
 

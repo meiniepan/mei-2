@@ -10,11 +10,11 @@ public class Constant {
     //切环境时候注意融云ID变更
 //    public static String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //        public static  String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-    public static String CHAIN_URL = " http://192.168.1.186:8888/";
+    public static String CHAIN_URL = " http://mainnet.eosoasis.io:8888/";
     public static String IPFS_URL = "192.168.1.184:5001";
     public static String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
 
-    public static final String ACTIVITY_CREATE_VOTE = "votevotevote";
+    public static final String ACTIVITY_CREATE_VOTE = "votevotevot1";
     public static final String EOSIO_SYSTEM_ACCOUNT = "signupcoming";
     public static final String EOSIO_DAILAY_REWARDS = "dailyrewards";
     public static final String ACTIVITY_DAILAY_REWARDS = "activity1111";

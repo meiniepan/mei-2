@@ -231,6 +231,10 @@ public class CommonUtil {
         return new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL, DensityUtils.dip2px(context, 0.5f), context.getResources().getColor(R.color.divide_gray));
     }
 
+    public static RecycleViewDivider getRecyclerDivider(Context context,int dp) {
+        return new RecycleViewDivider(context, LinearLayoutManager.HORIZONTAL, DensityUtils.dip2px(context, dp), context.getResources().getColor(R.color.divide_gray));
+    }
+
     public static boolean checkPhone(String area, String phone, Context context) {
         if (TextUtils.isEmpty(phone)) {
             ToastUtils.ToastMessage(context, "手机号不能为�?!");

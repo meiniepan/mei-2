@@ -23,6 +23,8 @@ public class EosCreateVoteBean {
     private List<VoteQuestion> contents;
     @Expose
     private String end_time;
+    @Expose
+    private String location="location";
 
 
     public EosCreateVoteBean(String creator, String title, String logo, String description, String organization, List<VoteQuestion> contents, String endTime) {

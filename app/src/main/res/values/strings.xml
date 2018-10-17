@@ -128,4 +128,7 @@
     <string name="account">账户</string>
     <string name="transfer_content">交易内容</string>
     <string name="save_success">保存成功</string>
+    <string name="vote_statistic">投票统计</string>
+    <string name="edit">编辑</string>
+    <string name="create_vote">创建投票</string>
 </resources>
