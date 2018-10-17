@@ -7,6 +7,8 @@ import android.os.Environment;
  */
 
 public class Constant {
+    public static final String VOTE_ROW_BEAN = "vote_row_bean";
+    public static final String HAS_VOTE = "has_vote";
     //切环境时候注意融云ID变更
 //    public static String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
 //        public static  String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";

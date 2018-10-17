@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,18 +20,56 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+        Date date = new Date(0);
+        System.out.println(date.toString());
     }
+
     @Test
     public void aa() throws Exception {
         assertEquals(4, 2 + 2);
-        int A[] = { 3,2,1,4};  // 针对计数排序设计的输入，每一个元素都在[0,100]上且有重复元素
-        int n = A.length;
-        CommonUtil.CountingSort(A, n);
-        System.out.println("计数排序结果：");
-        for (int i = 0; i < n; i++)
-        {
-            System.out.println(A[i] + "");
+        String aa = Integer.toBinaryString(162);
+        StringBuilder result = new StringBuilder();
+        for (int j = 0; j < 8 - aa.length(); j++) {
+            result.append("0");
         }
+        result.append(aa);
+        System.out.println(result);
+//        int[] aaa = {1};
+//        if(aaa.length==1&&"1".equals(result.charAt(0))){
+//            return false;
+//        }
+//        System.out.println("ddd"+"1".equals("123".substring(0,1)));
+
+//        int[] data = {235,140,4};
+//        int boo = 0;
+//        int bytes = 0;
+//        for (int i = 0; i < data.length; i++) {
+//            String aa = Integer.toBinaryString(data[i]);
+//            StringBuilder result = new StringBuilder();
+//            for (int j = 0; j < 8 - aa.length(); j++) {
+//                result.append("0");
+//            }
+//            result.append(aa);
+//
+//            if (i == 0) {
+//                if(data.length==1&&"1".equals(result.substring(0,1))){
+//                    boo = 1;
+//                }
+//                if ("0".equals(result.substring(0,1))) {
+//                    boo = 2;
+//                } else {
+//                    bytes = result.indexOf("0")-1;
+//                }
+//            } else if (i < bytes) {
+//                if (!("1".equals(result.substring(0,1)) && "0".equals(result.substring(1,2)))) {
+//                    boo = 1;
+//                }
+//            }
+//        }
+//        boo = 2;
+//        System.out.println(boo);
+
     }
+
 }
 

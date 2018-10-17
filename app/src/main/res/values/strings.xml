@@ -131,4 +131,5 @@
     <string name="vote_statistic">投票统计</string>
     <string name="edit">编辑</string>
     <string name="create_vote">创建投票</string>
+    <string name="vote_detail">投票详情</string>
 </resources>
