@@ -1,8 +1,11 @@
 package com.wuyou.merchant.adapter;
 
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.data.api.VoteOptionContent;
 import com.wuyou.merchant.mvp.vote.DoChooseListener;
+
 
 import java.util.List;
 
@@ -51,9 +55,10 @@ public class VoteQuestionOptAdapter extends BaseQuickAdapter<VoteOptionContent, 
             linearLayout.setVisibility(View.GONE);
             checkBox.setChecked(data.isChecked);
             checkBox.setOnClickListener(v -> {
-                data.isChecked = true;
+                data.isChecked = !data.isChecked;
                 chooseListener.doChoose(data, isSingle, getData(), this);
             });
+
         }
 
 

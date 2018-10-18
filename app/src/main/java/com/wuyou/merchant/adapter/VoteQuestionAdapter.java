@@ -11,6 +11,7 @@ import com.wuyou.merchant.data.api.VoteOptionContent;
 import com.wuyou.merchant.data.api.VoteQuestion;
 import com.wuyou.merchant.mvp.vote.DoChooseListener;
 
+
 import java.util.List;
 
 /**
@@ -44,23 +45,26 @@ public class VoteQuestionAdapter extends BaseQuickAdapter<VoteQuestion, BaseHold
 
     private void initRv(BaseHolder holder, VoteQuestion data) {
         RecyclerView recyclerView = holder.getView(R.id.rv_vote_detail_opt);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        adapter = new VoteQuestionOptAdapter(R.layout.item_vote_detail_question_opt, data.option, this,isSingle,hasVote,voteSum);
-        recyclerView.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter = new VoteQuestionOptAdapter(R.layout.item_vote_detail_question_opt, data.option, this, isSingle, hasVote, voteSum);
+        if (recyclerView.getAdapter() == null)
+            recyclerView.setAdapter(adapter);
 
     }
 
     @Override
     public void doChoose(VoteOptionContent data, boolean isSingle, List<VoteOptionContent> voteOptionContents, VoteQuestionOptAdapter adapter) {
         if (isSingle) {
-
+            data.isChecked = true;
             for (VoteOptionContent e : voteOptionContents
                     ) {
                 if (data.id != e.id) {
                     e.isChecked = false;
                 }
             }
-            adapter.notifyDataSetChanged();
+            notifyDataSetChanged();
+//            adapter.notifyDataSetChanged();
         }
     }
 }
