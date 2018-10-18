@@ -132,4 +132,6 @@
     <string name="edit">编辑</string>
     <string name="create_vote">创建投票</string>
     <string name="vote_detail">投票详情</string>
+    <string name="release">发布</string>
+    <string name="create_vote_success">创建投票成功</string>
 </resources>

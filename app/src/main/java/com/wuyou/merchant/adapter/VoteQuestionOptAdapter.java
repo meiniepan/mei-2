@@ -44,8 +44,8 @@ public class VoteQuestionOptAdapter extends BaseQuickAdapter<VoteOptionContent, 
         if (hasVote) {
             checkBox.setVisibility(View.GONE);
             linearLayout.setVisibility(View.VISIBLE);
-            progressBar.setProgress(data.number * 100 / voteSum);
-            tvScale.setText((data.number * 100 / voteSum) + "%");
+            progressBar.setProgress(voteSum == 0 ? 0 : data.number * 100 / voteSum);
+            tvScale.setText(((voteSum == 0) ? 0 : ((data.number * 100) / voteSum)) + "%");
         } else {
             checkBox.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.GONE);

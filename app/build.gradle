@@ -90,4 +90,5 @@ dependencies {
     implementation files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.20.jar')
 
     implementation 'com.github.ipfs:java-ipfs-api:v1.2.2'
+    compile project(path: ':wheel')
 }

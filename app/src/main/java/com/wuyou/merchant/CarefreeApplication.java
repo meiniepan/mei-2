@@ -60,6 +60,10 @@ public class CarefreeApplication extends BaseApplication {
     private void initUrl() {
         String baseUrl = SharePreferenceManager.getInstance(this).getStringValue(Constant.SP_BASE_URL);
         if (!TextUtils.isEmpty(baseUrl)) Constant.BASE_URL = baseUrl;
+        String chainUrl = SharePreferenceManager.getInstance(this).getStringValue(Constant.SP_CHAIN_URL);
+        if (!TextUtils.isEmpty(chainUrl)) Constant.CHAIN_URL = chainUrl;
+        String ipfs = SharePreferenceManager.getInstance(this).getStringValue(Constant.SP_IPFS_URL);
+        if (!TextUtils.isEmpty(ipfs))Constant.IPFS_URL = ipfs;
         if (TextUtils.equals(baseUrl, Constant.ONLINE_BASE_URL)) {
             TCAgent.setReportUncaughtExceptions(true);
         } else {

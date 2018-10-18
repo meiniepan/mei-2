@@ -121,9 +121,8 @@ public class StoreFragment extends BaseFragment {
             case R.id.ll_mark:
                 break;
             case R.id.ll_setting:
-//                intent.setClass(getContext(), SettingActivity.class);
-//                startActivity(intent);
-                chosePhoto();
+                intent.setClass(getContext(), SettingActivity.class);
+                startActivity(intent);
                 break;
             case R.id.ll_account:
                 if (CarefreeDaoSession.getInstance().getMainAccount() == null) {
@@ -144,87 +143,5 @@ public class StoreFragment extends BaseFragment {
                 break;
         }
 
-    }
-
-    private void voteTest() {
-        VotePresenter presenter = new VotePresenter();
-        presenter.createVote(path);
-//        presenter.doVote();
-//        chosePhoto();
-    }
-
-
-    private void chosePhoto() {
-        PictureSelector.create(this)
-                .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
-                .maxSelectNum(1)// 最大图片选择数量 int
-                .imageSpanCount(4)// 每行显示个数 int
-                .selectionMode(PictureConfig.SINGLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
-                .isCamera(true)// 是否显示拍照按钮 true or false
-                .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
-                .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
-                .setOutputCameraPath("/CustomPath")// 自定义拍照保存路径,可不填
-                .enableCrop(true)// 是否裁剪 true or false
-                .compress(true)// 是否压缩 true or false
-                .withAspectRatio(1, 1)// int 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-                .compressSavePath(CarefreeApplication.getInstance().getApplicationContext().getFilesDir().getAbsolutePath())//压缩图片保存地址
-                .freeStyleCropEnabled(false)// 裁剪框是否可拖拽 true or false
-                .openClickSound(false)// 是否开启点击声音 true or false
-                .cropCompressQuality(50)// 裁剪压缩质量 默认90 int
-                .minimumCompressSize(50)// 小于100kb的图片不压缩
-                .scaleEnabled(true)// 裁剪是否可放大缩小图片 true or false
-                .isDragFrame(false)// 是否可拖动裁剪框(固定)
-                .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == PictureConfig.CHOOSE_REQUEST) {
-                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
-                String path = "";
-                if (selectList != null && selectList.size() > 0) {
-                    LocalMedia localMedia = selectList.get(0);
-                    if (localMedia.isCompressed()) {
-                        path = localMedia.getCompressPath();
-                    } else if (localMedia.isCut()) {
-                        path = localMedia.getCutPath();
-                    } else {
-                        path = localMedia.getPath();
-                    }
-                }
-                try {
-                    uploadFileToIpfs(new File(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }
-    }
-
-    public void uploadFileToIpfs(File des) throws IOException {
-        Observable.create(new ObservableOnSubscribe<String>() {
-            @Override
-            public void subscribe(ObservableEmitter<String> e) throws Exception {
-                IPFS ipfs = new IPFS(Constant.IPFS_URL, 9877);
-                ipfs.refs.local();
-
-                NamedStreamable.FileWrapper file = new NamedStreamable.FileWrapper(des);
-                MerkleNode addResult = ipfs.add(file).get(0);
-
-                e.onNext(addResult.hash.toBase58());
-            }
-        }).compose(RxUtil.switchSchedulers())
-                .subscribe(new BaseSubscriber<String>() {
-
-                    @Override
-                    public void onSuccess(String s) {
-                        Log.e("Carefree", "onSuccess: " + s);//QmWuW8X5KVTKjg7LHGVqLCJGS3VHquxNc9QAAqBaPxST6x
-                        path = s;
-                        //QmVpuR29HsjwwBpTF8Wsnr7ChzUEUXowC95ZCf4iZbBmgu
-                    }
-                });
     }
 }

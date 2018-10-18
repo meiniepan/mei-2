@@ -140,7 +140,7 @@ public class VotePresenter {
         contents.add(question2);
         contents.add(question3);
 
-        EoscDataManager.getIns().createVote("merchant 问卷test8888", "QmefdCKsLhfdSLxEH9k8ediJ3pRtBsq788rhAuh63UX9xr", "desc11111", "org", contents)
+        EoscDataManager.getIns().createVote("merchant 问卷test8888", "QmefdCKsLhfdSLxEH9k8ediJ3pRtBsq788rhAuh63UX9xr", "desc11111", "org","",contents)
                 .compose(RxUtil.switchSchedulers())
                 .subscribe(new BaseSubscriber<JsonObject>() {
                     @Override

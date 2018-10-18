@@ -9,13 +9,28 @@ import android.os.Environment;
 public class Constant {
     public static final String VOTE_ROW_BEAN = "vote_row_bean";
     public static final String HAS_VOTE = "has_vote";
+    public static final String SP_IPFS_URL = "sp_ipfs_url";
     //切环境时候注意融云ID变更
-//    public static String BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
-//        public static  String BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-    public static String CHAIN_URL = " http://mainnet.eosoasis.io:8888/";
-    public static String IPFS_URL = "192.168.1.184:5001";
+//    public static String CHAIN_URL = "http://mainnet.eosoasis.io:8889/";
+    public static String CHAIN_URL = "http://mainnet.eosoasis.io:8889/";
+    public static String IPFS_URL = "mainnet.eosoasis.io";
+    public static String HTTP_IPFS_URL = "http://"+IPFS_URL+":5001/api/v0/cat?arg=";
     public static String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
 
+    public static String DEV_BASE_URL = "https://develop.iwantmei.com/merchants/v1/";
+    public static String STAGE_BASE_URL = "https://stage.iwantmei.com/merchants/v1/";
+    public static String ONLINE_BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+
+    public static String DEV_CHAIN_URL = "http://192.168.1.186:8888/";
+    public static String STAGE_CHAIN_URL = "http://192.168.1.186:8888/";
+    public static String ONLINE_CHAIN_URL = "http://mainnet.eosoasis.io:8889/";
+
+    public static String DEV_IPFS_URL = "192.168.1.186";
+    public static String STAGE_IPFS_URL = "192.168.1.186";
+    public static String ONLINE_IPFS_URL = "mainnet.eosoasis.io";
+
+
+    public static final String SP_CHAIN_URL = "sp_chain_url";
     public static final String ACTIVITY_CREATE_VOTE = "votevotevot1";
     public static final String EOSIO_SYSTEM_ACCOUNT = "signupcoming";
     public static final String EOSIO_DAILAY_REWARDS = "dailyrewards";
@@ -23,7 +38,6 @@ public class Constant {
     public static final String EOSIO_TOKEN_CONTRACT = "eosio.token";
     public static final int TX_EXPIRATION_IN_MILSEC = 30000;
 
-    public static String ONLINE_BASE_URL = "https://api.iwantmei.com/merchants/v1/";
     public static final String ABOUT_US_URL = "https://ulaidao.iwantmei.com/apphtml/about-us.html";
     public static final String SP_BASE_URL = "sp_base_url";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";

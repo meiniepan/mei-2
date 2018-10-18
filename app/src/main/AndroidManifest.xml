@@ -184,6 +184,7 @@
         <activity android:name=".mvp.vote.MyVoteListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".mvp.vote.VoteCreateActivity" />
+        <activity android:name=".mvp.vote.VoteDetailActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

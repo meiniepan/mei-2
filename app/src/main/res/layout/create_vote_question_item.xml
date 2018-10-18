@@ -16,14 +16,14 @@
         android:paddingTop="15dp">
 
         <TextView
-            android:id="@+id/create_vote_question_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="问题:"
             android:textColor="@color/common_gray" />
 
         <EditText
-            android:layout_width="200dp"
+            android:id="@+id/create_vote_question_item_title"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:background="@null"
@@ -36,7 +36,6 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@mipmap/close_blue" />
-
-        <include layout="@layout/split_line_margin" />
     </LinearLayout>
+    <include layout="@layout/split_line_margin" />
 </LinearLayout>

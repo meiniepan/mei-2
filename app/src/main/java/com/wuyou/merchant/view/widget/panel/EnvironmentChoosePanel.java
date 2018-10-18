@@ -9,15 +9,10 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.gs.buluo.common.network.TokenEvent;
-import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.SharePreferenceManager;
-import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.view.widget.CustomNestRadioGroup;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 
@@ -53,15 +48,23 @@ public class EnvironmentChoosePanel extends Dialog {
     public void setEnv(int env) {
         switch (env) {
             case R.id.env_dev:
-                Constant.BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
+                Constant.BASE_URL = Constant.DEV_BASE_URL;
+                Constant.CHAIN_URL = Constant.DEV_CHAIN_URL;
+                Constant.IPFS_URL = Constant.DEV_IPFS_URL;
                 break;
             case R.id.env_test:
-                Constant.BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
+                Constant.BASE_URL = Constant.STAGE_BASE_URL;
+                Constant.CHAIN_URL = Constant.STAGE_CHAIN_URL;
+                Constant.IPFS_URL = Constant.STAGE_IPFS_URL;
                 break;
             case R.id.env_online:
-                Constant.BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+                Constant.BASE_URL = Constant.ONLINE_BASE_URL;
+                Constant.CHAIN_URL = Constant.ONLINE_CHAIN_URL;
+                Constant.IPFS_URL = Constant.ONLINE_IPFS_URL;
                 break;
         }
         SharePreferenceManager.getInstance(getContext()).setValue(Constant.SP_BASE_URL, Constant.BASE_URL);
+        SharePreferenceManager.getInstance(getContext()).setValue(Constant.SP_CHAIN_URL, Constant.CHAIN_URL);
+        SharePreferenceManager.getInstance(getContext()).setValue(Constant.SP_IPFS_URL, Constant.IPFS_URL);
     }
 }

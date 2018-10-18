@@ -128,11 +128,35 @@
                     android:text="发起" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_vote_detail_confirm"
-                style="@style/button_style"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:orientation="horizontal"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:id="@+id/vote_detail_back"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/blue_border"
+                    android:gravity="center"
+                    android:text="返回"
+                    android:textColor="@color/main_blue"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/tv_vote_detail_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/login_selector"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:text="发布"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

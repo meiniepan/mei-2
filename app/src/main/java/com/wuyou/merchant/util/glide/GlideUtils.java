@@ -55,7 +55,7 @@ public class GlideUtils {
         RequestOptions options = new RequestOptions();
         GlideRoundTransform transformation = new GlideRoundTransform(context, dp, GlideRoundTransform.CornerType.ALL);
         options.optionalTransform(transformation);
-        Glide.with(context).load(url).apply(options).into(imageView);
+        Glide.with(context).load(url).apply(RequestOptions.placeholderOf(R.mipmap.default_pic)).apply(options).into(imageView);
         return transformation.getBitmap();
     }
 
@@ -63,7 +63,7 @@ public class GlideUtils {
         if (url == null) return;
         RequestOptions options = new RequestOptions();
         options.optionalTransform(new GlideRoundTransform(context, 4, GlideRoundTransform.CornerType.ALL));
-        Glide.with(context).load(url).apply(options).into(imageView);
+        Glide.with(context).load(url).apply(options).apply(RequestOptions.placeholderOf(R.mipmap.default_pic)).into(imageView);
     }
 
     public static byte[] loadRoundCornerImageWithBitmap(Context context, String url, ImageView imageView) {
