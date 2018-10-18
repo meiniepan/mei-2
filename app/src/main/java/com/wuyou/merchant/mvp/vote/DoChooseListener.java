@@ -1,7 +1,6 @@
 package com.wuyou.merchant.mvp.vote;
 
 
-import com.wuyou.merchant.adapter.VoteQuestionOptAdapter;
 import com.wuyou.merchant.data.api.VoteOptionContent;
 
 import java.util.List;
@@ -11,5 +10,5 @@ import java.util.List;
  */
 
 public interface DoChooseListener {
-    void doChoose(VoteOptionContent data, boolean isSingle, List<VoteOptionContent> voteOptionContents, VoteQuestionOptAdapter voteQuestionOptAdapter);
+    void doChoose(VoteOptionContent data, boolean isSingle, List<VoteOptionContent> voteOptionContents);
 }

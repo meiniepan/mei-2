@@ -54,7 +54,7 @@ public class VoteQuestionAdapter extends BaseQuickAdapter<VoteQuestion, BaseHold
     }
 
     @Override
-    public void doChoose(VoteOptionContent data, boolean isSingle, List<VoteOptionContent> voteOptionContents, VoteQuestionOptAdapter adapter) {
+    public void doChoose(VoteOptionContent data, boolean isSingle, List<VoteOptionContent> voteOptionContents) {
         if (isSingle) {
             data.isChecked = true;
             for (VoteOptionContent e : voteOptionContents
@@ -64,7 +64,6 @@ public class VoteQuestionAdapter extends BaseQuickAdapter<VoteQuestion, BaseHold
                 }
             }
             notifyDataSetChanged();
-//            adapter.notifyDataSetChanged();
         }
     }
 }

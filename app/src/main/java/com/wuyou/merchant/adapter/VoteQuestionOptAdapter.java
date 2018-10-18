@@ -56,7 +56,7 @@ public class VoteQuestionOptAdapter extends BaseQuickAdapter<VoteOptionContent, 
             checkBox.setChecked(data.isChecked);
             checkBox.setOnClickListener(v -> {
                 data.isChecked = !data.isChecked;
-                chooseListener.doChoose(data, isSingle, getData(), this);
+                chooseListener.doChoose(data, isSingle, getData());
             });
 
         }
