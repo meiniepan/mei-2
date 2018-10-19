@@ -14,17 +14,18 @@ import android.view.ViewStub;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
 import com.gs.buluo.common.utils.AppManager;
 import com.gs.buluo.common.utils.SystemBarTintManager;
 import com.gs.buluo.common.widget.LoadingDialog;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.tendcloud.tenddata.TCAgent;
-import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.BasePresenter;
 import com.wuyou.merchant.mvp.IBaseView;
 import com.wuyou.merchant.mvp.login.LoginActivity;
+
 import butterknife.ButterKnife;
 
 
@@ -54,6 +55,7 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
         bindView(savedInstanceState);
         initSystemBar(this);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -65,6 +67,7 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
         super.onPause();
         TCAgent.onPageEnd(this, getLocalClassName());
     }
+
     private void initContentView(int layout_base_activity) {
         setContentView(layout_base_activity);
         findViewById(R.id.back_base).setOnClickListener(v -> onBackPressed());
@@ -81,6 +84,7 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
         findViewById(R.id.id_title).setVisibility(View.VISIBLE);
         ((TextView) findViewById(R.id.tv_title)).setText(title);
     }
+
     protected void setTitleIcon(int resId, View.OnClickListener listener) {
         findViewById(R.id.iv_title_icon).setVisibility(View.VISIBLE);
         findViewById(R.id.iv_title_icon).setBackgroundResource(resId);
@@ -116,8 +120,9 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
         viewStub.setLayoutResource(getContentLayout());
         mRoot = viewStub.inflate();
         View back = mRoot.findViewById(R.id.back);
-        if (back != null)
+        if (back != null) {
             back.setOnClickListener(v -> onBackPressed());
+        }
         ButterKnife.bind(this);
     }
 
@@ -237,6 +242,7 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
     public int getToolBarId() {
         return 0;
     }
+
     protected void disableFitSystemWindow() {
         findViewById(R.id.base_root).setFitsSystemWindows(false);
     }

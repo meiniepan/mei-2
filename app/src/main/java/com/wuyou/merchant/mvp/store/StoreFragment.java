@@ -1,48 +1,27 @@
 package com.wuyou.merchant.mvp.store;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.utils.ToastUtils;
-import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
-import com.luck.picture.lib.entity.LocalMedia;
-import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
-import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.account.CreateOrImportAccountActivity;
 import com.wuyou.merchant.mvp.account.ScoreAccountActivity;
 import com.wuyou.merchant.mvp.vote.MyVoteListActivity;
 import com.wuyou.merchant.mvp.vote.VoteCreateActivity;
-import com.wuyou.merchant.mvp.vote.VotePresenter;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.NetTool;
-import com.wuyou.merchant.util.RxUtil;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.HelpRobotActivity;
 import com.wuyou.merchant.view.fragment.BaseFragment;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.ipfs.api.IPFS;
-import io.ipfs.api.MerkleNode;
-import io.ipfs.api.NamedStreamable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 
 
 /**
@@ -56,6 +35,8 @@ public class StoreFragment extends BaseFragment {
     TextView tvName;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
+    @BindView(R.id.mine_create_account)
+    TextView tvCreateAccount;
     private String path;
 
     @Override
@@ -77,6 +58,9 @@ public class StoreFragment extends BaseFragment {
         GlideUtils.loadImage(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar, true);
         tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
         tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeDaoSession.getInstance().getUserInfo().getTel()));
+        if (getString(R.string.create_vote).equals(tvCreateAccount.getText().toString().trim()) && CarefreeDaoSession.getInstance().getAllEosAccount().size() != 0) {
+            tvCreateAccount.setText(R.string.mine_account);
+        }
     }
 
 
@@ -134,10 +118,18 @@ public class StoreFragment extends BaseFragment {
                 }
                 break;
             case R.id.ll_vote:
+                if (CarefreeDaoSession.getInstance().getAllEosAccount().size() == 0) {
+                    ToastUtils.ToastMessage(getContext(), getString(R.string.create_account_first));
+                    return;
+                }
                 intent.setClass(mCtx, VoteCreateActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_vote_record:
+                if (CarefreeDaoSession.getInstance().getAllEosAccount().size() == 0) {
+                    ToastUtils.ToastMessage(getContext(), getString(R.string.create_account_first));
+                    return;
+                }
                 intent.setClass(mCtx, MyVoteListActivity.class);
                 startActivity(intent);
                 break;

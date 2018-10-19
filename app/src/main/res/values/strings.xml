@@ -130,8 +130,10 @@
     <string name="save_success">保存成功</string>
     <string name="vote_statistic">投票统计</string>
     <string name="edit">编辑</string>
-    <string name="create_vote">创建投票</string>
     <string name="vote_detail">投票详情</string>
     <string name="release">发布</string>
     <string name="create_vote_success">创建投票成功</string>
+    <string name="create_vote">创建投票</string>
+    <string name="mine_account">我的区块链账户</string>
+    <string name="create_account_first">请先创建账户</string>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.codbking.widget.bean.DateType;
 import com.google.gson.JsonObject;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.ErrorBody;
+import com.gs.buluo.common.utils.DensityUtils;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.gs.buluo.common.utils.TribeDateUtils;
 import com.luck.picture.lib.PictureSelector;
@@ -55,6 +57,8 @@ import io.reactivex.ObservableOnSubscribe;
  */
 
 public class VoteCreateActivity extends BaseActivity {
+    @BindView(R.id.root_linear)
+    LinearLayout linearLayout;
     @BindView(R.id.create_vote_title)
     EditText createVoteTitle;
     @BindView(R.id.create_vote_intro)
@@ -80,14 +84,13 @@ public class VoteCreateActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         setTitleText(R.string.create_vote);
-
     }
-
 
     ArrayList<QuestionViewHolder> questionViewHolders = new ArrayList<>();
 
     @OnClick({R.id.create_vote_picture, R.id.create_vote_preview, R.id.create_vote_release, R.id.create_vote_add_single_question, R.id.create_vote_add_multi_question, R.id.create_vote_calendar})
     public void onViewClicked(View view) {
+        NestedScrollView parent = (NestedScrollView) linearLayout.getParent();
         switch (view.getId()) {
             case R.id.create_vote_picture:
                 choosePhoto();
@@ -104,10 +107,14 @@ public class VoteCreateActivity extends BaseActivity {
             case R.id.create_vote_add_single_question:
                 QuestionViewHolder holder = new QuestionViewHolder(1);
                 questionViewHolders.add(holder);
+                parent.arrowScroll(View.FOCUS_DOWN);
+                parent.smoothScrollBy(0, DensityUtils.dip2px(getCtx(), 100));
                 break;
             case R.id.create_vote_add_multi_question:
                 QuestionViewHolder multiHolder = new QuestionViewHolder(0);
                 questionViewHolders.add(multiHolder);
+                parent.arrowScroll(View.FOCUS_DOWN);
+                parent.smoothScrollBy(0, DensityUtils.dip2px(getCtx(), 100));
                 break;
         }
     }
