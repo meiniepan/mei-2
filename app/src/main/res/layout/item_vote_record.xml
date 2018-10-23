@@ -62,7 +62,6 @@
             android:background="@drawable/blue_radius_button"
             android:gravity="center"
             android:text="@string/edit"
-            android:textColor="@color/white"
-            android:visibility="gone" />
+            android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

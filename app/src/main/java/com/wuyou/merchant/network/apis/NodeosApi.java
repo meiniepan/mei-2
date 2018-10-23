@@ -26,6 +26,7 @@ package com.wuyou.merchant.network.apis;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.gs.buluo.common.network.SortedTreeMap;
 import com.wuyou.merchant.data.api.AccountInfoRequest;
 import com.wuyou.merchant.data.api.EosAccountInfo;
 import com.wuyou.merchant.data.api.EosChainInfo;
@@ -40,9 +41,15 @@ import com.wuyou.merchant.data.api.JsonToBinResponse;
 import com.wuyou.merchant.data.api.RequiredKeysResponse;
 import com.wuyou.merchant.data.chain.PackedTransaction;
 
+import org.json.JSONObject;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
+import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -84,6 +91,15 @@ public interface NodeosApi {
     @POST("/v1/account_history/{history_path}")
     Observable<JsonObject> getAccountHistory(@Path("history_path") String historyPath, @Body JsonObject body);
 
+    @Multipart
+    @Headers({
+            "Expect:100-continue",
+            "Content-Type: multipart/form-data; boundary=DrkhoB1BIoVijafhl6xs1EEV8iGwquwW",
+            "User-Agent: Java IPFS CLient"
+    })
+    @POST("http://192.168.1.186:5001/api/v0/add?stream-channels=true&w=false&n=false")
+    Observable<JsonObject> updatePhoto(@Part MultipartBody.Part body);
+
 
     String ACCOUNT_HISTORY_GET_TRANSACTIONS = "get_transactions";
     String GET_TRANSACTIONS_KEY = "account_name";
@@ -92,4 +108,5 @@ public interface NodeosApi {
     String GET_SERVANTS_KEY = "controlling_account";
 
     String ACCOUNT_HISTORY_GET_KEY_ACCOUNTS = "get_key_accounts";
+
 }

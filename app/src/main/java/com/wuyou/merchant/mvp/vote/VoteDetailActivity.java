@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.ErrorBody;
+import com.gs.buluo.common.utils.AppManager;
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.Constant;
@@ -52,6 +53,7 @@ public class VoteDetailActivity extends BaseActivity {
     EosVoteListBean.RowsBean rowsBean;
     VoteQuestionAdapter adapter;
     boolean hasVote;
+    private boolean update;
 
     @Override
     protected int getContentLayout() {
@@ -65,6 +67,7 @@ public class VoteDetailActivity extends BaseActivity {
     }
 
     private void initData() {
+        update = getIntent().getBooleanExtra(Constant.FOR_UPDATE, false);
         rowsBean = getIntent().getParcelableExtra(Constant.VOTE_ROW_BEAN);
         hasVote = getIntent().getBooleanExtra(Constant.HAS_VOTE, false);
         if (hasVote) {
@@ -113,12 +116,21 @@ public class VoteDetailActivity extends BaseActivity {
 
     private void releaseVote() {
         showLoadingDialog();
-        EoscDataManager.getIns().createVote(rowsBean.title, rowsBean.logo, rowsBean.description, rowsBean.organization, rowsBean.end_time, rowsBean.contents)
+        if (update) {
+            updateVote();
+        } else {
+            createVote();
+        }
+    }
+
+    private void updateVote() {
+        EoscDataManager.getIns().updateVote(rowsBean.id,rowsBean.title, rowsBean.logo, rowsBean.description, rowsBean.organization, rowsBean.end_time, rowsBean.contents)
                 .compose(RxUtil.switchSchedulers())
                 .subscribe(new BaseSubscriber<JsonObject>() {
                     @Override
                     public void onSuccess(JsonObject jsonObject) {
-                        ToastUtils.ToastMessage(getCtx(), R.string.create_vote_success);
+                        ToastUtils.ToastMessage(getCtx(), R.string.update_vote_success);
+                        AppManager.getAppManager().finishActivity(VoteCreateActivity.class);
                         finish();
                     }
 
@@ -131,8 +143,28 @@ public class VoteDetailActivity extends BaseActivity {
                         }
                     }
                 });
+    }
 
+    private void createVote() {
+        EoscDataManager.getIns().createVote(rowsBean.title, rowsBean.logo, rowsBean.description, rowsBean.organization, rowsBean.end_time, rowsBean.contents)
+                .compose(RxUtil.switchSchedulers())
+                .subscribe(new BaseSubscriber<JsonObject>() {
+                    @Override
+                    public void onSuccess(JsonObject jsonObject) {
+                        ToastUtils.ToastMessage(getCtx(), R.string.create_vote_success);
+                        AppManager.getAppManager().finishActivity(VoteCreateActivity.class);
+                        finish();
+                    }
 
+                    @Override
+                    protected void onNodeFail(int code, ErrorBody.DetailErrorBean message) {
+                        if (message.message.contains("same title vote existed")) {
+                            ToastUtils.ToastMessage(CarefreeApplication.getInstance().getApplicationContext(), "投票标题不能重复");
+                        } else {
+                            ToastUtils.ToastMessage(CarefreeApplication.getInstance().getApplicationContext(), message.message);
+                        }
+                    }
+                });
     }
 
 }

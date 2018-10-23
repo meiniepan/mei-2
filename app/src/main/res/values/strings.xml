@@ -136,4 +136,7 @@
     <string name="create_vote">创建投票</string>
     <string name="mine_account">我的区块链账户</string>
     <string name="create_account_first">请先创建账户</string>
+    <string name="back">返回</string>
+    <string name="update_vote_success">更新投票成功</string>
+    <string name="update_vote">更新投票</string>
 </resources>
