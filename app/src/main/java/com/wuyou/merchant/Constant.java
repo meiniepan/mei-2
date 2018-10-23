@@ -19,10 +19,10 @@ public class Constant {
 
     public static String DEV_BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
     public static String STAGE_BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-    public static String ONLINE_BASE_URL = "https://api.api.iwantmei.com/merchants/v1/";
+    public static String ONLINE_BASE_URL = "https://api.iwantmei.com/merchants/v1/";
 
     public static String DEV_CHAIN_URL = "http://192.168.1.186:8888/";
-    public static String STAGE_CHAIN_URL = "http://192.168.1.186:8889/";
+    public static String STAGE_CHAIN_URL = "http://192.168.1.186:8888/";
     public static String ONLINE_CHAIN_URL = "http://mainnet.eosoasis.io:8889/";
 
     public static String DEV_IPFS_URL = "192.168.1.186";

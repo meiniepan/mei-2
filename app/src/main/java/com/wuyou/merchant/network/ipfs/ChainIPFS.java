@@ -33,7 +33,7 @@ public class ChainIPFS extends IPFS {
 
         String res = m.finish();
         JsonObject object = new GsonBuilder().create().fromJson(res, JsonObject.class);
-        return object.get("Hash").toString();
+        return object.get("Hash").toString().replace("\"","");
     }
 
 
