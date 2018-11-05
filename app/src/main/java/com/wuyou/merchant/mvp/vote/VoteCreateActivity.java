@@ -329,7 +329,7 @@ public class VoteCreateActivity extends BaseActivity {
         createVoteTitle.setText(oldData.title);
         createVoteIntro.setText(oldData.description);
         createVoteOrg.setText(oldData.organization);
-        GlideUtils.loadImage(getCtx(), Constant.HTTP_IPFS_URL + oldData.logo, createVotePicture);
+        GlideUtils.loadImage(getCtx(),  Constant.IPFS_URL.contains(Constant.ONLINE_IPFS_URL)?Constant.HTTP_IPFS_URL:Constant.DEV_HTTP_IPFS_URL+ oldData.logo, createVotePicture);
         String GTime = EosUtil.UTCToCST(oldData.end_time);
         createVoteCalendar.setText(GTime);
         chooseDateTime = EosUtil.parseUTCTime(oldData.end_time);

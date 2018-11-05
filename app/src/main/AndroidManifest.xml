@@ -182,6 +182,7 @@
         <activity android:name=".mvp.account.ImportAccountActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".mvp.vote.MyVoteListActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity android:name=".mvp.vote.VoteCreateActivity" />
         <activity android:name=".mvp.vote.VoteDetailActivity" />

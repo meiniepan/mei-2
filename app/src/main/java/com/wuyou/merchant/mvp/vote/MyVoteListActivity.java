@@ -44,10 +44,15 @@ public class MyVoteListActivity extends BaseActivity {
     @Override
     protected void bindView(Bundle savedInstanceState) {
         setTitleText("我的创建");
-        voteMyRecord.getRecyclerView().addItemDecoration(CommonUtil.getRecyclerDivider(getCtx(), 8,R.color.tint_bg));
+        voteMyRecord.getRecyclerView().addItemDecoration(CommonUtil.getRecyclerDivider(getCtx(), 8, R.color.tint_bg));
         voteMyRecord.showProgressView();
         recordAdapter = new VoteRecordAdapter();
         voteMyRecord.setAdapter(recordAdapter);
+        getAllVoteList();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
         getAllVoteList();
     }
 
@@ -94,14 +99,14 @@ public class MyVoteListActivity extends BaseActivity {
         @Override
         protected void convert(BaseHolder baseHolder, EosVoteListBean.RowsBean rowsBean) {
             baseHolder.setText(R.id.item_vote_record_title, rowsBean.title);
-            GlideUtils.loadRoundCornerImage(mContext, Constant.HTTP_IPFS_URL + rowsBean.logo, baseHolder.getView(R.id.item_vote_record_picture));
+            GlideUtils.loadRoundCornerImage(mContext, Constant.IPFS_URL.contains(Constant.ONLINE_IPFS_URL) ? Constant.HTTP_IPFS_URL : Constant.DEV_HTTP_IPFS_URL + rowsBean.logo, baseHolder.getView(R.id.item_vote_record_picture));
             baseHolder.getView(R.id.item_vote_record_statistic).setOnClickListener(v -> navigateToDetail(rowsBean));
             View updateButton = baseHolder.getView(R.id.item_vote_record_update);
             updateButton.setOnClickListener(v -> navigateToUpdate(rowsBean));
-            if (rowsBean.voters.size()>0){
-                updateButton.setVisibility(View.VISIBLE);
-            }else {
+            if (rowsBean.voters.size() > 0) {
                 updateButton.setVisibility(View.GONE);
+            } else {
+                updateButton.setVisibility(View.VISIBLE);
             }
         }
 

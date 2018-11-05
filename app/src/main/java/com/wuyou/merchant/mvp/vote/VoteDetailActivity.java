@@ -1,5 +1,6 @@
 package com.wuyou.merchant.mvp.vote;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -74,7 +75,7 @@ public class VoteDetailActivity extends BaseActivity {
             voteDetailBack.setVisibility(View.GONE);
             tvVoteDetailConfirm.setText(R.string.yes);
         }
-        GlideUtils.loadImage(getCtx(), Constant.HTTP_IPFS_URL + rowsBean.logo, ivVoteDetailBac);
+        GlideUtils.loadImage(getCtx(),  Constant.IPFS_URL.contains(Constant.ONLINE_IPFS_URL)?Constant.HTTP_IPFS_URL:Constant.DEV_HTTP_IPFS_URL + rowsBean.logo, ivVoteDetailBac);
         tvTitle.setText(rowsBean.title);
         tvVoteDetailDeadline.setText(EosUtil.UTCToCST(rowsBean.end_time));
         String peopleNum = "0";
@@ -92,7 +93,7 @@ public class VoteDetailActivity extends BaseActivity {
     }
 
     private void initRv() {
-        adapter = new VoteQuestionAdapter(R.layout.item_vote_detail_question, rowsBean.contents, hasVote, rowsBean.voters == null ? 0 : rowsBean.voters.size());
+        adapter = new VoteQuestionAdapter(R.layout.item_vote_detail_question, rowsBean.contents, hasVote);
         rvVoteDetail.setLayoutManager(new LinearLayoutManager(getCtx()));
         rvVoteDetail.setAdapter(adapter);
     }
@@ -130,8 +131,8 @@ public class VoteDetailActivity extends BaseActivity {
                     @Override
                     public void onSuccess(JsonObject jsonObject) {
                         ToastUtils.ToastMessage(getCtx(), R.string.update_vote_success);
-                        AppManager.getAppManager().finishActivity(VoteCreateActivity.class);
-                        finish();
+                        Intent intent = new Intent(getCtx(), MyVoteListActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override

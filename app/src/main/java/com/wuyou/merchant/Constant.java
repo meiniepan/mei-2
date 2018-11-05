@@ -14,7 +14,8 @@ public class Constant {
     //切环境时候注意融云ID变更
     public static String CHAIN_URL = "http://mainnet.eosoasis.io:8889/";
     public static String IPFS_URL = "mainnet.eosoasis.io";
-    public static String HTTP_IPFS_URL = "http://"+IPFS_URL+":5001/api/v0/cat?arg=";
+    public static String HTTP_IPFS_URL = "http://mainnet.eosoasis.io:5001/api/v0/cat?arg=";
+    public static String DEV_HTTP_IPFS_URL = "http://192.168.1.186:5001/api/v0/cat?arg=";
     public static String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
 
     public static String DEV_BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
