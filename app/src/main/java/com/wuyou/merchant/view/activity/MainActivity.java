@@ -20,6 +20,7 @@ import com.wuyou.merchant.mvp.login.LoginActivity;
 import com.wuyou.merchant.mvp.order.MyOrderFragment;
 import com.wuyou.merchant.mvp.store.StoreFragment;
 import com.wuyou.merchant.mvp.wallet.WalletFragment;
+import com.wuyou.merchant.mvp.wallet.WalletFragmentNew;
 import com.wuyou.merchant.view.widget.NoScrollViewPager;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 
@@ -46,7 +47,8 @@ public class MainActivity extends BaseActivity {
     List<Fragment> fragments = new ArrayList<>();
     MyOrderFragment orderFragment = new MyOrderFragment();
     CircleFragment circleFragment = new CircleFragment();
-    WalletFragment walletFragment = new WalletFragment();
+//    WalletFragment walletFragment = new WalletFragment();
+    WalletFragmentNew walletFragment = new WalletFragmentNew();
     private long mkeyTime = 0;
 
     @Override
@@ -131,7 +133,7 @@ public class MainActivity extends BaseActivity {
         if (Constant.MAIN_ACTIVITY_FROM_CREATE_CONTRACT.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
             circleFragment.refreshCreatedList();
         } else if (Constant.MAIN_ACTIVITY_FROM_APPLY_FUND.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
-            walletFragment.refreshFundList();
+//            walletFragment.refreshFundList();
         }else if (Constant.MAIN_ACTIVITY_FROM_VOUCHER.equals(intent.getStringExtra(Constant.MAIN_ACTIVITY_FROM_WHERE))) {
             orderFragment.loadDataAll();
         } else {
