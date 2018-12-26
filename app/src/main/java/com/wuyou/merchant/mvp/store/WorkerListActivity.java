@@ -9,7 +9,6 @@ import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.widget.StatusLayout;
-import com.wuyou.merchant.CarefreeApplication;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
@@ -47,6 +46,7 @@ public class WorkerListActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        setTitleText("技工列表");
         statusLayout.setErrorAction(v -> getData());
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
         adapter = new WorkersRvAdapter( this,R.layout.item_chose_artisan, data);
@@ -80,12 +80,5 @@ public class WorkerListActivity extends BaseActivity {
                         statusLayout.showErrorView(e.getDisplayMessage());
                     }
                 });
-    }
-
-
-
-    @Override
-    public void showError(String message, int res) {
-
     }
 }

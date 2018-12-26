@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="102dp"
+    android:background="@color/white"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/item_commodity_avatar"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@mipmap/default_head"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/item_commodity_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="@dimen/dimens_16sp"
+        app:layout_constraintStart_toEndOf="@+id/item_commodity_avatar"
+        app:layout_constraintTop_toTopOf="@+id/item_commodity_avatar"
+        tool:text="hahahahahahaha" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="销量  "
+        android:textColor="@color/common_gray"
+        android:textSize="@dimen/dimens_12sp"
+        app:layout_constraintStart_toStartOf="@+id/item_commodity_name"
+        app:layout_constraintTop_toBottomOf="@+id/item_commodity_name" />
+
+    <TextView
+        android:id="@+id/item_commodity_sale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/common_gray"
+        android:textSize="@dimen/dimens_12sp"
+        app:layout_constraintStart_toEndOf="@id/text1"
+        app:layout_constraintTop_toTopOf="@id/text1"
+        tool:text="12312321" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="库存 "
+        android:textColor="@color/common_gray"
+        android:textSize="@dimen/dimens_12sp"
+        app:layout_constraintStart_toEndOf="@id/item_commodity_sale"
+        app:layout_constraintTop_toTopOf="@id/text1" />
+
+    <TextView
+        android:id="@+id/item_commodity_store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/common_gray"
+        android:textSize="@dimen/dimens_12sp"
+        app:layout_constraintStart_toEndOf="@id/text2"
+        app:layout_constraintTop_toTopOf="@id/text1"
+        tool:text="1231" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="¥"
+        android:textColor="@color/main_red"
+        app:layout_constraintStart_toStartOf="@id/item_commodity_name"
+        app:layout_constraintTop_toBottomOf="@id/text1" />
+
+    <TextView
+        android:id="@+id/item_commodity_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/main_red"
+        app:layout_constraintStart_toEndOf="@id/text3"
+        app:layout_constraintTop_toTopOf="@id/text3"
+        android:layout_marginStart="4dp"
+        tool:text="66~6666" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.wuyou.merchant.bean.entity;
 
+import java.util.List;
+
 /**
  * Created by solang on 2018/2/8.
  */
@@ -16,4 +18,6 @@ public class WorkerEntity {
     public String rc_token;
     public String mobile;
 
+    public List<String> permissions;
+    public String flag;
 }

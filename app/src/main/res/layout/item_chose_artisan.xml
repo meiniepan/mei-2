@@ -6,21 +6,21 @@
     android:orientation="vertical">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/item_common_height"
         android:gravity="center_vertical">
 
         <ImageView
-            android:id="@+id/avatar"
+            android:id="@+id/worker_item_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            />
+            android:src="@mipmap/default_head" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="vertical"
@@ -28,7 +28,7 @@
             android:paddingStart="@dimen/activity_horizontal_margin">
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/worker_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="王晓明"
@@ -36,14 +36,24 @@
                 />
 
             <TextView
-                android:layout_marginTop="5dp"
-                android:id="@+id/tv_distance"
+                android:id="@+id/worker_item_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="150m"
-
-                />
+                android:layout_marginTop="5dp"
+                android:text="150" />
         </LinearLayout>
+        
+        <TextView
+            android:id="@+id/worker_item_flag"
+            android:layout_width="80dp"
+            android:layout_height="26dp"
+            android:text="修理工"
+            android:textSize="@dimen/dimens_12sp"
+            android:textColor="@color/common_gray"
+            android:gravity="center"
+            android:background="@drawable/bac_gray_solid_round"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            />
     </LinearLayout>
     <include layout="@layout/split_line_margin" />
 </LinearLayout>

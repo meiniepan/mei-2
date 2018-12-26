@@ -5,15 +5,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gs.buluo.common.utils.ToastUtils;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.mvp.account.CreateOrImportAccountActivity;
-import com.wuyou.merchant.mvp.account.ScoreAccountActivity;
-import com.wuyou.merchant.mvp.vote.MyVoteListActivity;
-import com.wuyou.merchant.mvp.vote.VoteCreateActivity;
+import com.wuyou.merchant.mvp.commodity.CommodityManagerActivity;
 import com.wuyou.merchant.util.CommonUtil;
 import com.wuyou.merchant.util.NetTool;
 import com.wuyou.merchant.util.glide.GlideUtils;
@@ -22,6 +20,7 @@ import com.wuyou.merchant.view.fragment.BaseFragment;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 
 /**
@@ -35,8 +34,17 @@ public class StoreFragment extends BaseFragment {
     TextView tvName;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
-    @BindView(R.id.mine_create_account)
-    TextView tvCreateAccount;
+    @BindView(R.id.iv_store_info)
+    ImageView ivStoreInfo;
+    @BindView(R.id.ll_work_info)
+    LinearLayout llWorkInfo;
+    @BindView(R.id.ll_worker_list)
+    LinearLayout llWorkerList;
+    @BindView(R.id.ll_information)
+    LinearLayout llInformation;
+    @BindView(R.id.ll_service)
+    LinearLayout llService;
+    Unbinder unbinder;
     private String path;
 
     @Override
@@ -58,20 +66,16 @@ public class StoreFragment extends BaseFragment {
         GlideUtils.loadImage(getContext(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar, true);
         tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
         tvPhone.setText(CommonUtil.getPhoneWithStar(CarefreeDaoSession.getInstance().getUserInfo().getTel()));
-        if (getString(R.string.create_vote).equals(tvCreateAccount.getText().toString().trim()) && CarefreeDaoSession.getInstance().getAllEosAccount().size() != 0) {
-            tvCreateAccount.setText(R.string.mine_account);
-        }
     }
 
 
     @Override
     public void showError(String message, int res) {
-
     }
 
 
-    @OnClick({R.id.ll_work_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_intro, R.id.ll_mark, R.id.ll_setting,
-            R.id.ll_vote, R.id.ll_information, R.id.ll_account, R.id.ll_vote_record})
+    @OnClick({R.id.ll_work_info, R.id.ll_worker_list, R.id.ll_service, R.id.ll_setting,
+            R.id.ll_information, R.id.ll_goods_manager, R.id.ll_message, R.id.ll_manager})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -100,40 +104,23 @@ public class StoreFragment extends BaseFragment {
 
                 startActivity(intent);
                 break;
-            case R.id.ll_intro:
-                break;
-            case R.id.ll_mark:
-                break;
             case R.id.ll_setting:
                 intent.setClass(getContext(), SettingActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_account:
-                if (CarefreeDaoSession.getInstance().getMainAccount() == null) {
-                    intent.setClass(mCtx, CreateOrImportAccountActivity.class);
-                    startActivity(intent);
-                } else {
-                    intent.setClass(mCtx, ScoreAccountActivity.class);
-                    startActivity(intent);
-                }
-                break;
-            case R.id.ll_vote:
-                if (CarefreeDaoSession.getInstance().getAllEosAccount().size() == 0) {
-                    ToastUtils.ToastMessage(getContext(), getString(R.string.create_account_first));
-                    return;
-                }
-                intent.setClass(mCtx, VoteCreateActivity.class);
+            case R.id.ll_goods_manager:
+                intent.setClass(getContext(), CommodityManagerActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.ll_vote_record:
-                if (CarefreeDaoSession.getInstance().getAllEosAccount().size() == 0) {
-                    ToastUtils.ToastMessage(getContext(), getString(R.string.create_account_first));
-                    return;
-                }
-                intent.setClass(mCtx, MyVoteListActivity.class);
+            case R.id.ll_message:
+
+                break;
+            case R.id.ll_manager:
+                intent.setClass(getContext(), ManagerListActivity.class);
                 startActivity(intent);
                 break;
         }
 
     }
+
 }

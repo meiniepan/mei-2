@@ -186,6 +186,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".mvp.vote.VoteCreateActivity" />
         <activity android:name=".mvp.vote.VoteDetailActivity" />
+        <activity android:name=".mvp.store.ManagerListActivity" />
+        <activity android:name=".mvp.commodity.CommodityManagerActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

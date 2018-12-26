@@ -105,33 +105,6 @@
         <include layout="@layout/split_line_margin" />
 
         <LinearLayout
-            android:id="@+id/ll_service"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
-
-            <View
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/icon_lkefu" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="在线客服" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-
-        <include layout="@layout/split_line_margin" />
-
-        <LinearLayout
             android:id="@+id/ll_information"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_height"
@@ -157,8 +130,9 @@
         </LinearLayout>
 
         <include layout="@layout/split_line_margin" />
+
         <LinearLayout
-            android:id="@+id/ll_account"
+            android:id="@+id/ll_service"
             android:layout_width="match_parent"
             android:layout_height="@dimen/common_height"
             android:background="@color/white"
@@ -171,115 +145,101 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="5dp"
-                android:background="@mipmap/icon_qiye" />
-
-            <TextView
-                android:id="@+id/mine_create_account"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/create_account" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-        <include layout="@layout/split_line_margin" />
-        <LinearLayout
-            android:id="@+id/ll_vote"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
+                android:background="@mipmap/icon_lkefu" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/create_vote"
-                android:drawableStart="@drawable/ic_create_vote"/>
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-        <include layout="@layout/split_line_margin" />
-        <LinearLayout
-            android:id="@+id/ll_vote_record"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableStart="@drawable/ic_create_vote"
-                android:text="我创建的投票"
-                android:gravity="center_vertical"
-                android:drawablePadding="2dp"/>
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/ll_intro"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin"
-            android:visibility="gone">
-
-            <View
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/icon_sqjs" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="无忧社区介绍" />
+                android:text="在线客服" />
 
             <include layout="@layout/layout_next" />
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/ll_mark"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/common_height"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/common_margin"
-            android:paddingStart="@dimen/common_margin"
-            android:visibility="gone">
-
-            <View
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginEnd="5dp"
-                android:background="@mipmap/icon_pf" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="APP 评分" />
-
-            <include layout="@layout/layout_next" />
-        </LinearLayout>
 
         <include layout="@layout/split_area" />
 
+        <LinearLayout
+            android:id="@+id/ll_goods_manager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/common_margin"
+            android:paddingStart="@dimen/common_margin">
 
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/ll_goods_manager" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="商品管理" />
+
+            <include layout="@layout/layout_next" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_margin" />
+
+        <LinearLayout
+            android:id="@+id/ll_message"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/common_margin"
+            android:paddingStart="@dimen/common_margin">
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/ll_message" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="消息管理" />
+
+            <include layout="@layout/layout_next" />
+        </LinearLayout>
+
+        <include layout="@layout/split_line_margin" />
+
+        <LinearLayout
+            android:id="@+id/ll_manager"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_height"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/common_margin"
+            android:paddingStart="@dimen/common_margin">
+
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="5dp"
+                android:background="@mipmap/ll_manager" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="管理员" />
+
+            <include layout="@layout/layout_next" />
+        </LinearLayout>
+
+
+        <include layout="@layout/split_area"/>
         <LinearLayout
             android:id="@+id/ll_setting"
             android:layout_width="match_parent"

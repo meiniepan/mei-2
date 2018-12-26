@@ -1,38 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/tint_bg"
     android:fitsSystemWindows="true"
-    android:background="@color/tint_bg">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_height"
-        android:background="@color/main_blue">
+    android:orientation="vertical">
 
-        <include layout="@layout/back_white" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="技工列表"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_size" />
-
-    </RelativeLayout>
-    <include layout="@layout/split_area"/>
     <com.gs.buluo.common.widget.StatusLayout
         android:id="@+id/sl_list_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:emptyDrawable="@mipmap/status_empty_order"
         app:errorDrawable="@mipmap/net_error">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_orders"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_orders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </com.gs.buluo.common.widget.StatusLayout>
 
 </LinearLayout>

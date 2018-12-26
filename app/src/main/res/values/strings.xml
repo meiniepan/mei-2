@@ -139,4 +139,5 @@
     <string name="back">返回</string>
     <string name="update_vote_success">更新投票成功</string>
     <string name="update_vote">更新投票</string>
+    <string name="commdodity_manager">商品管理</string>
 </resources>
