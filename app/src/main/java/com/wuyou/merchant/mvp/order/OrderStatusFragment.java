@@ -55,6 +55,7 @@ public class OrderStatusFragment extends BaseFragment<OrderContract.View, OrderC
     protected void bindView(Bundle savedInstanceState) {
         recyclerView.getRecyclerView().setErrorAction(v -> {
             recyclerView.showProgressView();
+
             fetchDatas();
         });
         adapter = new OrderStatusRvAdapter(getActivity(), R.layout.item_order_status, data);
