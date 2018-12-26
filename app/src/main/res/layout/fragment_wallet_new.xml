@@ -3,7 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_height"
+        android:text="@string/main_wallet"
+        android:gravity="center"
+        android:textSize="@dimen/title_size" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"

@@ -188,6 +188,7 @@
         <activity android:name=".mvp.vote.VoteDetailActivity" />
         <activity android:name=".mvp.store.ManagerListActivity" />
         <activity android:name=".mvp.commodity.CommodityManagerActivity" />
+        <activity android:name=".mvp.store.MessageActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"
