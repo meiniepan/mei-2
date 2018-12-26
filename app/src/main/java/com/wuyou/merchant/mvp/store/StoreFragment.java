@@ -44,8 +44,6 @@ public class StoreFragment extends BaseFragment {
     LinearLayout llInformation;
     @BindView(R.id.ll_service)
     LinearLayout llService;
-    Unbinder unbinder;
-    private String path;
 
     @Override
     protected int getContentLayout() {

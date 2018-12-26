@@ -28,6 +28,7 @@
     <string name="setting">设置</string>
     <string name="message">消息</string>
     <string name="store">店铺</string>
+    <string name="store_info">店铺资料</string>
     <string name="prompt">提示</string>
     <string name="send_captcha">发送验证码</string>
     <string name="input_phone">输入手机号</string>

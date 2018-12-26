@@ -25,6 +25,7 @@ import com.wuyou.merchant.R;
 import com.wuyou.merchant.mvp.BasePresenter;
 import com.wuyou.merchant.mvp.IBaseView;
 import com.wuyou.merchant.mvp.login.LoginActivity;
+import com.wuyou.merchant.util.QMUIStatusBarHelper;
 
 import butterknife.ButterKnife;
 
@@ -36,7 +37,7 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
     View mRoot;
     protected P mPresenter;
     protected Toolbar mToolbar;
-    private int color = R.color.main_blue;
+    private int color = R.color.white;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public abstract class BaseActivity<V extends IBaseView, P extends BasePresenter<
         mToolbar = findViewById(getToolBarId());
         setSupportActionBar(mToolbar);
         bindView(savedInstanceState);
+        QMUIStatusBarHelper.setStatusBarLightMode(this);
         initSystemBar(this);
     }
 

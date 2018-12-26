@@ -11,8 +11,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_height"
-        android:background="@color/main_blue"
-        android:textColor="@color/white"
         android:text="@string/main_wallet"
         android:gravity="center"
         android:textSize="@dimen/title_size" />

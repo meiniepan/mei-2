@@ -60,6 +60,7 @@ public class StoreInfoEditActivity extends BaseActivity {
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
+        setTitleText(R.string.store_info);
         CommonUtil.GlideCircleLoad(getCtx(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar);
         GlideUtils.loadImage(getCtx(), CarefreeDaoSession.getInstance().getUserInfo().getLogo(), ivAvatar,true);
         tvName.setText(CarefreeDaoSession.getInstance().getUserInfo().getShop_name());
