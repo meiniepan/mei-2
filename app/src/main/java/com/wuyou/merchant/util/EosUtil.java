@@ -23,6 +23,20 @@ public class EosUtil {
         return sdf.format(new Date(timemilis));
     }
 
+    public static long parseUTCTime(String locale) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern, Locale.getDefault());
+            Date date = sdf.parse(locale);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.set(Calendar.HOUR, calendar.get(Calendar.HOUR) + 8);
+            return calendar.getTime().getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
     public static String UTCToCST(String UTCStr) {
         Calendar calendar = null;
         try {

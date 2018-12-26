@@ -1,11 +1,8 @@
 package com.wuyou.merchant.adapter;
 
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -15,7 +12,7 @@ import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.data.api.VoteOptionContent;
 import com.wuyou.merchant.mvp.vote.DoChooseListener;
-
+import com.wuyou.merchant.util.CommonUtil;
 
 import java.util.List;
 
@@ -27,14 +24,16 @@ public class VoteQuestionOptAdapter extends BaseQuickAdapter<VoteOptionContent, 
     private final DoChooseListener chooseListener;
     private final boolean isSingle;
     private final boolean hasVote;
-    private final int voteSum;
+    private float voteSum = 0;
 
-    public VoteQuestionOptAdapter(int layoutResId, @Nullable List<VoteOptionContent> data, DoChooseListener chooseListener, boolean isSingle, boolean hasVote, int voteSum) {
+    public VoteQuestionOptAdapter(int layoutResId, @Nullable List<VoteOptionContent> data, DoChooseListener chooseListener, boolean isSingle, boolean hasVote) {
         super(layoutResId, data);
         this.chooseListener = chooseListener;
         this.isSingle = isSingle;
         this.hasVote = hasVote;
-        this.voteSum = voteSum;
+        for (VoteOptionContent content : data) {
+            voteSum += content.number;
+        }
     }
 
     @Override
@@ -48,8 +47,8 @@ public class VoteQuestionOptAdapter extends BaseQuickAdapter<VoteOptionContent, 
         if (hasVote) {
             checkBox.setVisibility(View.GONE);
             linearLayout.setVisibility(View.VISIBLE);
-            progressBar.setProgress(voteSum == 0 ? 0 : data.number * 100 / voteSum);
-            tvScale.setText(((voteSum == 0) ? 0 : ((data.number * 100) / voteSum)) + "%");
+            progressBar.setProgress(voteSum == 0 ? 0 : (int) (data.number * 100 / voteSum));
+            tvScale.setText(((voteSum == 0) ? 0 : CommonUtil.formatPrice(data.number * 100 / voteSum)) + "%");
         } else {
             checkBox.setVisibility(View.VISIBLE);
             linearLayout.setVisibility(View.GONE);

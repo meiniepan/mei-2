@@ -105,6 +105,12 @@ public class EoscDataManager {
         return pushActionRetJson(Constant.ACTIVITY_CREATE_VOTE, activityRewards.getActionName(), CommonUtil.prettyPrintJson(activityRewards), getActivePermission(currentOperateAccount.getName()));
     }
 
+    public Observable<JsonObject> updateVote(String id ,String title, String logo, String description, String organization,String timePoint, List<VoteQuestion> contents) {
+        currentOperateAccount = CarefreeDaoSession.getInstance().getMainAccount();
+        EosCreateVoteBean activityRewards = new EosCreateVoteBean(id,currentOperateAccount.getName(), title, logo, description, organization, contents, timePoint);
+        return pushActionRetJson(Constant.ACTIVITY_CREATE_VOTE, activityRewards.getUpdateActionName(), CommonUtil.prettyPrintJson(activityRewards), getActivePermission(currentOperateAccount.getName()));
+    }
+
     public Observable<JsonObject> doVote(String id , List<VoteOption> option){
         currentOperateAccount = CarefreeDaoSession.getInstance().getMainAccount();
         EosVoteBean voteBean = new EosVoteBean(id,currentOperateAccount.getName(),option);

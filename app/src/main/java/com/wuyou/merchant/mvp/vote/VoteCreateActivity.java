@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,21 +35,22 @@ import com.wuyou.merchant.data.EoscDataManager;
 import com.wuyou.merchant.data.api.EosVoteListBean;
 import com.wuyou.merchant.data.api.VoteOptionContent;
 import com.wuyou.merchant.data.api.VoteQuestion;
+import com.wuyou.merchant.network.ipfs.ChainIPFS;
+import com.wuyou.merchant.network.ipfs.NamedStreamable;
 import com.wuyou.merchant.util.EosUtil;
 import com.wuyou.merchant.util.RxUtil;
+import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.ipfs.api.IPFS;
-import io.ipfs.api.MerkleNode;
-import io.ipfs.api.NamedStreamable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
 
@@ -75,15 +77,25 @@ public class VoteCreateActivity extends BaseActivity {
     TextView createVotePreview;
     @BindView(R.id.create_vote_release)
     TextView createVoteRelease;
+    private String oldId;
 
     @Override
     protected int getContentLayout() {
         return R.layout.activity_create_vote;
     }
 
+    private boolean update = false;
+
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        setTitleText(R.string.create_vote);
+        EosVoteListBean.RowsBean rowsBean = getIntent().getParcelableExtra(Constant.VOTE_ROW_BEAN);
+        if (rowsBean != null) {
+            update = true;
+            setOldData(rowsBean);
+            setTitle(R.string.update_vote);
+        } else {
+            setTitleText(R.string.create_vote);
+        }
     }
 
     ArrayList<QuestionViewHolder> questionViewHolders = new ArrayList<>();
@@ -99,7 +111,7 @@ public class VoteCreateActivity extends BaseActivity {
                 previewVote();
                 break;
             case R.id.create_vote_release:
-                createVote();
+                createOrUpdateVote();
                 break;
             case R.id.create_vote_calendar:
                 chooseDate();
@@ -125,6 +137,7 @@ public class VoteCreateActivity extends BaseActivity {
             return;
         }
         EosVoteListBean.RowsBean rowsBean = new EosVoteListBean.RowsBean();
+        rowsBean.id = oldId;
         rowsBean.creator = CarefreeDaoSession.getInstance().getMainAccount().getName();
         rowsBean.title = createVoteTitle.getText().toString().trim();
         rowsBean.end_time = EosUtil.formatTimePoint(chooseDateTime);
@@ -137,6 +150,7 @@ public class VoteCreateActivity extends BaseActivity {
         rowsBean.contents = contents;
         Intent intent = new Intent(getCtx(), VoteDetailActivity.class);
         intent.putExtra(Constant.HAS_VOTE, false);
+        intent.putExtra(Constant.FOR_UPDATE, update);
         intent.putExtra(Constant.VOTE_ROW_BEAN, rowsBean);
         startActivity(intent);
     }
@@ -163,7 +177,7 @@ public class VoteCreateActivity extends BaseActivity {
 
     ArrayList<VoteQuestion> contents = new ArrayList<>();
 
-    private void createVote() {
+    private void createOrUpdateVote() {
         if (contents.size() == 0) {
             fillQuestionContent();
         }
@@ -172,6 +186,32 @@ public class VoteCreateActivity extends BaseActivity {
             return;
         }
         showLoadingDialog();
+        if (oldId == null) {
+            createVote();
+        } else {
+            updateVote();
+        }
+    }
+
+    private void updateVote() {
+        EoscDataManager.getIns().updateVote(oldId, createVoteTitle.getText().toString().trim(), pictureCode,
+                createVoteIntro.getText().toString().trim(), createVoteOrg.getText().toString().trim(), EosUtil.formatTimePoint(chooseDateTime), contents)
+                .compose(RxUtil.switchSchedulers())
+                .subscribe(new BaseSubscriber<JsonObject>() {
+                    @Override
+                    public void onSuccess(JsonObject jsonObject) {
+                        ToastUtils.ToastMessage(getCtx(), getString(R.string.update_vote_success));
+                        finish();
+                    }
+
+                    @Override
+                    protected void onNodeFail(int code, ErrorBody.DetailErrorBean message) {
+                        ToastUtils.ToastMessage(CarefreeApplication.getInstance().getApplicationContext(), message.message);
+                    }
+                });
+    }
+
+    private void createVote() {
         EoscDataManager.getIns().createVote(createVoteTitle.getText().toString().trim(), pictureCode,
                 createVoteIntro.getText().toString().trim(), createVoteOrg.getText().toString().trim(), EosUtil.formatTimePoint(chooseDateTime), contents)
                 .compose(RxUtil.switchSchedulers())
@@ -266,23 +306,49 @@ public class VoteCreateActivity extends BaseActivity {
         }
     }
 
-    public void uploadFileToIpfs(File des) throws IOException {
+    public void uploadFileToIpfs(File desFile) throws IOException {
         Observable.create((ObservableOnSubscribe<String>) e -> {
-            IPFS ipfs = new IPFS(Constant.IPFS_URL, 5001);
-            ipfs.refs.local();
-            NamedStreamable.FileWrapper file = new NamedStreamable.FileWrapper(des);
-            MerkleNode addResult = ipfs.add(file).get(0);
-            e.onNext(addResult.hash.toBase58());
+            ChainIPFS ipfs = new ChainIPFS(Constant.IPFS_URL, 5001);
+            ipfs.local();
+            NamedStreamable.FileWrapper file = new NamedStreamable.FileWrapper(desFile);
+            e.onNext(ipfs.addFile(Collections.singletonList(file), false, false));
         }).compose(RxUtil.switchSchedulers())
                 .subscribe(new BaseSubscriber<String>() {
                     @Override
                     public void onSuccess(String hashCode) {
+                        Log.e("Carefree", "uploadFileToIpfs onSuccess: " + hashCode);//QmV2V7MBRAxZub8931MB5LMRT6SwJQQfmqstmqz5dXLCbJ
                         pictureCode = hashCode;
                     }
                 });
     }
 
     private String pictureCode;
+
+    public void setOldData(EosVoteListBean.RowsBean oldData) {
+        oldId = oldData.id;
+        createVoteTitle.setText(oldData.title);
+        createVoteIntro.setText(oldData.description);
+        createVoteOrg.setText(oldData.organization);
+        GlideUtils.loadImage(getCtx(),  Constant.IPFS_URL.contains(Constant.ONLINE_IPFS_URL)?Constant.HTTP_IPFS_URL:Constant.DEV_HTTP_IPFS_URL+ oldData.logo, createVotePicture);
+        String GTime = EosUtil.UTCToCST(oldData.end_time);
+        createVoteCalendar.setText(GTime);
+        chooseDateTime = EosUtil.parseUTCTime(oldData.end_time);
+        pictureCode = oldData.logo;
+
+        for (VoteQuestion question : oldData.contents) {
+            QuestionViewHolder questionViewHolder = new QuestionViewHolder(question.single);
+            questionViewHolder.createVoteQuestionItemTitle.setText(question.question);
+            questionViewHolder.optionViewHolders.clear();
+            ViewGroup parent = questionViewHolder.createVoteOptionGroup;
+            parent.removeViewAt(3); //移除第四个孩子， 因其是默认添加的空选项
+            for (VoteOptionContent option : question.option) {
+                OptionViewHolder optionViewHolder = new OptionViewHolder(parent, questionViewHolder.optionViewHolders);
+                optionViewHolder.createVoteOptionContent.setText(option.optioncontent);
+                questionViewHolder.optionViewHolders.add(optionViewHolder);
+            }
+            questionViewHolders.add(questionViewHolder);
+        }
+    }
 
     class QuestionViewHolder {
         EditText createVoteQuestionItemTitle;
@@ -300,11 +366,28 @@ public class VoteCreateActivity extends BaseActivity {
             View view = LayoutInflater.from(getCtx()).inflate(R.layout.create_vote_question_item, null);
             createVoteQuestionItemTitle = view.findViewById(R.id.create_vote_question_item_title);
             createVoteOptionGroup = view.findViewById(R.id.create_vote_question_item_group);
-            view.findViewById(R.id.create_vote_question_item_delete).setOnClickListener(v -> createVoteQuestionGroup.removeView(view));
             optionViewHolders.add(new OptionViewHolder(createVoteOptionGroup, optionViewHolders));
+            view.findViewById(R.id.create_vote_question_item_delete).setOnClickListener(new CustomClickListener(this, view));
             createVoteQuestionGroup.addView(view);
         }
+
+        private class CustomClickListener implements View.OnClickListener {
+            QuestionViewHolder questionViewHolder;
+            View questionView;
+
+            public CustomClickListener(QuestionViewHolder optionViewHolder, View questionView) {
+                this.questionViewHolder = optionViewHolder;
+                this.questionView = questionView;
+            }
+
+            @Override
+            public void onClick(View v) {
+                createVoteQuestionGroup.removeView(questionView);
+                questionViewHolders.remove(questionViewHolder);
+            }
+        }
     }
+
 
     class OptionViewHolder {
         EditText createVoteOptionContent;
@@ -321,13 +404,26 @@ public class VoteCreateActivity extends BaseActivity {
             View view = LayoutInflater.from(getCtx()).inflate(R.layout.create_vote_option_item, null);
             createVoteOptionContent = view.findViewById(R.id.create_vote_option_content);
             view.findViewById(R.id.create_vote_option_add).setOnClickListener(v -> optionViewHolders.add(new OptionViewHolder(questionView, optionViewHolders)));
-
-            view.findViewById(R.id.create_vote_option_delete).setOnClickListener(v -> {
-                if (questionView.getChildCount() > 2) {
-                    questionView.removeView(view);
-                }
-            });
+            view.findViewById(R.id.create_vote_option_delete).setOnClickListener(new CustomClickListener(this, questionView));
             questionView.addView(view);
+        }
+
+        private class CustomClickListener implements View.OnClickListener {
+            OptionViewHolder optionViewHolder;
+            View optionView;
+
+            public CustomClickListener(OptionViewHolder optionViewHolder, View optionView) {
+                this.optionViewHolder = optionViewHolder;
+                this.optionView = optionView;
+            }
+
+            @Override
+            public void onClick(View v) {
+                if (questionView.getChildCount() > 2) {
+                    questionView.removeView(optionView);
+                    optionViewHolders.remove(optionViewHolder);
+                }
+            }
         }
     }
 }

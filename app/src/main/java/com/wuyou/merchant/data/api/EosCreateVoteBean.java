@@ -10,6 +10,8 @@ import java.util.List;
 
 public class EosCreateVoteBean {
     @Expose
+    private String id;
+    @Expose
     private String creator;
     @Expose
     private String title;
@@ -24,7 +26,7 @@ public class EosCreateVoteBean {
     @Expose
     private String end_time;
     @Expose
-    private String location="location";
+    private String location = "location";
 
 
     public EosCreateVoteBean(String creator, String title, String logo, String description, String organization, List<VoteQuestion> contents, String endTime) {
@@ -37,7 +39,22 @@ public class EosCreateVoteBean {
         this.end_time = endTime;
     }
 
+    public EosCreateVoteBean(String id, String creator, String title, String logo, String description, String organization, List<VoteQuestion> contents, String endTime) {
+        this.id = id;
+        this.creator = creator;
+        this.title = title;
+        this.logo = logo;
+        this.description = description;
+        this.organization = organization;
+        this.contents = contents;
+        this.end_time = endTime;
+    }
+
     public String getActionName() {
         return "create";
+    }
+
+    public String getUpdateActionName() {
+        return "update";
     }
 }
