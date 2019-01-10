@@ -6,7 +6,7 @@
     android:background="@color/tint_bg"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
-
+<include layout="@layout/split_line"/>
     <com.gs.buluo.common.widget.StatusLayout
         android:id="@+id/sl_list_layout"
         android:layout_width="match_parent"

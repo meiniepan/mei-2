@@ -7,15 +7,19 @@ import android.support.v7.widget.RecyclerView;
 import com.gs.buluo.common.network.ApiException;
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
-import com.gs.buluo.common.network.QueryMapBuilder;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.adapter.MechanicRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.BaseKunResponse;
+import com.wuyou.merchant.bean.entity.KunListEntity;
+import com.wuyou.merchant.bean.entity.MechanicEntity;
+import com.wuyou.merchant.bean.entity.MechanicReq;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
-import com.wuyou.merchant.network.CarefreeRetrofit;
+import com.wuyou.merchant.network.CarefreeRetrofit2;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
@@ -35,8 +39,8 @@ public class WorkerListActivity extends BaseActivity {
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
-    List<WorkerEntity> data = new ArrayList();
-    WorkersRvAdapter adapter;
+    List<MechanicEntity> data = new ArrayList();
+    MechanicRvAdapter adapter;
     String orderId;
 
     @Override
@@ -49,7 +53,7 @@ public class WorkerListActivity extends BaseActivity {
         setTitleText("技工列表");
         statusLayout.setErrorAction(v -> getData());
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
-        adapter = new WorkersRvAdapter( this,R.layout.item_chose_artisan, data);
+        adapter = new MechanicRvAdapter(R.layout.item_chose_artisan, data);
         recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));
         recyclerView.setAdapter(adapter);
         getData();
@@ -57,18 +61,17 @@ public class WorkerListActivity extends BaseActivity {
 
     private void getData() {
         statusLayout.showProgressView();
-        CarefreeRetrofit.getInstance().createApi(OrderApis.class)
-                .getWorkersInfo(QueryMapBuilder.getIns().put("shop_id", CarefreeDaoSession.getInstance().getUserInfo().getUid())
-                        .put("start_id", "0")
-                        .put("flag", "1")
-                        .put("size", "10")
-                        .buildGet())
+        MechanicReq req = new MechanicReq();
+//        req.shopId = CarefreeDaoSession.getInstance().getUserInfo().getShop_id();
+        req.shopId = "5c2775a18ffaedc2ba1cf2f6";
+        CarefreeRetrofit2.getInstance().createApi(OrderApis.class)
+                .getMerchanic(req)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseSubscriber<BaseResponse<WorkerListEntity>>() {
+                .subscribe(new BaseSubscriber<BaseKunResponse<KunListEntity<MechanicEntity>>>() {
                     @Override
-                    public void onSuccess(BaseResponse<WorkerListEntity> response) {
-                        adapter.setNewData(response.data.list);
+                    public void onSuccess(BaseKunResponse<KunListEntity<MechanicEntity>> response) {
+                        adapter.setNewData(response.data.mechanicSet);
                         statusLayout.showContentView();
                         if (adapter.getData().size() == 0) {
                             statusLayout.showEmptyView("没有名单");

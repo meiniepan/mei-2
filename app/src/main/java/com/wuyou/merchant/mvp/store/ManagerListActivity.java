@@ -4,17 +4,29 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
+import com.wuyou.merchant.adapter.StaffRvAdapter;
 import com.wuyou.merchant.adapter.WorkersRvAdapter;
+import com.wuyou.merchant.bean.entity.BaseKunResponse;
+import com.wuyou.merchant.bean.entity.KunListEntity;
+import com.wuyou.merchant.bean.entity.ServiceNewEntity;
+import com.wuyou.merchant.bean.entity.ServiceReq;
+import com.wuyou.merchant.bean.entity.StaffEntity;
+import com.wuyou.merchant.bean.entity.StaffReq;
 import com.wuyou.merchant.bean.entity.WorkerEntity;
+import com.wuyou.merchant.network.CarefreeRetrofit2;
+import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by DELL on 2018/12/26.
@@ -25,8 +37,8 @@ public class ManagerListActivity extends BaseActivity {
     StatusLayout statusLayout;
     @BindView(R.id.rv_orders)
     RecyclerView recyclerView;
-    List<WorkerEntity> data = new ArrayList();
-    WorkersRvAdapter adapter;
+    List<StaffEntity> data = new ArrayList();
+    StaffRvAdapter adapter;
     String orderId;
 
     @Override
@@ -39,12 +51,29 @@ public class ManagerListActivity extends BaseActivity {
         setTitleText("管理员列表");
         statusLayout.setErrorAction(v -> getData());
         orderId = getIntent().getStringExtra(Constant.ORDER_ID);
-        adapter = new WorkersRvAdapter(this, R.layout.item_chose_artisan, data);
+        adapter = new StaffRvAdapter(R.layout.item_chose_artisan, data);
         recyclerView.setLayoutManager(new LinearLayoutManager(getCtx()));
         recyclerView.setAdapter(adapter);
         getData();
     }
 
     private void getData() {
+        StaffReq req = new StaffReq();
+        req.shopId = "5c27753e8ffaedc2a6bc4b71";
+        req.page = 2;
+        statusLayout.showProgressView();
+        CarefreeRetrofit2.getInstance().createApi(OrderApis.class)
+                .getStaffList(req)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSubscriber<BaseKunResponse<KunListEntity<StaffEntity>>>() {
+                    @Override
+                    public void onSuccess(BaseKunResponse<KunListEntity<StaffEntity>> response) {
+                        statusLayout.showContentView();
+                        data = response.data.rvalList;
+                        adapter.setNewData(data);
+                    }
+
+                });
     }
 }

@@ -16,11 +16,12 @@ public class Constant {
     public static String IPFS_URL = "mainnet.eosoasis.io";
     public static String HTTP_IPFS_URL = "http://mainnet.eosoasis.io:5001/api/v0/cat?arg=";
     public static String DEV_HTTP_IPFS_URL = "http://192.168.1.186:5001/api/v0/cat?arg=";
-    public static String BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static String BASE_URL = "http://api.ulaidao.cn/merchants/v1/";
+    public static String BASE_URL_2 = "http://192.168.1.156:5000";
 
-    public static String DEV_BASE_URL = "https://develop.api.iwantmei.com/merchants/v1/";
-    public static String STAGE_BASE_URL = "https://stage.api.iwantmei.com/merchants/v1/";
-    public static String ONLINE_BASE_URL = "https://api.iwantmei.com/merchants/v1/";
+    public static String DEV_BASE_URL = "https://develop.api.ulaidao.cn/merchants/v1/";
+    public static String STAGE_BASE_URL = "https://stage.api.ulaidao.cn/merchants/v1/";
+    public static String ONLINE_BASE_URL = "https://api.ulaidao.cn/merchants/v1/";
 
     public static String DEV_CHAIN_URL = "http://192.168.1.186:8888/";
     public static String STAGE_CHAIN_URL = "http://192.168.1.186:8888/";
@@ -39,7 +40,7 @@ public class Constant {
     public static final String EOSIO_TOKEN_CONTRACT = "eosio.token";
     public static final int TX_EXPIRATION_IN_MILSEC = 30000;
 
-    public static final String ABOUT_US_URL = "https://ulaidao.iwantmei.com/apphtml/about-us.html";
+    public static final String ABOUT_US_URL = "https://ulaidao.ulaidao.cn/apphtml/about-us.html";
     public static final String SP_BASE_URL = "sp_base_url";
     public static final String INPUT_PHONE_FLAG = "input_phone_sign";
     public static final String ORDER_ID = "order_id";

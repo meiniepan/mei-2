@@ -41,5 +41,9 @@ public class MessageActivity extends BaseActivity {
     }
 
     private void fetchDatas() {
+        data.add(new OrderInfoEntity());
+        data.add(new OrderInfoEntity());
+        data.add(new OrderInfoEntity());
+        data.add(new OrderInfoEntity());
     }
 }

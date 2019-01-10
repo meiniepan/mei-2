@@ -2,15 +2,25 @@ package com.wuyou.merchant.network.apis;
 
 import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.SortedTreeMap;
+import com.wuyou.merchant.bean.entity.BaseKunResponse;
 import com.wuyou.merchant.bean.entity.ContractMerchantEntity;
+import com.wuyou.merchant.bean.entity.MechanicEntity;
+import com.wuyou.merchant.bean.entity.MechanicReq;
 import com.wuyou.merchant.bean.entity.MerchantDetailEntity;
 import com.wuyou.merchant.bean.entity.OrderBeanDetail;
 import com.wuyou.merchant.bean.entity.OrderInfoListEntity;
 import com.wuyou.merchant.bean.entity.PartnerListEntity;
+import com.wuyou.merchant.bean.entity.KunListEntity;
+import com.wuyou.merchant.bean.entity.ServiceNewEntity;
+import com.wuyou.merchant.bean.entity.ServiceOffReq;
+import com.wuyou.merchant.bean.entity.ServiceReq;
+import com.wuyou.merchant.bean.entity.StaffEntity;
+import com.wuyou.merchant.bean.entity.StaffReq;
 import com.wuyou.merchant.bean.entity.WorkerListEntity;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -59,7 +69,11 @@ public interface OrderApis {
      */
     @GET("workers")
     Observable<BaseResponse<WorkerListEntity>> getWorkersInfo(
-             @QueryMap SortedTreeMap<String, String> map);
+            @QueryMap SortedTreeMap<String, String> map);
+
+    @POST("mechanic/get")
+    Observable<BaseKunResponse<KunListEntity<MechanicEntity>>> getMerchanic(
+            @Body MechanicReq req);
 
     @GET("union/shops/{uid}/{action}")
     Observable<BaseResponse<WorkerListEntity>> getDispatchMerchantInfo(
@@ -111,7 +125,7 @@ public interface OrderApis {
     @FormUrlEncoded
     @PUT("order/dispatch")
     Observable<BaseResponse> dispatchOrder(
-             @FieldMap SortedTreeMap<String, String> map);
+            @FieldMap SortedTreeMap<String, String> map);
 
     @FormUrlEncoded
     @PUT("login/{uid}")
@@ -127,9 +141,33 @@ public interface OrderApis {
     @PUT("password/edit/{uid}")
     Observable<BaseResponse> updatePwd(
             @Path("uid") String uid, @FieldMap SortedTreeMap<String, String> map);
+
     @Multipart
     @POST("order/voucher")
     Observable<BaseResponse> updateVoucher(
             @Part MultipartBody.Part file,
             @QueryMap SortedTreeMap<String, String> map);
+
+    @POST("service/get")
+    Observable<BaseKunResponse<KunListEntity<ServiceNewEntity>>> getService(
+            @Body ServiceReq req);
+
+    /**
+     * 下架服务
+     * @param req
+     * @return
+     */
+    @POST("service/off")
+    Observable<BaseKunResponse> OffService(
+            @Body ServiceOffReq req);
+
+    /**
+     * 获取管理员列表
+     * @param req
+     * @return
+     */
+    @POST("shop/staff/get")
+    Observable<BaseKunResponse<KunListEntity<StaffEntity>>> getStaffList(
+            @Body StaffReq req);
 }
+
