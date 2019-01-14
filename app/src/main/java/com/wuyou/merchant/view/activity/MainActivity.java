@@ -47,7 +47,6 @@ public class MainActivity extends BaseActivity {
     List<Fragment> fragments = new ArrayList<>();
     MyOrderFragment orderFragment = new MyOrderFragment();
     CircleFragment circleFragment = new CircleFragment();
-//    WalletFragment walletFragment = new WalletFragment();
     WalletFragmentNew walletFragment = new WalletFragmentNew();
     private long mkeyTime = 0;
 
