@@ -111,7 +111,7 @@ public class StoreFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.ll_message:
-                intent.setClass(getContext(), MessageActivity.class);
+                intent.setClass(getContext(), CompanyInfoUpdateNextActivity.class);
                 startActivity(intent);
                 break;
             case R.id.ll_manager:

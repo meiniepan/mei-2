@@ -1,10 +1,11 @@
-package com.wuyou.merchant.mvp.store;
+package com.wuyou.merchant.mvp.wallet;
 
 import android.os.Bundle;
 
 import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
+import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
-import com.wuyou.merchant.adapter.MessageAdapter;
+import com.wuyou.merchant.adapter.SettlementStatusAdapter;
 import com.wuyou.merchant.bean.entity.OrderInfoEntity;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
@@ -14,27 +15,30 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * Created by Solang on 2018/12/26.
+ * Created by Solang on 2018/12/27.
  */
 
-public class MessageActivity extends BaseActivity {
-    @BindView(R.id.rv_message)
+public class SettlementStatusActivity extends BaseActivity {
+    boolean isUnFinish;
+    @BindView(R.id.rv_settlement_status)
     RefreshRecyclerView recyclerView;
-    MessageAdapter adapter;
+    SettlementStatusAdapter adapter;
     List<OrderInfoEntity> data = new ArrayList();
+
     @Override
     protected int getContentLayout() {
-        return R.layout.activity_message;
+        return R.layout.activity_settlement_status;
     }
 
     @Override
     protected void bindView(Bundle savedInstanceState) {
-        setTitleText("消息中心");
-        recyclerView.getRecyclerView().setErrorAction(v -> {
-            recyclerView.showProgressView();
-            fetchDatas();
-        });
-        adapter = new MessageAdapter(R.layout.item_message, data);
+        isUnFinish = getIntent().getBooleanExtra(Constant.UN_FINISH, false);
+        if (isUnFinish) {
+            setTitleText("待完结");
+        } else {
+            setTitleText("待结算");
+        }
+        adapter = new SettlementStatusAdapter(R.layout.item_settlement_status, data);
         recyclerView.setAdapter(adapter);
         fetchDatas();
     }

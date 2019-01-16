@@ -84,6 +84,7 @@ public class Constant {
     public static final int COUNT_DOWN = 119;
     public static final String CAPTCHA_NEW_ACCOUNT = "new_account";
     public static int GET_CAPTCHA_FAIL = 600;
+    public static String UN_FINISH = "un_finish";
 
 
     public static class IntentRequestCode {

@@ -21,13 +21,13 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 /**
  * Created by admin on 2016/11/1.
  */
-public class CarefreeRetrofit2 {
+public class CarefreeRetrofitNew {
 
-    private static CarefreeRetrofit2 instance;
+    private static CarefreeRetrofitNew instance;
     private Map<Class, Object> apis = new HashMap<>();
     private final Retrofit retrofit;
 
-    private CarefreeRetrofit2() {
+    private CarefreeRetrofitNew() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 //        builder.interceptors().add(new CarefreeHttpInterceptor());
         builder.interceptors().add(new LogInterceptor());
@@ -42,9 +42,9 @@ public class CarefreeRetrofit2 {
                 .build();
     }
 
-    public synchronized static CarefreeRetrofit2 getInstance() {
+    public synchronized static CarefreeRetrofitNew getInstance() {
         if (null == instance) {
-            instance = new CarefreeRetrofit2();
+            instance = new CarefreeRetrofitNew();
         }
         return instance;
     }

@@ -189,6 +189,8 @@
         <activity android:name=".mvp.store.ManagerListActivity" />
         <activity android:name=".mvp.commodity.CommodityManagerActivity" />
         <activity android:name=".mvp.store.MessageActivity" />
+        <activity android:name=".mvp.wallet.SettlementStatusActivity" />
+        <activity android:name=".mvp.store.CompanyInfoUpdateNextActivity" />
 
         <meta-data
             android:name="WEIXIN_APP_ID"

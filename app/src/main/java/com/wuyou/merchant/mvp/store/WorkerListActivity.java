@@ -5,21 +5,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.gs.buluo.common.network.ApiException;
-import com.gs.buluo.common.network.BaseResponse;
 import com.gs.buluo.common.network.BaseSubscriber;
 import com.gs.buluo.common.widget.StatusLayout;
-import com.wuyou.merchant.CarefreeDaoSession;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.MechanicRvAdapter;
-import com.wuyou.merchant.adapter.WorkersRvAdapter;
 import com.wuyou.merchant.bean.entity.BaseKunResponse;
 import com.wuyou.merchant.bean.entity.KunListEntity;
 import com.wuyou.merchant.bean.entity.MechanicEntity;
 import com.wuyou.merchant.bean.entity.MechanicReq;
-import com.wuyou.merchant.bean.entity.WorkerEntity;
-import com.wuyou.merchant.bean.entity.WorkerListEntity;
-import com.wuyou.merchant.network.CarefreeRetrofit2;
+import com.wuyou.merchant.network.CarefreeRetrofitNew;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
@@ -64,7 +59,7 @@ public class WorkerListActivity extends BaseActivity {
         MechanicReq req = new MechanicReq();
 //        req.shopId = CarefreeDaoSession.getInstance().getUserInfo().getShop_id();
         req.shopId = "5c2775a18ffaedc2ba1cf2f6";
-        CarefreeRetrofit2.getInstance().createApi(OrderApis.class)
+        CarefreeRetrofitNew.getInstance().createApi(OrderApis.class)
                 .getMerchanic(req)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

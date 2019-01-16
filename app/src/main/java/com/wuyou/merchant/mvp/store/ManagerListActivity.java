@@ -9,15 +9,11 @@ import com.gs.buluo.common.widget.StatusLayout;
 import com.wuyou.merchant.Constant;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.adapter.StaffRvAdapter;
-import com.wuyou.merchant.adapter.WorkersRvAdapter;
 import com.wuyou.merchant.bean.entity.BaseKunResponse;
 import com.wuyou.merchant.bean.entity.KunListEntity;
-import com.wuyou.merchant.bean.entity.ServiceNewEntity;
-import com.wuyou.merchant.bean.entity.ServiceReq;
 import com.wuyou.merchant.bean.entity.StaffEntity;
 import com.wuyou.merchant.bean.entity.StaffReq;
-import com.wuyou.merchant.bean.entity.WorkerEntity;
-import com.wuyou.merchant.network.CarefreeRetrofit2;
+import com.wuyou.merchant.network.CarefreeRetrofitNew;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.view.activity.BaseActivity;
 
@@ -62,7 +58,7 @@ public class ManagerListActivity extends BaseActivity {
         req.shopId = "5c27753e8ffaedc2a6bc4b71";
         req.page = 2;
         statusLayout.showProgressView();
-        CarefreeRetrofit2.getInstance().createApi(OrderApis.class)
+        CarefreeRetrofitNew.getInstance().createApi(OrderApis.class)
                 .getStaffList(req)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

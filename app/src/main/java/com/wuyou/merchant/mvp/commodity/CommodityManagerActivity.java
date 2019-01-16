@@ -17,16 +17,14 @@ import com.gs.buluo.common.widget.recyclerHelper.BaseQuickAdapter;
 import com.gs.buluo.common.widget.recyclerHelper.RefreshRecyclerView;
 import com.wuyou.merchant.R;
 import com.wuyou.merchant.bean.entity.BaseKunResponse;
-import com.wuyou.merchant.bean.entity.CommodityEntity;
 import com.wuyou.merchant.bean.entity.KunListEntity;
 import com.wuyou.merchant.bean.entity.ServiceNewEntity;
 import com.wuyou.merchant.bean.entity.ServiceOffReq;
 import com.wuyou.merchant.bean.entity.ServiceReq;
-import com.wuyou.merchant.network.CarefreeRetrofit2;
+import com.wuyou.merchant.network.CarefreeRetrofitNew;
 import com.wuyou.merchant.network.apis.OrderApis;
 import com.wuyou.merchant.util.glide.GlideUtils;
 import com.wuyou.merchant.view.activity.BaseActivity;
-import com.wuyou.merchant.view.widget.CarefreeRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +71,7 @@ public class CommodityManagerActivity extends BaseActivity {
         ServiceReq req = new ServiceReq();
         req.shopId = "5c36bb413b7750468fd79a03";
         req.page = 1;
-        CarefreeRetrofit2.getInstance().createApi(OrderApis.class)
+        CarefreeRetrofitNew.getInstance().createApi(OrderApis.class)
                 .getService(req)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -159,7 +157,7 @@ public class CommodityManagerActivity extends BaseActivity {
         ServiceOffReq req = new ServiceOffReq();
         req.shopId = 12;
         req.serviceId = new String[]{serviceId};
-        CarefreeRetrofit2.getInstance().createApi(OrderApis.class)
+        CarefreeRetrofitNew.getInstance().createApi(OrderApis.class)
                 .OffService(req)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
